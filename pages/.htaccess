@@ -1,0 +1,10 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^localhost$ [NC]
+
+
+
+
+RewriteRule ^/$ /index.php [L]
+RewriteRule ^/home$ /index.php [L]
+RewriteRule ^/adminpanel$ /admin/index.php [L]
