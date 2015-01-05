@@ -3,4 +3,4 @@
 host = localhost
 user = root
 password = 
-dbname = ip2
+dbname = moveit

@@ -9,7 +9,7 @@ $csrfToken = new Token();
 $db = new Db();
 $userData = new User();
 
-define('BASEDIR', '/');
+define('BASEDIR', '/moveit/');
 define('SALT', '5be7a9ef0399b5c7d9a303d75b0711866b8de92d723d5fab698b2426a4c8e12f');
 
 

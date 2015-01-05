@@ -7,11 +7,10 @@ if ($userData->isLoggedIn()) {
     ?>
 
     <div class="container">
-<a href="https://meinfhd.medien.fh-duesseldorf.de/sso/authenticate" class="btn btn-default btn-medium pull-right">Login über Shibboleth</a>
         <form class="form-signin" method="POST" action="<?php echo BASEDIR; ?>include/checkLogin.php" role="form">
-            <h2 class="form-signin-heading">Loggen Sie sich ein</h2>
-            <input name="user_email" class="form-control" placeholder="Email" type="email" required autofocus>
-            <input name="user_password" class="form-control" type="password" placeholder="Password" required>
+            <h2 class="form-heading">Loggen Sie sich ein</h2>
+            <input name="user_email" class="first form-control" placeholder="Email" type="email" required autofocus>
+            <input name="user_password" class="last form-control" type="password" placeholder="Password" required>
 
             <br />
             
