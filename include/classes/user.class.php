@@ -1,6 +1,6 @@
 <?php
 
-include_once 'token.class.php';
+include 'token.class.php';
 
 class User extends Token {
 
@@ -174,9 +174,10 @@ class User extends Token {
      * Benutzer erstellen
      * @global type $db
      * @param type $data
+     * @param type $admin
      * @return type
      */
-    public function createUser($data = '') {
+    public function createUser($data = '', $admin = false) {
 
         global $db;
 
@@ -213,17 +214,26 @@ class User extends Token {
             }
 
 
-            if ($this->isValidToken(@$_POST['token'])) {
-                $this->newToken();
-            } else {
+            if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Token abgelaufen.';
             }
+            $this->newToken();
 
 
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
                 $userSecureCode = $this->makePasswordHash(time() . $data['user_email']);
+
+                //Wenn der Benutzer vom Adminpanel aus bearbeitet wird
+                if ($admin) {
+                    if (!empty($data['user_secure_code'])) {
+                        $userSecureCode = $data['user_secure_code'];
+                    }
+                } else {
+                    $data['user_role_id'] = 0;
+                    $data['user_active'] = 0;
+                }
 
                 $insert = $db->query("INSERT INTO " . TABLE_USERS . " (user_name, user_firstname, user_lastname, user_password, user_email, user_role_id, user_active, user_secure_code) "
                         . "VALUES(:user_name, :user_firstname, :user_lastname, :user_password, :user_email, :user_role_id, :user_active, :user_secure_code)", array(
@@ -238,12 +248,12 @@ class User extends Token {
                 ));
 
 
-                echo print_r($insert);
-
                 if ($insert > 0) {
                     //Email wird versendet
-                    $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nWillkommen bei moveIT damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
-                    mail($data['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
+                    if (!$admin) {
+                        $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nWillkommen bei moveIT damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
+                        mail($data['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
+                    }
 
 
                     $return['status'] = 'success';
@@ -260,7 +270,7 @@ class User extends Token {
      * @param type $data
      * @return type
      */
-    public function updateUser($data = '') {
+    public function updateUser($data = '', $admin = false, $id = 0) {
 
         global $db;
 
@@ -270,9 +280,9 @@ class User extends Token {
         if (isset($data) && !empty($data)) {
             $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $this->userId), PDO::FETCH_NUM);
             $existsUserName = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name AND user_id != :user_id", array("user_name" => $data['user_name'], "user_id" => $this->userId), PDO::FETCH_NUM);
-            
+
             //Überprüfung der einzelnen Felder
-            if($existsUserName) {
+            if ($existsUserName) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Der Benutzername ist schon vergeben';
             }
@@ -294,41 +304,62 @@ class User extends Token {
             }
 
 
-            if ($this->isValidToken(@$_POST['token'])) {
-                $this->newToken();
-            } else {
+            if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Token abgelaufen.';
             }
+            $this->newToken();
+
 
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
-                
-                $update = $db->query("UPDATE " . TABLE_USERS . " SET "
-                        . "user_name = :user_name, "
-                        . "user_firstname = :user_firstname, "
-                        . "user_lastname = :user_lastname, "
-                        . "user_email = :user_email WHERE user_id = :user_id", array(
-                    "user_name" => $data['user_name'],
-                    "user_firstname" => $data['user_firstname'],
-                    "user_lastname" => $data['user_lastname'],
-                    "user_email" => $data['user_email'],
-                    "user_id" => $this->userId
-                ));
 
-                $_SESSION['user_name'] = $data['user_name'];
-                $_SESSION['user_firstname'] = $data['user_firstname'];
-                $_SESSION['user_lastname'] = $data['user_lastname'];
-                $_SESSION['user_email'] = $data['user_email'];
-                
-                
+                //Wenn nicht vom Adminpanel aus bearbeitet wird
+                if (!$admin || $id == 0) {
+                    $update = $db->query("UPDATE " . TABLE_USERS . " SET "
+                            . "user_name = :user_name, "
+                            . "user_firstname = :user_firstname, "
+                            . "user_lastname = :user_lastname, "
+                            . "user_email = :user_email WHERE user_id = :user_id", array(
+                        "user_name" => $data['user_name'],
+                        "user_firstname" => $data['user_firstname'],
+                        "user_lastname" => $data['user_lastname'],
+                        "user_email" => $data['user_email'],
+                        "user_id" => $this->userId
+                    ));
+
+                    $_SESSION['user_name'] = $data['user_name'];
+                    $_SESSION['user_firstname'] = $data['user_firstname'];
+                    $_SESSION['user_lastname'] = $data['user_lastname'];
+                    $_SESSION['user_email'] = $data['user_email'];
+                } else {
+                    $update = $db->query("UPDATE " . TABLE_USERS . " SET "
+                            . "user_name = :user_name, "
+                            . "user_firstname = :user_firstname, "
+                            . "user_lastname = :user_lastname, "
+                            . "user_role_id = :user_role_id, "
+                            . "user_active = :user_active, "
+                            . "user_secure_code = :user_secure_code, "
+                            . "user_email = :user_email WHERE user_id = :user_id", array(
+                        "user_name" => $data['user_name'],
+                        "user_firstname" => $data['user_firstname'],
+                        "user_lastname" => $data['user_lastname'],
+                        "user_role_id" => $data['user_role_id'],
+                        "user_active" => $data['user_active'],
+                        "user_email" => $data['user_email'],
+                        "user_secure_code" => $data['user_secure_code'],
+                        "user_id" => $id
+                    ));
+                }
+
+
                 $return['status'] = 'success';
                 $return['msg'] = 'Der Benutzer wurde bearbeitet';
             }
         }
         return json_encode($return);
     }
-    
+
     /**
      * Überprüfen des Aktivierungscodes
      * @global type $db
@@ -359,13 +390,11 @@ class User extends Token {
 
         $return = array("status" => "", "msg" => "");
 
-
-        if ($this->isValidToken(@$_POST['token'])) {
-            $this->newToken();
-        } else {
+        if (!$this->isValidToken(@$_POST['token'])) {
             $return['status'] = 'error';
             $return['msg'] = 'Token abgelaufen.';
         }
+        $this->newToken();
 
         if ($return['status'] != 'error') {
             //Benutzer der Email abrufen

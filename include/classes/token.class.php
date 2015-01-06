@@ -1,16 +1,11 @@
 <?php
-
 class Token {
-
-    private $token = '';
-
     /**
      * neuen Token erstellen
      * @return boolean
      */
     public function newToken() {
         $_SESSION['csrf_token'] = $this->generateToken();
-        $this->token = $_SESSION['csrf_token'];
 
         return true;
     }
@@ -28,7 +23,7 @@ class Token {
      * @return type
      */
     public function getToken() {
-        return $this->token;
+        return $_SESSION['csrf_token'];
     }
 
     /**

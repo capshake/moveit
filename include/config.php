@@ -15,6 +15,7 @@ define('SALT', '5be7a9ef0399b5c7d9a303d75b0711866b8de92d723d5fab698b2426a4c8e12f
 
 
 define('TABLE_USERS', 'users');
+define('TABLE_ROLES', 'roles');
 
 /*$host      = 'localhost';
 $user      = 'root';

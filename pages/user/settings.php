@@ -20,11 +20,6 @@ if (!$userData->isLoggedIn()) {
 
                     <?php
                     if (isset($_POST['edit'])) {
-                        $user_firstname = filter_var($_POST['user_firstname'], FILTER_SANITIZE_STRING);
-                        $user_lastname = filter_var($_POST['user_lastname'], FILTER_SANITIZE_STRING);
-                        $user_name = filter_var($_POST['user_name'], FILTER_SANITIZE_STRING);
-                        $user_email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
-
                         $update = json_decode($userData->updateUser($_POST));
                         if ($update->status == 'error') {
                             ?>
@@ -60,7 +55,7 @@ if (!$userData->isLoggedIn()) {
                         <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="text" required autofocus>
                     </div>
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">speichern</button>
+                    <button class="btn btn-primary btn-block" type="submit" name="edit">speichern</button>
                 </form>
             </div>
         </div>

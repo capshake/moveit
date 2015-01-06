@@ -84,8 +84,11 @@ body, html {
     height: auto !important;
     height: 100%;
     margin: 0 auto (-$footerHeight);
-    .row{
+    .row {
         margin-top: 30px;
+        &:last-child {
+            margin-bottom: 30px;
+        }
     }
 }
 

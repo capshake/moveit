@@ -7,22 +7,27 @@ RewriteBase /moveIT
 RewriteRule ^admin$ admin/index.php [L]
 
 RewriteRule ^admin/users$ admin/pages/users.php [L]
+RewriteRule ^admin/users/create$ admin/pages/users.php?create [L]
 RewriteRule ^admin/users/edit/([0-9]+)$ admin/pages/users.php?edit=$1 [L]
 RewriteRule ^admin/users/remove/([0-9]+)$ admin/pages/users.php?remove=$1 [L]
 
 RewriteRule ^admin/rooms$ admin/pages/rooms.php [L]
+RewriteRule ^admin/rooms/create$ admin/pages/rooms.php?create [L]
 RewriteRule ^admin/rooms/edit/([0-9]+)$ admin/pages/rooms.php?edit=$1 [L]
 RewriteRule ^admin/rooms/remove/([0-9]+)$ admin/pages/rooms.php?remove=$1 [L]
 
 RewriteRule ^admin/buildings$ admin/pages/buildings.php [L]
+RewriteRule ^admin/buildings/create$ admin/pages/buildings.php?create [L]
 RewriteRule ^admin/buildings/edit/([0-9]+)$ admin/pages/buildings.php?edit=$1 [L]
 RewriteRule ^admin/buildings/remove/([0-9]+)$ admin/pages/buildings.php?remove=$1 [L]
 
 RewriteRule ^admin/mapEditor$ admin/pages/mapEditor.php [L]
+RewriteRule ^admin/mapEditor/create$ admin/pages/mapEditor.php?create [L]
 RewriteRule ^admin/mapEditor/edit/([0-9]+)$ admin/pages/mapEditor.php?edit=$1 [L]
 RewriteRule ^admin/mapEditor/remove/([0-9]+)$ admin/pages/mapEditor.php?remove=$1 [L]
 
 RewriteRule ^admin/importExport$ admin/pages/importExport.php [L]
+RewriteRule ^admin/importExport/create$ admin/pages/importExport.php?create [L]
 RewriteRule ^admin/importExport/edit/([0-9]+)$ admin/pages/importExport.php?edit=$1 [L]
 RewriteRule ^admin/importExport/remove/([0-9]+)$ admin/pages/importExport.php?remove=$1 [L]
 
