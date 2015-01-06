@@ -1,18 +1,18 @@
 <?php
-include_once '../include/config.php';
+include_once '../../include/config.php';
 
 if ($userData->isLoggedIn() && $userData->isAdmin()) {
-    $headerTitle = 'Adminpanel';
+    $headerTitle = 'Adminpanel - Import/Export';
 
-    include_once '../include/header.php';
-    include_once 'include/menu.php';
+    include_once '../../include/header.php';
+    include_once '../include/menu.php';
     ?>
 
 
     <div class="container">
 
         <div class="starter-template">
-            <h1>MoveIT</h1>
+            <h1>Import/Export</h1>
             <p class="lead">Adminpanel.</p>
 
 
@@ -21,7 +21,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     </div><!-- /.container -->
 
     <?php
-    include_once '../include/footer.php';
+    include_once '../../include/footer.php';
 } else {
     header('location: ' . BASEDIR . 'login');
 }

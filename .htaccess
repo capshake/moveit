@@ -3,9 +3,16 @@ Options +FollowSymLinks
 RewriteBase /moveIT
 
 
+### BACKEND
+RewriteRule ^admin$ admin/index.php [L]
+RewriteRule ^admin/users$ admin/pages/users.php [L]
+RewriteRule ^admin/rooms$ admin/pages/rooms.php [L]
+RewriteRule ^admin/buildings$ admin/pages/buildings.php [L]
+RewriteRule ^admin/mapEditor$ admin/pages/mapEditor.php [L]
+RewriteRule ^admin/importExport$ admin/pages/importExport.php [L]
 
 
-
+### FRONTEND
 RewriteRule ^login$ pages/main/login.php [L]
 RewriteRule ^register$ pages/main/register.php [L]
 RewriteRule ^forgotPassword$ pages/main/forgotPassword.php [L]

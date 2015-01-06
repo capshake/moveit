@@ -92,7 +92,7 @@ class User extends Token {
 
         if (!empty($email) && !empty($password)) {
             $db->bind("email", $email);
-            $user = $db->row("SELECT * FROM users WHERE user_email = :email");
+            $user = $db->row("SELECT * FROM users WHERE user_email = :email AND user_active = 1 AND user_role_id != 0");
 
 
             if ($user['user_id'] && $this->makePasswordHash($password) == $user['user_password'] && $user['user_active'] == 1) {
@@ -294,7 +294,7 @@ class User extends Token {
 
         if ($return['status'] != 'error') {
             //Benutzer der Email abrufen
-            $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_email = :user_email AND user_active = 1", array("user_email" => $email));
+            $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_email = :user_email AND user_active = 1 AND user_role_id != 0", array("user_email" => $email));
 
             if ($user['user_id']) {
                 $newPassword = $this->randomPassword();

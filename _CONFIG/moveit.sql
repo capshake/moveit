@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 17. Dez 2014 um 16:57
+-- Erstellungszeit: 06. Jan 2015 um 17:14
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `ip2`
+-- Datenbank: `moveit`
 --
 
 -- --------------------------------------------------------
@@ -2375,15 +2375,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_lastname` varchar(40) CHARACTER SET utf8 NOT NULL,
   `user_password` varchar(50) CHARACTER SET utf8 NOT NULL,
   `user_email` varchar(32) CHARACTER SET utf8 NOT NULL,
-  `user_role_id` tinyint(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  `user_role_id` tinyint(1) NOT NULL,
+  `user_active` tinyint(1) NOT NULL,
+  `user_secure_code` varchar(42) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_password`, `user_email`, `user_role_id`) VALUES
-(1, 'Phlp', 'Philip', 'Stapelfeldt', '5blspxaD3tD3A', 'phil@capshake.com', 0);
+INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_password`, `user_email`, `user_role_id`, `user_active`, `user_secure_code`) VALUES
+(1, 'Phlp', 'Philip', 'Stapelfeldt', '5blspxaD3tD3A', 'phil@capshake.com', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -2509,7 +2511,7 @@ MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
