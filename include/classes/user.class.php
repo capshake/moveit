@@ -274,12 +274,15 @@ class User extends Token {
 
         global $db;
 
-
+        if(!$admin) {
+            $id = $this->userId;
+        }
+        
         $return = array("status" => "success", "msg" => "Es ist ein Fehler aufgetreten. Kontaktieren Sie einen Administrator");
 
         if (isset($data) && !empty($data)) {
-            $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $this->userId), PDO::FETCH_NUM);
-            $existsUserName = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name AND user_id != :user_id", array("user_name" => $data['user_name'], "user_id" => $this->userId), PDO::FETCH_NUM);
+            $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $id), PDO::FETCH_NUM);
+            $existsUserName = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name AND user_id != :user_id", array("user_name" => $data['user_name'], "user_id" => $id), PDO::FETCH_NUM);
 
             //Überprüfung der einzelnen Felder
             if ($existsUserName) {
@@ -325,7 +328,7 @@ class User extends Token {
                         "user_firstname" => $data['user_firstname'],
                         "user_lastname" => $data['user_lastname'],
                         "user_email" => $data['user_email'],
-                        "user_id" => $this->userId
+                        "user_id" => $id
                     ));
 
                     $_SESSION['user_name'] = $data['user_name'];

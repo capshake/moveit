@@ -29,7 +29,7 @@
                             ?>
                         </ul>
                     </li>
-                    <li><a href="<?php echo BASEDIR . 'logout/' . $userData->getToken(); ?>">logout</a></li>
+                    <li><a class="logout" href="#">logout</a></li>
                 </ul>
             <?php } ?>
         </div><!--/.nav-collapse -->
