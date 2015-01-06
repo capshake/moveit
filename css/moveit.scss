@@ -23,8 +23,20 @@ body, html {
           border-radius: $radius;
 }
 /*
-    SIGN IN
+    FORMS
 */
+.form-outer {
+    display: table;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    .form-inner {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+    }
+}
 .form-signin, .form-signup, .form-forgot-password {
     max-width: 330px;
     padding: 15px;
@@ -58,6 +70,9 @@ body, html {
         &.last {
             @include border-radius(0 0 3px 3px);
         }
+        &.alone {
+            @include border-radius(3px);
+        }
     }
     .btn-link {
         padding: 0;
@@ -73,13 +88,6 @@ body, html {
     height: auto !important;
     height: 100%;
     margin: 0 auto (-$footerHeight);
-        
-        
-    .container {
-        .text-muted {
-          margin: 15px 0;
-        }
-    }
 }
 
 
@@ -93,6 +101,9 @@ body, html {
     > .container {
         padding-right: 15px;
         padding-left: 15px;
+        .text-muted {
+          margin: 15px 0;
+        }
     }
 }
 
