@@ -180,7 +180,7 @@ class User extends Token {
 
         global $db;
 
-        $return = array("status" => "success", "msg" => "Es ist ein Fehler beim anlegen aufgetreten. Kntaktieren Sie einen Administrator");
+        $return = array("status" => "success", "msg" => "Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator");
 
         if (isset($data) && !empty($data)) {
             $existsEmail = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_email = :user_email", array("user_email" => $data['user_email']), PDO::FETCH_NUM);
@@ -254,6 +254,81 @@ class User extends Token {
         return json_encode($return);
     }
 
+    /**
+     * Benutzer bearbeiten
+     * @global type $db
+     * @param type $data
+     * @return type
+     */
+    public function updateUser($data = '') {
+
+        global $db;
+
+
+        $return = array("status" => "success", "msg" => "Es ist ein Fehler aufgetreten. Kontaktieren Sie einen Administrator");
+
+        if (isset($data) && !empty($data)) {
+            $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $this->userId), PDO::FETCH_NUM);
+            $existsUserName = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name AND user_id != :user_id", array("user_name" => $data['user_name'], "user_id" => $this->userId), PDO::FETCH_NUM);
+            
+            //Überprüfung der einzelnen Felder
+            if($existsUserName) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Der Benutzername ist schon vergeben';
+            }
+            if (!$existsUser) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Der Benutzer existiert nicht';
+            }
+            if (empty($data['user_name'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie einen Namen an';
+            }
+            if (empty($data['user_firstname'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie einen Vornamen an';
+            }
+            if (empty($data['user_lastname'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie einen Nachnamen an';
+            }
+
+
+            if ($this->isValidToken(@$_POST['token'])) {
+                $this->newToken();
+            } else {
+                $return['status'] = 'error';
+                $return['msg'] = 'Token abgelaufen.';
+            }
+
+            //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
+            if ($return['status'] != 'error') {
+                
+                $update = $db->query("UPDATE " . TABLE_USERS . " SET "
+                        . "user_name = :user_name, "
+                        . "user_firstname = :user_firstname, "
+                        . "user_lastname = :user_lastname, "
+                        . "user_email = :user_email WHERE user_id = :user_id", array(
+                    "user_name" => $data['user_name'],
+                    "user_firstname" => $data['user_firstname'],
+                    "user_lastname" => $data['user_lastname'],
+                    "user_email" => $data['user_email'],
+                    "user_id" => $this->userId
+                ));
+
+                $_SESSION['user_name'] = $data['user_name'];
+                $_SESSION['user_firstname'] = $data['user_firstname'];
+                $_SESSION['user_lastname'] = $data['user_lastname'];
+                $_SESSION['user_email'] = $data['user_email'];
+                
+                
+                $return['status'] = 'success';
+                $return['msg'] = 'Der Benutzer wurde bearbeitet';
+            }
+        }
+        return json_encode($return);
+    }
+    
     /**
      * Überprüfen des Aktivierungscodes
      * @global type $db

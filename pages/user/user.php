@@ -10,28 +10,22 @@ if (!$userData->isLoggedIn()) {
 
     $db->bind("id", $_GET['id']);
     $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
-    
-
     ?>
 
     <div class="container">
-        <?php
-        if ($user['user_id']) {
-            ?>
-            <div class="starter-template">
-                <h1><?php echo $user['user_name']; ?></h1>
-                <p class="lead"><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></p>
-            </div>
-            <?php
-        } else {
-            ?>
-            <div class="starter-template">
-                <h1>Fehler!</h1>
-                <p class="lead">Der Benutzer wurde nicht gefunden.</p>
-            </div>
-            <?php
-        }
+    <?php
+    if ($user['user_id']) {
         ?>
+            <h1><?php echo $user['user_name']; ?></h1>
+            <p class="lead"><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></p>
+        <?php
+    } else {
+        ?>
+            <h1>Fehler!</h1>
+            <p class="lead">Der Benutzer wurde nicht gefunden.</p>
+        <?php
+    }
+    ?>
     </div><!-- /.container -->
 
     <?php

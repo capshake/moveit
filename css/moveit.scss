@@ -10,10 +10,6 @@ body, html {
       padding: $footerHeight 15px 0;
     }
 }
-.starter-template {
-    padding: 40px 15px;
-    text-align: center;
-}
 
 
 @mixin border-radius($radius) {
@@ -82,12 +78,15 @@ body, html {
     }
 }
 
-
+//MAIN
 .wrapper {
     min-height: 100%;
     height: auto !important;
     height: 100%;
     margin: 0 auto (-$footerHeight);
+    .row{
+        margin-top: 30px;
+    }
 }
 
 

@@ -19,23 +19,25 @@ if (!$userData->isLoggedIn()) {
 
     <div class="container">
 
-        <div class="starter-template">
-            <h1>MoveIT</h1>
-            <p class="lead">Startseite von unserem kleinen Projekt.</p>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>MoveIT</h1>
+                <p class="lead">Startseite von unserem kleinen Projekt.</p>
 
-            <?php
-            if (isset($_POST['hi']) && $userData->isValidToken(@$_POST['token'])) {
+                <?php
+                if (isset($_POST['hi']) && $userData->isValidToken(@$_POST['token'])) {
 
-                echo $_POST['hi'];
+                    echo $_POST['hi'];
 
 
-                $userData->newToken();
-            }
-            ?>
-            <form method="POST" action="<?php echo BASEDIR . 'index.php'; ?>">
-                <input name="hi" value="ok">
-                <input name="submit" type="submit" />
-            </form>
+                    $userData->newToken();
+                }
+                ?>
+                <form method="POST" action="<?php echo BASEDIR . 'index.php'; ?>">
+                    <input name="hi" value="ok">
+                    <input name="submit" type="submit" />
+                </form>
+            </div>
         </div>
 
     </div><!-- /.container -->

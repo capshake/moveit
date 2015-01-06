@@ -11,11 +11,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     <div class="container">
 
-        <div class="starter-template">
-            <h1>Räume</h1>
-            <p class="lead">Adminpanel.</p>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Räume</h1>
+                <p class="lead">Adminpanel.</p>
 
-
+            </div>
         </div>
 
     </div><!-- /.container -->
