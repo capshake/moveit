@@ -19,7 +19,7 @@
         <link href="<?php echo BASEDIR; ?>css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="<?php echo BASEDIR; ?>css/style.css" rel="stylesheet">
+        <link href="<?php echo BASEDIR; ?>css/moveit.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>

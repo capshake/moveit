@@ -5,7 +5,7 @@
     <script src="<?php echo BASEDIR; ?>js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="<?php echo BASEDIR; ?>js/ie10-viewport-bug-workaround.js"></script>
-    <script src="<?php echo BASEDIR; ?>js/main.js"></script>
+    <script src="<?php echo BASEDIR; ?>js/moveit.js"></script>
     <script>
     var mainSettings = {
         'csrfToken': '<?php echo $userData->getToken(); ?>'
