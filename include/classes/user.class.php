@@ -371,7 +371,7 @@ class User extends Token {
         global $db;
 
         //Prüfen ob ein Benutzer mit dem eingebenen Code existiert
-        $update = $db->query("UPDATE " . TABLE_USERS . " SET user_active = :user_active WHERE user_secure_code = :user_secure_code", array("user_active" => "1", "user_secure_code" => $code));
+        $update = $db->query("UPDATE " . TABLE_USERS . " SET user_active = :user_active WHERE user_secure_code = :user_secure_code AND user_active = 0 AND user_role_id != 0", array("user_active" => "1", "user_secure_code" => $code));
         if ($update > 0) {
             return true;
         }
