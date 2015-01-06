@@ -1,3 +1,10 @@
+        <div class="push"></div>    
+    </div>    
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy moveIT</p>
+      </div>
+    </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

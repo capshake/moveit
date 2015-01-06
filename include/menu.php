@@ -12,19 +12,26 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="<?php echo BASEDIR; ?>">Home</a></li>
-
-                <?php
-                if ($userData->isloggedIn()) {
-                    echo '<li><a href="' . BASEDIR . 'user/' . $userData->getUserId() . '">' . $userData->getFirstName() . ' ' . $userData->getLastName() . '</a></li>';
-                    echo '<li><a href="' . BASEDIR . 'logout/' . $userData->getToken() . '">logout</a></li>';
-
-                    if ($userData->isAdmin()) {
-                        echo '<li><a href="' . BASEDIR . 'admin">Administration</a></li>';
-                    }
-                }
-                ?>
-
             </ul>
+            <?php
+            if ($userData->isloggedIn()) {
+                ?>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $userData->getFirstName() . ' ' . $userData->getLastName(); ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?php echo BASEDIR . 'user/' . $userData->getUserId(); ?>">Profil</a></li> 
+                            <li><a href="<?php echo BASEDIR . 'settings'; ?>">Profil bearbeiten</a></li> 
+                            <?php
+                            if ($userData->isAdmin()) {
+                                echo '<li><a href="' . BASEDIR . 'admin">Administration</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo BASEDIR . 'logout/' . $userData->getToken(); ?>">logout</a></li>
+                </ul>
+            <?php } ?>
         </div><!--/.nav-collapse -->
     </div>
 </div>

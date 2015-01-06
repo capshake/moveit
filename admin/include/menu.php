@@ -16,8 +16,9 @@
                 <li><a href="<?php echo BASEDIR; ?>admin/mapEditor">Map Editor</a></li>
                 <li><a href="<?php echo BASEDIR; ?>admin/buildings">Gebäude</a></li>
                 <li><a href="<?php echo BASEDIR; ?>admin/importExport">Import/Export</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo BASEDIR; ?>">zurück</a></li>
-
             </ul>
         </div><!--/.nav-collapse -->
     </div>
