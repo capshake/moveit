@@ -15,8 +15,8 @@
 
                 <?php
                 if ($userData->isloggedIn()) {
-                    echo '<li><a href="' . BASEDIR . 'pages/user/user.php?id=' . $userData->getUserId() . '">' . $userData->getFirstName() . ' ' . $userData->getLastName() . '</a></li>';
-                    echo '<li><a href="' . BASEDIR . 'include/logout.php">logout</a></li>';
+                    echo '<li><a href="' . BASEDIR . 'user/' . $userData->getUserId() . '">' . $userData->getFirstName() . ' ' . $userData->getLastName() . '</a></li>';
+                    echo '<li><a href="' . BASEDIR . 'logout/' . $userData->getToken() . '">logout</a></li>';
                     
                     if($userData->isAdmin()) {
                         echo '<li><a href="#">Administration</a></li>';

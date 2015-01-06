@@ -8,7 +8,7 @@
     <script src="<?php echo BASEDIR; ?>js/main.js"></script>
     <script>
     var mainSettings = {
-        'csrfToken': '<?php echo $csrfToken->getToken(); ?>'
+        'csrfToken': '<?php echo $userData->getToken(); ?>'
     }
     </script>
   </body>

@@ -1,10 +1,17 @@
-Options +FollowSymlinks
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^localhost$ [NC]
+Options +FollowSymLinks
+RewriteBase /moveIT
 
 
 
 
-RewriteRule ^/$ /index.php [L]
-RewriteRule ^/home$ /index.php [L]
-RewriteRule ^/adminpanel$ /admin/index.php [L]
+
+RewriteRule ^login$ pages/main/login.php [L]
+RewriteRule ^register$ pages/main/register.php [L]
+RewriteRule ^forgotPassword$ pages/main/forgotPassword.php [L]
+
+
+RewriteRule ^user/([0-9]+)$ pages/user/user.php?id=$1 [L] 
+
+RewriteRule ^checkLogin$ include/checkLogin.php [L] 
+RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L] 

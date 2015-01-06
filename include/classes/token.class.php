@@ -4,12 +4,6 @@ class Token {
 
     private $token = '';
 
-    public function __construct() {
-        if (!isset($_POST['token']) && !isset($_GET['token'])) {
-            $this->newToken();
-        }
-    }
-
     /**
      * neuen Token erstellen
      * @return boolean

@@ -9,7 +9,7 @@ if (!$userData->isLoggedIn()) {
     include_once '../../include/menu.php';
 
     $db->bind("id", $_GET['id']);
-    $user = $db->row("SELECT * FROM users WHERE user_id = :id");
+    $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
     
 
     ?>

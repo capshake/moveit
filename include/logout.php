@@ -1,10 +1,9 @@
 <?php
+
 include_once 'config.php';
 
-header('location: '.BASEDIR.'pages/main/login.php');
-
-if($userData->logout()) {
-    echo 'ok';
+if (isset($_GET['token']) && $userData->logout($_GET['token'])) {
+    header('location: ' . BASEDIR . 'login?logout=success');
 } else {
-    echo 'error';
+    header('location: ' . BASEDIR . '?logout=error');
 }
