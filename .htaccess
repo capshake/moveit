@@ -1,6 +1,6 @@
 RewriteEngine On
 Options +FollowSymLinks
-RewriteBase /moveIT
+RewriteBase /moveit
 
 
 ### BACKEND
@@ -24,6 +24,8 @@ RewriteRule ^admin/buildings/remove/([0-9]+)$ admin/pages/buildings.php?remove=$
 RewriteRule ^admin/mapEditor$ admin/pages/mapEditor.php [L]
 RewriteRule ^admin/mapEditor/create$ admin/pages/mapEditor.php?create [L]
 RewriteRule ^admin/mapEditor/edit/([0-9]+)$ admin/pages/mapEditor.php?edit=$1 [L]
+RewriteRule ^admin/mapEditor/edit/([0-9]+)/scale$ admin/pages/mapEditor.php?edit=$1&scale [L]
+RewriteRule ^admin/mapEditor/edit/([0-9]+)/rooms$ admin/pages/mapEditor.php?edit=$1&rooms [L]
 RewriteRule ^admin/mapEditor/remove/([0-9]+)$ admin/pages/mapEditor.php?remove=$1 [L]
 
 RewriteRule ^admin/importExport$ admin/pages/importExport.php [L]
@@ -48,3 +50,10 @@ RewriteRule ^settings$ pages/user/settings.php [L]
 ### LOGIN/LOGOUT
 RewriteRule ^checkLogin$ include/checkLogin.php [L] 
 RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L] 
+
+
+
+### API
+RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
+RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
+RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]

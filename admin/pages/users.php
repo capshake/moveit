@@ -27,9 +27,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
-
                     <h1>Benutzer bearbeiten</h1><br />
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
                     <?php if (!$existsUser) { ?>
                         <div class="alert alert-info">Der Benutzer existiert nicht!</div>
                     <?php } else { ?>
@@ -93,7 +95,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <label for = "user_active">aktiv?</label>
                                 <select id = "user_active" class = "form-control" name = "user_active">
                                     <option value = "0"<?php echo ($user['user_active'] == 0) ? ' selected="selected"' : '';
-                        ?>>nein</option>
+                                    ?>>nein</option>
                                     <option value="1"<?php echo ($user['user_active'] == 1) ? ' selected="selected"' : ''; ?>>ja</option>
                                 </select>
                             </div>
@@ -114,7 +116,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
                     <h1>Benutzer erstellen</h1>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
                     <form method="POST" action="<?php echo BASEDIR; ?>admin/users/create" role="form">
 
                         <?php
@@ -197,7 +202,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <label for = "user_active">aktiv?</label>
                             <select id = "user_active" class = "form-control" name = "user_active">
                                 <option value = "0"<?php echo ($user_active == 0) ? ' selected="selected"' : '';
-                        ?>>nein</option>
+                                ?>>nein</option>
                                 <option value="1"<?php echo ($user_active == 1) ? ' selected="selected"' : ''; ?>>ja</option>
                             </select>
                         </div>
@@ -217,7 +222,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <div class="row">
                 <div class="col-md-12">
                     <h1>Benutzer</h1>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
 
                     <table class="table table-hover">
                         <thead>
@@ -239,11 +247,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <td><?php echo $user['user_name']; ?></td>
                                     <td><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></td>
                                     <td><?php echo $user['user_email']; ?></td>
-                                    <td>
+                                    <td class="text-right">
                                         <a href="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $user['user_id']; ?>" class="btn btn-default btn-xs">
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         </a>
-                                        <a href="<?php echo BASEDIR; ?>admin/users/remove/<?php echo $user['user_id']; ?>" class="btn btn-danger btn-xs">
+                                        <a href="<?php echo BASEDIR; ?>admin/users/remove/<?php echo $user['user_id']; ?>" class="btn btn-danger btn-xs delete-button">
                                             <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                         </a>
                                     </td>
