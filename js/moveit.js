@@ -7,8 +7,6 @@ $(document).ready(function () {
 
 
 
-
-
     //Popup vor dem Löschvorgang
     $('body').on('click', '.delete-button', function () { 
         var el = $(this);
@@ -19,8 +17,4 @@ $(document).ready(function () {
         });
         return false;
     });
-
-
-
-
 });

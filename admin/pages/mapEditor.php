@@ -60,56 +60,109 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     //MAßSTAB
                     if (isset($_GET['scale'])) {
 
+                        if (isset($_POST['scale'])) {
+                            $update = json_decode($mapData->updateMapScale($_POST, $_GET['edit']));
+                            if ($update->status == 'error') {
+                                ?>                            
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-danger"><?php echo $update->msg; ?></div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            if ($update->status == 'success') {
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success"><?php echo $update->msg; ?></div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
                         $db->bind("id", $_GET['edit']);
                         $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :id");
-                        ?>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-1">
-                                <div class="form-group">
-                                    <label for="map_scale_px">Distanz in Pixel</label>
-                                    <input id="map_scale_px" name="map_scale_px" value="<?php echo $map['map_scale_px']; ?>" class="form-control scale-value" placeholder="Distanz in Pixel" type="text" required autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <label for="map_scale_cm">Pixel in cm</label>
-                                    <input id="map_scale_cm" name="map_scale_cm" value="<?php echo $map['map_scale_cm']; ?>" class="form-control" placeholder="Pixel in cm" type="text" required autofocus>
-                                </div>
-                            </div>
-                        </div>
+                        if (empty($map['map_picture'])) {
+                            ?><br />
+                            <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
+                            <?php
+                        } else {
+                            ?>
+                            <form method="POST" action="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $map['map_id']; ?>/scale" role="form" enctype="multipart/form-data">
 
-                        <div class="row">
-                            <div class="col-md-12">              
-                                <div class="groundplan-outer">
-                                    <div class="groundplan scale" data-mapid="<?php echo $map['map_id']; ?>">
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-1">
 
-                                        <div class="groundplan-inner">
-                                            <img src="<?php echo BASEDIR . $map['map_picture']; ?>">
+                                        <div class="form-group">
+                                            <label for="map_scale_px">Distanz in Pixel</label>
+                                            <input id="map_scale_px" name="map_scale_px" value="<?php echo $map['map_scale_px']; ?>" class="form-control scale-value" placeholder="Distanz in Pixel" type="text" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            <label for="map_scale_cm">Pixel in cm</label>
+                                            <input id="map_scale_cm" name="map_scale_cm" value="<?php echo $map['map_scale_cm']; ?>" class="form-control" placeholder="Pixel in cm" type="text" required autofocus>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br />
+                                        <button class="btn btn-primary" type="submit" name="scale">speichern</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="row">
+                                <div class="col-md-12">              
+                                    <div class="groundplan-outer">
+                                        <div class="groundplan scale" data-mapid="<?php echo $map['map_id']; ?>">
+
+                                            <div class="groundplan-inner">
+                                                <img src="<?php echo BASEDIR . $map['map_picture']; ?>">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php
+                            <?php
+                        }
                         //RÄUME VERTEILEN
                     } else if (isset($_GET['rooms'])) {
-
                         $db->bind("id", $_GET['edit']);
                         $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :id");
-                        ?>
-                        <div class="row">
-                            <div class="col-md-12">              
-                                <div class="groundplan-outer">
-                                    <div class="groundplan" data-mapid="<?php echo $map['map_id']; ?>">
+                        
+                        if (empty($map['map_picture'])) {
+                            ?><br />
+                            <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="save-groundplan"></div>
 
-                                        <div class="groundplan-inner">
-                                            <img src="<?php echo BASEDIR . $map['map_picture']; ?>">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-1">              
+                                    <button class="save-groundplan-button btn btn-primary">speichern</button>
+                                    <button class="add-room-groundplan-button btn btn-success">Raum hinzufügen</button>
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-12">              
+                                    <div class="groundplan-outer">
+                                        <div class="groundplan" data-mapid="<?php echo $map['map_id']; ?>">
+
+                                            <div class="groundplan-inner">
+                                                <img src="<?php echo BASEDIR . $map['map_picture']; ?>">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <?php
+                            <?php
+                        }
                         //EDITIEREN
                     } else {
                         ?>

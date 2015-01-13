@@ -180,4 +180,47 @@ class mapEditor extends Token {
         return json_encode($return);
     }
 
+    /**
+     * Maßstab der Map bearbeiten
+     * @global type $db
+     * @param type $data
+     * @param type $id
+     * @return type
+     */
+    public function updateMapScale($data = '', $id = 0) {
+
+        global $db;
+
+        $return = array("status" => "", "msg" => "");
+
+        if (isset($data) && !empty($data) && !empty($id)) {
+
+            if (empty($data['map_scale_px']) || !is_numeric($data['map_scale_cm'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie bitte eine Pixel-Anzahl an.';
+            }
+            if (empty($data['map_scale_cm']) || !is_numeric($data['map_scale_cm'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie eine Zentimeter-Zahl an.';
+            }
+            /* if (!$this->isValidToken(@$data['token'])) {
+              $return['status'] = 'error';
+              $return['msg'] = 'Token abgelaufen.';
+              }
+              $this->newToken(); */
+
+            if ($return['status'] != 'error') {
+                $update = $db->query("UPDATE " . TABLE_MAPS . " SET map_scale_px = :map_scale_px, map_scale_cm = :map_scale_cm WHERE map_id = :map_id", array(
+                    "map_scale_px" => $data['map_scale_px'],
+                    "map_scale_cm" => $data['map_scale_cm'],
+                    "map_id" => $id
+                ));
+
+                $return['status'] = 'success';
+                $return['msg'] = 'Das Maßstab wurde bearbeitet.';
+            }
+        }
+        return json_encode($return);
+    }
+
 }

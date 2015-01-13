@@ -36,11 +36,51 @@ $(document).ready(function () {
                     $(".map-room").draggable({
                         containment: "parent"
                     });
-
                 }
             }
         });
     }
+
+
+
+
+
+
+    $('.save-groundplan-button').click(function () {
+        var roomsForSave = [];
+        var roomsCount = 0;
+        
+        $.each($(".map-room"), function () {
+            roomsForSave.push({
+                room_position_y: parseInt($(this).css('top')),
+                room_position_x: parseInt($(this).css('left')),
+                room_size_x: parseInt($(this).css('width')),
+                room_size_y: parseInt($(this).css('height')),
+                room_id: parseInt($(this).attr('data-roomid'))
+            });
+            roomsCount++;
+        });
+
+
+
+        $.ajax({
+            type: "POST",
+            url: BASEURL + 'admin/ajax/saveMapRooms',
+            data: {
+                token: mainSettings.csrfToken,
+                map_id: $('.groundplan').attr('data-mapid'),
+                rooms: roomsForSave
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('.save-groundplan').html('<div class="row"><div class="col-md-10 col-md-offset-1"><div class="alert alert-success">' + data.msg + '</div></div></div>');
+            }
+        });
+    });
+
+
+
+
 
     //Maßstab definieren
     var distance = 0;

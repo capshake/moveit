@@ -23,3 +23,8 @@ define('TABLE_ROLES', 'roles');
 define('TABLE_BUILDINGS', 'buildings');
 define('TABLE_MAPS', 'maps');
 define('TABLE_ROOMS', 'rooms');
+
+define('TABLE_ITEMS', 'items');
+define('TABLE_IMPORT', 'data_import');
+define('TABLE_EXPORT', 'data_export');
+define('TABLE_DEPARTMENTS', 'departments');
