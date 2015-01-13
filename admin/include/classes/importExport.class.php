@@ -62,63 +62,45 @@ class importExport extends Token {
                         $query = "INSERT INTO " . TABLE_IMPORT . " VALUES(";
                         $query_update = "";
 
-                        for ($c = 0; $c < $col; $c++) {
-                            // NULL-Spalten als NULL eintragen
-                            if ($data[$c] == "") {
-                                $query = $query . "NULL";
+                        for ($c = 0; $c < 59; $c++) {
+                            if($c > $col){
+                                $query = $query . "NULL"; //Import hat immer 59 Spalten, falls Datei kürzer, Rest auffüllen
+                            } elseif ($data[$c] == "") { 
+                                $query = $query . "NULL"; // leere Spalten als NULL eintragen
                             } elseif ($c == 35) { //Spalte "Volumen"
-                                //Kommanotation ändern
-                                $query = $query . "'" . str_replace(",", ".", $data[$c]) . "'";
+                                $query = $query . "'" . str_replace(",", ".", $data[$c]) . "'"; //Kommanotation ändern
                             } else {
                                 $query = $query . "'" . $data[$c] . "'";
                             }
 
-                            if ($c < $col - 1) {
-                                $query = $query . ",";
+                            if ($c != 58) {
+                                $query = $query . ","; //Nächste Spalte anhängen
                             }
                         }
 
                         $query = $query . ")";
-                        $db->query($query);
+                        echo $query . "<br>";
+                        // TODO: Richtiges Exception-Handling (Das hier ist viel zu langsam!!). Prüfen auf MySQL Fehler 1062
+                        if($data[1] != NULL && $db->single("SELECT `B__Index` FROM " . TABLE_IMPORT . " WHERE `B__Index` = " . $data[1])){ //Sollte der Eintrag schon existieren, Anzahl updaten
+                            $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = " . $data[1];
+                            // $var_ad_anzahl = mysql_result(mysql_query($query_ad_anzahl), 0, 'AD_Anzahl');
+                            $var_ad_anzahl = $db -> single($query_ad_anzahl);
 
-                        // Sollte es diesen Eintrag schon geben Anzahl und Volumen updaten
-                        /* if (mysql_errno() == 1062) {
-                          $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = " . $data[1];
-                          $var_ad_anzahl = mysql_result(mysql_query($query_ad_anzahl), 0, 'AD_Anzahl');
+                            $query_aj_volumen = "SELECT `AJ_Volumen in cbm` FROM data_import WHERE B__Index = " . $data[1];
+                            // $var_aj_volumen = mysql_result(mysql_query($query_aj_volumen), 0, 'AJ_Volumen in cbm');
+                            $var_aj_volumen = $db -> single($query_aj_volumen);
 
-                          $query_aj_volumen = "SELECT AJ_Volumen in cbm FROM data_import WHERE B__Index = " . $data[1];
-                          $var_aj_volumen = mysql_result(mysql_query($query_aj_volumen), 0, 'AJ_Volumen in cbm');
+                            $query_update = "UPDATE data_import SET B__Index = " . $data[1] . " ,AD_Anzahl = " . $data[29] . " + " . $var_ad_anzahl . " , " . "`AJ_Volumen in cbm` = " . str_replace(",", ".", $data[35]) . " + " . $var_aj_volumen . " WHERE B__Index = " . $data[1] . ";";
+                            $db->query($query_update);
+                        }else{
+                            $db->query($query);
+                        }   
 
-                          $query_update = "UPDATE data_import SET B__Index = " . $data[1] . " ,AD_Anzahl = " . $data[29] . " + " . $var_ad_anzahl . " , " . "AJ_Volumen in cbm = " . str_replace(",", ".", $data[35]) . " + " . $var_aj_volumen . " WHERE B__Index = " . $data[1] . ";";
-                          $db->query($query_update);
-                          } */
-
-                        //DEBUG
-                        if (mysql_errno() != 0) {
-                            if ($query_update != "") {
-                                echo '<p>' . $query_update . '<br>';
-                            } else {
-                                echo '<p>' . $query . '<br>';
-                            }
-                            echo mysql_errno() . ':' . mysql_error() . '</p><br>';
-                        }
-
-                        /* DEBUG (nur alle neuen Datensätze)
-                          if($query_update == ""){
-                          print("<p>" . $query . "<br>");
-                          } */
                     }
                     $data = fgetcsv($file, 0, ";"); //nächste Zeile holen
                 }
             }
-
-            //Tabelle anzeigen
-            $numrows = $db->query("SELECT * FROM data_import", PDO::FETCH_NUM);
-
-            print("Anzahl Reihen:" . $numrows . "<br>");
-
             fclose($file);
-
 
             return true;
         }
@@ -226,9 +208,9 @@ class importExport extends Token {
     public function reset() {
         $return = array("status" => "", "msg" => "");
 
-        if ($this->truncateDB() && $this->importDB()) {
+        if ($this->truncateDB()) {
             $return['status'] = 'success';
-            $return['msg'] = 'Reset erfolgreich gestartet';
+            $return['msg'] = 'Datenbank erfolgreich geleert';
         } else {
             $return['status'] = 'error';
             $return['msg'] = 'Es ist ein Fehler aufgetreten';
@@ -245,7 +227,7 @@ class importExport extends Token {
 
         if ($this->importDB()) {
             $return['status'] = 'success';
-            $return['msg'] = 'Import erfolgreich gestartet';
+            $return['msg'] = 'Import erfolgreich durchgeführt';
         } else {
             $return['status'] = 'error';
             $return['msg'] = 'Es ist ein Fehler aufgetreten';
@@ -263,7 +245,7 @@ class importExport extends Token {
 
         if ($this->exportDB()) {
             $return['status'] = 'success';
-            $return['msg'] = 'Export erfolgreich gestartet';
+            $return['msg'] = 'Export erfolgreich durchgeführt';
         } else {
             $return['status'] = 'error';
             $return['msg'] = 'Es ist ein Fehler aufgetreten';
