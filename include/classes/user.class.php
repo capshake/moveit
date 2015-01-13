@@ -231,7 +231,7 @@ class User extends Token {
                         $userSecureCode = $data['user_secure_code'];
                     }
                 } else {
-                    $data['user_role_id'] = 0;
+                    $data['user_role_id'] = 1;
                     $data['user_active'] = 0;
                 }
 

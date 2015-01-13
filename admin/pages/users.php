@@ -6,6 +6,9 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     include_once '../../include/header.php';
     include_once '../include/menu.php';
+
+    include_once '../include/classes/users.class.php';
+    $adminUserData = new Users();
     ?>
 
 
@@ -26,15 +29,21 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             $existsUser = $db->row("SELECT user_id FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $_GET['edit']), PDO::FETCH_NUM);
             ?>
             <div class="row">
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-12">
                     <h1>Benutzer bearbeiten</h1><br />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-offset-4 col-md-4">
-                    <?php if (!$existsUser) { ?>
+
+
+            <?php if (!$existsUser) { ?>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="alert alert-info">Der Benutzer existiert nicht!</div>
-                    <?php } else { ?>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="row">
+                    <div class="col-md-5">
                         <form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
 
                             <?php
@@ -101,25 +110,148 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             </div>
                             <button class="btn btn-primary" type="submit" name="edit">speichern</button>
                         </form>
+                    </div>
+                    <div class="col-md-7">
+                        <h3>Räume zuweisen</h3>
+                        <?php
+                        //Prüfen ob es Räume gibt
+                        $existsRooms = $db->row("SELECT room_id FROM " . TABLE_ROOMS, PDO::FETCH_NUM);
+                        if ($existsRooms) {
+                            //Raum hinzufügen
+                            if (isset($_GET['removeroom'])) {
+                                $update = json_decode($adminUserData->deleteRoomToUser($_GET, $_GET['edit'], $_GET['removeroom']));
+                                if ($update->status == 'error') {
+                                    ?>
+                                    <div class="alert alert-danger"><?php echo $update->msg; ?></div>
+                                    <?php
+                                }
+                                if ($update->status == 'success') {
+                                    ?>
+                                    <div class="alert alert-success"><?php echo $update->msg; ?></div>
+                                    <?php
+                                }
+                            }
+                            ?>
+                            <form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
+                                <?php
+                                if (isset($_POST['addRoom'])) {
+                                    $addRoom = json_decode($adminUserData->addRoomToUser($_POST, $_GET['edit']));
+                                    if ($addRoom->status == 'error') {
+                                        ?>
+                                        <div class="alert alert-danger"><?php echo $addRoom->msg; ?></div>
+                                        <?php
+                                    }
+                                    if ($addRoom->status == 'success') {
+                                        ?>
+                                        <div class="alert alert-success"><?php echo $addRoom->msg; ?></div>
+                                        <?php
+                                    }
+                                }
 
-                    <?php } ?>
-                    <br />
+                                $db->bind("id", $_GET['edit']);
+                                $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
+                                ?>
+                                <div class="form-group">
+                                    <label for="role_room_room_id">Raum</label>
+                                    <select id="role_room_room_id" class="form-control" name="role_room_room_id">
+                                        <?php
+                                        $rooms = $db->query("SELECT * FROM " . TABLE_ROOMS);
+                                        foreach ($rooms as $room) {
+                                            ?>
+                                            <option value="<?php echo $room['room_id']; ?>"><?php echo $room['room_name']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role_room_role_id">Rolle</label>
+                                    <select id="role_room_role_id" class="form-control" name="role_room_role_id">
+                                        <?php
+                                        $roles = $db->query("SELECT * FROM " . TABLE_ROLES);
+                                        foreach ($roles as $role) {
+                                            ?>
+                                            <option value="<?php echo $role['role_id']; ?>"><?php echo $role['role_name']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit" name="addRoom">speichern</button>
+                                </div>
+                            </form>
 
+                            <?php
+                            //Benutzerräume auslesen
+                            $userRooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " LEFT JOIN " . TABLE_USER_ROOMS . " ON room_id = role_room_room_id LEFT JOIN  " . TABLE_USERS . " ON user_id = role_room_user_id LEFT JOIN  " . TABLE_ROLES . " ON role_id = role_room_role_id WHERE user_id = :user_id", array("user_id" => $user['user_id']));
+                            if (!$userRooms) {
+                                ?>
+                                <div class="alert alert-info">Es existieren noch keine Räume für diesen Benutzer</div>
+                                <?php
+                            } else {
+                                ?>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Rolle</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($userRooms as $room) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $room['room_id']; ?></td>
+                                                <td><?php echo $room['room_name']; ?></td>
+                                                <td><?php echo $room['role_name']; ?></td>
+                                                <td class="text-right">
+                                                    <a href="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>/room/remove/<?php echo $room['room_id']; ?>/<?php echo $userData->getToken(); ?>" class="btn btn-danger btn-xs delete-button">
+                                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <div class="alert alert-info">Es existieren noch keine Räume</div>
+                            <?php
+                        }
+                        ?>
+
+                    </div>
+                </div>
+            <?php }
+            ?>
+
+            <div class="row">
+                <div class="col-md-12">
                     <a href="<?php echo BASEDIR; ?>admin/users" class="btn btn-default">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Benutzerübersicht
                     </a>
                 </div>
             </div>
+
+
             <?php
         } else if (isset($_GET['create'])) {
             ?>
             <div class="row">
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-12">
                     <h1>Benutzer erstellen</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-12">
                     <form method="POST" action="<?php echo BASEDIR; ?>admin/users/create" role="form">
 
                         <?php

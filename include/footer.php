@@ -15,7 +15,11 @@
     <script src="<?php echo BASEDIR; ?>js/bootbox.min.js"></script>
     <script src="<?php echo BASEDIR; ?>js/jqueryui.js"></script>
     <script src="<?php echo BASEDIR; ?>js/moveit.js"></script>
-    <?php echo $javascript; ?>
+    <?php
+    if (isset($javascript)) {
+        echo $javascript;
+    }
+    ?>
     <script>
     var mainSettings = {
         'csrfToken': '<?php echo $userData->getToken(); ?>'

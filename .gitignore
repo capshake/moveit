@@ -45,3 +45,4 @@ Temporary Items
 *.xls
 /nbproject
 /include/classes/logs
+/admin/dane
