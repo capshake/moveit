@@ -27,6 +27,7 @@ class importExport extends Token {
         $db->query("DELETE FROM " . TABLE_IMPORT . ";");
         $db->query("DELETE FROM " . TABLE_DEPARTMENTS . ";");
         $db->query("DELETE FROM " . TABLE_BUILDINGS . ";");
+        $db->query("DELETE FROM " . TABLE_USER_ROOMS . ";");
 
         $db->query("ALTER TABLE " . TABLE_ITEMS . " AUTO_INCREMENT = 1;");
         $db->query("ALTER TABLE " . TABLE_ROOMS . " AUTO_INCREMENT = 1;");
@@ -34,6 +35,7 @@ class importExport extends Token {
         $db->query("ALTER TABLE " . TABLE_IMPORT . " AUTO_INCREMENT = 1000000;");
         $db->query("ALTER TABLE " . TABLE_DEPARTMENTS . " AUTO_INCREMENT = 1;");
         $db->query("ALTER TABLE " . TABLE_BUILDINGS . " AUTO_INCREMENT = 1;");
+        $db->query("ALTER TABLE " . TABLE_USER_ROOMS . " AUTO_INCREMENT = 1;");
 
         return true;
     }

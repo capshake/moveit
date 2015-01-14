@@ -6,7 +6,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     include_once '../../include/header.php';
     include_once '../include/menu.php';
-    
+
     include_once '../include/classes/rooms.class.php';
     $roomData = new Rooms();
     ?>
@@ -126,42 +126,51 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Raum</h1>
+                    <h1>Räume</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($roomList as $room) {
-                                ?>
-
+                    <?php
+                    if (!$roomList) {
+                        ?>
+                        <div class="alert alert-info">Es wurden noch keine Räume erstellt.</div>
+                        <?php
+                    } else {
+                        ?>
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <th scope="row"><?php echo $room['room_id']; ?></th>
-                                    <td><?php echo $room['room_name']; ?></td>
-                                    <td class="text-right">
-                                        <a href="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $room['room_id']; ?>" class="btn btn-default btn-xs">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="<?php echo BASEDIR; ?>admin/rooms/remove/<?php echo $room['room_id']; ?>" class="btn btn-danger btn-xs delete-button">
-                                            <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th></th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                foreach ($roomList as $room) {
+                                    ?>
+
+                                    <tr>
+                                        <th scope="row"><?php echo $room['room_id']; ?></th>
+                                        <td><?php echo $room['room_name']; ?></td>
+                                        <td class="text-right">
+                                            <a href="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $room['room_id']; ?>" class="btn btn-default btn-xs">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a>
+                                            <a href="<?php echo BASEDIR; ?>admin/rooms/remove/<?php echo $room['room_id']; ?>" class="btn btn-danger btn-xs delete-button">
+                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    }
+                    ?>  
                     <a href="<?php echo BASEDIR; ?>admin/rooms/create" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Raum erstellen
                     </a>

@@ -18,6 +18,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
+                    <h1>Map Editor</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="alert alert-info">Es muss zuerst ein Gebäude existieren!</div>
                 </div>
             </div>
@@ -140,15 +145,15 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         } else {
                             ?>
                             <div class="save-groundplan"></div>
-                            
-                            
+
+
                             <div class="contextMenu dropdown clearfix" style="display:none;">
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
                                     <li><a tabindex="-1" href="#">entfernen</a></li>
                                 </ul>
                             </div>
-                            
-                            
+
+
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1">              
                                     <button class="add-room-groundplan-button btn btn-success">Raum hinzufügen</button>
@@ -329,37 +334,47 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Im Map</th>
-                                    <th>Etage</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($mapList as $map) {
-                                    ?>
-
+                        <?php
+                        if (!$mapList) {
+                            ?>
+                            <div class="alert alert-info">Es wurden noch keine Karte erstellt.</div>
+                            <?php
+                        } else {
+                            ?>
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <th scope="row"><?php echo $map['map_id']; ?></th>
-                                        <td><?php echo $map['building_name']; ?></td>
-                                        <td><?php echo getFloor($map['map_floor']); ?></td>
-                                        <td class="text-right">
-                                            <a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $map['map_id']; ?>" class="btn btn-default btn-xs">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </a>
-                                            <a href="<?php echo BASEDIR; ?>admin/mapEditor/remove/<?php echo $map['map_id']; ?>" class="btn btn-danger btn-xs delete-button">
-                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>Im Map</th>
+                                        <th>Etage</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                    foreach ($mapList as $map) {
+                                        ?>
+
+                                        <tr>
+                                            <th scope="row"><?php echo $map['map_id']; ?></th>
+                                            <td><?php echo $map['building_name']; ?></td>
+                                            <td><?php echo getFloor($map['map_floor']); ?></td>
+                                            <td class="text-right">
+                                                <a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $map['map_id']; ?>" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a>
+                                                <a href="<?php echo BASEDIR; ?>admin/mapEditor/remove/<?php echo $map['map_id']; ?>" class="btn btn-danger btn-xs delete-button">
+                                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <?php
+                        }
+                        ?>
                         <a href="<?php echo BASEDIR; ?>admin/mapEditor/create" class="btn btn-success">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Map erstellen
                         </a>
