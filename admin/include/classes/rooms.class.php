@@ -42,9 +42,10 @@ class Rooms extends Token {
 
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
-                $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name) "
-                        . "VALUES(:room_name)", array(
-                    "room_name" => $data['room_name']
+                $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_map_id) "
+                        . "VALUES(:room_name, :room_map_id)", array(
+                    "room_name" => $data['room_name'],
+                    "room_map_id" => 0
                 ));
 
                 if ($insert > 0) {

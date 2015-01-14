@@ -38,7 +38,7 @@ RewriteRule ^admin/importExport/export$ admin/pages/importExport.php?export [L]
 
 ### ADMIN-AJAX
 RewriteRule ^admin/ajax/saveMapRooms$ admin/include/ajax/saveMapRooms.php [L]
-
+RewriteRule ^admin/ajax/removeMapRoom$ admin/include/ajax/removeMapRoom.php [L]
 
 ### FRONTEND
 RewriteRule ^login$ pages/main/login.php [L]
@@ -58,9 +58,11 @@ RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
 
 
 ### API
+RewriteRule ^api/getRoom/([0-9]+)$ include/ajax/getRooms.php?room_id=$1 [L]
 RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
 RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
 RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]
+RewriteRule ^api/getRooms/notMap/([0-9]+)$ include/ajax/getRooms.php?not_map_id=$1 [L]
 
 
 RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]

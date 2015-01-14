@@ -30,26 +30,145 @@ $(document).ready(function () {
                     $(".map-room").resizable({
                         containment: ".groundplan",
                         minHeight: 20,
-                        minWidth: 20
+                        minWidth: 20, 
+                        stop: function() {
+                            saveGroundplan();
+                        }
                     });
 
                     $(".map-room").draggable({
-                        containment: "parent"
+                        containment: "parent", 
+                        stop: function() {
+                            saveGroundplan();
+                        }
                     });
                 }
             }
         });
     }
 
+    $('body').on('click', '.add-room-groundplan-button', function () {
+
+
+
+
+        var selectHTML = '';
+
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getRooms/notMap/' + $('.groundplan').data('mapid'),
+            dataType: 'json',
+            success: function (data) {
+                if (data.rooms.length > 0) {
+                    $.each(data.rooms, function (key, value) {
+                        selectHTML += '<option value="' + value.room_id + '">' + value.room_name + '</option>';
+                    });
+                    $('.map-add-room-outer').html('<label class="control-label" for="name">Name</label><select class="form-control map-add-room">' + selectHTML + '</select>');
+                } else {
+                    $('.map-add-room-outer').html('<div class="alert alert-info">Es gibt momentan keine Räume welche verteilt werden können.</div>');
+                }
+            }
+        });
 
 
 
 
 
-    $('.save-groundplan-button').click(function () {
+
+        bootbox.dialog({
+            title: "Raum hinzufügen",
+            message: '<div class="row"><div class="col-md-offset-2 col-md-8"><div class="form-group map-add-room-outer"> ' + selectHTML + '</div></div></div></div>',
+            buttons: {
+                success: {
+                    label: "hinzufügen",
+                    className: "btn-success",
+                    callback: function () {
+                        var roomId = $('.map-add-room').val();
+                        var roomName = $('.map-add-room option[value=' + roomId + ']').text();
+
+                        if (typeof roomId != 'undefined') {
+                            $('.groundplan-inner').append('<div class="map-room" data-roomid="' + roomId + '"><div class="name">' + roomName + '</div></div>');
+                            $('.groundplan-inner').find('.map-room[data-roomid="' + roomId + '"]').css({
+                                'left': 50 + 'px',
+                                'top': 50 + 'px',
+                                'width': 100,
+                                'height': 100
+                            });
+
+                            $(".map-room").resizable({
+                                containment: ".groundplan",
+                                minHeight: 20,
+                                minWidth: 20, 
+                                stop: function() {
+                                    saveGroundplan();
+                                }
+                            });
+
+                            $(".map-room").draggable({
+                                containment: "parent", 
+                                stop: function() {
+                                    saveGroundplan();
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    //Context Menu Raum
+    var $contextMenu = $(".contextMenu");
+    var contextRoomId;
+    $("body").on("contextmenu", ".map-room", function (e) {
+        contextRoomId = $(this).data('roomid');
+
+        $contextMenu.css({
+            display: 'block',
+            left: e.pageX,
+            top: e.pageY,
+            position: 'absolute',
+            'z-index': 9
+        });
+        return false;
+    });
+    $("body").click(function () {
+        if(!$(this).hasClass('contextMenu')) {
+            $contextMenu.hide();
+        }
+    });
+
+    $contextMenu.on("click", "a", function () {
+        $contextMenu.hide();
+
+        $.ajax({
+            type: "POST",
+            url: BASEURL + 'admin/ajax/removeMapRoom',
+            data: {
+                token: mainSettings.csrfToken,
+                room_id: contextRoomId,
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('.save-groundplan').html('<div class="row"><div class="col-md-10 col-md-offset-1"><div class="alert alert-success">' + data.msg + '</div></div></div>');
+                $('.groundplan-inner').find('.map-room[data-roomid="' + contextRoomId + '"]').remove();
+                saveGroundplan();
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+    //Speichern aller Räume auf der Karte
+    function saveGroundplan() {
         var roomsForSave = [];
         var roomsCount = 0;
-        
+
         $.each($(".map-room"), function () {
             roomsForSave.push({
                 room_position_y: parseInt($(this).css('top')),
@@ -76,7 +195,7 @@ $(document).ready(function () {
                 $('.save-groundplan').html('<div class="row"><div class="col-md-10 col-md-offset-1"><div class="alert alert-success">' + data.msg + '</div></div></div>');
             }
         });
-    });
+    }
 
 
 
@@ -118,52 +237,5 @@ $(document).ready(function () {
         $('.scale-value').val(math);
     }
 
-
-
-
-
-
-
-
-    /*$(document).on('click', '.map-room', function () {
-     
-     $.ajax({
-     type: 'POST',
-     url: 'server/room_' + $(this).data('roomid') + '.json',
-     dataType: 'json',
-     success: function (data) {
-     $('.groundplan-outer').hide();
-     
-     //Raum erstellt größe etc.
-     $('.map-room-data .map-room-inner').css({
-     'width': data.map - roomWidth,
-     'height': data.map - roomHeight,
-     });
-     
-     
-     if (data.map - roomItems.length > 0) {
-     $.each(data.map - roomItems, function (key, value) {
-     
-     if (value.item_description == 'Besprechungstisch') {
-     $('.map-room-data .map-room-inner').append('<div class="item-table" data-itemid="' + value.item_id + '"></div>');
-     
-     $('.map-room-data .map-room-inner').find('.item-table[data-itemid="' + value.item_id + '"]').css({
-     'left': value.item_position_x + 'px',
-     'top': value.item_position_y + 'px',
-     'width': value.item_size_x,
-     'height': value.item_size_y
-     });
-     }
-     });
-     }
-     
-     $('.map-room-data').show();
-     
-     },
-     error: function () {
-     alert('fsdf');
-     }
-     });
-     });*/
 
 });

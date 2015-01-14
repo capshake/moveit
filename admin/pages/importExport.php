@@ -22,7 +22,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h1>Import/Export</h1>
-                <p class="lead">Adminpanel.</p>
             </div>
         </div>
         <div class="row">
