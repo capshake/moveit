@@ -6,7 +6,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     include_once '../../include/header.php';
     include_once '../include/menu.php';
-    
+
     include_once '../include/classes/buildings.class.php';
     $buildingData = new Buildings();
     ?>
@@ -131,37 +131,46 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             </div>
             <div class="row">
                 <div class="col-md-12">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($buildingList as $building) {
-                                ?>
-
+                    <?php
+                    if (!$buildingList) {
+                        ?>
+                        <div class="alert alert-info">Es wurden noch keine Gebäude erstellt.</div>
+                        <?php
+                    } else {
+                        ?>
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <th scope="row"><?php echo $building['building_id']; ?></th>
-                                    <td><?php echo $building['building_name']; ?></td>
-                                    <td class="text-right">
-                                        <a href="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $building['building_id']; ?>" class="btn btn-default btn-xs">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="<?php echo BASEDIR; ?>admin/buildings/remove/<?php echo $building['building_id']; ?>" class="btn btn-danger btn-xs delete-button">
-                                            <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th></th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                foreach ($buildingList as $building) {
+                                    ?>
+
+                                    <tr>
+                                        <th scope="row"><?php echo $building['building_id']; ?></th>
+                                        <td><?php echo $building['building_name']; ?></td>
+                                        <td class="text-right">
+                                            <a href="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $building['building_id']; ?>" class="btn btn-default btn-xs">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a>
+                                            <a href="<?php echo BASEDIR; ?>admin/buildings/remove/<?php echo $building['building_id']; ?>" class="btn btn-danger btn-xs delete-button">
+                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    }
+                    ?>
                     <a href="<?php echo BASEDIR; ?>admin/buildings/create" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gebäude erstellen
                     </a>
