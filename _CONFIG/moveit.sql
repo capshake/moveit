@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Jan 2015 um 23:24
+-- Erstellungszeit: 14. Jan 2015 um 00:19
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -30,14 +30,7 @@ CREATE TABLE IF NOT EXISTS `buildings` (
 `building_id` int(11) unsigned NOT NULL,
   `building_name` varchar(50) CHARACTER SET utf8 NOT NULL,
   `target` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Zielgebäude? True beim Neubau'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `buildings`
---
-
-INSERT INTO `buildings` (`building_id`, `building_name`, `target`) VALUES
-(1, 'H-Trakt', 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -208,7 +201,7 @@ END IF;
 -- Map einfügen
 IF NOT EXISTS(SELECT map_id FROM maps WHERE map_building_id = (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`) AND map_floor = NEW.`I__Etage Bestand`) THEN
 	INSERT INTO maps
-    VALUES (NULL, (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`), NEW.`I__Etage Bestand`, NULL);
+    VALUES (NULL, (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`), NEW.`I__Etage Bestand`, NULL, NULL, NULL);
 END IF;
 
 -- Raum einfügen
@@ -375,7 +368,7 @@ SET `AJ_Volumen in cbm` = `AJ_Volumen in cbm` - `AJ_Volumen in cbm`/`AD_Anzahl`,
 WHERE OLD.item_import_id = `B__Index`
   AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich` 
     AND OLD.item_description = `AE_Bezeichnung`
-    AND OLD.item_state = `AR_Zustand`;
+    AND OLD.item_state <=> `AR_Zustand`;
         
     -- Prüfen, ob der alte Datensatz noch Items enthält (Anzahl > 0)
 IF EXISTS(SELECT * FROM data_export WHERE `AD_Anzahl` < 1) THEN
@@ -402,9 +395,9 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
     WHERE NEW.item_import_id = `B__Index`
       AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich` 
         AND OLD.item_description = `AE_Bezeichnung`
-        AND OLD.item_state = `AR_Zustand`
         AND (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `J__Raum-Nr. Bestand` 
-        OR (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `Q__Raum-Nr. neu (Raum-ID)`;
+        OR (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `Q__Raum-Nr. neu (Raum-ID)`
+        AND OLD.item_state <=> `AR_Zustand`;
         
     -- Prüfen, ob der alte Datensatz noch Items enthält (Anzahl > 0)
     IF EXISTS(SELECT * FROM data_export WHERE `AD_Anzahl` < 1) THEN
@@ -532,16 +525,9 @@ CREATE TABLE IF NOT EXISTS `maps` (
   `map_building_id` int(11) NOT NULL,
   `map_floor` int(11) NOT NULL,
   `map_picture` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
-  `map_scale_cm` int(11) unsigned NOT NULL,
-  `map_scale_px` int(11) unsigned NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `maps`
---
-
-INSERT INTO `maps` (`map_id`, `map_building_id`, `map_floor`, `map_picture`, `map_scale_cm`, `map_scale_px`) VALUES
-(1, 1, 0, 'uploads/maps/map_1421091611.jpg', 5435, 535);
+  `map_scale_cm` int(11) unsigned DEFAULT NULL,
+  `map_scale_px` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -690,7 +676,7 @@ ALTER TABLE `user_role_room`
 -- AUTO_INCREMENT for table `buildings`
 --
 ALTER TABLE `buildings`
-MODIFY `building_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `building_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2; 
 --
 -- AUTO_INCREMENT for table `data_import`
 --
@@ -715,7 +701,7 @@ MODIFY `item_type_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `maps`
 --
 ALTER TABLE `maps`
-MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2; 
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -730,7 +716,7 @@ MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14; 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

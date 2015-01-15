@@ -10,7 +10,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     if (isset($_GET['export'])) {
         $importExportData->export();
     }
-    
+
     include_once '../../include/header.php';
     include_once '../include/menu.php';
     ?>
@@ -20,13 +20,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <h1>Import/Export</h1>
-                <p class="lead">Adminpanel.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5 col-md-offset-2">
+            <div class="col-md-7">
                 <form method="POST" action="<?php echo BASEDIR; ?>admin/importExport" role="form" enctype="multipart/form-data">
 
                     <?php
@@ -51,33 +50,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" name="csv" class="btn btn-primary">hochladen</button>
+                        <button type="submit" name="csv" class="btn btn-primary">hochladen und importieren</button>
+                        
                     </div>
                 </form>
+<a class="btn btn-danger" href="<?php echo BASEDIR; ?>admin/importExport/export">exportiere Daten</a>
 
-            </div>
-            <div class="col-md-5">
-
-                <div class="form-group">
-                    <?php
-                    if (isset($_GET['import'])) {
-                        $import = json_decode($importExportData->import());
-                        if ($import->status == 'error') {
-                            ?>
-                            <div class="alert alert-danger"><?php echo $import->msg; ?></div>
-                            <?php
-                        }
-                        if ($import->status == 'success') {
-                            ?>
-                            <div class="alert alert-success"><?php echo $import->msg; ?></div>
-                            <?php
-                        }
-                    }
-                    ?>
-                    <a class="btn btn-success" href="<?php echo BASEDIR; ?>admin/importExport/import">importiere Daten</a>
-
-                    <a class="btn btn-danger" href="<?php echo BASEDIR; ?>admin/importExport/export">exportiere Daten</a>
-                </div>
                 <div class="form-group">
 
                     <?php
@@ -97,7 +75,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     ?>
                     <a class="btn btn-danger" href="<?php echo BASEDIR; ?>admin/importExport/reset">Datenbank zurücksetzen</a>
                 </div>
+
+
             </div>
+
         </div>
 
     </div><!-- /.container -->

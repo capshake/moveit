@@ -27,6 +27,7 @@ class importExport extends Token {
         $db->query("DELETE FROM " . TABLE_IMPORT . ";");
         $db->query("DELETE FROM " . TABLE_DEPARTMENTS . ";");
         $db->query("DELETE FROM " . TABLE_BUILDINGS . ";");
+        $db->query("DELETE FROM " . TABLE_USER_ROOMS . ";");
 
         $db->query("ALTER TABLE " . TABLE_ITEMS . " AUTO_INCREMENT = 1;");
         $db->query("ALTER TABLE " . TABLE_ROOMS . " AUTO_INCREMENT = 1;");
@@ -34,6 +35,7 @@ class importExport extends Token {
         $db->query("ALTER TABLE " . TABLE_IMPORT . " AUTO_INCREMENT = 1000000;");
         $db->query("ALTER TABLE " . TABLE_DEPARTMENTS . " AUTO_INCREMENT = 1;");
         $db->query("ALTER TABLE " . TABLE_BUILDINGS . " AUTO_INCREMENT = 1;");
+        $db->query("ALTER TABLE " . TABLE_USER_ROOMS . " AUTO_INCREMENT = 1;");
 
         return true;
     }
@@ -44,16 +46,12 @@ class importExport extends Token {
      * @return type
      */
     private function importDB() {
-
         global $db;
-
         $return = array("status" => "", "msg" => "");
-
         if (file_exists(ROOTDIR . $this->importFile)) {
             $file = fopen(ROOTDIR . $this->importFile, "r");
             if ($file) {
                 $data = fgetcsv($file, 0, ";");
-
                 $row = 0;
                 while ($data != false) {
                     if ($data[0] == 1) {
@@ -61,68 +59,44 @@ class importExport extends Token {
                         $col = count($data);
                         $query = "INSERT INTO " . TABLE_IMPORT . " VALUES(";
                         $query_update = "";
-
-                        for ($c = 0; $c < $col; $c++) {
-                            // NULL-Spalten als NULL eintragen
-                            if ($data[$c] == "") {
-                                $query = $query . "NULL";
+                        for ($c = 0; $c < 59; $c++) {
+                            if ($c > $col) {
+                                $query = $query . "NULL"; //Import hat immer 59 Spalten, falls Datei kürzer, Rest auffüllen
+                            } elseif (@$data[$c] == "") {
+                                $query = $query . "NULL"; // leere Spalten als NULL eintragen
                             } elseif ($c == 35) { //Spalte "Volumen"
-                                //Kommanotation ändern
-                                $query = $query . "'" . str_replace(",", ".", $data[$c]) . "'";
+                                $query = $query . "'" . str_replace(",", ".", $data[$c]) . "'"; //Kommanotation ändern
                             } else {
                                 $query = $query . "'" . $data[$c] . "'";
                             }
-
-                            if ($c < $col - 1) {
-                                $query = $query . ",";
+                            if ($c != 58) {
+                                $query = $query . ","; //Nächste Spalte anhängen
                             }
                         }
-
                         $query = $query . ")";
-                        $db->query($query);
-
-                        // Sollte es diesen Eintrag schon geben Anzahl und Volumen updaten
-                        /* if (mysql_errno() == 1062) {
-                          $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = " . $data[1];
-                          $var_ad_anzahl = mysql_result(mysql_query($query_ad_anzahl), 0, 'AD_Anzahl');
-
-                          $query_aj_volumen = "SELECT AJ_Volumen in cbm FROM data_import WHERE B__Index = " . $data[1];
-                          $var_aj_volumen = mysql_result(mysql_query($query_aj_volumen), 0, 'AJ_Volumen in cbm');
-
-                          $query_update = "UPDATE data_import SET B__Index = " . $data[1] . " ,AD_Anzahl = " . $data[29] . " + " . $var_ad_anzahl . " , " . "AJ_Volumen in cbm = " . str_replace(",", ".", $data[35]) . " + " . $var_aj_volumen . " WHERE B__Index = " . $data[1] . ";";
-                          $db->query($query_update);
-                          } */
-
-                        //DEBUG
-                        if (mysql_errno() != 0) {
-                            if ($query_update != "") {
-                                echo '<p>' . $query_update . '<br>';
-                            } else {
-                                echo '<p>' . $query . '<br>';
-                            }
-                            echo mysql_errno() . ':' . mysql_error() . '</p><br>';
+                        
+                        echo "hinzugefügt<br>";
+                        
+                        // TODO: Richtiges Exception-Handling (Das hier ist viel zu langsam!!). Prüfen auf MySQL Fehler 1062
+                        if ($data[1] != NULL && $db->single("SELECT `B__Index` FROM " . TABLE_IMPORT . " WHERE `B__Index` = :data1", array('data1' => $data[1]))) { //Sollte der Eintrag schon existieren, Anzahl updaten
+                            $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = :data1";
+                            // $var_ad_anzahl = mysql_result(mysql_query($query_ad_anzahl), 0, 'AD_Anzahl');
+                            $var_ad_anzahl = $db->single($query_ad_anzahl, array('data1' => $data[1]));
+                            $query_aj_volumen = "SELECT `AJ_Volumen in cbm` FROM data_import WHERE B__Index = :data1";
+                            // $var_aj_volumen = mysql_result(mysql_query($query_aj_volumen), 0, 'AJ_Volumen in cbm');
+                            $var_aj_volumen = $db->single($query_aj_volumen, array('data1' => $data[1]));
+                            $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;", 
+                                    array('data1' => $data[1], 'data29' => $data[29], 'varanzahl' => $var_ad_anzahl, 'data35' => str_replace(",", ".", $data[35]), 'varvolumen' => $var_aj_volumen, 'data11' => $data[1]));
+                        } else {
+                            $db->query($query);
                         }
-
-                        /* DEBUG (nur alle neuen Datensätze)
-                          if($query_update == ""){
-                          print("<p>" . $query . "<br>");
-                          } */
                     }
                     $data = fgetcsv($file, 0, ";"); //nächste Zeile holen
                 }
             }
-
-            //Tabelle anzeigen
-            $numrows = $db->query("SELECT * FROM data_import", PDO::FETCH_NUM);
-
-            print("Anzahl Reihen:" . $numrows . "<br>");
-
             fclose($file);
-
-
             return true;
         }
-
         return json_encode($return);
     }
 
@@ -131,11 +105,8 @@ class importExport extends Token {
      * @global type $db
      */
     private function exportDB() {
-
         global $db;
-
         $data = $db->query("SELECT * FROM data_export ORDER BY B__Index, AD_Anzahl DESC", null, PDO::FETCH_NUM);
-
         //Array der Spaltennamen (Lässt sich wegen zu langer Namen nicht aus DB holen)
         $cols = array(
             0 => 'Zähler',
@@ -198,24 +169,18 @@ class importExport extends Token {
             57 => '',
             58 => '',
         );
-
         header('Content-Type: application/excel; charset=UTF-8');
         header('Content-Disposition: attachment; filename="export_' . time() . '.csv"');
-
         $file = fopen('php://output', 'w');
-
         fprintf($file, "\xEF\xBB\xBF"); //UTF-8 BOM
         fputcsv($file, $cols, ";"); //Spaltennamen
-
         foreach ($data as $row) {
             //Dezimalzahlen wieder in deutsches Format bringen
             $row[35] = str_replace(".", ",", $row[35]);
-
             fputcsv($file, $row, ";");
         }
         fclose($file);
         exit;
-
         return true;
     }
 
@@ -225,10 +190,9 @@ class importExport extends Token {
      */
     public function reset() {
         $return = array("status" => "", "msg" => "");
-
-        if ($this->truncateDB() && $this->importDB()) {
+        if ($this->truncateDB()) {
             $return['status'] = 'success';
-            $return['msg'] = 'Reset erfolgreich gestartet';
+            $return['msg'] = 'Datenbank erfolgreich geleert';
         } else {
             $return['status'] = 'error';
             $return['msg'] = 'Es ist ein Fehler aufgetreten';
@@ -242,16 +206,11 @@ class importExport extends Token {
      */
     public function import() {
         $return = array("status" => "", "msg" => "");
-
         if ($this->importDB()) {
-            $return['status'] = 'success';
-            $return['msg'] = 'Import erfolgreich gestartet';
+            return true;
         } else {
-            $return['status'] = 'error';
-            $return['msg'] = 'Es ist ein Fehler aufgetreten';
+            return false;
         }
-
-        return json_encode($return);
     }
 
     /**
@@ -260,15 +219,13 @@ class importExport extends Token {
      */
     public function export() {
         $return = array("status" => "", "msg" => "");
-
         if ($this->exportDB()) {
             $return['status'] = 'success';
-            $return['msg'] = 'Export erfolgreich gestartet';
+            $return['msg'] = 'Export erfolgreich durchgeführt';
         } else {
             $return['status'] = 'error';
             $return['msg'] = 'Es ist ein Fehler aufgetreten';
         }
-
         return json_encode($return);
     }
 
@@ -280,33 +237,25 @@ class importExport extends Token {
      * @return type
      */
     public function uploadFile($data = '', $files = '') {
-
         global $db;
-
         $return = array("status" => "", "msg" => "");
-
         if (isset($data) && !empty($data)) {
-
             $ex = end(explode('.', $files['csv_file']['name']));
-
             if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Token abgelaufen.';
             }
             $this->newToken();
-
             if (!isset($files['csv_file']['name']) && !empty($files['csv_file']['name'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Bitte eine CSV-Datei angeben.';
             } else {
                 $ex = end(explode('.', $files['csv_file']['name']));
-
                 if (!in_array(strtolower($ex), array('csv'))) {
                     $return['status'] = 'error';
                     $return['msg'] = 'Nur CSV-Dateien.';
                 }
             }
-
             if ($return['status'] != 'error') {
                 //upload
                 $path = 'uploads/csv/import.' . $ex;
@@ -317,6 +266,14 @@ class importExport extends Token {
                 } else {
                     $return['status'] = 'success';
                     $return['msg'] = 'CSV erfolgreich hochgeladen';
+
+                    if ($this->import()) {
+                        $return['status'] = 'success';
+                        $return['msg'] = 'CSV erfolgreich hochgeladen und importiert';
+                    } else {
+                        $return['status'] = 'error';
+                        $return['msg'] = 'Es ist ein Fehler aufgetreten';
+                    }
                 }
             }
         } else {

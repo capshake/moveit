@@ -25,8 +25,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     "room_id" => $room['room_id'])
                 );
             }
-
-            //$insert = $db->query("INSERT INTO Persons(Firstname,Age) VALUES(:f,:age)", array("f" => "Vivek", "age" => "20"));
         }
     }
 }

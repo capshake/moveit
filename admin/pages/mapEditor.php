@@ -117,7 +117,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <div class="row">
                                 <div class="col-md-12">              
                                     <div class="groundplan-outer">
-                                        <div class="groundplan scale" data-mapid="<?php echo $map['map_id']; ?>">
+                                        <div class="groundplan scale">
 
                                             <div class="groundplan-inner">
                                                 <img src="<?php echo BASEDIR . $map['map_picture']; ?>">
@@ -132,7 +132,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     } else if (isset($_GET['rooms'])) {
                         $db->bind("id", $_GET['edit']);
                         $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :id");
-                        
+
                         if (empty($map['map_picture'])) {
                             ?><br />
                             <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
@@ -140,10 +140,17 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         } else {
                             ?>
                             <div class="save-groundplan"></div>
-
+                            
+                            
+                            <div class="contextMenu dropdown clearfix" style="display:none;">
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+                                    <li><a tabindex="-1" href="#">entfernen</a></li>
+                                </ul>
+                            </div>
+                            
+                            
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-1">              
-                                    <button class="save-groundplan-button btn btn-primary">speichern</button>
+                                <div class="col-md-5 col-md-offset-1">              
                                     <button class="add-room-groundplan-button btn btn-success">Raum hinzufügen</button>
                                 </div>
                             </div>
