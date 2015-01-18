@@ -21,21 +21,11 @@ class importExport extends Token {
 
         global $db;
 
-        $db->query("DELETE FROM " . TABLE_ITEMS . ";");
-        $db->query("DELETE FROM " . TABLE_ROOMS . ";");
-        $db->query("DELETE FROM " . TABLE_MAPS . ";");
-        $db->query("DELETE FROM " . TABLE_IMPORT . ";");
-        $db->query("DELETE FROM " . TABLE_DEPARTMENTS . ";");
-        $db->query("DELETE FROM " . TABLE_BUILDINGS . ";");
-        $db->query("DELETE FROM " . TABLE_USER_ROOMS . ";");
+        // Inhalt der Tabellen löschen
+        $db->query("CALL `proc_truncate_tables`();");
 
-        $db->query("ALTER TABLE " . TABLE_ITEMS . " AUTO_INCREMENT = 1;");
-        $db->query("ALTER TABLE " . TABLE_ROOMS . " AUTO_INCREMENT = 1;");
-        $db->query("ALTER TABLE " . TABLE_MAPS . " AUTO_INCREMENT = 1;");
-        $db->query("ALTER TABLE " . TABLE_IMPORT . " AUTO_INCREMENT = 1000000;");
-        $db->query("ALTER TABLE " . TABLE_DEPARTMENTS . " AUTO_INCREMENT = 1;");
-        $db->query("ALTER TABLE " . TABLE_BUILDINGS . " AUTO_INCREMENT = 1;");
-        $db->query("ALTER TABLE " . TABLE_USER_ROOMS . " AUTO_INCREMENT = 1;");
+        // Nutzerräume wiederherstellen
+        $db->query("CALL `proc_restore_user_rooms`();");
 
         return true;
     }
@@ -74,9 +64,7 @@ class importExport extends Token {
                             }
                         }
                         $query = $query . ")";
-                        
-                        echo "hinzugefügt<br>";
-                        
+
                         // TODO: Richtiges Exception-Handling (Das hier ist viel zu langsam!!). Prüfen auf MySQL Fehler 1062
                         if ($data[1] != NULL && $db->single("SELECT `B__Index` FROM " . TABLE_IMPORT . " WHERE `B__Index` = :data1", array('data1' => $data[1]))) { //Sollte der Eintrag schon existieren, Anzahl updaten
                             $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = :data1";
