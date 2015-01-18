@@ -68,11 +68,11 @@ class importExport extends Token {
                         // TODO: Richtiges Exception-Handling (Das hier ist viel zu langsam!!). Prüfen auf MySQL Fehler 1062
                         if ($data[1] != NULL && $db->single("SELECT `B__Index` FROM " . TABLE_IMPORT . " WHERE `B__Index` = :data1", array('data1' => $data[1]))) { //Sollte der Eintrag schon existieren, Anzahl updaten
                             $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = :data1";
-                            // $var_ad_anzahl = mysql_result(mysql_query($query_ad_anzahl), 0, 'AD_Anzahl');
                             $var_ad_anzahl = $db->single($query_ad_anzahl, array('data1' => $data[1]));
+
                             $query_aj_volumen = "SELECT `AJ_Volumen in cbm` FROM data_import WHERE B__Index = :data1";
-                            // $var_aj_volumen = mysql_result(mysql_query($query_aj_volumen), 0, 'AJ_Volumen in cbm');
                             $var_aj_volumen = $db->single($query_aj_volumen, array('data1' => $data[1]));
+                            
                             $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;", 
                                     array('data1' => $data[1], 'data29' => $data[29], 'varanzahl' => $var_ad_anzahl, 'data35' => str_replace(",", ".", $data[35]), 'varvolumen' => $var_aj_volumen, 'data11' => $data[1]));
                         } else {
