@@ -18,7 +18,6 @@ class importExport extends Token {
      * @return type
      */
     private function truncateDB() {
-
         global $db;
 
         // Inhalt der Tabellen löschen
@@ -38,34 +37,24 @@ class importExport extends Token {
     private function importDB() {
         global $db;
         $return = array("status" => "", "msg" => "");
+
         if (file_exists(ROOTDIR . $this->importFile)) {
             $file = fopen(ROOTDIR . $this->importFile, "r");
             if ($file) {
                 $data = fgetcsv($file, 0, ";");
                 $row = 0;
+               
                 while ($data != false) {
                     if ($data[0] == 1) {
                         $row++;
                         $col = count($data);
                         $query = "INSERT INTO " . TABLE_IMPORT . " VALUES(";
-                        $query_update = "";
-                        for ($c = 0; $c < 59; $c++) {
-                            if ($c > $col) {
-                                $query = $query . "NULL"; //Import hat immer 59 Spalten, falls Datei kürzer, Rest auffüllen
-                            } elseif (@$data[$c] == "") {
-                                $query = $query . "NULL"; // leere Spalten als NULL eintragen
-                            } elseif ($c == 35) { //Spalte "Volumen"
-                                $query = $query . "'" . str_replace(",", ".", $data[$c]) . "'"; //Kommanotation ändern
-                            } else {
-                                $query = $query . "'" . $data[$c] . "'";
-                            }
-                            if ($c != 58) {
-                                $query = $query . ","; //Nächste Spalte anhängen
-                            }
-                        }
-                        $query = $query . ")";
+                        $insertdata = array();
+
+                        $data[35] = str_replace(",", ".", $data[35]); //Kommanotation ändern
 
                         // TODO: Richtiges Exception-Handling (Das hier ist viel zu langsam!!). Prüfen auf MySQL Fehler 1062
+                        // Prüfen, ob ein Item schon vorhanden ist, wenn ja, nur Anzahl und Volumen aufaddieren
                         if ($data[1] != NULL && $db->single("SELECT `B__Index` FROM " . TABLE_IMPORT . " WHERE `B__Index` = :data1", array('data1' => $data[1]))) { //Sollte der Eintrag schon existieren, Anzahl updaten
                             $query_ad_anzahl = "SELECT AD_Anzahl FROM data_import WHERE B__Index = :data1";
                             $var_ad_anzahl = $db->single($query_ad_anzahl, array('data1' => $data[1]));
@@ -75,10 +64,28 @@ class importExport extends Token {
                             
                             $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;", 
                                     array('data1' => $data[1], 'data29' => $data[29], 'varanzahl' => $var_ad_anzahl, 'data35' => str_replace(",", ".", $data[35]), 'varvolumen' => $var_aj_volumen, 'data11' => $data[1]));
-                        } else {
-                            $db->query($query);
                         }
+                        elseif($data[1] != NULL){
+                            for ($c = 0; $c < 59; $c++) {
+                                if ($data[$c] == "") {
+                                    $query = $query . "NULL"; // leere Spalten als NULL eintragen
+                                }
+                                else{
+                                    $query = $query . ":" . $c;
+                                    $insertdata[$c] = $data[$c];
+                                }
+
+                                if ($c != 58) {
+                                    $query = $query . ", "; //Nächste Spalte anhängen
+                                }
+                            }
+
+                        $query = $query . ")";
+                        $db->query($query, $insertdata);
+                        }
+                    
                     }
+
                     $data = fgetcsv($file, 0, ";"); //nächste Zeile holen
                 }
             }
