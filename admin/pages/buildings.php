@@ -6,18 +6,180 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     include_once '../../include/header.php';
     include_once '../include/menu.php';
+
+    include_once '../include/classes/buildings.class.php';
+    $buildingData = new Buildings();
     ?>
 
-
     <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Gebäude</h1>
-                <p class="lead">Adminpanel.</p>
-
+        <?php
+        if (isset($_GET['remove'])) {
+            ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">Gebäude wurde gelöscht</div>
+                </div>
             </div>
-        </div>
+            <?php
+        }
+        if (isset($_GET['edit'])) {
+            $existsBuilding = $db->row("SELECT building_id FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $_GET['edit']), PDO::FETCH_NUM);
+            ?>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+
+                    <h1>Gebäude bearbeiten</h1><br />
+
+                    <?php if (!$existsBuilding) { ?>
+                        <div class="alert alert-info">Das Gebäude existiert nicht!</div>
+                    <?php } else { ?>
+                        <form method="POST" action="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $_GET['edit']; ?>" role="form">
+
+                            <?php
+                            if (isset($_POST['edit'])) {
+                                $update = json_decode($buildingData->updateBuilding($_POST, $_GET['edit']));
+                                if ($update->status == 'error') {
+                                    ?>
+                                    <div class="alert alert-danger"><?php echo $update->msg; ?></div>
+                                    <?php
+                                }
+                                if ($update->status == 'success') {
+                                    ?>
+                                    <div class="alert alert-success"><?php echo $update->msg; ?></div>
+                                    <?php
+                                }
+                            }
+
+                            $db->bind("id", $_GET['edit']);
+                            $building = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_id = :id");
+                            ?>
+
+
+                            <div class="form-group">
+                                <label for="building_name">Gebäudename</label>
+                                <input id="building_name" name="building_name" value="<?php echo $building['building_name']; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit" name="edit">speichern</button>
+                        </form>
+
+                    <?php } ?>
+                    <br />
+
+                    <a href="<?php echo BASEDIR; ?>admin/buildings" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Benutzerübersicht
+                    </a>
+                </div>
+            </div>
+            <?php
+        } else if (isset($_GET['create'])) {
+            ?>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+                    <h1>Gebäude erstellen</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+                    <form method="POST" action="<?php echo BASEDIR; ?>admin/buildings/create" role="form">
+
+                        <?php
+                        $building_name = '';
+
+                        if (isset($_POST['create'])) {
+                            $building_name = $_POST['building_name'];
+
+
+                            $update = json_decode($buildingData->createBuilding($_POST));
+                            if ($update->status == 'error') {
+                                ?>
+                                <div class="alert alert-danger"><?php echo $update->msg; ?></div>
+                                <?php
+                            }
+                            if ($update->status == 'success') {
+                                ?>
+                                <div class="alert alert-success"><?php echo $update->msg; ?></div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+
+                        <div class="form-group">
+                            <label for="building_name">Name</label>
+                            <input id="building_name" name="building_name" value="<?php echo $building_name; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
+                        </div>
+
+
+                        <button class="btn btn-primary" type="submit" name="create">hinzufügen</button>
+                    </form>
+
+                    <br />
+                    <a href="<?php echo BASEDIR; ?>admin/buildings" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Gebäudeübersicht
+                    </a>
+                </div>
+            </div>
+            <?php
+        } else {
+            $buildingList = $db->query("SELECT * FROM " . TABLE_BUILDINGS);
+            ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Gebäude</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php
+                    if (!$buildingList) {
+                        ?>
+                        <div class="alert alert-info">Es wurden noch keine Gebäude erstellt.</div>
+                        <?php
+                    } else {
+                        ?>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($buildingList as $building) {
+                                    ?>
+
+                                    <tr>
+                                        <th scope="row"><?php echo $building['building_id']; ?></th>
+                                        <td><?php echo $building['building_name']; ?></td>
+                                        <td class="text-right">
+                                            <a href="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $building['building_id']; ?>" class="btn btn-default btn-xs">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a>
+                                            <a href="<?php echo BASEDIR; ?>admin/buildings/remove/<?php echo $building['building_id']; ?>" class="btn btn-danger btn-xs delete-button">
+                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    }
+                    ?>
+                    <a href="<?php echo BASEDIR; ?>admin/buildings/create" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gebäude erstellen
+                    </a>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+
 
     </div><!-- /.container -->
 

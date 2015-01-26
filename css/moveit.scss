@@ -10,6 +10,9 @@ body, html {
       padding: $footerHeight 15px 0;
     }
 }
+.clear {
+    clear: both;
+}
 
 
 @mixin border-radius($radius) {
@@ -109,6 +112,73 @@ body, html {
     }
 }
 
+
+
+
+//GROUNDPLAN
+.scale-value {
+    margin-bottom: 20px;
+}
+.groundplan-outer {
+    width: 960px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0 auto;
+    .groundplan {
+        height: 800px;
+        img {
+            width: 100%;
+        }
+        .groundplan-inner {
+            position: relative;
+            
+            .dot {     
+                position: absolute;
+                width: 9px;
+                height: 9px;
+                border-width: 0 3px 3px 0;
+                border-style: solid;
+                background-color: transparent;
+                border-color: #F55;
+            }
+            
+            //MAP-ROOM
+            .map-room {
+                position: absolute;
+                border: 1px solid #000;
+                background-color: rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+                transition: border-color .5s;
+                -webkit-transition: border-color .5s;
+                .name {
+                    text-align: center;
+                    color: #fff;
+                    margin: 20px 0 0 0;
+                }
+                &.owner {
+                    background-color: rgba(55, 255, 0, 0.5);
+                    border-color: rgba(55, 255, 0, 1);
+                    &:hover {
+                        border-color: #38A31B;
+                    }
+                }
+                &:hover {
+                    border: 1px solid #f00;
+                }
+            }
+        }
+    }
+}
+.room-data {
+    display: none;
+    .room-inner {
+        border: 1px solid #f00;
+        .item-table {
+            border: 1px solid #999;
+            position: absolute;
+        }
+    }
+}
 
 
 

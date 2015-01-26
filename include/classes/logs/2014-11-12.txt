@@ -1,2 +1,0 @@
-Time : 18:57:09
-SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)

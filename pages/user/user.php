@@ -31,24 +31,3 @@ if (!$userData->isLoggedIn()) {
     <?php
     include_once '../../include/footer.php';
 }
-
-
-
-/* include_once 'include/config.php';
-
-
-  $users = $db->row('SELECT * FROM users');
-
-
-  echo json_encode($users);
-
-
-
-  if($userData->isloggedIn()) {
-  echo 'Hi, '.$userData->getFirstName() . ' '.$userData->getLastName().' ('.$userData->getUserName().')';
-  echo '<br /><a href="'.BASEDIR.'include/logout.php">logout</a>';
-  } else {
-  echo 'nicht eingeloggt';
-  echo '<br /><a href="'.BASEDIR.'pages/main/login.php">login</a>';
-  } */
-

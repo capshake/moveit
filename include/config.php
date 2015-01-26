@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-require("classes/db.class.php");
-require("classes/user.class.php");
+require_once "functions.php";
+
+require_once "classes/db.class.php";
+require_once "classes/user.class.php";
 //require("classes/token.class.php");
 
 //$csrfToken = new Token();
@@ -11,22 +13,20 @@ $userData = new User();
 
 define('BASEURL', 'http://localhost');
 define('BASEDIR', '/moveit/');
+define('ROOTDIR', $_SERVER['DOCUMENT_ROOT'].BASEDIR);
+
 define('SALT', '5be7a9ef0399b5c7d9a303d75b0711866b8de92d723d5fab698b2426a4c8e12f');
 
 
 define('TABLE_USERS', 'users');
 define('TABLE_ROLES', 'roles');
+define('TABLE_BUILDINGS', 'buildings');
+define('TABLE_MAPS', 'maps');
+define('TABLE_ROOMS', 'rooms');
+define('TABLE_USER_ROOMS', 'user_role_room');
 
-/*$host      = 'localhost';
-$user      = 'root';
-$pass      = '';
-$dbname    = 'moveit';
 
-
-try{
-    $db = new PDO('mysql:host=' . $host . ';dbname=' . $dbname, $user, $pass);
-}
-// Catch any errors
-catch(PDOException $e){
-    $this->error = $e->getMessage();
-}*/
+define('TABLE_ITEMS', 'items');
+define('TABLE_IMPORT', 'data_import');
+define('TABLE_EXPORT', 'data_export');
+define('TABLE_DEPARTMENTS', 'departments');

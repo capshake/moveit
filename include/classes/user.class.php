@@ -181,7 +181,7 @@ class User extends Token {
 
         global $db;
 
-        $return = array("status" => "success", "msg" => "Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator");
+        $return = array("status" => "", "msg" => "");
 
         if (isset($data) && !empty($data)) {
             $existsEmail = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_email = :user_email", array("user_email" => $data['user_email']), PDO::FETCH_NUM);
@@ -231,7 +231,7 @@ class User extends Token {
                         $userSecureCode = $data['user_secure_code'];
                     }
                 } else {
-                    $data['user_role_id'] = 0;
+                    $data['user_role_id'] = 1;
                     $data['user_active'] = 0;
                 }
 
@@ -260,6 +260,9 @@ class User extends Token {
                     $return['msg'] = 'Der Benutzer wurde erfolgreich angelegt';
                 }
             }
+        } else {
+            $return['status'] = 'error';
+            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
         }
         return json_encode($return);
     }
@@ -278,7 +281,7 @@ class User extends Token {
             $id = $this->userId;
         }
         
-        $return = array("status" => "success", "msg" => "Es ist ein Fehler aufgetreten. Kontaktieren Sie einen Administrator");
+        $return = array("status" => "", "msg" => "");
 
         if (isset($data) && !empty($data)) {
             $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $id), PDO::FETCH_NUM);
@@ -359,6 +362,9 @@ class User extends Token {
                 $return['status'] = 'success';
                 $return['msg'] = 'Der Benutzer wurde bearbeitet';
             }
+        } else {
+            $return['status'] = 'error';
+            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
         }
         return json_encode($return);
     }

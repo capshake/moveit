@@ -1,6 +1,6 @@
 RewriteEngine On
 Options +FollowSymLinks
-RewriteBase /moveIT
+RewriteBase /moveit
 
 
 ### BACKEND
@@ -9,6 +9,7 @@ RewriteRule ^admin$ admin/index.php [L]
 RewriteRule ^admin/users$ admin/pages/users.php [L]
 RewriteRule ^admin/users/create$ admin/pages/users.php?create [L]
 RewriteRule ^admin/users/edit/([0-9]+)$ admin/pages/users.php?edit=$1 [L]
+RewriteRule ^admin/users/edit/([0-9]+)/room/remove/([0-9]+)/(.*)$ admin/pages/users.php?edit=$1&removeroom=$2&token=$3 [L]
 RewriteRule ^admin/users/remove/([0-9]+)$ admin/pages/users.php?remove=$1 [L]
 
 RewriteRule ^admin/rooms$ admin/pages/rooms.php [L]
@@ -24,15 +25,19 @@ RewriteRule ^admin/buildings/remove/([0-9]+)$ admin/pages/buildings.php?remove=$
 RewriteRule ^admin/mapEditor$ admin/pages/mapEditor.php [L]
 RewriteRule ^admin/mapEditor/create$ admin/pages/mapEditor.php?create [L]
 RewriteRule ^admin/mapEditor/edit/([0-9]+)$ admin/pages/mapEditor.php?edit=$1 [L]
+RewriteRule ^admin/mapEditor/edit/([0-9]+)/scale$ admin/pages/mapEditor.php?edit=$1&scale [L]
+RewriteRule ^admin/mapEditor/edit/([0-9]+)/rooms$ admin/pages/mapEditor.php?edit=$1&rooms [L]
 RewriteRule ^admin/mapEditor/remove/([0-9]+)$ admin/pages/mapEditor.php?remove=$1 [L]
 
+## IMPORT/EXPORT
 RewriteRule ^admin/importExport$ admin/pages/importExport.php [L]
-RewriteRule ^admin/importExport/create$ admin/pages/importExport.php?create [L]
-RewriteRule ^admin/importExport/edit/([0-9]+)$ admin/pages/importExport.php?edit=$1 [L]
-RewriteRule ^admin/importExport/remove/([0-9]+)$ admin/pages/importExport.php?remove=$1 [L]
+RewriteRule ^admin/importExport/reset$ admin/pages/importExport.php?reset [L]
+RewriteRule ^admin/importExport/export$ admin/pages/importExport.php?export [L]
 
 
-
+### ADMIN-AJAX
+RewriteRule ^admin/ajax/saveMapRooms$ admin/include/ajax/saveMapRooms.php [L]
+RewriteRule ^admin/ajax/removeMapRoom$ admin/include/ajax/removeMapRoom.php [L]
 
 ### FRONTEND
 RewriteRule ^login$ pages/main/login.php [L]
@@ -48,3 +53,15 @@ RewriteRule ^settings$ pages/user/settings.php [L]
 ### LOGIN/LOGOUT
 RewriteRule ^checkLogin$ include/checkLogin.php [L] 
 RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L] 
+
+
+
+### API
+RewriteRule ^api/getRoom/([0-9]+)$ include/ajax/getRooms.php?room_id=$1 [L]
+RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
+RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
+RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]
+RewriteRule ^api/getRooms/notMap/([0-9]+)$ include/ajax/getRooms.php?not_map_id=$1 [L]
+
+
+RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]
