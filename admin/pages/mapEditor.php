@@ -137,6 +137,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             ?><br />
                             <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
                             <?php
+                        } else if(empty($map['map_scale_px']) || empty($map['map_scale_cm'])) {
+                            ?><br />
+                            <div class="alert alert-info">Es muss zuerst ein Maßstab definiert werden.</div>
+                            <?php
                         } else {
                             ?>
                             <div class="save-groundplan"></div>
@@ -332,7 +336,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Im Map</th>
                                     <th>Etage</th>
                                 </tr>
@@ -343,7 +346,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     ?>
 
                                     <tr>
-                                        <th scope="row"><?php echo $map['map_id']; ?></th>
                                         <td><?php echo $map['building_name']; ?></td>
                                         <td><?php echo getFloor($map['map_floor']); ?></td>
                                         <td class="text-right">

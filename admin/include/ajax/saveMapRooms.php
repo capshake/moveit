@@ -9,9 +9,17 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         }
         header('Content-type: application/json');
 
+        $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :mapId", array("mapId" => $_POST['map_id']));
 
-        if (isset($_POST['map_id']) && isset($_POST['rooms'])) {
+        if (isset($_POST['map_id']) && isset($_POST['rooms']) && $map['map_id']) {
+            
+            $scaleOnePixel = $map['map_scale_cm'] / $map['map_scale_px'];
+            
+            
             foreach ($_POST['rooms'] as $room) {
+                
+                
+                
                 $db->query("UPDATE " . TABLE_ROOMS . " SET "
                         . "room_position_y = :room_position_y,
                    room_position_x = :room_position_x,
@@ -19,14 +27,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                    room_size_y = :room_size_y, room_map_id = :room_map_id WHERE room_id = :room_id", array(
                     "room_position_y" => $room['room_position_y'],
                     "room_position_x" => $room['room_position_x'],
-                    "room_size_y" => $room['room_size_y'],
-                    "room_size_x" => $room['room_size_x'],
+                    "room_size_y" => $room['room_size_y']*$scaleOnePixel,
+                    "room_size_x" => $room['room_size_x']*$scaleOnePixel,
                     "room_map_id" => $_POST['map_id'],
                     "room_id" => $room['room_id'])
                 );
             }
-
-            //$insert = $db->query("INSERT INTO Persons(Firstname,Age) VALUES(:f,:age)", array("f" => "Vivek", "age" => "20"));
         }
         
         $return = array('status' => 'success', 'msg' => 'Die Karte wurde bearbeitet.');
@@ -34,7 +40,3 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         echo json_encode($return);
     }
 }
-        
-        
-        
-        

@@ -67,7 +67,7 @@ class importExport extends Token {
                         }
                         elseif($data[1] != NULL){
                             for ($c = 0; $c < 59; $c++) {
-                                if ($data[$c] == "") {
+                                if (empty($data[$c])) {
                                     $query = $query . "NULL"; // leere Spalten als NULL eintragen
                                 }
                                 else{

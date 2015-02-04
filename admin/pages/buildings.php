@@ -141,7 +141,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Name</th>
                                     <th></th>
                                 </tr>
@@ -152,7 +151,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     ?>
 
                                     <tr>
-                                        <th scope="row"><?php echo $building['building_id']; ?></th>
                                         <td><?php echo $building['building_name']; ?></td>
                                         <td class="text-right">
                                             <a href="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $building['building_id']; ?>" class="btn btn-default btn-xs">

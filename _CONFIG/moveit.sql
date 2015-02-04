@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Jan 2015 um 21:28
+-- Erstellungszeit: 04. Feb 2015 um 13:21
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -609,7 +609,7 @@ CREATE TABLE IF NOT EXISTS `maps` (
 CREATE TABLE IF NOT EXISTS `roles` (
 `role_id` int(32) NOT NULL,
   `role_name` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Daten für Tabelle `roles`
@@ -638,13 +638,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `room_type` tinyint(1) NOT NULL COMMENT '0 für virtuell (Wunschliste, Müll, Lager),1 für Bestand, 2 für Neubau'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
---
--- Daten für Tabelle `rooms`
---
-
-INSERT INTO `rooms` (`room_id`, `room_name`, `room_name_alt`, `room_position_x`, `room_position_y`, `room_size_x`, `room_size_y`, `room_map_id`, `room_type`) VALUES
-(1, 'store_all', NULL, NULL, NULL, NULL, NULL, NULL, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -661,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_role_id` tinyint(1) NOT NULL,
   `user_active` tinyint(1) NOT NULL,
   `user_secure_code` varchar(42) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Trigger `users`
@@ -715,7 +708,7 @@ END
 //
 DELIMITER ;
 DELIMITER //
-CREATE TRIGGER `trig_insert_user` BEFORE INSERT ON `users`
+CREATE TRIGGER `trig_insert_user` AFTER INSERT ON `users`
  FOR EACH ROW BEGIN
 
 -- Falls nicht existent, Lager für alle Nutzer erstellen
@@ -860,7 +853,7 @@ MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-MODIFY `role_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `role_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `rooms`
 --
@@ -870,7 +863,7 @@ MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

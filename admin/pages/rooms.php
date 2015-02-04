@@ -60,6 +60,20 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <input id="room_name" name="room_name" value="<?php echo $room['room_name']; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                             </div>
 
+                            <div class="form-group">
+                                <label for="room_map_id">Karte</label>
+                                <select id="room_map_id" class="form-control" name="room_map_id">
+                                    <?php
+                                    $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
+                                    foreach ($maps as $map) {
+                                        ?>
+                                        <option value="<?php echo $map['map_id']; ?>"<?php echo ($map['map_id'] == $room['room_map_id']) ? ' selected="selected"' : ''; ?>><?php echo $map['building_name']; ?> <?php echo getFloor($map['map_floor']); ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            
                             <button class="btn btn-primary" type="submit" name="edit">speichern</button>
                         </form>
 
@@ -109,7 +123,19 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <label for="room_name">Name</label>
                             <input id="room_name" name="room_name" value="<?php echo $room_name; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                         </div>
-
+                        <div class="form-group">
+                            <label for="room_map_id">Karte</label>
+                            <select id="room_map_id" class="form-control" name="room_map_id">
+                                <?php
+                                $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
+                                foreach ($maps as $map) {
+                                    ?>
+                                    <option value="<?php echo $map['map_id']; ?>"><?php echo $map['building_name']; ?> <?php echo getFloor($map['map_floor']); ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div> 
 
                         <button class="btn btn-primary" type="submit" name="create">hinzufügen</button>
                     </form>
@@ -122,7 +148,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             </div>
             <?php
         } else {
-            $roomList = $db->query("SELECT * FROM " . TABLE_ROOMS);
+            $roomList = $db->query("SELECT * FROM " . TABLE_ROOMS. " WHERE room_type != 0");
             ?>
             <div class="row">
                 <div class="col-md-12">
@@ -141,7 +167,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Name</th>
                                     <th></th>
                                 </tr>
@@ -152,7 +177,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     ?>
 
                                     <tr>
-                                        <th scope="row"><?php echo $room['room_id']; ?></th>
                                         <td><?php echo $room['room_name']; ?></td>
                                         <td class="text-right">
                                             <a href="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $room['room_id']; ?>" class="btn btn-default btn-xs">

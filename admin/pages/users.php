@@ -368,7 +368,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Benutzername</th>
                                     <th>Person</th>
                                     <th>Email</th>
@@ -381,7 +380,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     ?>
 
                                     <tr>
-                                        <th scope="row"><?php echo $user['user_id']; ?></th>
                                         <td><?php echo $user['user_name']; ?></td>
                                         <td><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></td>
                                         <td><?php echo $user['user_email']; ?></td>

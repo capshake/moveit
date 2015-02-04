@@ -10,6 +10,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.rooms.length > 0) {
+                    var scaleOneCm = data.map.room_scale_px/data.map.room_scale_cm;
+    console.log(scaleOneCm);
                     $.each(data.rooms, function (key, value) {
                         if (value.room_position_x != null || value.room_position_y != null) {
                             $('.groundplan-inner').append('<div class="map-room" data-roomid="' + value.room_id + '"><div class="name">' + value.room_name + '</div></div>');
@@ -17,8 +19,8 @@ $(document).ready(function () {
                             $('.groundplan-inner').find('.map-room[data-roomid="' + value.room_id + '"]').css({
                                 'left': value.room_position_x + 'px',
                                 'top': value.room_position_y + 'px',
-                                'width': value.room_size_x,
-                                'height': value.room_size_y
+                                'width': Math.round(value.room_size_x*scaleOneCm),
+                                'height': Math.round(value.room_size_y*scaleOneCm)
                             });
                             if (value.room_owner) {
                                 $('.groundplan-inner').find('.map-room[data-roomid="' + value.room_id + '"]').addClass('owner');
@@ -56,7 +58,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: BASEURL + 'api/getRooms/notMap/' + $('.groundplan').data('mapid'),
+            url: BASEURL + 'api/getRooms/roomNotInMap/' + $('.groundplan').data('mapid'),
             dataType: 'json',
             success: function (data) {
                 if (data.rooms.length > 0) {

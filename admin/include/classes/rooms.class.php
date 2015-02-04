@@ -31,7 +31,10 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Geben Sie einen Namen an';
             }
-
+            if (empty($data['room_map_id'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie eine Karte an';
+            }
 
             if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
@@ -45,7 +48,7 @@ class Rooms extends Token {
                 $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_map_id) "
                         . "VALUES(:room_name, :room_map_id)", array(
                     "room_name" => $data['room_name'],
-                    "room_map_id" => 0
+                    "room_map_id" => $data['room_map_id']
                 ));
 
                 if ($insert > 0) {
@@ -89,7 +92,10 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Geben Sie einen Namen an';
             }
-
+            if (empty($data['room_map_id'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Geben Sie eine Karte an';
+            }
 
             if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
@@ -101,8 +107,9 @@ class Rooms extends Token {
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
 
-                $update = $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name WHERE room_id = :room_id", array(
+                $update = $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name, room_map_id = :room_map_id WHERE room_id = :room_id", array(
                     "room_name" => $data['room_name'],
+                    "room_map_id" => $data['room_map_id'],
                     "room_id" => $id
                 ));
 

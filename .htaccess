@@ -61,6 +61,7 @@ RewriteRule ^api/getRoom/([0-9]+)$ include/ajax/getRooms.php?room_id=$1 [L]
 RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
 RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
 RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]
+RewriteRule ^api/getRooms/roomNotInMap/([0-9]+)$ include/ajax/getRooms.php?room_not_in_map=$1 [L]
 RewriteRule ^api/getRooms/notMap/([0-9]+)$ include/ajax/getRooms.php?not_map_id=$1 [L]
 
 
