@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 04. Feb 2015 um 13:21
+-- Erstellungszeit: 05. Feb 2015 um 00:59
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -636,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `room_size_y` int(32) DEFAULT NULL,
   `room_map_id` int(32) DEFAULT NULL,
   `room_type` tinyint(1) NOT NULL COMMENT '0 für virtuell (Wunschliste, Müll, Lager),1 für Bestand, 2 für Neubau'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -673,7 +673,7 @@ DECLARE item_cursor CURSOR FOR SELECT item_id FROM `items` WHERE `item_room_id` 
     );
 DECLARE CONTINUE HANDLER FOR NOT FOUND SET var_finished = 1;
 
--- Alle vorhandenen Items ins allgemeine Lager schieben
+-- Alle vorhandenen Items zurück in den ursprünglichen Raum schieben
 OPEN item_cursor;
 
 loop_items: LOOP
@@ -683,7 +683,7 @@ loop_items: LOOP
     END IF;
     
     UPDATE `items`
-    SET `item_room_id` = (SELECT `room_id` FROM `items` WHERE `room_name` = 'store_all')
+    SET `item_room_id` = `item_origin_room`
     WHERE `item_id` = var_item_id;
 
 END LOOP loop_items;
@@ -858,7 +858,7 @@ MODIFY `role_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --

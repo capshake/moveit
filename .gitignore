@@ -43,7 +43,6 @@ Temporary Items
 .apdisk
 
 *.xls
-/nbproject
-/include/classes/logs
-/admin/dane
-/uploads
+nbproject/
+include/classes/logs/*
+uploads/
