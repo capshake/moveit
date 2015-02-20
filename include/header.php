@@ -10,7 +10,7 @@
 
         <title>
             <?php
-            $headerTitle = !empty($headerTitle) ? $headerTitle : 'moveit';
+            $headerTitle = 'moveIT';
             echo $headerTitle;
             ?>
         </title>

@@ -6,9 +6,6 @@ if (!$userData->isLoggedIn()) {
     header('location: ' . BASEDIR . 'login');
 } else {
 
-    $headerTitle = 'moveIT';
-
-
     include_once 'include/header.php';
 
     include_once 'include/menu.php';
