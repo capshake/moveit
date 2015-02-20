@@ -17,11 +17,15 @@
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo BASEDIR; ?>css/bootstrap.min.css" rel="stylesheet">
-        
+
         <link href="<?php echo BASEDIR; ?>css/jqueryui.css" rel="stylesheet">
+
+        <!-- Bootstrap-Select -->
+        <link rel="stylesheet" type="text/css" href="<?php echo BASEDIR; ?>css/bootstrap-select.min.css">
 
         <!-- Custom styles for this template -->
         <link href="<?php echo BASEDIR; ?>css/moveit.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="<?php echo BASEDIR; ?>css/bootstrap-mods.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>

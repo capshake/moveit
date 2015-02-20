@@ -1,0 +1,7 @@
+.altbau .bootstrap-select { /*Müsste nochmal innerhalb kleiner sein und dann zentriert, ebenso andere Spalten*/
+    width: 100% !important;
+}
+
+.neubau .bootstrap-select {
+    width: auto !important;
+}

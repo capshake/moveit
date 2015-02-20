@@ -11,8 +11,6 @@ if (!$userData->isLoggedIn()) {
 
     include_once 'include/header.php';
 
-
-
     include_once 'include/menu.php';
     ?>
 
@@ -24,31 +22,41 @@ if (!$userData->isLoggedIn()) {
                 <div class="row">
                     <h3>Altbau</h3>
                 </div>
-            
+
                 <div class="row">
-                    Trakt/Gebäude:<br>
-                    <select class="trakt">
-                        <option value="1">H-Trakt</option>
-                    </select>
-                </div>
+                    <label for="trakt">Trakt</label>
+                    <div class="form-group">
+                        <select id="trakt_alt" class="selectpicker" data-live-search="true">
+                            <option value="1">H-Trakt</option>
+                            <option value="2">S-Trakt</option>
+                            <option value="3">L-Trakt</option>
+                        </select>
+                    </div> <!-- /.form-group -->
+                </div> <!-- /.row -->
+
                 <div class="row">
-                    Etage:<br>
-                    <select class="etage">
-                        <option value="-2">2. UG</option>
-                        <option value="-1">1. UG</option>
-                    </select>
-                </div>
+                    <label for="etage">Etage</label>
+                    <div class="form-group">
+                        <select id="etage_alt" class="selectpicker" data-live-search="true">
+                            <option value="-2">2. UG</option>
+                            <option value="-1">1. UG</option>
+                        </select>
+                    </div> <!-- /.form-group -->
+                </div> <!-- /.row -->
+
                 <div class="row">
-                    Raum:<br>
-                    <select class="raum">
-                        <option value="1">H1.11</option>
-                    </select>
-                </div>
-                
+                    <label for="trakt">Raum</label>
+                    <div class="form-group">
+                        <select id="raum_alt" class="selectpicker" data-live-search="true">
+                            <option value="1">H1.11</option>
+                        </select>
+                    </div> <!-- /.form-group -->
+                </div> <!-- /.row -->
+
                 <div class="row">
-                    <ul class="altbau liste">
-                        <li>Tisch</li>
-                        <li>Stuhl</li>
+                    <ul class="altbau list-group">
+                        <li class="list-group-item">Tisch</li>
+                        <li class="list-group-item">Stuhl</li>
                     </ul>
                 </div>
             </div>
@@ -60,19 +68,19 @@ if (!$userData->isLoggedIn()) {
                 </div>
 
                 <div class="row">
-                    Trakt/Gebäude:
-                    <select class="trakt">
+                    <label for="trakt_neu">Trakt/Gebäude</label>
+                    <select id="trakt_neu" class="selectpicker">
                         <option value="1">H-Trakt</option>
                     </select>
 
-                    Etage:
-                    <select class="etage">
+                    <label for="etage_neu">Etage</label>
+                    <select id="etage_neu" class="selectpicker">
                         <option value="-2">2. UG</option>
                         <option value="-1">1. UG</option>
                     </select>
 
-                    Raum:
-                    <select class="raum">
+                    <label for="raum_neu">Raum</label>
+                    <select id="raum_neu" class="selectpicker">
                         <option value="1">H1.11</option>
                     </select>
                 </div>
@@ -89,9 +97,9 @@ if (!$userData->isLoggedIn()) {
                         <h3>Lager, Wunschliste, Müll</h3>
                     </div>
                     <div class="row">
-                        <ul class="altbau liste">
-                            <li>Tisch</li>
-                            <li>Stuhl</li>
+                        <ul class="pers list-group">
+                            <li class="list-group-item">Tisch</li>
+                            <li class="list-group-item">Stuhl</li>
                         </ul>
                     </div>
                 </div>
@@ -101,9 +109,9 @@ if (!$userData->isLoggedIn()) {
                         <h3>Öffentliches Lager</h3>
                     </div>
                     <div class="row">
-                        <ul class="altbau liste">
-                            <li>Tisch</li>
-                            <li>Stuhl</li>
+                        <ul class="pers list-group">
+                            <li class="list-group-item">Tisch</li>
+                            <li class="list-group-item">Stuhl</li>
                         </ul>
                     </div>
                 </div>
