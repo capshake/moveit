@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo BASEDIR; ?>admin">moveit [ADM]</a>
+            <a class="navbar-brand" href="<?php echo BASEDIR; ?>admin">MoveIT Adminpanel</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
