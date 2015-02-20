@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Feb 2015 um 00:59
+-- Erstellungszeit: 20. Feb 2015 um 13:00
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -43,18 +43,18 @@ loop_users: LOOP
     IF var_finished = 1 THEN
     	LEAVE loop_users;
     END IF;
-    
+
     -- Lager aller Nutzer zugänglich machen
     INSERT INTO `user_role_room` VALUES (var_user_id, (SELECT room_id FROM rooms WHERE room_name = 'store_all'), 1);
-    
+
     -- Lagerraum anlegen
     INSERT INTO `rooms` VALUES (NULL, CONCAT('store_', var_user_id), NULL, NULL, NULL, NULL, NULL, NULL, 0);
-    
+
     INSERT INTO `user_role_room` VALUES (var_user_id, (SELECT room_id FROM rooms WHERE room_name = CONCAT('store_', var_user_id)), 1);
-    
+
     -- Wunschliste anlegen
     INSERT INTO `rooms` VALUES (NULL, CONCAT('wishlist_', var_user_id), NULL, NULL, NULL, NULL, NULL, NULL, 0);
-    
+
     INSERT INTO `user_role_room` VALUES (var_user_id, (SELECT room_id FROM rooms WHERE room_name = CONCAT('wishlist_', var_user_id)), 1);
 
 	-- Müll anlegen
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `data_import` (
   `BE` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich',
   `BF` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich',
   `BG` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1000000 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1000000 ;
 
 --
 -- Trigger `data_import`
@@ -246,13 +246,33 @@ CREATE TRIGGER `trig_import_items` AFTER INSERT ON `data_import`
 DECLARE i INT DEFAULT 1;
 DECLARE var_item_type INT DEFAULT 1;
 
--- Item-Typ ermitteln
+-- Item-Typ ermitteln (HIER NEUE Item-Typen eintragen!!)
 IF (NEW.AE_Bezeichnung LIKE '%Stuhl%') THEN
 	SET var_item_type = 2;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tisch%') THEN
 	SET var_item_type = 3;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Schrank%') THEN
 	SET var_item_type = 4;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Beamer%') THEN
+	SET var_item_type = 5;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Drehstuhl%') OR (NEW.AE_Bezeichnung LIKE '%Bürostuhl%') THEN
+	SET var_item_type = 6;
+ELSEIF ((NEW.AE_Bezeichnung LIKE '%Bildschirm%') OR (NEW.AE_Bezeichnung LIKE '%TV%')) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
+	SET var_item_type = 7;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Papierkorb%') OR (NEW.AE_Bezeichnung LIKE '%Müll%') THEN
+	SET var_item_type = 8;
+ELSEIF ((NEW.AE_Bezeichnung LIKE '%Tageslichtprojektor%') OR (NEW.AE_Bezeichnung LIKE '%OHP%') ) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
+	SET var_item_type = 9;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Rollcontainer%') THEN
+	SET var_item_type = 10;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Tafel%') THEN
+	SET var_item_type = 11;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Telefon%') THEN
+	SET var_item_type = 12;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Wanne%') THEN
+	SET var_item_type = 13;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Tresor%') THEN
+	SET var_item_type = 14;
 END IF;
 
 -- Fachbereich einfügen
@@ -296,14 +316,35 @@ CREATE TRIGGER `trig_import_items_update` AFTER UPDATE ON `data_import`
 DECLARE i INT DEFAULT 1;
 DECLARE var_item_type INT DEFAULT 1;
 
--- Item-Typ ermitteln
+-- Item-Typ ermitteln (HIER NEUE Item-Typen eintragen!!)
 IF (NEW.AE_Bezeichnung LIKE '%Stuhl%') THEN
 	SET var_item_type = 2;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tisch%') THEN
 	SET var_item_type = 3;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Schrank%') THEN
 	SET var_item_type = 4;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Beamer%') THEN
+	SET var_item_type = 5;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Drehstuhl%') OR (NEW.AE_Bezeichnung LIKE '%Bürostuhl%') THEN
+	SET var_item_type = 6;
+ELSEIF ((NEW.AE_Bezeichnung LIKE '%Bildschirm%') OR (NEW.AE_Bezeichnung LIKE '%TV%')) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
+	SET var_item_type = 7;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Papierkorb%') OR (NEW.AE_Bezeichnung LIKE '%Müll%') THEN
+	SET var_item_type = 8;
+ELSEIF ((NEW.AE_Bezeichnung LIKE '%Tageslichtprojektor%') OR (NEW.AE_Bezeichnung LIKE '%OHP%') ) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
+	SET var_item_type = 9;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Rollcontainer%') THEN
+	SET var_item_type = 10;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Tafel%') THEN
+	SET var_item_type = 11;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Telefon%') THEN
+	SET var_item_type = 12;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Wanne%') THEN
+	SET var_item_type = 13;
+ELSEIF (NEW.AE_Bezeichnung LIKE '%Tresor%') THEN
+	SET var_item_type = 14;
 END IF;
+
 
 -- Item n-mal einfügen
 WHILE (i <= (NEW.`AD_Anzahl` - (SELECT AD_Anzahl FROM data_import WHERE B__Index = NEW.B__Index))) DO
@@ -437,10 +478,10 @@ CREATE TRIGGER `trig_delete_item` BEFORE DELETE ON `items`
 UPDATE data_export
 SET `AJ_Volumen in cbm` = `AJ_Volumen in cbm` - `AJ_Volumen in cbm`/`AD_Anzahl`, AD_Anzahl = AD_Anzahl - 1
 WHERE OLD.item_import_id = `B__Index`
-  AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich` 
+  AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich`
     AND OLD.item_description = `AE_Bezeichnung`
     AND OLD.item_state <=> `AR_Zustand`;
-        
+
     -- Prüfen, ob der alte Datensatz noch Items enthält (Anzahl > 0)
 IF EXISTS(SELECT * FROM data_export WHERE `AD_Anzahl` < 1) THEN
     DELETE FROM data_export WHERE `AD_Anzahl` < 1;
@@ -464,12 +505,12 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
     UPDATE data_export
     SET `AJ_Volumen in cbm` = `AJ_volumen in cbm` - var_vol_cbm, AD_Anzahl = AD_Anzahl - 1
     WHERE NEW.item_import_id = `B__Index`
-      AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich` 
+      AND (SELECT department_name FROM departments WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich`
         AND OLD.item_description = `AE_Bezeichnung`
-        AND (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `J__Raum-Nr. Bestand` 
+        AND (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `J__Raum-Nr. Bestand`
         OR (SELECT room_name FROM rooms WHERE room_id = OLD.item_room_id) = `Q__Raum-Nr. neu (Raum-ID)`
         AND OLD.item_state <=> `AR_Zustand`;
-        
+
     -- Prüfen, ob der alte Datensatz noch Items enthält (Anzahl > 0)
     IF EXISTS(SELECT * FROM data_export WHERE `AD_Anzahl` < 1) THEN
       DELETE FROM data_export WHERE `AD_Anzahl` < 1;
@@ -477,15 +518,15 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
 
   -- Zu neuem Datensatz hinzufügen bzw. bei altem Datensatz Anzahl erhöhen
   IF NOT EXISTS(
-        SELECT B__Index 
-        FROM data_export 
-        WHERE B__Index = NEW.item_import_id 
+        SELECT B__Index
+        FROM data_export
+        WHERE B__Index = NEW.item_import_id
           AND `D__Dezernat\/Fachbereich` = (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id)
           AND `AE_Bezeichnung` = NEW.item_description
           AND `AR_Zustand` = NEW.item_state
           AND `J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
     ) THEN
-      
+
         INSERT INTO data_export VALUES (
           (SELECT `A__Zähler` FROM data_import WHERE NEW.item_import_id = B__Index),
         NEW.item_import_id,
@@ -547,8 +588,8 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
           (SELECT `BF` FROM data_import WHERE NEW.item_import_id = B__Index),
           (SELECT `BG` FROM data_import WHERE NEW.item_import_id = B__Index)
       );
-        
-    ELSE 
+
+    ELSE
       UPDATE data_export
       SET `AJ_Volumen in cbm` = `AJ_volumen in cbm` + var_vol_cbm,`AD_Anzahl` = `AD_Anzahl` + 1
       WHERE `B__Index` = NEW.item_import_id
@@ -557,7 +598,7 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
             AND `AR_Zustand` = NEW.item_state
             AND `J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id);
     END IF;
-    
+
 END IF;
 
 END
@@ -572,18 +613,29 @@ DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS `item_types` (
 `item_type_id` int(2) NOT NULL,
-  `item_type_name` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `item_type_name` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `item_type_picture` varchar(64) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Daten für Tabelle `item_types`
 --
 
-INSERT INTO `item_types` (`item_type_id`, `item_type_name`) VALUES
-(1, 'Sonstige'),
-(2, 'Stuhl'),
-(3, 'Tisch'),
-(4, 'Schrank');
+INSERT INTO `item_types` (`item_type_id`, `item_type_name`, `item_type_picture`) VALUES
+(1, 'Sonstige', 'img/item-types/sonstige.svg'),
+(2, 'Stuhl', 'img/item-types/stuhl.svg'),
+(3, 'Tisch', 'img/item-types/tisch.svg'),
+(4, 'Schrank', 'img/item-types/schrank.svg'),
+(5, 'Beamer', 'img/item-types/beamer.svg'),
+(6, 'Drehstuhl', 'img/item-types/drehstuhl.svg'),
+(7, 'Bildschirm', 'img/item-types/bildschirm.svg'),
+(8, 'Mülleimer', 'img/item-types/muell.svg'),
+(9, 'OHP', 'img/item-types/ohp.svg'),
+(10, 'Rollcontainer', '/img/item-types/rollcontainer.svg'),
+(11, 'Tafel', 'img/item-types/tafel.svg'),
+(12, 'Telefon', 'img/item-types/telefon.svg'),
+(13, 'Wanne', 'img/item-types/wanne.svg'),
+(14, 'Tresor', 'img/item-types/tresor.svg');
 
 -- --------------------------------------------------------
 
@@ -665,8 +717,8 @@ CREATE TRIGGER `trig_delete_user` BEFORE DELETE ON `users`
 DECLARE var_finished INT DEFAULT 0;
 DECLARE var_item_id INT;
 DECLARE item_cursor CURSOR FOR SELECT item_id FROM `items` WHERE `item_room_id` IN (
-    SELECT `room_id` 
-    FROM `rooms` 
+    SELECT `room_id`
+    FROM `rooms`
     WHERE `room_name` = CONCAT('store_', OLD.user_id)
     OR `room_name` = CONCAT('trash_', OLD.user_id)
     OR `room_name` = CONCAT('wishlist_', OLD.user_id)
@@ -681,7 +733,7 @@ loop_items: LOOP
     IF var_finished = 1 THEN
     	LEAVE loop_items;
     END IF;
-    
+
     UPDATE `items`
     SET `item_room_id` = `item_origin_room`
     WHERE `item_id` = var_item_id;
@@ -694,13 +746,13 @@ WHERE `role_room_user_id` = OLD.`user_id`
 AND `role_room_room_id` IN (
     SELECT `room_id`
     FROM `rooms`
-    WHERE `room_name` = CONCAT('store_', OLD.`user_id`) 
+    WHERE `room_name` = CONCAT('store_', OLD.`user_id`)
 	OR `room_name` = CONCAT('trash_', OLD.`user_id`)
 	OR `room_name` = CONCAT('wishlist_', OLD.`user_id`)
     OR `room_name` = 'store_all');
 
-DELETE FROM `rooms` 
-WHERE `room_name` = CONCAT('store_', OLD.`user_id`) 
+DELETE FROM `rooms`
+WHERE `room_name` = CONCAT('store_', OLD.`user_id`)
 OR `room_name` = CONCAT('trash_', OLD.`user_id`)
 OR `room_name` = CONCAT('wishlist_', OLD.`user_id`);
 
@@ -843,7 +895,7 @@ MODIFY `item_id` int(32) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `item_types`
 --
 ALTER TABLE `item_types`
-MODIFY `item_type_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `item_type_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `maps`
 --
