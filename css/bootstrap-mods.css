@@ -5,3 +5,13 @@
 .neubau .bootstrap-select {
     width: auto !important;
 }
+
+#pwforgot,
+#register{
+	color: #222 !important;
+}
+#loginbutton{
+	background-color: #222;
+	border-color: #222 !important;
+	color: white !important;
+}

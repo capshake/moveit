@@ -18,10 +18,7 @@
         <!-- Bootstrap core CSS -->
         <link href="<?php echo BASEDIR; ?>css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="<?php echo BASEDIR; ?>css/jqueryui.css" rel="stylesheet">
-
-        <!-- Bootstrap-Select -->
-        <link rel="stylesheet" type="text/css" href="<?php echo BASEDIR; ?>css/bootstrap-select.min.css">
+        <link href="<?php echo BASEDIR; ?>css/jquery-ui.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="<?php echo BASEDIR; ?>css/moveit.css" rel="stylesheet">

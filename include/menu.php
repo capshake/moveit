@@ -7,11 +7,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo BASEDIR . '">' . $headerTitle; ?></a>
+            <a href="<?php echo BASEDIR; ?>"><img alt="logo2" src="./img/logo.gif"></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?php echo BASEDIR; ?>">Home</a></li>
+                <li><a href="<?php echo BASEDIR; ?>hilfe" target="_blank">Hilfe</a></li>
+                <li><a href="<?php echo BASEDIR; ?>impressum" target="_blank">Impressum</a></li>
             </ul>
             <?php
             if ($userData->isloggedIn()) {
@@ -24,12 +25,12 @@
                             <li><a href="<?php echo BASEDIR . 'settings'; ?>">Profil bearbeiten</a></li>
                             <?php
                             if ($userData->isAdmin()) {
-                                echo '<li><a href="' . BASEDIR . 'admin">Administration</a></li>';
+                                echo '<li><a href="' . BASEDIR . 'admin" target="_blank">Administration</a></li>';
                             }
                             ?>
                         </ul>
                     </li>
-                    <li><a class="logout" href="#">logout</a></li>
+                    <li><a class="logout" href="#">Logout</a></li>
                 </ul>
             <?php } ?>
         </div><!--/.nav-collapse -->

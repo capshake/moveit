@@ -2,7 +2,8 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">&copy; moveIT</p>
+        <p class="text-muted">&copy; moveIT <img alt="fhd" src="<?php echo BASEDIR?>img/logo_fhd.png" class="col-md-offset-10"></p>
+
       </div>
     </footer>
     <!-- Bootstrap core JavaScript
@@ -31,5 +32,6 @@
 
         $('.selectpicker').selectpicker();
     </script>
+
   </body>
 </html>
