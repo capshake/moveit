@@ -46,23 +46,28 @@ RewriteRule ^forgotPassword$ pages/main/forgotPassword.php [L]
 
 
 ### USERS
-RewriteRule ^user/([0-9]+)$ pages/user/user.php?id=$1 [L] 
-RewriteRule ^settings$ pages/user/settings.php [L] 
+RewriteRule ^user/([0-9]+)$ pages/user/user.php?id=$1 [L]
+RewriteRule ^settings$ pages/user/settings.php [L]
 
 
 ### LOGIN/LOGOUT
-RewriteRule ^checkLogin$ include/checkLogin.php [L] 
-RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L] 
+RewriteRule ^checkLogin$ include/checkLogin.php [L]
+RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
 
 
 
 ### API
-RewriteRule ^api/getRoom/([0-9]+)$ include/ajax/getRooms.php?room_id=$1 [L]
-RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
-RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
-RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]
-RewriteRule ^api/getRooms/roomNotInMap/([0-9]+)$ include/ajax/getRooms.php?room_not_in_map=$1 [L]
-RewriteRule ^api/getRooms/notMap/([0-9]+)$ include/ajax/getRooms.php?not_map_id=$1 [L]
+    ### ROOMS
+    RewriteRule ^api/getRoom/([0-9]+)$ include/ajax/getRooms.php?room_id=$1 [L]
+    RewriteRule ^api/getRooms$ include/ajax/getRooms.php?all [L]
+    RewriteRule ^api/getRooms/building/([0-9]+)$ include/ajax/getRooms.php?building_id=$1 [L]
+    RewriteRule ^api/getRooms/map/([0-9]+)$ include/ajax/getRooms.php?map_id=$1 [L]
+    RewriteRule ^api/getRooms/roomNotInMap/([0-9]+)$ include/ajax/getRooms.php?room_not_in_map=$1 [L]
+    RewriteRule ^api/getRooms/notMap/([0-9]+)$ include/ajax/getRooms.php?not_map_id=$1 [L]
 
+    ### ITEMS
+    RewriteRule ^api/getItems/room/([0-9]+)$ include/ajax/getItems.php?room_id=$1 [L]
+    RewriteRule ^api/getItem/([0-9]+)$ include/ajax/getItems.php?item_id=$1 [L]
 
-RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]
+    ### BUILDINGS
+    RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]

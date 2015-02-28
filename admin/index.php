@@ -2,7 +2,7 @@
 include_once '../include/config.php';
 
 if ($userData->isLoggedIn() && $userData->isAdmin()) {
-    $headerTitle = 'Adminpanel';
+    $headerTitle = 'moveIT Adminpanel';
 
     include_once '../include/header.php';
     include_once 'include/menu.php';
