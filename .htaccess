@@ -71,3 +71,7 @@ RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
 
     ### BUILDINGS
     RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]
+    RewriteRule ^api/getBuildings/type/([0-9]+)$ include/ajax/getBuildings.php?building_type=$1 [L]
+
+    ### FLOORS
+    RewriteRule ^api/getFloors/building/([0-9]+)$ include/ajax/getFloors.php?building_id=$1 [L]
