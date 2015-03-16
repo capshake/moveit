@@ -36,7 +36,12 @@ if (!$userData->isLoggedIn()) {
                     $db->bind("id", $userData->getUserId());
                     $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
                     ?>
-					
+
+
+                    <div class="form-group">
+                        <label for="user_name">Benutzername</label>
+                        <input id="user_name" name="user_name" value="<?php echo $user['user_name']; ?>" class="first form-control" placeholder="Benutzername" type="text" required autofocus>
+                    </div>
                     <div class="form-group">
                         <label for="user_firstname">Vorname</label>
                         <input id="user_firstname" name="user_firstname" value="<?php echo $user['user_firstname']; ?>" class="first form-control" placeholder="Vorname" type="text" required autofocus>
@@ -47,7 +52,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <div class="form-group">
                         <label for="user_email">Email</label>
-                        <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="email" required autofocus>
+                        <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="text" required autofocus>
                     </div>
 
                     <button class="btn btn-primary btn-block" type="submit" name="edit">speichern</button>
