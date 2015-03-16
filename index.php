@@ -18,7 +18,7 @@ if (!$userData->isLoggedIn()) {
             <div class="row" id="Ueberschriften">
                 <h4>Altbau</h4>
                 <button type="button" id="GrundrissAltbau"data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-
+<!--
                 <div id="dialog-GrundrissAltbau" title="Altbau-Grundriss">
 
                     <div id= "MapText">
@@ -52,7 +52,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <div id="Map">
                         mapmap
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!--Dropdown Menue fuer den Altbau-->
