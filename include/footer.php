@@ -17,8 +17,8 @@
     <script src="<?php echo BASEDIR; ?>js/bootbox.min.js"></script>
     <script src="<?php echo BASEDIR; ?>js/jqueryui.js"></script>
     <script src="<?php echo BASEDIR; ?>js/context-menu.js"></script>
-    <script src="<?php echo BASEDIR; ?>js/select.js"></script>
     <script src="<?php echo BASEDIR; ?>js/moveit.js"></script>
+    <script src="<?php echo BASEDIR; ?>js/select.js"></script>
     
     <?php
     if (isset($javascript)) {

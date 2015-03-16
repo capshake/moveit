@@ -103,10 +103,9 @@ $(document).ready(function () {
     var allFields2 = $([]).add(bezeichnung2).add(anzahl2).add(länge2).add(breite2);
 
     var listenButtongeklickt,
-            wirklichHinzugefügt;
+        wirklichHinzugefügt;
 
-    $("#Wunschhinzufügen").button({
-    });
+    $("#Wunschhinzufügen").button({});
 
     //Wunsch Button
     $("#Wunschhinzufügen").click(function () {
@@ -123,32 +122,32 @@ $(document).ready(function () {
                 addItem();
                 if (wirklichHinzugefügt == true) {
                     $("<button></button>")
-                            .attr('id', 'Itembearbeiten')
-                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                            .button({
-                                icons: {
-                                    primary: "ui-icon-gear"
-                                },
-                                text: false
-                            })
-                            .on("click", function () {
-                                listenButtongeklickt = this;
-                                dialogBearbeiten.dialog("open");
-                            });
+                        .attr('id', 'Itembearbeiten')
+                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                        .button({
+                            icons: {
+                                primary: "ui-icon-gear"
+                            },
+                            text: false
+                        })
+                        .on("click", function () {
+                            listenButtongeklickt = this;
+                            dialogBearbeiten.dialog("open");
+                        });
 
                     $("<button></button>")
-                            .attr('id', 'Itemlöschen')
-                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                            .button({
-                                icons: {
-                                    primary: "ui-icon-trash"
-                                },
-                                text: false
-                            })
-                            .on("click", function () {
-                                listenButtongeklickt = this;
-                                dialogLoeschen.dialog("open");
-                            });
+                        .attr('id', 'Itemlöschen')
+                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                        .button({
+                            icons: {
+                                primary: "ui-icon-trash"
+                            },
+                            text: false
+                        })
+                        .on("click", function () {
+                            listenButtongeklickt = this;
+                            dialogLoeschen.dialog("open");
+                        });
                 }
             },
             Abbrechen: function () {
@@ -168,12 +167,12 @@ $(document).ready(function () {
         var _valid = valid(bezeichnung, anzahl, länge, breite);
         if (_valid) {
             $("#wunschtabelle tbody").append("<tr id=" + bezeichnung.val() + ">" +
-                    "<td>" + "</td>" +
-                    "<td>" + bezeichnung.val() + "</td>" +
-                    "<td>" + anzahl.val() + "</td>" +
-                    "<td>" + länge.val() + "</td>" +
-                    "<td>" + breite.val() + "</td>" +
-                    "</tr>");
+                "<td>" + "</td>" +
+                "<td>" + bezeichnung.val() + "</td>" +
+                "<td>" + anzahl.val() + "</td>" +
+                "<td>" + länge.val() + "</td>" +
+                "<td>" + breite.val() + "</td>" +
+                "</tr>");
             dialog.dialog("close");
             updateTips("");
         }
@@ -391,7 +390,7 @@ $(document).ready(function () {
     //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
     function dragAndDrop() {
         $('.moveitplaner').each(function () {
-            $(this).draggable({//alle Elemente mit class='moveitplaner' draggable machen;
+            $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
                 scroll: false,
                 containment: "#MapsLagerListen", // Seitenbereich, innerhalb dessen das Icon überhaupt bewegt werden darf
                 //revert: 'invalid',
@@ -424,8 +423,7 @@ $(document).ready(function () {
                 }
             });
         });
-    }
-    ;
+    };
 
 
     $('#AltbauListe').droppable({
@@ -456,8 +454,7 @@ $(document).ready(function () {
         }
 
         $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-    }
-    ;
+    };
 
     //Zollstock
     //bin noch dran - ist nicht fertig - Isa :)
@@ -491,44 +488,49 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Lade Items zum ersten mal
     getItems(roomId);
 
 
 });
 
 
-
-function getItems(roomId){
+//Items aus dem Altbau laden
+function getItems(roomId) {
     if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
 
         // Lade Raum
+
+        // Lade Items des Raums in Auswahlliste
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getItems/room/' + roomId,
+            dataType: 'json',
+            success: function (data) {
+                var itemsHTML = '';
+
+                if (data.items.length > 0) {
+                    $.each(data.items, function (key, value) {
+                        itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
+                    });
+                    $('#AltbauListe').html(itemsHTML);
+                    $('#AltbauListe').css({
+                        'height': 200,
+                        'overflow': 'auto'
+                    });
+                } else {
+                    $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
+                }
+            }
+        });
+    } else {
+        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    }
+}
+
+// Lade Raum
+function getRoom(roomId) {
+    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
         $.ajax({
             type: 'POST',
             url: BASEURL + 'api/getRoom/' + roomId,
@@ -536,34 +538,9 @@ function getItems(roomId){
             success: function (room) {
 
 
-
-                // Lade Items des Raums in Auswahlliste
-                $.ajax({
-                    type: 'POST',
-                    url: BASEURL + 'api/getItems/room/' + roomId,
-                    dataType: 'json',
-                    success: function (data) {
-                        var itemsHTML = '';
-
-                        if (data.items.length > 0) {
-                            $.each(data.items, function (key, value) {
-                                itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
-                            });
-                            $('#AltbauListe').html(itemsHTML);
-                            $('#AltbauListe').css({
-                                'height': 200,
-                                'overflow': 'auto'
-                            });
-                        } else {
-                            $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
-                        }
-                    }
-                });
-
             }
         });
-    }
-    else{
-        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    } else {
+
     }
 }
