@@ -16,12 +16,14 @@ $(document).ready(function($) {
     $("#AltbauTrakt").selectmenu({
         change: function(event, ui) {
             changed('AltbauTrakt', 'AltbauEtage');
+            getItems(undefined);
         }
     });
 
     $("#AltbauEtage").selectmenu({
         change: function(event, ui) {
             changed('AltbauEtage', 'AltbauRaum');
+            getItems(undefined);
         }
     });
 

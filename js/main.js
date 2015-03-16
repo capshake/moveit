@@ -1,5 +1,3 @@
-var roomId; // globale Variable für den ausgwählten Raum
-
 function getItems(roomId){
     if (typeof roomId != 'undefined' && roomId != '') {
 
@@ -38,10 +36,13 @@ function getItems(roomId){
             }
         });
     }
+    else{
+        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    }
 }
 
 
 
 $(document).ready(function () {
-    roomId = 110;
+    getItems(undefined);
 });
