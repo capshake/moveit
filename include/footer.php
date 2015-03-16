@@ -2,7 +2,8 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">&copy; moveIT <img alt="fhd" src="<?php echo BASEDIR?>img/logo_fhd.png" class="col-md-offset-10"></p>
+          <div class="pull-left text-muted">&copy; moveIT</div>
+         <div class="pull-right"><img style="width: 92px;margin-top: 10px;" src="<?php echo BASEDIR?>img/logo_fhd.png"></div>
 
       </div>
     </footer>
@@ -28,8 +29,6 @@
         var mainSettings = {
             'csrfToken': '<?php echo $userData->getToken(); ?>'
         }
-
-        $('.selectpicker').selectpicker();
     </script>
 
   </body>

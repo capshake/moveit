@@ -16,6 +16,7 @@ if (!$userData->isLoggedIn()) {
                 <h1>Benutzereinstellungen</h1>
             </div>
         </div>
+               <div class="row">
                 <form method="POST" action="<?php echo BASEDIR; ?>settings" role="form">
 
                     <?php
@@ -80,9 +81,7 @@ if (!$userData->isLoggedIn()) {
                 </div>
                 </form>
             </div>
-        </div>
-
-    </div><!-- /.container -->
+</div>
 
     <?php
     include_once '../../include/footer.php';
