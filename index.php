@@ -17,14 +17,7 @@ if (!$userData->isLoggedIn()) {
         <div id="Altbau" class="col-md-2">
             <div class="row" id="Ueberschriften">
                 <h4>Altbau</h4>
-                <button type="button" id="GrundrissAltbau"data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-
-                <div id="dialog-GrundrissAltbau" title="Altbau-Grundriss">
-
-                    <div id= "MapText">
-                        <p>Hier finden Sie eine Übersicht über die AltbauMap.
-                        Sie haben die Möglichkeit Räume auszuwählen, indem Sie über die Map navigieren.</p>
-                    </div>
+                
                     <div id= "AltbauAuswahlMap" class="row">
                         <fieldset>
                             <div id = "AltTraktMap" class="col-md-1">
@@ -49,9 +42,6 @@ if (!$userData->isLoggedIn()) {
                                 </select>
                             </div>
                         </fieldset>
-                    </div>
-                    <div id="Map">
-                        mapmap
                     </div>
                 </div>
             </div>
