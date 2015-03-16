@@ -17,6 +17,9 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
         <?php
         if (isset($_GET['remove'])) {
+            
+            
+            
             ?>
             <div class="row">
                 <div class="col-md-12">

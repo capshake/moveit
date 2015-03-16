@@ -90,9 +90,8 @@ class importExport extends Token {
                 }
             }
             fclose($file);
-            return true;
         }
-        return json_encode($return);
+        return $row;
     }
 
     /**
@@ -200,12 +199,18 @@ class importExport extends Token {
      * @return type
      */
     public function import() {
+        $import = $this->importDB();
+        
+        
         $return = array("status" => "", "msg" => "");
-        if ($this->importDB()) {
-            return true;
+        if ($import > 0) {
+            $return['status'] = 'success';
+            $return['rows'] = $import;
         } else {
-            return false;
+            $return['status'] = 'error';
+            $return['rows'] = $import;
         }
+        return json_encode($return);
     }
 
     /**
@@ -262,9 +267,11 @@ class importExport extends Token {
                     $return['status'] = 'success';
                     $return['msg'] = 'CSV erfolgreich hochgeladen';
 
-                    if ($this->import()) {
+                    $import = json_decode($this->import());
+                    
+                    if ($import->status == 'success') {
                         $return['status'] = 'success';
-                        $return['msg'] = 'CSV erfolgreich hochgeladen und importiert';
+                        $return['msg'] = 'Es wurden erfolgreich '.$import->rows.' Zeilen importiert';
                     } else {
                         $return['status'] = 'error';
                         $return['msg'] = 'Es ist ein Fehler aufgetreten';
