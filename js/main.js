@@ -1,14 +1,6 @@
 var roomId; // globale Variable für den ausgwählten Raum
 
-$(document).ready(function () {
-
-    roomId = 5;
-
-
-
-
-
-
+function getItems(roomId){
     if (typeof roomId != 'undefined' && roomId != '') {
 
         // Lade Raum
@@ -38,15 +30,18 @@ $(document).ready(function () {
                                 'overflow': 'auto'
                             });
                         } else {
-                            $('#AltbauListe').html('<div class="alert alert-info">Es gibt momentan keine Räume welche verteilt werden können.</div>');
+                            $('#AltbauListe').html('<div class="alert alert-info">Es gibt in diesem Raum keine Items welche verteilt werden können.</div>');
                         }
                     }
                 });
 
             }
         });
-
     }
+}
 
 
+
+$(document).ready(function () {
+    roomId = 110;
 });

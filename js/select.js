@@ -25,12 +25,22 @@ $(document).ready(function($) {
         }
     });
 
+    $("#AltbauRaum").selectmenu({
+        change: function(event, ui) {
+            getItems($('#AltbauRaum').val());
+        }
+    });
+
     $('#AltbauTrakt').change(function(e) {
         changed('AltbauTrakt', 'AltbauEtage');
     });
 
     $('#AltbauEtage').change(function(e){
         changed('AltbauEtage', 'AltbauRaum');
+    });
+
+    $('#AltbauRaum').change(function(e){
+        getItems($('#AltbauRaum').val());
     });
 
     function changed(list_select_id, list_target_id){
@@ -83,16 +93,13 @@ $(document).ready(function($) {
             if(selectvalue == ""){
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
                 $('#AltbauRaum').selectmenu("refresh");
-                console.log("Etage nicht ausgefüllt");
             }
             else{
-                console.log("Etage ausgefüllt");
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
 
                 //Make AJAX request, using the selected value as the GET
                 $.ajax({url: 'http://localhost/moveit/api/getRooms/map/'+selectvalue,
                     success: function(output) {
-                        console.log("AJAX");
                         var rooms = output.rooms;
                         $('#'+list_target_id).html('<option value="">R&auml;ume</option>');
                         for(var i = 0; i < rooms.length; i++){
