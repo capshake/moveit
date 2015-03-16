@@ -601,4 +601,7 @@ div#Benutzeransicht table td, div#Benutzeransicht table th {
         width: 90px;
     }
 
+.container{
+  width: 90%;
+}
 
