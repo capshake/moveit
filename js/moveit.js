@@ -39,10 +39,6 @@ $(document).ready(function () {
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
 
-    $("#AltbauTraktMap").selectmenu();
-    $("#AltbauEtageMap").selectmenu();
-    $("#AltbauRaumMap").selectmenu();
-
     $("#NeubauTraktMap").selectmenu();
     $("#NeubauEtageMap").selectmenu();
     $("#NeubauRaumMap").selectmenu();
