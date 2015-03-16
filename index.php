@@ -86,7 +86,7 @@ if (!$userData->isLoggedIn()) {
 
             <!--AltbauListe-->
             <div class="row">
-                <h5 class="altlist">Raumliste</h5>
+                <h5 class="altlist">In diesem Raum befinden sich:</h5>
                 <ul id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum.">
                     <li class="ui-state-default" data-type="tisch" data-count="4">Tisch <span id="tischAnzahl">4</span>x</li>
                     <li class="ui-state-default" data-type="stuhl" data-count="20">Stuhl 20x</li>
@@ -94,7 +94,6 @@ if (!$userData->isLoggedIn()) {
                     <li class="ui-state-default" data-type="tafel" data-count="1">Whiteboard <span>1</span>x</li>
                     <li class="ui-state-default" data-type="drehstuhl" data-count="1">Drehstuhl 1x</li>
                 </ul>
-                <label id="Zielraum">Zielraum: <link > </label>
             </div>
         </div>
         <div id="Neubau" class="col-md-7">
