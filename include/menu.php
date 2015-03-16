@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="<?php echo BASEDIR; ?>"><img alt="logo2" src="./img/logo.gif"></a>
+            <a href="<?php echo BASEDIR; ?>"><img alt="logo2" src="<?php echo BASEDIR; ?>img/logo.gif"></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">

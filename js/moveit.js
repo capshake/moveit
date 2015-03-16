@@ -10,7 +10,6 @@ $(document).ready(function () {
     //Popup vor dem Löschvorgang
     $('body').on('click', '.delete-button', function () {
         var el = $(this);
-        
         bootbox.confirm("Sind Sie sich sicher?", function (result) {
             if(result) {
                 location.href = el.attr('href');
@@ -19,10 +18,17 @@ $(document).ready(function () {
         return false;
     });
 
-    
+
     $("#ObereLeiste").tabs({
         heightStyle: "fill"
     });
+
+    $(function() {
+          $("#akkordeon").accordion({
+            active: 0, //erster Tab ist offen
+            collapsible: true
+          });
+          });
 
     // Selectmenue
     $("#AltbauTrakt").selectmenu();

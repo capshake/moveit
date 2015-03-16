@@ -14,7 +14,8 @@ if (!$userData->isLoggedIn()) {
 <div class="container">
         
 	<div class="row">	
-          <div class="well col-md-4 col-md-offset-1"> 
+          <div class="col-md-4 col-md-offset-1"> 
+          	<div class="well">
           <h4> Impressum </h4>
 		<h5>Fachhochschule Düsseldorf - University of Applied Science</h5>
 		<p>Universitätsstraße Geb. 23.31/32 <br>
@@ -41,7 +42,9 @@ DE-119432315</p>
 <h5>Redaktion, Gestaltung und technologische Betreuung:</h5>
 <p>Für die Betreuung des Internetangebotes der Fachbereiche und Einrichtungen der FH Düsseldorf<br> liegt die Verantwortung in den jeweiligen Fachbereichen und Einrichtungen. </p>
 </div>
-<div class="well col-md-6 col-md-offset-0.5"> 
+</div>
+<div class="col-md-6">
+	<div class="well">
 <h4>Datenschutzerklärung</h4> <br>
 <br>
 <h4>Sinn und Zweck des Web-Angebots MoveIt</h4>
@@ -55,6 +58,7 @@ in den neuen Räumen zu bekommen sowie 2. eine Auswahl zu treffen, welche Möbel
 <br>
 <h4>Löschen Ihrer Daten</h4>
 <p>Falls Sie das Angebot des moveIT-Umzugsplaners nicht länger nutzen wollen und darüber hinaus wünschen, dass Ihre Daten gelöscht werden, wenden Sie sich mit diesem Wunsch an den Admin (<a href="mailto:admin@moveit.de">admin@moveit.de</a>).</p>
+</div>
 </div>
 </div>
 

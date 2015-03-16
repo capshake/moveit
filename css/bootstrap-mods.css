@@ -10,8 +10,11 @@
 #register{
 	color: #222 !important;
 }
-#loginbutton{
+
+[type="submit"],
+[type="submit"]:hover{
 	background-color: #222;
 	border-color: #222 !important;
 	color: white !important;
 }
+

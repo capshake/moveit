@@ -44,6 +44,7 @@ RewriteRule ^login$ pages/main/login.php [L]
 RewriteRule ^register$ pages/main/register.php [L]
 RewriteRule ^forgotPassword$ pages/main/forgotPassword.php [L]
 RewriteRule ^impressum$ pages/main/impressum.php [L]
+RewriteRule ^hilfe$ pages/main/hilfe.php [L]
 
 
 ### USERS

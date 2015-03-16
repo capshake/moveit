@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo BASEDIR . 'admin">' . $headerTitle . ' Adminpanel'; ?></a>
+            <a href="<?php echo BASEDIR; ?>admin"><img alt="logo2" src="<?php echo BASEDIR; ?>img/logo.gif"></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -16,6 +16,7 @@
                 <li><a href="<?php echo BASEDIR; ?>admin/mapEditor">Map Editor</a></li>
                 <li><a href="<?php echo BASEDIR; ?>admin/buildings">Gebäude</a></li>
                 <li><a href="<?php echo BASEDIR; ?>admin/importExport">Import/Export</a></li>
+                <li><a href="<?php echo BASEDIR; ?>">Zurück zur Raumbearbeitung</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
