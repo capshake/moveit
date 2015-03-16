@@ -16,33 +16,8 @@ if (!$userData->isLoggedIn()) {
        <div id="MapsLagerListen" class="row">
         <div id="Altbau" class="col-md-2">
             <div class="row" id="Ueberschriften">
-                <h4>Altbau</h4>
-                
-                    <div id= "AltbauAuswahlMap" class="row">
-                        <fieldset>
-                            <div id = "AltTraktMap" class="col-md-1">
-                                <select name="AltbauTraktMap"  id="AltbauTraktMap">
-                                    <option value="EOG">Trakt1</option>
-                                    <option value="1OG">Trakt2</option>
-                                    <option value="2OG">Trakt3</option>
-                                </select>
-                            </div>
-                            <div id = "AltEtageMap" class="col-md-4">
-                                <select name="AltbauEtageMap" id="AltbauEtageMap">
-                                    <option value="EOG">Erdgeschoss</option>
-                                    <option value="1OG">Erstes Stockwerk</option>
-                                    <option value="2OG">Zweites Stockwerk</option>
-                                </select>
-                            </div>
-                            <div id = "AltRaumMap" class="col-md-1">
-                                <select name="AltbauRaumMap" id="AltbauRaumMap">
-                                    <option value="EOG">Raum1</option>
-                                    <option value="1OG">Raum2</option>
-                                    <option value="2OG">Raum3</option>
-                                </select>
-                            </div>
-                        </fieldset>
-                    </div>
+                <h4>Altbau</h4>                
+                    
                 </div>
             </div>
             <!--Dropdown Menue fuer den Altbau-->
