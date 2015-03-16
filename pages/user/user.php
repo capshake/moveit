@@ -16,8 +16,8 @@ if (!$userData->isLoggedIn()) {
     <?php
     if ($user['user_id']) {
         ?>
-            <h1><?php echo $user['user_name']; ?></h1>
-            <p class="lead"><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></p>
+            <h1><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></h1>
+            <p class="lead"><?php echo $user['user_email']; ?></p>
         <?php
     } else {
         ?>

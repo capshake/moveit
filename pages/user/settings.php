@@ -40,10 +40,7 @@ if (!$userData->isLoggedIn()) {
                     <div class="row">   
                     <div class="well col-md-4 col-md-offset-2"> 
 
-                    <div class="form-group">
-                        <label for="user_name">Benutzername</label>
-                        <input id="user_name" name="user_name" value="<?php echo $user['user_name']; ?>" class="first form-control" placeholder="Benutzername" type="text" required autofocus>
-                    </div>
+
                     <div class="form-group">
                         <label for="user_firstname">Vorname</label>
                         <input id="user_firstname" name="user_firstname" value="<?php echo $user['user_firstname']; ?>" class="first form-control" placeholder="Vorname" type="text" required autofocus>

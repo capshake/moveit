@@ -67,10 +67,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                             <div class="form-group">
-                                <label for="user_name">Benutzername</label>
-                                <input id="user_name" name="user_name" value="<?php echo $user['user_name']; ?>" class="form-control" placeholder="Benutzername" type="text" required autofocus>
-                            </div>
-                            <div class="form-group">
                                 <label for="user_firstname">Vorname</label>
                                 <input id="user_firstname" name="user_firstname" value="<?php echo $user['user_firstname']; ?>" class="form-control" placeholder="Vorname" type="text" required autofocus>
                             </div>
@@ -246,16 +242,16 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         } else if (isset($_GET['create'])) {
             ?>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4 col-md-offset-4">
                     <h1>Benutzer erstellen</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4 col-md-offset-4">
+                   <div class="well">
                     <form method="POST" action="<?php echo BASEDIR; ?>admin/users/create" role="form">
 
                         <?php
-                        $user_name = '';
                         $user_firstname = '';
                         $user_lastname = '';
                         $user_email = '';
@@ -264,7 +260,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         $user_active = '';
 
                         if (isset($_POST['create'])) {
-                            $user_name = $_POST['user_name'];
                             $user_firstname = $_POST['user_firstname'];
                             $user_lastname = $_POST['user_lastname'];
                             $user_email = $_POST['user_email'];
@@ -287,11 +282,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         }
                         ?>
 
-
-                        <div class="form-group">
-                            <label for="user_name">Benutzername</label>
-                            <input id="user_name" name="user_name" value="<?php echo $user_name; ?>" class="form-control" placeholder="Benutzername" type="text" required autofocus>
-                        </div>
                         <div class="form-group">
                             <label for="user_firstname">Vorname</label>
                             <input id="user_firstname" name="user_firstname" value="<?php echo $user_firstname; ?>" class="form-control" placeholder="Vorname" type="text" required autofocus>
@@ -345,6 +335,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     <a href="<?php echo BASEDIR; ?>admin/users" class="btn btn-default">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Benutzerübersicht
                     </a>
+                    </div>
                 </div>
             </div>
             <?php
@@ -358,51 +349,52 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <?php
-                    if (!$userList) {
-                        ?>
-                        <div class="alert alert-info">Es wurden noch keine Benutzer erstellt.</div>
+                       <div class="well">
                         <?php
-                    } else {
-                        ?>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Benutzername</th>
-                                    <th>Person</th>
-                                    <th>Email</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($userList as $user) {
-                                    ?>
-
+                        if (!$userList) {
+                            ?>
+                            <div class="alert alert-info">Es wurden noch keine Benutzer erstellt.</div>
+                            <?php
+                        } else {
+                            ?>
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $user['user_name']; ?></td>
-                                        <td><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></td>
-                                        <td><?php echo $user['user_email']; ?></td>
-                                        <td class="text-right">
-                                            <a href="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $user['user_id']; ?>" class="btn btn-default btn-xs">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </a>
-                                            <a href="<?php echo BASEDIR; ?>admin/users/remove/<?php echo $user['user_id']; ?>" class="btn btn-danger btn-xs delete-button">
-                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                        <th>Benutzername</th>
+                                        <th>Person</th>
+                                        <th>Email</th>
+                                        <th></th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                        <?php
-                    }
-                    ?>
-                    <a href="<?php echo BASEDIR; ?>admin/users/create" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Benutzer erstellen
-                    </a>
+                                    foreach ($userList as $user) {
+                                        ?>
+
+                                        <tr>
+                                            <td><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></td>
+                                            <td><?php echo $user['user_email']; ?></td>
+                                            <td class="text-right">
+                                                <a href="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $user['user_id']; ?>" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a>
+                                                <a href="<?php echo BASEDIR; ?>admin/users/remove/<?php echo $user['user_id']; ?>" class="btn btn-danger btn-xs delete-button">
+                                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <?php
+                        }
+                        ?>
+                        <a href="<?php echo BASEDIR; ?>admin/users/create" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Benutzer erstellen
+                        </a>
+                    </div>
                 </div>
             </div>
             <?php

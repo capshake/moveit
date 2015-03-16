@@ -1,4 +1,5 @@
 var BASEURL = '/moveit/';
+var roomId; // globale Variable für den ausgwählten Raum
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -11,7 +12,7 @@ $(document).ready(function () {
     $('body').on('click', '.delete-button', function () {
         var el = $(this);
         bootbox.confirm("Sind Sie sich sicher?", function (result) {
-            if(result) {
+            if (result) {
                 location.href = el.attr('href');
             }
         });
@@ -23,12 +24,12 @@ $(document).ready(function () {
         heightStyle: "fill"
     });
 
-    $(function() {
-          $("#akkordeon").accordion({
+    $(function () {
+        $("#akkordeon").accordion({
             active: 0, //erster Tab ist offen
             collapsible: true
-          });
-          });
+        });
+    });
 
     // Selectmenue
     $("#AltbauTrakt").selectmenu();
@@ -38,10 +39,6 @@ $(document).ready(function () {
     $("#NeubauTrakt").selectmenu();
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
-
-    $("#AltbauTraktMap").selectmenu();
-    $("#AltbauEtageMap").selectmenu();
-    $("#AltbauRaumMap").selectmenu();
 
     $("#NeubauTraktMap").selectmenu();
     $("#NeubauEtageMap").selectmenu();
@@ -106,10 +103,9 @@ $(document).ready(function () {
     var allFields2 = $([]).add(bezeichnung2).add(anzahl2).add(länge2).add(breite2);
 
     var listenButtongeklickt,
-        wirklichHinzugefügt;
+            wirklichHinzugefügt;
 
     $("#Wunschhinzufügen").button({
-
     });
 
     //Wunsch Button
@@ -127,32 +123,32 @@ $(document).ready(function () {
                 addItem();
                 if (wirklichHinzugefügt == true) {
                     $("<button></button>")
-                        .attr('id', 'Itembearbeiten')
-                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                        .button({
-                            icons: {
-                                primary: "ui-icon-gear"
-                            },
-                            text: false
-                        })
-                        .on("click", function () {
-                            listenButtongeklickt = this;
-                            dialogBearbeiten.dialog("open");
-                        });
+                            .attr('id', 'Itembearbeiten')
+                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                            .button({
+                                icons: {
+                                    primary: "ui-icon-gear"
+                                },
+                                text: false
+                            })
+                            .on("click", function () {
+                                listenButtongeklickt = this;
+                                dialogBearbeiten.dialog("open");
+                            });
 
                     $("<button></button>")
-                        .attr('id', 'Itemlöschen')
-                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                        .button({
-                            icons: {
-                                primary: "ui-icon-trash"
-                            },
-                            text: false
-                        })
-                        .on("click", function () {
-                            listenButtongeklickt = this;
-                            dialogLoeschen.dialog("open");
-                        });
+                            .attr('id', 'Itemlöschen')
+                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                            .button({
+                                icons: {
+                                    primary: "ui-icon-trash"
+                                },
+                                text: false
+                            })
+                            .on("click", function () {
+                                listenButtongeklickt = this;
+                                dialogLoeschen.dialog("open");
+                            });
                 }
             },
             Abbrechen: function () {
@@ -172,12 +168,12 @@ $(document).ready(function () {
         var _valid = valid(bezeichnung, anzahl, länge, breite);
         if (_valid) {
             $("#wunschtabelle tbody").append("<tr id=" + bezeichnung.val() + ">" +
-                "<td>" + "</td>" +
-                "<td>" + bezeichnung.val() + "</td>" +
-                "<td>" + anzahl.val() + "</td>" +
-                "<td>" + länge.val() + "</td>" +
-                "<td>" + breite.val() + "</td>" +
-                "</tr>");
+                    "<td>" + "</td>" +
+                    "<td>" + bezeichnung.val() + "</td>" +
+                    "<td>" + anzahl.val() + "</td>" +
+                    "<td>" + länge.val() + "</td>" +
+                    "<td>" + breite.val() + "</td>" +
+                    "</tr>");
             dialog.dialog("close");
             updateTips("");
         }
@@ -395,7 +391,7 @@ $(document).ready(function () {
     //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
     function dragAndDrop() {
         $('.moveitplaner').each(function () {
-            $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
+            $(this).draggable({//alle Elemente mit class='moveitplaner' draggable machen;
                 scroll: false,
                 containment: "#MapsLagerListen", // Seitenbereich, innerhalb dessen das Icon überhaupt bewegt werden darf
                 //revert: 'invalid',
@@ -428,7 +424,8 @@ $(document).ready(function () {
                 }
             });
         });
-    };
+    }
+    ;
 
 
     $('#AltbauListe').droppable({
@@ -459,7 +456,8 @@ $(document).ready(function () {
         }
 
         $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-    };
+    }
+    ;
 
     //Zollstock
     //bin noch dran - ist nicht fertig - Isa :)
@@ -478,11 +476,94 @@ $(document).ready(function () {
         $("#test2").css("background-color", "#b02d2d");
         $("#test2").css("border", "2px solid black");
         $("#test2").draggable();
-             $("#Zollstock").on("click", function () { //Entfernen der Zollstock-Endpunkte bei erneutem Klick
-                $("#test1").remove();
-                $("#test2").remove();
-             });
+        $("#Zollstock").on("click", function () { //Entfernen der Zollstock-Endpunkte bei erneutem Klick
+            $("#test1").remove();
+            $("#test2").remove();
+        });
 
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    getItems(roomId);
+
+
 });
+
+
+
+function getItems(roomId){
+    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
+
+        // Lade Raum
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getRoom/' + roomId,
+            dataType: 'json',
+            success: function (room) {
+
+
+
+                // Lade Items des Raums in Auswahlliste
+                $.ajax({
+                    type: 'POST',
+                    url: BASEURL + 'api/getItems/room/' + roomId,
+                    dataType: 'json',
+                    success: function (data) {
+                        var itemsHTML = '';
+
+                        if (data.items.length > 0) {
+                            $.each(data.items, function (key, value) {
+                                itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
+                            });
+                            $('#AltbauListe').html(itemsHTML);
+                            $('#AltbauListe').css({
+                                'height': 200,
+                                'overflow': 'auto'
+                            });
+                        } else {
+                            $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+    else{
+        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    }
+}
