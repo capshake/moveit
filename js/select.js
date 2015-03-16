@@ -62,9 +62,15 @@ $(document).ready(function ($) {
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
                 $('#AltbauEtage').selectmenu("refresh");
                 $('#AltbauRaum').selectmenu("refresh");
+
+                roomId = $('#AltbauRaum').val();
+                getItems(roomId);
             } else {
                 $('#AltbauEtage').html(api.AltbauEtage.initial_target_html);
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
+
+                roomId = $('#AltbauRaum').val();
+                getItems(roomId);
 
                 //Make AJAX request, using the selected value as the GET
                 $.ajax({
@@ -95,9 +101,15 @@ $(document).ready(function ($) {
             if (selectvalue == "") {
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
                 $('#AltbauRaum').selectmenu("refresh");
+
+                roomId = $('#AltbauRaum').val();
+                getItems(roomId);
             } else {
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
 
+                roomId = $('#AltbauRaum').val();
+                getItems(roomId);
+                
                 //Make AJAX request, using the selected value as the GET
                 $.ajax({
                     url: BASEURL + 'api/getRooms/map/' + selectvalue,
