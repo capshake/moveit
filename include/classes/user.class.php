@@ -179,19 +179,19 @@ class User extends Token {
             //Überprüfung der einzelnen Felder
             if ($existsEmail) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Ein Benutzer mit dieser Email existiert schon';
+                $return['msg'] = 'Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.';
             }
             if ($data['user_password'] != $data['user_password_repeat']) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Die eingebenen Passwörter stimmen nicht überein';
+                $return['msg'] = 'Die eingebenen Passwörter stimmen nicht überein.';
             }
             if (empty($data['user_firstname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Vornamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Vorname aus.';
             }
             if (empty($data['user_lastname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Nachnamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Nachname aus.';
             }
 
 
@@ -231,18 +231,18 @@ class User extends Token {
                 if ($insert > 0) {
                     //Email wird versendet
                     if (!$admin) {
-                        $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nWillkommen bei moveIT damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
+                        $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nwillkommen bei moveIT. Damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\ndas moveIT-Team";
                         mail($data['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
                     }
 
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Der Benutzer wurde erfolgreich angelegt';
+                    $return['msg'] = 'Der Benutzer wurde erstellt.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
+            $return['msg'] = 'Es ist ein Fehler aufgetreten. Der Benutzer wurde nicht erstellt.';
         }
         return json_encode($return);
     }
@@ -269,15 +269,15 @@ class User extends Token {
             //Überprüfung der einzelnen Felder
             if (!$existsUser) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Der Benutzer existiert nicht';
+                $return['msg'] = 'Der Benutzer existiert nicht.';
             }
             if (empty($data['user_firstname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Vornamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Vorname aus.';
             }
             if (empty($data['user_lastname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Nachnamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Nachname aus.';
             }
 
 
@@ -326,11 +326,11 @@ class User extends Token {
 
 
                 $return['status'] = 'success';
-                $return['msg'] = 'Der Benutzer wurde bearbeitet';
+                $return['msg'] = 'Der Benutzer wurde bearbeitet.';
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
+            $return['msg'] = 'Es ist ein Fehler aufgetreten. Der Benutzer wurde nicht erstellt.';
         }
         return json_encode($return);
     }
@@ -382,11 +382,11 @@ class User extends Token {
                 $update = $db->query("UPDATE " . TABLE_USERS . " SET user_password = :user_password WHERE user_email = :user_email AND user_active = 1", array("user_password" => $this->makePasswordHash($newPassword), "user_email" => $user['user_email']));
                 if ($update > 0) {
                     //Email wird versendet
-                    $text = "Hallo " . $user['user_firstname'] . " " . $user['user_lastname'] . ",\n\nIhr Passwort wurde zurückgesetzt.\n\nNeues Passwort:" . $newPassword . "\n" . BASEURL . BASEDIR . "login\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
+                    $text = "Hallo " . $user['user_firstname'] . " " . $user['user_lastname'] . ",\n\nIhr Passwort wurde zurückgesetzt.\n\nNeues Passwort:" . $newPassword . "\n" . BASEURL . BASEDIR . "login\n\nMit freundlichen Grüßen,\ndas moveIT-Team";
                     mail($user['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Ein neues Passwort wurde Ihnen zugesendet.';
+                    $return['msg'] = 'Ein neues Passwort wird an Ihre E-Mail-Adresse gesendet.';
                 }
             } else {
                 $return['status'] = 'error';
