@@ -30,7 +30,7 @@ class Users extends Token {
             
             if($existsRoomUser) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Der Benutzer ist diesem Raum schon zugewiesen';
+                $return['msg'] = 'Der Benutzer ist diesem Raum schon zugewiesen.';
             }
             //Überprüfung der einzelnen Felder
             if (!$this->isValidToken(@$data['token'])) {
@@ -50,12 +50,12 @@ class Users extends Token {
 
                 if ($insert > 0) {
                     $return['status'] = 'success';
-                    $return['msg'] = 'Der Raum wurde erfolgreich zugewiesen';
+                    $return['msg'] = 'Der Raum wurde erfolgreich zugewiesen.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }
@@ -83,7 +83,7 @@ class Users extends Token {
             
             if(!$existsRoomUser) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Der Raum für diesen Benutzer existiert nicht';
+                $return['msg'] = 'Der Raum für diesen Benutzer existiert nicht.';
             }
             //Überprüfung der einzelnen Felder
             if (!$this->isValidToken(@$data['token'])) {
@@ -92,21 +92,21 @@ class Users extends Token {
             }
             $this->newToken();
 
-            //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
+            //Wenn kein Fehler passiert ist wird die Verbindung vom Benutzer zum Raum aus der Datenbank gelöscht
             if ($return['status'] != 'error') {
-                $insert = $db->query("DELETE FROM " . TABLE_USER_ROOMS . " WHERE role_room_room_id = :role_room_room_id AND role_room_user_id = :role_room_user_id ", array(
+                $delete = $db->query("DELETE FROM " . TABLE_USER_ROOMS . " WHERE role_room_room_id = :role_room_room_id AND role_room_user_id = :role_room_user_id ", array(
                     "role_room_user_id" => $user_id,
                     "role_room_room_id" => $room_id
                 ));
 
-                if ($insert > 0) {
+                if ($delete > 0) {
                     $return['status'] = 'success';
-                    $return['msg'] = 'Der Raum wurde erfolgreich gelöscht';
+                    $return['msg'] = 'Der Raum wurde erfolgreich gelöscht.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }
