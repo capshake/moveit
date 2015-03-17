@@ -67,7 +67,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <div class="form-group">
                         <label for="user_email">Email</label>
-                        <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="text" required autofocus>
+                        <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="email" required autofocus>
                     </div>
                 </div>
                     </div>
