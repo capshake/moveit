@@ -17,7 +17,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="alert alert-danger">Gebäude wurde gelöscht</div>
+                    <div class="alert alert-danger">Das Gebäude wurde gelöscht.</div>
                 </div>
             </div>
             <?php
@@ -60,14 +60,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <input id="building_name" name="building_name" value="<?php echo $building['building_name']; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit" name="edit">speichern</button>
+                                <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
 
                         <?php } ?>
                         <br />
 
                         <a href="<?php echo BASEDIR; ?>admin/buildings" class="btn btn-default">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Benutzerübersicht
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Gebäudeübersicht
                         </a>
                     </div>
                 </div>
@@ -108,12 +108,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                             <div class="form-group">
-                                <label for="building_name">Name</label>
+                                <label for="building_name">Gebäudename</label>
                                 <input id="building_name" name="building_name" value="<?php echo $building_name; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
                             </div>
 
 
-                            <button class="btn btn-primary" type="submit" name="create">hinzufügen</button>
+                            <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                         </form>
 
                         <br />
@@ -145,7 +145,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Gebäudename</th>
                                         <th></th>
                                     </tr>
                                 </thead>

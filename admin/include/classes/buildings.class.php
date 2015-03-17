@@ -25,11 +25,11 @@ class Buildings extends Token {
             //Überprüfung der einzelnen Felder
             if ($existsBuilding) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits';
+                $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits.';
             }
             if (empty(trim($data['building_name']))) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Namen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Gebäudename aus.';
             }
 
 
@@ -49,12 +49,12 @@ class Buildings extends Token {
 
                 if ($insert > 0) {
                     $return['status'] = 'success';
-                    $return['msg'] = 'Das Gebäude wurde erfolgreich angelegt';
+                    $return['msg'] = 'Das Gebäude wurde erstellt.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }
@@ -78,15 +78,15 @@ class Buildings extends Token {
             //Überprüfung der einzelnen Felder
             if (!$existsBuilding) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Dieses Gebäude existiert nicht';
+                $return['msg'] = 'Dieses Gebäude existiert nicht.';
             }
             if ($existsBuildingName) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits';
+                $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits.';
             }
             if (empty(trim($data['building_name']))) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Namen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Gebäudename aus.';
             }
 
 
@@ -107,11 +107,11 @@ class Buildings extends Token {
 
 
                 $return['status'] = 'success';
-                $return['msg'] = 'Das Gebäude wurde bearbeitet';
+                $return['msg'] = 'Das Gebäude wurde bearbeitet.';
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }
