@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('body').on('click', '.delete-button', function () {
         var el = $(this);
         bootbox.confirm("Sind Sie sich sicher?", function (result) {
-            if(result) {
+            if (result) {
                 location.href = el.attr('href');
             }
         });
@@ -23,12 +23,12 @@ $(document).ready(function () {
         heightStyle: "fill"
     });
 
-    $(function() {
-          $("#akkordeon").accordion({
+    $(function () {
+        $("#akkordeon").accordion({
             active: 0, //erster Tab ist offen
             collapsible: true
-          });
-          });
+        });
+    });
 
     // Selectmenue
     $("#AltbauTrakt").selectmenu();
@@ -478,10 +478,10 @@ $(document).ready(function () {
         $("#test2").css("background-color", "#b02d2d");
         $("#test2").css("border", "2px solid black");
         $("#test2").draggable();
-             $("#Zollstock").on("click", function () { //Entfernen der Zollstock-Endpunkte bei erneutem Klick
-                $("#test1").remove();
-                $("#test2").remove();
-             });
+        $("#Zollstock").on("click", function () { //Entfernen der Zollstock-Endpunkte bei erneutem Klick
+            $("#test1").remove();
+            $("#test2").remove();
+        });
 
     });
 
