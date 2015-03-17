@@ -18,8 +18,8 @@
     <script src="<?php echo BASEDIR; ?>js/jqueryui.js"></script>
     <script src="<?php echo BASEDIR; ?>js/context-menu.js"></script>
     <script src="<?php echo BASEDIR; ?>js/moveit.js"></script>
-    <script src="<?php echo BASEDIR; ?>js/main.js"></script>
-
+    <script src="<?php echo BASEDIR; ?>js/select.js"></script>
+    
     <?php
     if (isset($javascript)) {
         echo $javascript;
@@ -27,7 +27,8 @@
     ?>
     <script>
         var mainSettings = {
-            'csrfToken': '<?php echo $userData->getToken(); ?>'
+            'csrfToken': '<?php echo $userData->getToken(); ?>',
+            'isLoggedIn': <?php echo $userData->isloggedIn(); ?>
         }
     </script>
 

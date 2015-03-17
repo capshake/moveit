@@ -12,71 +12,34 @@ if (!$userData->isLoggedIn()) {
     ?>
 
 
-    <div class="container">
+    <div class="main-container container">
        <div id="MapsLagerListen" class="row">
         <div id="Altbau" class="col-md-2">
             <div class="row" id="Ueberschriften">
                 <h4>Altbau</h4>
-                <button type="button" id="GrundrissAltbau"data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-
-                <div id="dialog-GrundrissAltbau" title="Altbau-Grundriss">
-
-                    <div id= "MapText">
-                        <p>Hier finden Sie eine Übersicht über die AltbauMap.
-                        Sie haben die Möglichkeit Räume auszuwählen, indem Sie über die Map navigieren.</p>
-                    </div>
-                    <div id= "AltbauAuswahlMap" class="row">
-                        <fieldset>
-                            <div id = "AltTraktMap" class="col-md-1">
-                                <select name="AltbauTraktMap"  id="AltbauTraktMap">
-                                    <option value="EOG">Trakt1</option>
-                                    <option value="1OG">Trakt2</option>
-                                    <option value="2OG">Trakt3</option>
-                                </select>
-                            </div>
-                            <div id = "AltEtageMap" class="col-md-4">
-                                <select name="AltbauEtageMap" id="AltbauEtageMap">
-                                    <option value="EOG">Erdgeschoss</option>
-                                    <option value="1OG">Erstes Stockwerk</option>
-                                    <option value="2OG">Zweites Stockwerk</option>
-                                </select>
-                            </div>
-                            <div id = "AltRaumMap" class="col-md-1">
-                                <select name="AltbauRaumMap" id="AltbauRaumMap">
-                                    <option value="EOG">Raum1</option>
-                                    <option value="1OG">Raum2</option>
-                                    <option value="2OG">Raum3</option>
-                                </select>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div id="Map">
-                        mapmap
-                    </div>
-                </div>
             </div>
             <!--Dropdown Menue fuer den Altbau-->
             <div id="AltbauAuswahl" class="row">
                 <fieldset class= "col-md-12">
                     <div id = "AltTrakt" class="row">
                         <select name="AltbauTrakt"  id="AltbauTrakt">
-                            <option value="EOG">Trakt1</option>
-                            <option value="1OG">Trakt2</option>
-                            <option value="2OG">Trakt3</option>
+                            <option value="">Trakt</option>
+                            <?php
+                                $buildings = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 1");
+                                foreach($buildings as $building){
+                                    echo "<option value = " . $building['building_id'] . ">" . $building['building_name'] . "</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div id = "AltEtage" class="row">
                         <select name="AltbauEtage" id="AltbauEtage">
-                            <option value="EOG">Erdgeschoss</option>
-                            <option value="1OG">Erstes Stockwerk</option>
-                            <option value="2OG">Zweites Stockwerk</option>
+                            <option value="">Vorher Trakt w&auml;hlen...</option>
                         </select>
                     </div>
                     <div id = "AltRaum" class="row">
                         <select name="AltbauRaum" id="AltbauRaum">
-                            <option value="EOG">Raum1</option>
-                            <option value="1OG">Raum2</option>
-                            <option value="2OG">Raum3</option>
+                            <option value="">Vorher Etage w&auml;hlen...</option>
                         </select>
                     </div>
                 </fieldset>
@@ -88,11 +51,6 @@ if (!$userData->isLoggedIn()) {
             <div class="row">
                 <h5 class="altlist"><b>Möbel in diesem Raum:</b></h5>
                 <ul id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum.">
-                    <li class="ui-state-default" data-type="tisch" data-count="4">Tisch <span id="tischAnzahl">4</span>x</li>
-                    <li class="ui-state-default" data-type="stuhl" data-count="20">Stuhl 20x</li>
-                    <li class="ui-state-default" data-type="sonstiges" data-count="1">Beamer 1x</li>
-                    <li class="ui-state-default" data-type="tafel" data-count="1">Whiteboard <span>1</span>x</li>
-                    <li class="ui-state-default" data-type="drehstuhl" data-count="1">Drehstuhl 1x</li>
                 </ul>
             </div>
         </div>

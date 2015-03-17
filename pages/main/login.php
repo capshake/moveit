@@ -13,18 +13,18 @@ if ($userData->isLoggedIn()) {
                     if (isset($_GET['code'])) {
                         if ($userData->checkCreateUserCode($_GET['code'])) {
                             ?>
-                            <div class="alert alert-success">Ihr Account wurde freigeschaltet. Sie könne sich nun einloggen</div>
+                            <div class="alert alert-success">Ihr Account wurde freigeschaltet. Sie können sich nun einloggen.</div>
                             <?php
                         } else {
                             ?>
-                            <div class="alert alert-danger">Der Freischaltcode ist leider falsch.</div>
+                            <div class="alert alert-danger">Der Sicherheitscode zum Freischalten des Accounts ist falsch.</div>
                             <?php
                         }
                     }
                     ?>
                     <h2 class="form-heading"><img alt="logo" src="./img/logo.gif">Login</h2>
                     <input name="user_email" class="first form-control" placeholder="Email" type="email" required autofocus>
-                    <input name="user_password" class="last form-control" type="password" placeholder="Password" required>
+                    <input name="user_password" class="last form-control" type="password" placeholder="Passwort" required>
 
                     <br/>
 

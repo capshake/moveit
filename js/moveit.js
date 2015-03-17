@@ -1,4 +1,5 @@
 var BASEURL = '/moveit/';
+var roomId; // globale Variable für den ausgwählten Raum
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -38,10 +39,6 @@ $(document).ready(function () {
     $("#NeubauTrakt").selectmenu();
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
-
-    $("#AltbauTraktMap").selectmenu();
-    $("#AltbauEtageMap").selectmenu();
-    $("#AltbauRaumMap").selectmenu();
 
     $("#NeubauTraktMap").selectmenu();
     $("#NeubauEtageMap").selectmenu();
@@ -108,9 +105,7 @@ $(document).ready(function () {
     var listenButtongeklickt,
         wirklichHinzugefügt;
 
-    $("#Wunschhinzufügen").button({
-
-    });
+    $("#Wunschhinzufügen").button({});
 
     //Wunsch Button
     $("#Wunschhinzufügen").click(function () {
@@ -485,4 +480,67 @@ $(document).ready(function () {
 
     });
 
+
+
+
+
+
+
+
+
+    // Lade Items zum ersten mal
+    getItems(roomId);
+
+
 });
+
+
+//Items aus dem Altbau laden
+function getItems(roomId) {
+    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
+
+        // Lade Raum
+
+        // Lade Items des Raums in Auswahlliste
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getItems/room/' + roomId,
+            dataType: 'json',
+            success: function (data) {
+                var itemsHTML = '';
+
+                if (data.items.length > 0) {
+                    $.each(data.items, function (key, value) {
+                        itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
+                    });
+                    $('#AltbauListe').html(itemsHTML);
+                    $('#AltbauListe').css({
+                        'height': 200,
+                        'overflow': 'auto'
+                    });
+                } else {
+                    $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
+                }
+            }
+        });
+    } else {
+        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    }
+}
+
+// Lade Raum
+function getRoom(roomId) {
+    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getRoom/' + roomId,
+            dataType: 'json',
+            success: function (room) {
+
+
+            }
+        });
+    } else {
+
+    }
+}

@@ -65,8 +65,9 @@ class importExport extends Token {
                             $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;",
                                     array('data1' => $data[1], 'data29' => $data[29], 'varanzahl' => $var_ad_anzahl, 'data35' => str_replace(",", ".", $data[35]), 'varvolumen' => $var_aj_volumen, 'data11' => $data[1]));
                         }
-                        elseif($data[1] != NULL){
+                        else{
                             for ($c = 0; $c < 59; $c++) {
+                                @$data[$c] = utf8_encode($data[$c]);
                                 if (empty($data[$c])) {
                                     $query = $query . "NULL"; // leere Spalten als NULL eintragen
                                 }
@@ -200,8 +201,8 @@ class importExport extends Token {
      */
     public function import() {
         $import = $this->importDB();
-        
-        
+
+
         $return = array("status" => "", "msg" => "");
         if ($import > 0) {
             $return['status'] = 'success';
@@ -268,7 +269,7 @@ class importExport extends Token {
                     $return['msg'] = 'CSV erfolgreich hochgeladen';
 
                     $import = json_decode($this->import());
-                    
+
                     if ($import->status == 'success') {
                         $return['status'] = 'success';
                         $return['msg'] = 'Es wurden erfolgreich '.$import->rows.' Zeilen importiert';

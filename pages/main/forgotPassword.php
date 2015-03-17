@@ -31,7 +31,7 @@ if ($userData->isLoggedIn()) {
 
                     <br />
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="resetPassword">zurückschicken</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="resetPassword">Zusenden</button>
                     <a class="btn btn-lg btn-link btn-block" href="<?php echo BASEDIR; ?>login">zurück</a>
                 </form>
             </div> <!-- /container -->

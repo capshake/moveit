@@ -698,10 +698,9 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 
 CREATE TABLE IF NOT EXISTS `users` (
 `user_id` int(11) NOT NULL,
-  `user_name` varchar(32) CHARACTER SET utf8 NOT NULL,
   `user_firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
   `user_lastname` varchar(40) CHARACTER SET utf8 NOT NULL,
-  `user_password` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `user_password` varchar(100) CHARACTER SET utf8 NOT NULL,
   `user_email` varchar(32) CHARACTER SET utf8 NOT NULL,
   `user_role_id` tinyint(1) NOT NULL,
   `user_active` tinyint(1) NOT NULL,
