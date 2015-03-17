@@ -59,7 +59,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <li <?php echo!isset($_GET['rooms']) && !isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>">Grundeinstellungen</a></li>
                                     <li <?php echo isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/scale">Maßstab festlegen</a></li>
                                     <li <?php echo isset($_GET['rooms']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/rooms">Räume platzieren</a></li>
-                                    <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Gebäudeübersicht</a></li>
+                                    <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Mapübersicht</a></li>
                                 </ul>
 
                                 <?php
@@ -260,7 +260,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 </div>      
 
 
-                                                <button class="btn btn-primary" type="submit" name="edit">speichern</button>
+                                                <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
+												<a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
+													<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
+												</a>
                                             </form>
                                         </div>
                                     </div>
