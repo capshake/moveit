@@ -20,7 +20,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             );
         }
 
-        $return = array('status' => 'success', 'msg' => 'Der Raum wurde von der Karte entfernt.');
+        $return = array('status' => 'success', 'msg' => 'Der Raum wurde von der Map entfernt.');
 
         echo json_encode($return);
     }

@@ -19,7 +19,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <div class="row">
                 <div class="col-md-12">
                     <div class="well">
-                        <div class="alert alert-info">Es muss zuerst ein Gebäude existieren!</div>
+                        <div class="alert alert-info">Es muss zuerst ein Gebäude existieren.</div>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="well">
-                            <div class="alert alert-danger">Map wurde gelöscht</div>
+                            <div class="alert alert-success">Die Map wurde gelöscht.</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <div class="well">
                             <?php if (!$existsMap) { ?>
 
-                                <div class="alert alert-info">Die Karte existiert nicht!</div>
+                                <div class="alert alert-info">Die Map existiert nicht.</div>
 
                                 <?php
                             } else {
@@ -59,7 +59,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <li <?php echo!isset($_GET['rooms']) && !isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>">Grundeinstellungen</a></li>
                                     <li <?php echo isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/scale">Maßstab festlegen</a></li>
                                     <li <?php echo isset($_GET['rooms']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/rooms">Räume platzieren</a></li>
-                                    <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Übersicht</a></li>
+                                    <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Gebäudeübersicht</a></li>
                                 </ul>
 
                                 <?php
@@ -98,7 +98,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
 
-                                                <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
+                                                <div class="alert alert-info">Es muss zuerst ein Grundriss unter "Grundeinstellungen" hochgeladen werden.</div>
 
                                             </div>
                                         </div>
@@ -125,7 +125,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 </div>
                                                 <div class="col-md-3">
                                                     <br />
-                                                    <button class="btn btn-primary" type="submit" name="scale">speichern</button>
+                                                    <button class="btn btn-primary" type="submit" name="scale">Speichern</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -151,7 +151,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                     if (empty($map['map_picture'])) {
                                         ?><br />
-                                        <div class="alert alert-info">Es muss zuerst ein Grundriss hochgeladen werden.</div>
+                                        <div class="alert alert-info">Es muss zuerst ein Grundriss unter "Grundeinstellungen" hochgeladen werden.</div>
                                         <?php
                                     } else if (empty($map['map_scale_px']) || empty($map['map_scale_cm'])) {
                                         ?><br />
@@ -164,7 +164,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <div class="contextMenu dropdown clearfix" style="display:none;">
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
-                                                <li><a tabindex="-1" href="#">entfernen</a></li>
+                                                <li><a tabindex="-1" href="#">Entfernen</a></li>
                                             </ul>
                                         </div>
 
@@ -337,7 +337,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     </select>
                                 </div>      
 
-                                <button class="btn btn-primary" type="submit" name="create">hinzufügen</button>
+                                <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                                 <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
                                 </a>
@@ -351,7 +351,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Map</h1>
+                        <h1>Map Editor</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -360,7 +360,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Im Map</th>
+                                        <th>Gebäudename</th>
                                         <th>Etage</th>
                                     </tr>
                                 </thead>

@@ -30,7 +30,7 @@ class mapEditor extends Token {
             //Überprüfung der einzelnen Felder
             if ($existsBuilding) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert bereits';
+                $return['msg'] = 'Diese Map existiert bereits.';
             }
             if (empty($data['map_building_id'])) {
                 $return['status'] = 'error';
@@ -67,7 +67,7 @@ class mapEditor extends Token {
                 $path = 'uploads/maps/map_' . time() . '.' . $ex;
                 if (!move_uploaded_file($files['map_picture']['tmp_name'], ROOTDIR . $path)) {
                     $return['status'] = 'error';
-                    $return['msg'] = 'Es ist ein Fehler beim hochladen der Karte aufgetreten.';
+                    $return['msg'] = 'Es ist ein Fehler beim Hochladen der Map aufgetreten.';
                 }
 
                 if ($return['status'] != 'error') {
@@ -80,7 +80,7 @@ class mapEditor extends Token {
 
                     if ($insert > 0) {
                         $return['status'] = 'success';
-                        $return['msg'] = 'Die Karte wurde erfolgreich angelegt';
+                        $return['msg'] = 'Die Map wurde erstellt';
                     }
                 }
             }
@@ -110,11 +110,11 @@ class mapEditor extends Token {
             //Überprüfung der einzelnen Felder
             if (!$map['map_id']) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert nicht';
+                $return['msg'] = 'Diese Map existiert nicht.';
             }
             if ($existsMapBuildingFloor) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert bereits';
+                $return['msg'] = 'Diese Map existiert bereits.';
             }
             if (empty($data['map_building_id'])) {
                 $return['status'] = 'error';
@@ -149,7 +149,7 @@ class mapEditor extends Token {
 
                     if (!move_uploaded_file($files['map_picture']['tmp_name'], ROOTDIR . $path)) {
                         $return['status'] = 'error';
-                        $return['msg'] = 'Es ist ein Fehler beim hochladen der Karte aufgetreten.';
+                        $return['msg'] = 'Es ist ein Fehler beim Hochladen der Map aufgetreten.';
                     } else {
                         //altes Bild löschen
                         @unlink(ROOTDIR . $map['map_picture']);
@@ -170,12 +170,12 @@ class mapEditor extends Token {
 
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Das Gebäude wurde bearbeitet';
+                    $return['msg'] = 'Das Gebäude wurde bearbeitet.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }

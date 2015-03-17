@@ -17,20 +17,20 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="alert alert-danger">Raum wurde gelöscht</div>
+                    <div class="alert alert-danger">Der Raum wurde gelöscht.</div>
                 </div>
             </div>
             <?php
         }
         if (isset($_GET['edit'])) {
-            $existsBuilding = $db->row("SELECT room_id FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['edit']), PDO::FETCH_NUM);
+            $existsRoom = $db->row("SELECT room_id FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['edit']), PDO::FETCH_NUM);
             ?>
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
                     <h1>Raum bearbeiten</h1><br />
                     <div class="well">
-                        <?php if (!$existsBuilding) { ?>
-                            <div class="alert alert-info">Das Raum existiert nicht!</div>
+                        <?php if (!$existsRoom) { ?>
+                            <div class="alert alert-info">Der Raum existiert nicht!</div>
                         <?php } else { ?>
                             <form method="POST" action="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $_GET['edit']; ?>" role="form">
 
@@ -60,7 +60,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="room_map_id">Karte</label>
+                                    <label for="room_map_id">Map</label>
                                     <select id="room_map_id" class="form-control" name="room_map_id">
                                         <?php
                                         $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
@@ -73,7 +73,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     </select>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit" name="edit">speichern</button>
+                                <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
 
                         <?php } ?>
@@ -121,11 +121,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                             <div class="form-group">
-                                <label for="room_name">Name</label>
+                                <label for="room_name">Raumname</label>
                                 <input id="room_name" name="room_name" value="<?php echo $room_name; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="room_map_id">Karte</label>
+                                <label for="room_map_id">Map</label>
                                 <select id="room_map_id" class="form-control" name="room_map_id">
                                     <?php
                                     $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
@@ -138,7 +138,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 </select>
                             </div> 
 
-                            <button class="btn btn-primary" type="submit" name="create">hinzufügen</button>
+                            <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                         </form>
 
                         <br />
@@ -170,7 +170,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Raumname</th>
                                         <th></th>
                                     </tr>
                                 </thead>
