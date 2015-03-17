@@ -79,7 +79,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="form-control" placeholder="Email" type="text" required autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="user_secure_code">Sicherheistcode</label>
+                                <label for="user_secure_code">Sicherheitscode</label>
                                 <input id="user_secure_code" name="user_secure_code" value="<?php echo $user['user_secure_code']; ?>" class="form-control" placeholder="Sicherheitscode" type="text" required autofocus>
                             </div>
                             <div class="form-group">
@@ -295,7 +295,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <input id="user_email" name="user_email" value="<?php echo $user_email; ?>" class="form-control" placeholder="Email" type="text" required autofocus>
                         </div>
                         <div class="form-group">
-                            <label for="user_secure_code">Sicherheistcode</label>
+                            <label for="user_secure_code">Sicherheitscode</label>
                             <input id="user_secure_code" name="user_secure_code" value="<?php echo $user_secure_code; ?>" class="form-control" placeholder="Sicherheitscode" type="text" required autofocus>
                         </div>
                         <div class="form-group">
