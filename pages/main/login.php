@@ -24,7 +24,7 @@ if ($userData->isLoggedIn()) {
                     ?>
                     <h2 class="form-heading"><img alt="logo" src="./img/logo.gif">Login</h2>
                     <input name="user_email" class="first form-control" placeholder="Email" type="email" required autofocus>
-                    <input name="user_password" class="last form-control" type="password" placeholder="Password" required>
+                    <input name="user_password" class="last form-control" type="password" placeholder="Passwort" required>
 
                     <br/>
 
