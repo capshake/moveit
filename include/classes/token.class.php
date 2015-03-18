@@ -23,6 +23,9 @@ class Token {
      * @return type
      */
     public function getToken() {
+        if (!isset($_SESSION['csrf_token']))
+            $this->newToken();
+        
         return $_SESSION['csrf_token'];
     }
 

@@ -28,7 +28,7 @@
     <script>
         var mainSettings = {
             'csrfToken': '<?php echo $userData->getToken(); ?>',
-            'isLoggedIn': <?php echo $userData->isloggedIn(); ?>
+            'isLoggedIn': <?php echo ($userData->isloggedIn()) ? 1 : 0; ?>
         }
     </script>
 
