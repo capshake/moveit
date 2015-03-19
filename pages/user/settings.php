@@ -77,9 +77,11 @@ if (!$userData->isLoggedIn()) {
 			$db->bind("id", $userData->getUserId()); 
 			$user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id"); ?>
             
-            <div class="row">
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="well">
+			<div class="col-md-4 col-md-offset-2">
+	        	<div class="panel panel-default">
+					<div class="panel-heading">Benutzerangaben bearbeiten</div>
+					<div class="panel-body">
+	                   
                         <div class="form-group">
                             <label for="user_firstname">Vorname</label>
                             <input id="user_firstname" name="user_firstname" value="<?php echo $user['user_firstname']; ?>" class="first form-control" placeholder="Vorname" type="text" required autofocus>
@@ -91,12 +93,15 @@ if (!$userData->isLoggedIn()) {
                         <div class="form-group">
                             <label for="user_email">Email</label>
                             <input id="user_email" name="user_email" value="<?php echo $user['user_email']; ?>" class="first form-control" placeholder="Email" type="email" required autofocus>
-                        </div>
-                    </div>
-                </div>
+                        </div>                 
+			      	</div>
+				</div>
+			</div>
 
-                <div class="col-md-4">
-                    <div class="well">
+			<div class="col-md-4">
+            	<div class="panel panel-default">
+					<div class="panel-heading">Passwort ändern</div>
+					<div class="panel-body">
                         <div class="form-group">
                             <label for="user_old_password">Altes Passwort</label>
                             <input id="user_old_password" name="user_old_password" value="" class="first form-control" placeholder="" type="password" autofocus>
@@ -109,8 +114,9 @@ if (!$userData->isLoggedIn()) {
                             <label for="user_lastname">Neues Passwort wiederholen</label>
                             <input id="user_repeat_new_password" name="user_repeat_new_password" value="" class="first form-control" placeholder="" type="password" autofocus>
                         </div>
-                    </div>
-                </div>
+		            </div>
+		      	</div>
+		     </div>
 
             </div>
             <div class="row">
