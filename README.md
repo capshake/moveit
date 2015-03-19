@@ -7,6 +7,25 @@
 - include - Alle Dateien die via PHP eingebunden werden
 - img - Bilder für das Design (z. B. Hintergründe)
 
+
+#####To-Do
+- User-Hilfe
+- Admin-Hilfe
+- Drag'n'Drop
+    -Kollision raus
+    -Verwandeln -> raus
+    -Draggable-Bereiche definieren
+- E-Mail validieren
+- Zollstock
+- Map-Grundriss einpflegen
+- Z-Index
+- Responsive rausnehmen
+- Hinweis bei leeren Lager, Müll
+- Tabs von Lager
+- Maps nur für Neubau(Adminbereich)
+- Füllen mit DB- Inhalt insgesamt
+- Öffentliches Lager aktualisieren
+
 #####Upload-Struktur
  - csv   - Die CSV -Dateien für den Admin
  - items

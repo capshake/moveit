@@ -1,5 +1,6 @@
 <?php
 include_once '../../include/config.php';
+include_once '../../include/classes/validation.class.php';
 
 if ($userData->isLoggedIn() && $userData->isAdmin()) {
     $headerTitle = 'Adminpanel - Benutzer';
@@ -56,8 +57,23 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
 
                             <?php
-                            if (isset($_POST['edit'])) {
-                                $update = json_decode($userData->updateUser($_POST, true, $_GET['edit']));
+                            if (isset($_POST['edit'])) {  							
+								$update = json_decode('{ "status" : "", "msg" : ""}');
+								
+								// eMail Überprüfung
+								
+								// Überprüfen ob eMail schon vergeben ist
+								$emailUnique = json_decode(Validation::validateIfEmailIsUnique($_POST['user_email']));
+			
+								if( $emailUnique->status == 'error') { // wenn sie bereits vergeben ist
+									$update->status = 'error';
+									$update->msg = $emailUnique->msg;
+								}
+								// wenn 'status' nicht auf 'error' gesetzt wurde -> Benutzer updaten
+								if ($update->status != 'error') {
+									$update = json_decode($userData->updateUser($_POST, true, $_GET['edit']));
+								}
+				
                                 if ($update->status == 'error') {
                                     ?>
                                     <div class="alert alert-danger"><?php echo $update->msg; ?></div>

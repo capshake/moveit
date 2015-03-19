@@ -12,16 +12,17 @@ if (!$userData->isLoggedIn()) {
     ?>
 
 
-    <div class="main-container container">
-       <div id="MapsLagerListen" class="row">
-        <div id="Altbau" class="col-md-2">
-            <div class="row" id="Ueberschriften">
+    <div class="container">
+       <div id="MapsLagerListen">
+        <div class="col-md-2">
+            <div id="Altbau">
+            <div id="Ueberschriften">
                 <h4>Altbau</h4>
             </div>
             <!--Dropdown Menue fuer den Altbau-->
-            <div id="AltbauAuswahl" class="row">
-                <fieldset class= "col-md-12">
-                    <div id = "AltTrakt" class="row">
+            <div id="AltbauAuswahl">
+                <fieldset>
+                    <div id="AltTrakt">
                         <select name="AltbauTrakt"  id="AltbauTrakt">
                             <option value="">Trakt</option>
                             <?php
@@ -32,12 +33,12 @@ if (!$userData->isLoggedIn()) {
                             ?>
                         </select>
                     </div>
-                    <div id = "AltEtage" class="row">
+                    <div id="AltEtage">
                         <select name="AltbauEtage" id="AltbauEtage">
                             <option value="">Vorher Trakt w&auml;hlen...</option>
                         </select>
                     </div>
-                    <div id = "AltRaum" class="row">
+                    <div id="AltRaum">
                         <select name="AltbauRaum" id="AltbauRaum">
                             <option value="">Vorher Etage w&auml;hlen...</option>
                         </select>
@@ -45,45 +46,44 @@ if (!$userData->isLoggedIn()) {
                 </fieldset>
             </div>
 
-
-
             <!--AltbauListe-->
-            <div class="row">
+            <div>
                 <h5 class="altlist"><b>Möbel in diesem Raum:</b></h5>
                 <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
             </div>
         </div>
+    </div>
         <div class="col-md-8">
            <div id="Neubau">
             <!--Dropdown Menue fuer den Neubau-->
-            <div class="row" id="Ueberschriften">
+            <div id="Ueberschriften">
              <h4>Neubau</h4>
              <button type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
              <button type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock</button>
-
+         </div>
              <div id="dialog-GrundrissNeubau" title="Neubau-Grundriss">
 
                 <div id= "MapText">
                     <p>Hier finden Sie eine Übersicht über die NeubauMap.
                     Sie haben die Möglichkeit Räume auszuwählen, indem Sie über die Map navigieren.</p>
                 </div>
-                 <div id= "NeubauAuswahlMap" class="row">
+                 <div id= "NeubauAuswahlMap">
                      <fieldset>
-                        <div id = "NeuTraktMap" class="col-md-1">
+                        <div id = "NeuTraktMap">
                             <select name="NeubauTraktMap" id="NeubauTraktMap">
                                 <option value="EOG">Trakt1</option>
                                 <option value="1OG">Trakt2</option>
                                 <option value="2OG">Trakt3</option>
                             </select>
                         </div>
-                        <div id = "NeuEtageMap" class="col-md-4">
+                        <div id = "NeuEtageMap">
                             <select name="NeubauEtageMap" id="NeubauEtageMap">
                                 <option value="EOG">Erdgeschoss</option>
                                 <option value="1OG">Erstes Stockwerk</option>
                                 <option value="2OG">Zweites Stockwerk</option>
                             </select>
                         </div>
-                        <div id = "NeuRaumMap" class="col-md-1">
+                        <div id = "NeuRaumMap">
                             <select name="NeubauRaumMap" id="NeubauRaumMap">
                                 <option value="EOG">Raum1</option>
                                 <option value="1OG">Raum2</option>
@@ -98,13 +98,13 @@ if (!$userData->isLoggedIn()) {
 
 
              </div>
-            </div>
 
-         <div id="NeubauAuswahl" class="row">
+    <!-- Dropdown-Menü für den Neubau -->
+         <div id="NeubauAuswahl">
             <fieldset>
-                <div id = "NeuTrakt" class="col-md-1">
+                <div id="NeuTrakt">
                     <select name="NeubauTrakt" id="NeubauTrakt">
-                        <option value="">Trakt</option>
+                        <option value="">Trakt wählen</option>
                         <?php
                             $buildingsNew = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
                             foreach($buildingsNew as $buildingNew){
@@ -113,24 +113,24 @@ if (!$userData->isLoggedIn()) {
                         ?>
                     </select>
                 </div>
-                <div id = "NeuEtage" class="col-md-3">
+                <div id="NeuEtage">
                     <select name="NeubauEtage" id="NeubauEtage">
-                        <option value="">Vorher Trakt w&auml;hlen...</option>
+                        <option value="">Vorher Trakt wählen...</option>
                     </select>
                 </div>
-                <div id = "NeuRaum" class="col-md-1">
+                <div id="NeuRaum">
                     <select name="NeubauRaum" id="NeubauRaum">
-                        <option value="">Vorher Etage w&auml;hlen...</option>
+                        <option value="">Vorher Etage wählen...</option>
                     </select>
                 </div>
             </fieldset>
 
         </div>
-
+    <!-- Ende Dropdown-Menü für Neubau -->
 
         <!--NeubauMap-->
         <div>
-            <div id="NeubauMap" class="row" style="overflow: visible;">
+            <div id="NeubauMap" style="overflow: visible;">
                 <img src="./img/item-types/stuhl.svg" class="moveitplaner">
                 <img src="./img/item-types/stuhl.svg" class="moveitplaner">
                 <img src="./img/item-types/drehstuhl.svg" class="moveitplaner">
@@ -143,116 +143,39 @@ if (!$userData->isLoggedIn()) {
 
     <!--Lager-->
 
-    <div id="LagerLeiste" class="col-md-2">
-        <div id="ObereLeiste" class="row">
+    <div class="col-md-2">
+        <div id="LagerLeiste">
+        <div id="ObereLeiste">
             <ul>            <!-- Tabs: Lager, Wunsch, Müll -->
-                <li class="col-md-3"><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager"id="LagerTab"> Lager </a></li>
-                <li class="col-md-4"><a href="#Wunschliste" data-toggle="tooltip" data-placement="top" title="Klicken um Möbelwunsch aufzugeben" id="WunschTab"> Wunsch</a></li>
-                <li class="col-md-3"><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll" id="MüllTab">Müll</a></li>
+                <li><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager"id="LagerTab"> Lager </a></li>
+                <li><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll" id="MüllTab">Müll</a></li>
 
             </ul>
             <div id= "Lager">
-                <ul id="LagerListe" class="col-md-12">
-                    <li class="ui-state-default" data-type="stuhl" data-count="20">Stuhl 20x</li>
-                    <li class="ui-state-default" data-type="sonstiges" data-count="1">Beamer 1x</li>
+                <ul id="LagerListe">
             </ul>
         </div>
 
-        <div id= "Wunschliste">
-
-                <!--Tabelle der Wunschliste -->
-                <div id="wunschtabelle" class="ui-widget">
-                    <table id="wünsche" class="ui-widget ui-widget-content">
-                        <thead>
-                            <tr class="ui-widget-header ">
-                                <th id="Button"></th>
-                                <th>Bezeichnung</th>
-                                <th>Anzahl</th>
-                                <th>Länge (cm)</th>
-                                <th>Breite (cm)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-
-
-
-                </div>
-                <!-- Buttons der Wunschliste -->
-                <button type="button" id="Wunschhinzufügen">Hinzufügen</button>
-
-
-
-        </div>
-
-<!--        Dialogfenster-->
-        <div id="wunschdialogform" title="Wunsch-Item Hinzufügen">
-            <p class="validateTips"></p>
-            <form>
-                <fieldset>
-                    <label for="bezeichnung">Bezeichnung</label>
-                        <input type="text" name="bezeichnung" id="bezeichnung" class="text ui-widget-content ui-corner-all">
-                    <label for="anzahl">Anzahl</label>
-                        <input type="number" name="anzahl" id="anzahl" class="text ui-widget-content ui-corner-all">
-                    <label for="länge">Länge (cm)</label>
-                        <input type="number" name="länge" id="länge" class="text ui-widget-content ui-corner-all">
-                    <label for="breite">Breite (cm)</label>
-                        <input type="number" name="breite" id="breite" class="text ui-widget-content ui-corner-all">
-                    <!-- Allow form submission with keyboard without duplicating the dialog button-->
-                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                </fieldset>
-            </form>
-        </div>
-
-        <div id="dialog-Itemlöschen" title="Löschen">
-                        Item wirklich löschen?
-        </div>
-
-        <div id="dialog-Itembearbeiten" title="Bearbeiten">
-            <p class="validateTips"></p>
-            <form>
-                <fieldset>
-                    <label for="bezeichnung">Bezeichnung</label>
-                        <input type="text" name="bezeichnung" id="bezeichnung" class="text ui-widget-content ui-corner-all">
-                    <label for="anzahl">Anzahl</label>
-                        <input type="number" name="anzahl" id="anzahl" class="text ui-widget-content ui-corner-all">
-                    <label for="länge">Länge (cm)</label>
-                        <input type="number" name="länge" id="länge" class="text ui-widget-content ui-corner-all">
-                    <label for="breite">Breite (cm)</label>
-                        <input type="number" name="breite" id="breite" class="text ui-widget-content ui-corner-all">
-                    <!-- Allow form submission with keyboard without duplicating the dialog button-->
-                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                </fieldset>
-            </form>
-        </div>
-
-<!--            Ende Dialogfenster-->
-
+       
         <div id= "Müll">
             <ul id="MuellListe" class="col-md-12">
-                <li class="ui-state-default"data-type="tafel" data-count="1">Whiteboard 1x</li>
-                <li class="ui-state-default"data-type="drehstuhl" data-count="1">Drehstuhl 1x</li>
+                
             </ul>
-
         </div>
     </div>
-    <div id="oeffentlichesLager" class="row">
+    <div id="oeffentlichesLager">
         <div class="col-md-12" id="oeffentlichesLagerUeberschrift">
-            <label class="col-md-10">öffentliches Lager</label>
+            <label>öffentliches Lager</label>
 
             <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-repeat"></span></button>
 
         </div>
 
         <ul id="oeffentlichesLagerListe" class="col-md-12">
-            <li class="ui-state-default" data-type="tisch" data-count="1">Tisch 11x</li>
-            <li class="ui-state-default" data-type="stuhl" data-count="1">Stuhl 20x</li>
-            <li class="ui-state-default" data-type="sonstiges" data-count="1">Beamer 1x</li>
-            <li class="ui-state-default" data-type="tafel" data-count="1">Whiteboard 1x</li>
-            <li class="ui-state-default"data-type="drehstuhl" data-count="1">Drehstuhl 1x</li>
+           
         </ul>
     </div>
+</div>
 </div>
 </div>
 <script type="text/javascript">

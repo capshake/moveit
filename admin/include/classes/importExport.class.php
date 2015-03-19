@@ -259,6 +259,13 @@ class importExport extends Token {
             }
             if ($return['status'] != 'error') {
                 //upload
+
+                // Wenn Uploadverzeichnis nicht existiert, erstellen
+                if(!file_exists('../../uploads/csv')){
+                        mkdir('../../uploads/csv');
+                }
+
+
                 $path = 'uploads/csv/import.' . $ex;
                 @unlink(ROOTDIR . $path);
                 if (!move_uploaded_file($files['csv_file']['tmp_name'], ROOTDIR . $path)) {

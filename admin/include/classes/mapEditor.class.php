@@ -6,7 +6,7 @@ class mapEditor extends Token {
      * Konstruktor
      */
     public function __construct() {
-        
+
     }
 
     /**
@@ -67,7 +67,7 @@ class mapEditor extends Token {
                 $path = 'uploads/maps/map_' . time() . '.' . $ex;
                 if (!move_uploaded_file($files['map_picture']['tmp_name'], ROOTDIR . $path)) {
                     $return['status'] = 'error';
-                    $return['msg'] = 'Es ist ein Fehler beim Hochladen der Map aufgetreten.';
+                    $return['msg'] = 'Es ist ein Fehler beim Hochladen der Map aufgetreten.' . getcwd() . '';
                 }
 
                 if ($return['status'] != 'error') {
@@ -142,6 +142,11 @@ class mapEditor extends Token {
 
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
+
+                // Wenn Uploadverzeichnis nicht existiert, erstellen
+                if(!file_exists('../../uploads/maps')){
+                        mkdir('../../uploads/maps');
+                }
 
                 $path = $map['map_picture'];
                 if (isset($files['map_picture']['name']) && !empty($files['map_picture']['name'])) {
