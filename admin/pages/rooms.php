@@ -59,7 +59,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <input id="room_name" name="room_name" value="<?php echo $room['room_name']; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                                 </div>
 
-                                <div class="form-group">
+                                <?php /*<div class="form-group">
                                     <label for="room_map_id">Map</label>
                                     <select id="room_map_id" class="form-control" name="room_map_id">
                                         <?php
@@ -71,14 +71,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         }
                                         ?>
                                     </select>
-                                </div>
-                                <div class="form-group">
+                                </div>* ?>
+                                <?php /*<div class="form-group">
                                     <label for="room_type">Wo befindet sich der Raum?</label>
                                     <select id="room_type" class="form-control" name="room_type">
                                         <option value="1" <?php echo ($room['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
                                         <option value="2" <?php echo ($room['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
                                     </select>
-                                </div> 
+                                </div> */ ?>
                                
                                
                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
@@ -148,8 +148,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <div class="form-group">
                                 <label for="room_type">Wo befindet sich der Raum?</label>
                                 <select id="room_type" class="form-control" name="room_type">
-                                    <option value="1" <?php echo ($_POST['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
-                                    <option value="2" <?php echo ($_POST['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                    <option value="1" <?php echo (@$_POST['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                    <option value="2" <?php echo (@$_POST['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
                                 </select>
                             </div> 
                             <button class="btn btn-primary" type="submit" name="create">Speichern</button>

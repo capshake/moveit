@@ -59,13 +59,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <label for="building_name">Gebäudename</label>
                                     <input id="building_name" name="building_name" value="<?php echo $building['building_name']; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
                                 </div>
-                                <div class="form-group">
+                                <?php /*<div class="form-group">
                                     <label for="building_type">Wo befindet sich das Gebäude?</label>
                                     <select id="building_type" class="form-control" name="building_type">
                                         <option value="1" <?php echo ($building['building_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
                                         <option value="2" <?php echo ($building['building_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
                                     </select>
-                                </div>
+                                </div>*/
+                                      ?>
                                 
                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
@@ -122,8 +123,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <div class="form-group">
                                 <label for="building_type">Wo befindet sich das Gebäude?</label>
                                 <select id="building_type" class="form-control" name="building_type">
-                                    <option value="1" <?php echo ($_POST['building_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
-                                    <option value="2" <?php echo ($_POST['building_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                    <option value="1" <?php echo (@$_POST['building_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                    <option value="2" <?php echo (@$_POST['building_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
                                 </select>
                             </div>
                             

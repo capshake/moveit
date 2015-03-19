@@ -398,43 +398,7 @@ $(document).ready(function () {
 
 
 
-    //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
-    function dragAndDrop() {
-        $('.moveitplaner').each(function () {
-            $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
-                scroll: false,
-                containment: "#MapsLagerListen", // Seitenbereich, innerhalb dessen das Icon überhaupt bewegt werden darf
-                //revert: 'invalid',
-                stop: function () {
-                    $(this).draggable('option', 'revert', 'invalid');
-                    $('#AltbauListe').css('border', ''); // Reset
-                },
-                drag: function (event, ui) {
-                    // oben
-                    var neubauMapTop = $("#NeubauMap").position().top;
-                    var uiTop = $(this).position().top;
-                    var delta_uiTop_neubauMapTop = uiTop - neubauMapTop;
 
-                    // links
-                    var neubauMapLeft = $("#NeubauMap").position().left;
-                    var uiLeft = $(this).position().left;
-                    var delta_uiLeft_neubauMapLeft = uiLeft - neubauMapLeft;
-
-                    // imgIcon verlässt oben oder links die NeubauMap -> Border für die Raumliste erscheint, um anzuzeigen, dass hier gedroppt werden darf
-                    if (delta_uiTop_neubauMapTop < -10 || delta_uiLeft_neubauMapLeft < -20) { // Werte etwas unter Null, da Icons erst ein Stück aus der Map heraus gezogen werden sollen
-                        $('#AltbauListe').css('border', '2px solid green');
-                    } else {
-                        $('#AltbauListe').css('border', '');
-                    }
-                },
-                stack: '.moveitplaner' // Icons (genauer: alle Elemente mit class='moveitplaner') beim Draggen immer im Vordergrund
-            }).droppable({
-                drop: function (event, ui) {
-                    ui.draggable.draggable('option', 'revert', true);
-                }
-            });
-        });
-    };
 
 
     $('#AltbauListe').droppable({
@@ -504,6 +468,44 @@ $(document).ready(function () {
 
 
 });
+
+//Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
+function dragAndDrop() {
+    $('.moveitplaner').each(function () {
+        $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
+            scroll: false,
+            containment: "#MapsLagerListen", // Seitenbereich, innerhalb dessen das Icon überhaupt bewegt werden darf
+            //revert: 'invalid',
+            stop: function () {
+                $(this).draggable('option', 'revert', 'invalid');
+                $('#AltbauListe').css('border', ''); // Reset
+            },
+            drag: function (event, ui) {
+                // oben
+                var neubauMapTop = $("#NeubauMap").position().top;
+                var uiTop = $(this).position().top;
+                var delta_uiTop_neubauMapTop = uiTop - neubauMapTop;
+
+                // links
+                var neubauMapLeft = $("#NeubauMap").position().left;
+                var uiLeft = $(this).position().left;
+                var delta_uiLeft_neubauMapLeft = uiLeft - neubauMapLeft;
+
+                // imgIcon verlässt oben oder links die NeubauMap -> Border für die Raumliste erscheint, um anzuzeigen, dass hier gedroppt werden darf
+                if (delta_uiTop_neubauMapTop < -10 || delta_uiLeft_neubauMapLeft < -20) { // Werte etwas unter Null, da Icons erst ein Stück aus der Map heraus gezogen werden sollen
+                    $('#AltbauListe').css('border', '2px solid green');
+                } else {
+                    $('#AltbauListe').css('border', '');
+                }
+            },
+            stack: '.moveitplaner' // Icons (genauer: alle Elemente mit class='moveitplaner') beim Draggen immer im Vordergrund
+        }).droppable({
+            drop: function (event, ui) {
+                ui.draggable.draggable('option', 'revert', true);
+            }
+        });
+    });
+};
 
 
 //Items aus dem Altbau laden

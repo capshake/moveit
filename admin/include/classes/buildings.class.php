@@ -93,10 +93,10 @@ class Buildings extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Gebäudename aus.';
             }
-            if (empty($data['building_type'])) {
+            /*if (empty($data['building_type'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Gebäudetyp aus.';
-            }
+            }*/
 
 
             if (!$this->isValidToken(@$data['token'])) {
@@ -109,9 +109,9 @@ class Buildings extends Token {
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
 
-                $update = $db->query("UPDATE " . TABLE_BUILDINGS . " SET building_name = :building_name, building_type = :building_type WHERE building_id = :building_id", array(
+                $update = $db->query("UPDATE " . TABLE_BUILDINGS . " SET building_name = :building_name WHERE building_id = :building_id", array(
                     "building_name" => $data['building_name'],
-                    "building_type" => $data['building_type'],
+                    //"building_type" => $data['building_type'],
                     "building_id" => $id
                 ));
 
