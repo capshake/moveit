@@ -22,7 +22,7 @@ $(document).ready(function () {
     //Popup vor dem Löschvorgang
     $('body').on('click', '.delete-button, .reset-database', function () {
         var el = $(this);
-        bootbox.confirm("Sind Sie sich wirklich sicher?", function (result) {
+        bootbox.confirm("Wollen Sie den Eintrag wirklich löschen?", function (result) {
             if (result) {
                 location.href = el.attr('href');
             }

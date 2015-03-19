@@ -15,14 +15,18 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <div class="col-md-12">
                 <h1><?php echo $headerTitle?> Adminpanel</h1>
                 <h2 class="lead">Anleitung</h2>
-                <p>	<b>Benutzer</b> <br> Im „Nutzer“ Bereich könnnen neue Benutzer angelegt werden. Es müssen einfach die geforderten Daten eingetragen werden und auf „Nutzer hinzufügen“ geklickt werden. <br>
+                <p>	
+                <ul>
+                <li> <b>Benutzer:</b>  Im Benutzer Bereich ist es möglich neue Benutzer zu erstellen und ihnen Rollen und Räume zuzuweisen. Außerdem kann man Nutzer "manuell" freischalten, falls die Freischaltung mit dem automatisch versendeten Links nicht funktioniert hat.</li> <br>
 
-					<br> <b>Räume</b> <br> Im Grundriss Bereich können Grundrisse zunächst hochgeladen und dann bearbeitet werden. Wenn man diese bearbeiten möchte, können einfach kästchen gezogen werden und somit Räume erstellt werden <br>
+					<li><b>Räume:</b> Im Räume Bereich ist es sowohl möglich Räume hinzuzufügen als auch zu löschen.</li> <br>
 
-					<br> <b>Map editor</b> <br>  blabla  <br>
-					<br> <b>Gebäude</b> <br>  blabla  <br> 
-					<br> <b>Import/Export</b> <br>   blabla <br></p>
-
+					<li><b>Map editor:</b> Im Map editor Bereich muss man die Maps hochladen die man verwenden möchte und auswählen wie der Trakt heißt. Außerdem kann man noch aussuchen welche Etage dargestellt wird. </li> <br>
+					<li><b>Gebäude:</b> Im Gebäude Bereich werden Trakte eingetragen und es wird ausgewählt ob dieser Trakt zum Alt oder Neubau gehört. </li> <br>
+					<li><b>Import/Export:</b>Im Import Bereich kann eine .csv-Datei, mit den Möbeln die eingepflegt werden sollen, hochgeladen werden und auch exportiert werden. Außerdem kann die Datenbank zurückgesetzt werden, dies hat zur Folge, dass die im
+					Vorfeld importierten Daten gelöscht werden.</li> <br> 
+				    </p>
+				</ul>
 
             </div>
         </div>
