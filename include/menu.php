@@ -19,7 +19,7 @@
                 ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $userData->getFirstName() . ' ' . $userData->getLastName(); ?><span class="caret"></span></a>
+                        <a id="user-name-menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $userData->getFirstName() . ' ' . $userData->getLastName(); ?><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?php echo BASEDIR . 'user/' . $userData->getUserId(); ?>">Profil</a></li>
                             <li><a href="<?php echo BASEDIR . 'settings'; ?>">Profil bearbeiten</a></li>
