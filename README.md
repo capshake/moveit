@@ -20,7 +20,6 @@
 - Z-Index
 - Responsive rausnehmen
 - Hinweis bei leeren Lager, Müll
-- Tabs von Lager
 - Maps nur für Neubau(Adminbereich)
 - Füllen mit DB- Inhalt insgesamt
 - Öffentliches Lager aktualisieren
