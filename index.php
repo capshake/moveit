@@ -12,7 +12,7 @@ if (!$userData->isLoggedIn()) {
     ?>
 
 
-    <div class="main-container container">
+    <div class="container">
        <div id="MapsLagerListen">
         <div class="col-md-2">
             <div id="Altbau">
@@ -148,9 +148,8 @@ if (!$userData->isLoggedIn()) {
         <div id="LagerLeiste">
         <div id="ObereLeiste">
             <ul>            <!-- Tabs: Lager, Wunsch, Müll -->
-                <li class="col-md-3"><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager"id="LagerTab"> Lager </a></li>
-                <li class="col-md-4"><a href="#Wunschliste" data-toggle="tooltip" data-placement="top" title="Klicken um Möbelwunsch aufzugeben" id="WunschTab"> Wunsch</a></li>
-                <li class="col-md-3"><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll" id="MüllTab">Müll</a></li>
+                <li><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager"id="LagerTab"> Lager </a></li>
+                <li><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll" id="MüllTab">Müll</a></li>
 
             </ul>
             <div id= "Lager">
@@ -158,77 +157,7 @@ if (!$userData->isLoggedIn()) {
             </ul>
         </div>
 
-        <div id= "Wunschliste">
-
-                <!--Tabelle der Wunschliste -->
-                <div id="wunschtabelle" class="ui-widget">
-                    <table id="wünsche" class="ui-widget ui-widget-content">
-                        <thead>
-                            <tr class="ui-widget-header ">
-                                <th id="Button"></th>
-                                <th>Bezeichnung</th>
-                                <th>Anzahl</th>
-                                <th>Länge (cm)</th>
-                                <th>Breite (cm)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-
-
-
-                </div>
-                <!-- Buttons der Wunschliste -->
-                <button type="button" id="Wunschhinzufügen">Hinzufügen</button>
-
-
-
-        </div>
-
-<!--        Dialogfenster-->
-        <div id="wunschdialogform" title="Wunsch-Item Hinzufügen">
-            <p class="validateTips"></p>
-            <form>
-                <fieldset>
-                    <label for="bezeichnung">Bezeichnung</label>
-                        <input type="text" name="bezeichnung" id="bezeichnung" class="text ui-widget-content ui-corner-all">
-                    <label for="anzahl">Anzahl</label>
-                        <input type="number" name="anzahl" id="anzahl" class="text ui-widget-content ui-corner-all">
-                    <label for="länge">Länge (cm)</label>
-                        <input type="number" name="länge" id="länge" class="text ui-widget-content ui-corner-all">
-                    <label for="breite">Breite (cm)</label>
-                        <input type="number" name="breite" id="breite" class="text ui-widget-content ui-corner-all">
-                    <!-- Allow form submission with keyboard without duplicating the dialog button-->
-                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                </fieldset>
-            </form>
-        </div>
-
-        <div id="dialog-Itemlöschen" title="Löschen">
-                        Item wirklich löschen?
-        </div>
-
-        <div id="dialog-Itembearbeiten" title="Bearbeiten">
-            <p class="validateTips"></p>
-            <form>
-                <fieldset>
-                    <label for="bezeichnung">Bezeichnung</label>
-                        <input type="text" name="bezeichnung" id="bezeichnung" class="text ui-widget-content ui-corner-all">
-                    <label for="anzahl">Anzahl</label>
-                        <input type="number" name="anzahl" id="anzahl" class="text ui-widget-content ui-corner-all">
-                    <label for="länge">Länge (cm)</label>
-                        <input type="number" name="länge" id="länge" class="text ui-widget-content ui-corner-all">
-                    <label for="breite">Breite (cm)</label>
-                        <input type="number" name="breite" id="breite" class="text ui-widget-content ui-corner-all">
-                    <!-- Allow form submission with keyboard without duplicating the dialog button-->
-                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                </fieldset>
-            </form>
-        </div>
-
-<!--   Ende Dialogfenster-->
-
+       
         <div id= "Müll">
             <ul id="MuellListe" class="col-md-12">
                 

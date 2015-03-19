@@ -204,7 +204,6 @@ body, html {
   padding-bottom: 0, 5em;
   padding-top: 0, 5em; }
 
-
 /* line 249, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 #MapsLagerListen {
   padding: 0.3em; }
@@ -301,6 +300,10 @@ button {
   font-size: 1em;
   padding: 0.4em;
   height: 3em; }
+
+select{
+  width: 150px;
+}
 
 /* line 405, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 #oeffentlichesLagerUeberschrift {
