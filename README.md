@@ -15,7 +15,6 @@
     -Kollision raus
     -Verwandeln -> raus
     -Draggable-Bereiche definieren
-- E-Mail validieren
 - Zollstock
 - Map-Grundriss einpflegen
 - Z-Index
