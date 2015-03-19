@@ -28,10 +28,17 @@ if ($userData->isLoggedIn()) {
     } else if (isset($_GET['map_id'])) {
         http_response_code(200);
         $db->bind("map_id", $_GET['map_id']);
-        $rooms['rooms'] = $db->query("SELECT room_id, room_name, room_name_alt, room_position_x, room_position_y,room_size_x,room_size_y FROM " . TABLE_ROOMS . " WHERE room_map_id = :map_id");
+        $roomQuery = $db->query("SELECT room_id, room_name, room_name_alt, room_position_x, room_position_y,room_size_x,room_size_y FROM " . TABLE_ROOMS . " WHERE room_map_id = :map_id");
+        
+        
+        foreach($roomQuery as $key => $room) {
+            $rooms['rooms'][$key] = $room;
+            $rooms['rooms'][$key]['owner'] = isOwnerOfRoom($room['room_id'], $_SESSION['user_id']);
+        }
+        
+        
         $db->bind("map_id", $_GET['map_id']);
         $map = $db->row("SELECT map_id, map_scale_cm AS room_scale_cm, map_scale_px AS room_scale_px FROM " . TABLE_ROOMS . " LEFT JOIN " . TABLE_MAPS . " ON room_map_id = map_id WHERE room_map_id = :map_id");
-        
         $rooms['map'] = $map;
         $rooms['status'] = 'success';
     } else if (isset($_GET['room_id'])) {
