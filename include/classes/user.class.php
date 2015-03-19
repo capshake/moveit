@@ -324,6 +324,12 @@ class User extends Token {
                     ));
                 }
 
+                // betrifft nur die settings.php wenn man dort ein neues Passwort eingegeben hat
+                // Validierungen in diesem Zusammenhang werden in der settings.php gemacht
+                if (isset($data['user_new_password']) && !empty($data['user_new_password'])){
+                	$newPassword = $this->makePasswordHash($data['user_new_password']);
+                	$update = $db->query("UPDATE " . TABLE_USERS . " SET " . "user_password = :user_new_password WHERE user_id = :user_id", array("user_new_password" => $newPassword, "user_id" => $id));
+                }
 
                 $return['status'] = 'success';
                 $return['msg'] = 'Der Benutzer wurde bearbeitet.';
