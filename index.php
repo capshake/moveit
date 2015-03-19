@@ -25,9 +25,9 @@ if (!$userData->isLoggedIn()) {
                         <select name="AltbauTrakt"  id="AltbauTrakt">
                             <option value="">Trakt</option>
                             <?php
-                                $buildings = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 1");
-                                foreach($buildings as $building){
-                                    echo "<option value = " . $building['building_id'] . ">" . $building['building_name'] . "</option>";
+                                $buildingsOld = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 1");
+                                foreach($buildingsOld as $buildingOld){
+                                    echo "<option value = " . $buildingOld['building_id'] . ">" . $buildingOld['building_name'] . "</option>";
                                 }
                             ?>
                         </select>
@@ -104,23 +104,23 @@ if (!$userData->isLoggedIn()) {
             <fieldset>
                 <div id = "NeuTrakt" class="col-md-1">
                     <select name="NeubauTrakt" id="NeubauTrakt">
-                        <option value="EOG">Trakt1</option>
-                        <option value="1OG">Trakt2</option>
-                        <option value="2OG">Trakt3</option>
+                        <option value="">Trakt</option>
+                        <?php
+                            $buildingsNew = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
+                            foreach($buildingsNew as $buildingNew){
+                                echo "<option value = " . $buildingNew['building_id'] . ">" . $buildingNew['building_name'] . "</option>";
+                            }
+                        ?>
                     </select>
                 </div>
                 <div id = "NeuEtage" class="col-md-3">
                     <select name="NeubauEtage" id="NeubauEtage">
-                        <option value="EOG">Erdgeschoss</option>
-                        <option value="1OG">Erstes Stockwerk</option>
-                        <option value="2OG">Zweites Stockwerk</option>
+                        <option value="">Vorher Trakt w&auml;hlen...</option>
                     </select>
                 </div>
                 <div id = "NeuRaum" class="col-md-1">
                     <select name="NeubauRaum" id="NeubauRaum">
-                        <option value="EOG">Raum1</option>
-                        <option value="1OG">Raum2</option>
-                        <option value="2OG">Raum3</option>
+                        <option value="">Vorher Etage w&auml;hlen...</option>
                     </select>
                 </div>
             </fieldset>
