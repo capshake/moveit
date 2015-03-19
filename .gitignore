@@ -60,3 +60,5 @@ sftp-config.json
 *.xls
 nbproject/
 include/classes/logs/*
+.project
+.settings/org.eclipse.core.resources.prefs
