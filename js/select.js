@@ -64,21 +64,21 @@ $(document).ready(function ($) {
     $("#NeubauTrakt").selectmenu({
         change: function (event, ui) {
             changed('NeubauTrakt', 'NeubauEtage');
-            getItems(roomId);
+            getRoom(roomId);
         }
     });
 
     $("#NeubauEtage").selectmenu({
         change: function (event, ui) {
             changed('NeubauEtage', 'NeubauRaum');
-            getItems(roomId);
+            getRoom(roomId);
         }
     });
 
     $("#NeubauRaum").selectmenu({
         change: function (event, ui) {
             roomId = $('#NeubauRaum').val();
-            getItems(roomId);
+            getRoom(roomId);
         }
     });
 
@@ -163,15 +163,18 @@ $(document).ready(function ($) {
                 $.ajax({
                     url: BASEURL + 'api/getRooms/map/' + selectvalue,
                     success: function (output) {
-                        if(output.owner && output.rooms.length > 0){ // Wenn der Nutzer einen Raum dieser Map bearbeiten darf
-                            var rooms = output.rooms;
-                            $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
-                            for (var i = 0; i < rooms.length; i++) {
+                        var rooms = output.rooms;
+                        $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
+                        var ownedItems = 0;
+                        for (var i = 0; i < rooms.length; i++) {
+                            if(rooms[i].owner){
                                 $('#' + list_target_id).append('<option value="' + rooms[i].room_id + '">' + rooms[i].room_name + '</option>');
+                                ownedItems++;
                             }
                         }
-                        else{
-                            $('#' + list_target_id).html('<option value="">Keine R&auml;me vorhanden</option>');
+
+                        if(ownedItems == 0){
+                            $('#' + list_target_id).html('<option value="">Keine R&auml;ume vorhanden</option>');
                         }
 
                         $('#AltbauRaum').selectmenu("refresh");
@@ -232,7 +235,7 @@ $(document).ready(function ($) {
                 $('#NeubauRaum').selectmenu("refresh");
 
                 roomId = $('#NeubauRaum').val();
-                getItems(roomId);
+                getRoom(roomId);
             } else {
                 $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
 
@@ -242,15 +245,18 @@ $(document).ready(function ($) {
                 $.ajax({
                     url: BASEURL + 'api/getRooms/map/' + selectvalue,
                     success: function (output) {
-                        if(output.owner && output.rooms.length > 0){ // Wenn der Nutzer einen Raum dieser Map bearbeiten darf
-                            var rooms = output.rooms;
-                            $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
-                            for (var i = 0; i < rooms.length; i++) {
+                        var rooms = output.rooms;
+                        $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
+                        var ownedRooms = 0;
+                        for (var i = 0; i < rooms.length; i++) {
+                            if(rooms[i].owner){
                                 $('#' + list_target_id).append('<option value="' + rooms[i].room_id + '">' + rooms[i].room_name + '</option>');
+                                ownedRooms++;
                             }
                         }
-                        else{
-                            $('#' + list_target_id).html('<option value="">Keine R&auml;me vorhanden</option>');
+
+                        if(ownedRooms == 0){
+                            $('#' + list_target_id).html('<option value="">Keine R&auml;ume vorhanden</option>');
                         }
 
                         $('#NeubauRaum').selectmenu("refresh");
