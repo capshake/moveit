@@ -18,11 +18,11 @@
 - E-Mail validieren
 - Zollstock
 - Map-Grundriss einpflegen
-- Z-Index
+- Z-Index fixen (Müll, Lager und Mapdialog)
 - Responsive rausnehmen
 - Hinweis bei leeren Lager, Müll
 - Tabs von Lager
-- Maps nur für Neubau(Adminbereich)
+- Map-Karten nur für Neubau(Adminbereich)
 - Füllen mit DB- Inhalt insgesamt
 - Öffentliches Lager aktualisieren
 
