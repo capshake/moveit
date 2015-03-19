@@ -136,7 +136,7 @@ if (!$userData->isLoggedIn()) {
 	if ($update->status != 'error' && isset($_POST['user_firstname']) && !empty($_POST['user_firstname']) && isset($_POST['user_lastname']) && !empty($_POST['user_lastname'])) { 
 	?>
 		<script>
-		$('#user-name-menu').text('<?php echo $_POST['user_firstname'] . ' ' . $_POST['user_lastname']?>');
+		$('#user-name-menu').text('<?php echo $_POST['user_firstname'] . ' ' . $_POST['user_lastname']?>').append("<span class='caret'></span>");
 		</script>
 	<?php
 	}
