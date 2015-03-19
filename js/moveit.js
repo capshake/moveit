@@ -173,23 +173,7 @@ $(document).ready(function () {
         }
     });
 
-    function addItem() {
-        allFields.removeClass("ui-state-error");
-        var _valid = valid(bezeichnung, anzahl, länge, breite);
-        if (_valid) {
-            $("#wunschtabelle tbody").append("<tr id=" + bezeichnung.val() + ">" +
-                "<td>" + "</td>" +
-                "<td>" + bezeichnung.val() + "</td>" +
-                "<td>" + anzahl.val() + "</td>" +
-                "<td>" + länge.val() + "</td>" +
-                "<td>" + breite.val() + "</td>" +
-                "</tr>");
-            dialog.dialog("close");
-            updateTips("");
-        }
-        wirklichHinzugefügt = _valid;
-        return _valid;
-    }
+
 
     form = dialog.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -211,6 +195,107 @@ $(document).ready(function () {
             }
         }
     });
+
+
+
+
+    //DRAG UND DROP
+    // Funktion um Items zwischen Listen bewegen zu können
+
+    $("#LagerTab, #WunschTab, #MüllTab").tabs().find("#ObereLeiste").sortable({
+        axis: "x"
+    });
+
+    $("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe, #NeubauMap").sortable({
+        connectWith: "#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe"
+    }).disableSelection();
+    // Tabs auf denen man die Elemente bewegen kann
+    var $tabs = $("#ObereLeiste").tabs();
+    var $tab_items = $("ul:first li", $tabs).droppable({
+        // Festlegen das man nur Listenelemente bewegen kann
+        accept: "div",
+        hoverClass: "ui-state-hover",
+        // Items auch auf leere Listen ablegen
+        tolerance: "pointer",
+        dropOnEmpty: true,
+        drop: function (event, ui) {
+            var $item = $(this);
+            // Tabs auf denen man die Elemente bewegen kann festlegen
+            var $list = $($item.find("a").attr("href")).find("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe");
+            ui.draggable.hide("slow", function () {
+                $(this).appendTo($list).show("slow");
+            });
+        }
+    });
+
+    //für die NeubauMap
+    $("#NeubauMap").droppable({
+        dropOnEmpty: true,
+        tolerance: "fit",
+        drop: function (event, ui) {
+            // Attribut 'data-type' des gedroppten Items auslesen
+            var dataType = $(ui.draggable).data("type");
+            var dataImg = $(ui.draggable).data("img");
+            var dataId = $(ui.draggable).data("item-id");
+
+            var gedroptesItem = $(ui.draggable);
+
+            // Position auslesen um diese dem IMG geben zu können, damit IMG dort erscheint, wo gedroppt wird
+            var gedroptesItemPosition = gedroptesItem.offset();
+
+            $(gedroptesItem).replaceWith('<img data-type="' + dataType + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + '" src="' + dataImg + '">'); // class Attribut vergeben, um Items mit diesem Attribut draggable machen zu können
+
+
+            $('.planner-item-' + dataId).css({
+                'position': 'absolute',
+                'top': event.pageY,
+                'left': event.pageX,
+                'z-index': 4
+            });
+
+            dragAndDrop(); // für alle Elemente mit class='moveitplaner'
+
+        }
+    });
+
+
+    $('#AltbauListe').droppable({
+        accept: '.moveitplaner',
+        tolerance: 'fit',
+        drop: function () {
+            alert('ToDO: Umwandeln in ListenElement für die AltBauListe');
+        }
+    });
+
+    dragAndDrop(); // macht Icons draggable
+    $(".moveitplaner").on("dblclick", rotate);
+
+    // rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
+    function rotate() {
+        var rotation = 0; // lokale Variable
+
+        var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
+
+        if (rotationValue > 0) { // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
+            rotation = rotationValue + 90;
+        } else { // sonst um 90 Grad drehen
+            rotation = 90;
+        }
+
+        if (rotation == 360) { // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
+            rotation = 0;
+        }
+
+        $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
+    };
+
+
+
+    // Lade Items zum ersten mal
+    getItems(roomId);
+
+
+
 
     /* Item BEARBEITEN /////////////////////////////////////////////////////////////////////////////////////////// */
 
@@ -249,232 +334,99 @@ $(document).ready(function () {
         event.preventDefault();
         eintragErsetzen();
     });
-
-    function eintragErsetzen() {
-        allFields2.removeClass("ui-state-error");
-        var _valid = valid(bezeichnung2, anzahl2, länge2, breite2);
-        var zeileÄndern = $(listenButtongeklickt.parentElement.parentElement).attr("id");
-        if (_valid) {
-
-            $("#" + zeileÄndern + " td:nth-child(2)").replaceWith("<td>" + bezeichnung2.val() + "</td>");
-            $("#" + zeileÄndern + " td:nth-child(3)").replaceWith("<td>" + anzahl2.val() + "</td>");
-            $("#" + zeileÄndern + " td:nth-child(4)").replaceWith("<td>" + länge2.val() + "</td>");
-            $("#" + zeileÄndern + " td:nth-child(5)").replaceWith("<td>" + breite2.val() + "</td>");
-
-
-            dialogBearbeiten.dialog("close");
-            updateTips("");
-        }
-        return _valid;
-    }
-
-    /* HILFSKLASSEN/////////////////////////////////////////////////// */
-
-    function valid(_bezeichnung, _anzahl, _länge, _breite) {
-        var valid = true;
-
-        valid = valid && checkLength(_bezeichnung, "bezeichnung", 2, 20);
-        valid = valid && checkLength(_anzahl, "anzahl", 1, 4);
-        valid = valid && checkLength(_länge, "länge", 1, 10);
-        valid = valid && checkLength(_breite, "breite", 1, 10);
-
-        valid = valid && checkRegexp(_bezeichnung, /^[a-z]([0-9a-z_\s])+$/i, "Nur a-z, 0-9, Unterstriche, Leerzeichen und muss mit einem Buchstaben anfangen.");
-        valid = valid && checkRegexp(_anzahl, /^([0-9])+$/, "Nur Zahlen erlaubt");
-        valid = valid && checkRegexp(_länge, /^([0-9])+$/, "Nur Zahlen erlaubt");
-        valid = valid && checkRegexp(_breite, /^([0-9])+$/, "Nur Zahlen erlaubt");
-
-
-        return valid;
-
-    }
-
-    function updateTips(t) {
-        tips.text(t).addClass("ui-state-highlight");
-        setTimeout(function () {
-            tips.removeClass("ui-state-highlight", 1500);
-        }, 500);
-    }
-
-    function checkLength(o, n, min, max) {
-        if (o.val().length > max || o.val().length < min) {
-            o.addClass("ui-state-error");
-            updateTips("Länge muss zwischen " + min + " und " + max + " betragen.");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function checkRegexp(o, regexp, n) {
-        if (!(regexp.test(o.val()))) {
-            o.addClass("ui-state-error");
-            updateTips(n);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    //DRAG UND DROP
-    // Funktion um Items zwischen Listen bewegen zu können
-    $(function () {
-        $("#LagerTab, #WunschTab, #MüllTab").tabs().find("#ObereLeiste").sortable({
-            axis: "x"
-        });
-    });
-
-    $(function () {
-        $("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe, #NeubauMap").sortable({
-            connectWith: "#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe"
-        }).disableSelection();
-        // Tabs auf denen man die Elemente bewegen kann
-        var $tabs = $("#ObereLeiste").tabs();
-        var $tab_items = $("ul:first li", $tabs).droppable({
-            // Festlegen das man nur Listenelemente bewegen kann
-            accept: "li",
-            hoverClass: "ui-state-hover",
-            // Items auch auf leere Listen ablegen
-            tolerance: "pointer",
-            dropOnEmpty: true,
-            drop: function (event, ui) {
-                var $item = $(this);
-                // Tabs auf denen man die Elemente bewegen kann festlegen
-                var $list = $($item.find("a").attr("href")).find("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe");
-                ui.draggable.hide("slow", function () {
-                    $(this).appendTo($list).show("slow");
-                });
-            }
-        });
-    });
-
-    var zaehlerFuerTischId = 1; // künstliche ID für IMG - bei DB Anbindung kann diese aus DB ausgelesen werden (ID des Items)
-    //für die NeubauMap
-    $(function () {
-        $("#NeubauMap").droppable({
-            dropOnEmpty: true,
-            tolerance: "fit",
-            drop: function (event, ui) {
-                // Attribut 'data-type' des gedroppten Items auslesen
-                var dataType = $(ui.draggable).attr("data-type");
-                // wenn Item ein Tisch ist (data-type="tisch")
-                if (dataType == "tisch") {
-                    var gedroptesItem = $(ui.draggable);
-                    var parentGedroptesItem = $(ui.draggable).parent(); // parent vom gedroppten Item sichern, damit es am Ursprung erhalten bleiben kann, wenn dort mehr als 1 Item existiert
-                    var cloneGedroptesItem = gedroptesItem.clone(); // gedroptesItem sichern - Clone
-
-                    // Position auslesen um diese dem IMG geben zu können, damit IMG dort erscheint, wo gedroppt wird
-                    var gedroptesItemPosition = gedroptesItem.offset();
-
-                    // gedroptesItem NeubauMap hinzufügen
-                    $(this).append(gedroptesItem);
-
-                    // gedroptesItem ersetzen
-
-                    var id = "t" + zaehlerFuerTischId; // id zusammenbauen, um IMG eindeutige id geben zu koennen - kann bei DB Anbindung die id des Items sein
-                    zaehlerFuerTischId++;
-
-                    $(gedroptesItem).replaceWith('<img id="' + id + '" class="moveitplaner" src="./img/item-types/tisch.svg">'); // class Attribut vergeben, um Items mit diesem Attribut draggable machen zu können
-                    $('#' + id).offset(gedroptesItemPosition); //  IMG die Position wo gedroppt wurde zuordnen
-                    $(".moveitplaner").off("dblclick", rotate).on("dblclick", rotate); // vor dem Hinzufügen des Handlers, diesen zunächst entfernen, da sonst ggfs doppelt gesetzt
-
-                    dragAndDrop(); // für alle Elemente mit class='moveitplaner'
-
-                    // ist die Anzahl des gedraggten Items größer als 1 muss es am Ursprungsort erhalten bleiben
-                    // dazu erst Anzahl auslesen (enthalten im Attribut data-count)
-                    var dataCount = parseInt($(ui.draggable).attr("data-count"));
-                    if (dataCount > 1) {
-                        dataCount -= 1;
-                        cloneGedroptesItem.attr("data-count", dataCount);
-                        $(cloneGedroptesItem[0].firstElementChild).text(dataCount); // cloneGedroptesItem[0].firstElementChild entspricht dem span in dem die Anzahl steht
-
-                        //dem Ursprungsort das gedroppte Item hinzufügen
-                        parentGedroptesItem.append(cloneGedroptesItem.attr("style", "")); //da per jqueryUI style-Attribute im cloneGedroptesItem gesetzt wurden, die nun stören, diese entfernen
-
-                    }
-                }
-            }
-        });
-    });
-
-
-
-
-
-
-    $('#AltbauListe').droppable({
-        accept: '.moveitplaner',
-        tolerance: 'fit',
-        drop: function () {
-            alert('ToDO: Umwandeln in ListenElement für die AltBauListe');
-        }
-    });
-
-    dragAndDrop(); // macht Icons draggable
-    $(".moveitplaner").on("dblclick", rotate);
-
-    // rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
-    function rotate() {
-        var rotation = 0; // lokale Variable
-
-        var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
-
-        if (rotationValue > 0) { // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
-            rotation = rotationValue + 90;
-        } else { // sonst um 90 Grad drehen
-            rotation = 90;
-        }
-
-        if (rotation == 360) { // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
-            rotation = 0;
-        }
-
-        $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-    };
-
-    //Zollstock
-    //bin noch dran - ist nicht fertig - Isa :)
-
-    $("#Zollstock").on("click", function () {
-        $("#NeubauMap").css("cursor", "pointer");
-        $("#NeubauMap").append("<div id='test1'></div>")
-        $("#test1").css("height", "10px");
-        $("#test1").css("width", "10px");
-        $("#test1").css("background-color", "#b02d2d");
-        $("#test1").css("border", "2px solid black");
-        $("#test1").draggable();
-        $("#NeubauMap").append("<div id='test2'></div>")
-        $("#test2").css("height", "10px");
-        $("#test2").css("width", "10px");
-        $("#test2").css("background-color", "#b02d2d");
-        $("#test2").css("border", "2px solid black");
-        $("#test2").draggable();
-        $("#Zollstock").on("click", function () { //Entfernen der Zollstock-Endpunkte bei erneutem Klick
-            $("#test1").remove();
-            $("#test2").remove();
-        });
-
-    });
-
-
-
-
-
-
-
-
-
-    // Lade Items zum ersten mal
-    getItems(roomId);
-
-
 });
+
+function addItem() {
+    allFields.removeClass("ui-state-error");
+    var _valid = valid(bezeichnung, anzahl, länge, breite);
+    if (_valid) {
+        $("#wunschtabelle tbody").append("<tr id=" + bezeichnung.val() + ">" +
+            "<td>" + "</td>" +
+            "<td>" + bezeichnung.val() + "</td>" +
+            "<td>" + anzahl.val() + "</td>" +
+            "<td>" + länge.val() + "</td>" +
+            "<td>" + breite.val() + "</td>" +
+            "</tr>");
+        dialog.dialog("close");
+        updateTips("");
+    }
+    wirklichHinzugefügt = _valid;
+    return _valid;
+}
+
+function eintragErsetzen() {
+    allFields2.removeClass("ui-state-error");
+    var _valid = valid(bezeichnung2, anzahl2, länge2, breite2);
+    var zeileÄndern = $(listenButtongeklickt.parentElement.parentElement).attr("id");
+    if (_valid) {
+
+        $("#" + zeileÄndern + " td:nth-child(2)").replaceWith("<td>" + bezeichnung2.val() + "</td>");
+        $("#" + zeileÄndern + " td:nth-child(3)").replaceWith("<td>" + anzahl2.val() + "</td>");
+        $("#" + zeileÄndern + " td:nth-child(4)").replaceWith("<td>" + länge2.val() + "</td>");
+        $("#" + zeileÄndern + " td:nth-child(5)").replaceWith("<td>" + breite2.val() + "</td>");
+
+
+        dialogBearbeiten.dialog("close");
+        updateTips("");
+    }
+    return _valid;
+}
+
+
+
+/* HILFSKLASSEN/////////////////////////////////////////////////// */
+
+function valid(_bezeichnung, _anzahl, _länge, _breite) {
+    var valid = true;
+
+    valid = valid && checkLength(_bezeichnung, "bezeichnung", 2, 20);
+    valid = valid && checkLength(_anzahl, "anzahl", 1, 4);
+    valid = valid && checkLength(_länge, "länge", 1, 10);
+    valid = valid && checkLength(_breite, "breite", 1, 10);
+
+    valid = valid && checkRegexp(_bezeichnung, /^[a-z]([0-9a-z_\s])+$/i, "Nur a-z, 0-9, Unterstriche, Leerzeichen und muss mit einem Buchstaben anfangen.");
+    valid = valid && checkRegexp(_anzahl, /^([0-9])+$/, "Nur Zahlen erlaubt");
+    valid = valid && checkRegexp(_länge, /^([0-9])+$/, "Nur Zahlen erlaubt");
+    valid = valid && checkRegexp(_breite, /^([0-9])+$/, "Nur Zahlen erlaubt");
+
+
+    return valid;
+
+}
+
+function updateTips(t) {
+    tips.text(t).addClass("ui-state-highlight");
+    setTimeout(function () {
+        tips.removeClass("ui-state-highlight", 1500);
+    }, 500);
+}
+
+function checkLength(o, n, min, max) {
+    if (o.val().length > max || o.val().length < min) {
+        o.addClass("ui-state-error");
+        updateTips("Länge muss zwischen " + min + " und " + max + " betragen.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkRegexp(o, regexp, n) {
+    if (!(regexp.test(o.val()))) {
+        o.addClass("ui-state-error");
+        updateTips(n);
+        return false;
+    } else {
+        return true;
+    }
+}
+
 
 //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
 function dragAndDrop() {
     $('.moveitplaner').each(function () {
         $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
             scroll: false,
-            containment: "#MapsLagerListen", // Seitenbereich, innerhalb dessen das Icon überhaupt bewegt werden darf
             //revert: 'invalid',
             stop: function () {
                 $(this).draggable('option', 'revert', 'invalid');
@@ -511,9 +463,6 @@ function dragAndDrop() {
 //Items aus dem Altbau laden
 function getItems(roomId) {
     if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
-
-        // Lade Raum
-
         // Lade Items des Raums in Auswahlliste
         $.ajax({
             type: 'POST',
@@ -525,7 +474,7 @@ function getItems(roomId) {
                 if (data.items.length > 0) {
                     if (data.owner) {
                         $.each(data.items, function (key, value) {
-                            itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
+                            itemsHTML += '<div class="ui-state-default" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                         });
                         $('#AltbauListe').html(itemsHTML);
                         $('#AltbauListe').css({

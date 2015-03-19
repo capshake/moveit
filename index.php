@@ -50,8 +50,7 @@ if (!$userData->isLoggedIn()) {
             <!--AltbauListe-->
             <div class="row">
                 <h5 class="altlist"><b>Möbel in diesem Raum:</b></h5>
-                <ul id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum.">
-                </ul>
+                <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
             </div>
         </div>
         <div class="col-md-8">
