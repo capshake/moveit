@@ -1,5 +1,6 @@
 <?php
 include_once '../../include/config.php';
+include_once '../../include/classes/validation.class.php';
 
 if ($userData->isLoggedIn() && $userData->isAdmin()) {
     $headerTitle = 'Adminpanel - Benutzer';
