@@ -14,7 +14,7 @@ if (!$userData->isLoggedIn()) {
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <h2>Hilfe für die Benutzung von moveIT</h2>
+            <h2>Hilfe</h2>
         </div>
     </div>
     <div class="row">
@@ -22,9 +22,17 @@ if (!$userData->isLoggedIn()) {
         <div class=" col-md-8 col-md-offset-2">
             <div class="well">
                 <div id="akkordeon">
-                    <h3> +  Wie werden Räume ausgewählt? </h3>
+                    <h3> +  Wie setzt sich die Seite zusammen? </h3>
                     <div>
-                        Wenn Sie sich einloggen, können Sie zunächst aus Ihren Altbauräumen und den zu bearbeitenden Neubauraum auswählen. Dies können Sie entweder über das Dropdown Menü im Altbau- bzw. Neubauabschnitts machen, oder aber über das <b>Map-Symbol</b> einen Raum selektieren. Das Map-Symbol dient außerdem zur Ortung ihres Raums im jeweiligen Gebäude.
+                        <p>
+                            Die Hauptseite des moveIT-Umzugplaners setzt sich aus den folgenden 3 Bereichen (von rechts nach links) zusammen:
+                            <ul>
+                                <li>Altbau</li>
+                                <li>Raumbearbeitung im Zentrum</li>
+                                <li>Lagerleiste mit 1. persönlichem Lager/Wunschliste/Müll und 2. öffentlichem Lager</li>
+                            </ul>
+                            Welche Funktionen im Detail in den einzelnen Bereichen angeboten werden, entnehmen Sie den folgenden Abschnitten.
+                        </p>
                         <br>
                         <a href="#" data-toggle="modal" data-target="#lightbox">
                             <img class="anleitung" src="./img/1Anleitung.png">
@@ -32,10 +40,17 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3>+  Wie werden Möbel positioniert? </h3>
+                    <h3>+  Welche Funktion hat der Altbaubereich? </h3>
                     <div>
-
-                        Durch <b>drag-and-drop</b>, d.h. "Ziehen und Ablegen", bewegen sie die Möbelstücke aus Ihrem Büro im Altbau in den "NeubauPlaner". Dort erscheint ein Symbol für das jeweilige Möbelstück, das Sie durch Doppelklick <b>rotieren</b> können.
+                        <p>
+                            Im Altbaubereich werden Ihnen genau zwei Funktionen angeboten:
+                            <ul>
+                                <li><strong>Raum auswählen:</strong>Im rot-unterlegten oberen Teil können Sie einen Raum des Altbaus über drei Drop-Down-Meünus wählen.</li>
+                                <li><strong>Inventar des gewählten Raums verwalten:</strong>Sofern Sie berechtigt sind den ausgewählten Raum zu bearbeiten, erscheint unterhalb der Drop-Down-Menüs eine Liste
+                                    mit dem Inventar des Raums.</li>
+                            </ul>
+                        </p>
+                        
                         <br>
                         <a href="#" data-toggle="modal" data-target="#lightbox">
                             <img class="anleitung" src="./img/2Anleitung.png">
