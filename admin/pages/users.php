@@ -54,45 +54,48 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <?php } else { ?>
                 <div class="row">
                     <div class="col-md-5">
-                        <form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
+						<div class="panel panel-default">
+							<div class="panel-heading">Benutzerangaben bearbeiten</div>
+							<div class="panel-body">
+								<form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
 
-                            <?php
-                            if (isset($_POST['edit'])) {
-								$update = json_decode('{ "status" : "", "msg" : ""}');
+									<?php
+									$db->bind("id", $_GET['edit']);
+									$user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
+									
+									if (isset($_POST['edit'])) {
+										$update = json_decode('{ "status" : "", "msg" : ""}');
 
-								// eMail Überprüfung
+										// eMail Überprüfung
 
-								// Überprüfen ob eMail schon vergeben ist
-								$emailUnique = json_decode(Validation::validateIfEmailIsUnique($_POST['user_email']));
+										// falls eMail geändert wurde: Überprüfen ob eMail schon vergeben ist
+										if($user['user_email'] != $_POST['user_email']) {
+											$emailUnique = json_decode(Validation::validateIfEmailIsUnique($_POST['user_email']));
+											
+											if( $emailUnique->status == 'error') { // wenn sie bereits vergeben ist
+												$update->status = 'error';
+												$update->msg = $emailUnique->msg;
+											}
+										}
+										// Wenn 'status' nicht auf 'error' gesetzt wurde -> Benutzer updaten und Variable $user refreshen
+										if ($update->status != 'error') {
+											$update = json_decode($userData->updateUser($_POST, true, $_GET['edit']));
+											$db->bind("id", $_GET['edit']);
+											$user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
+										}
 
-								if( $emailUnique->status == 'error') { // wenn sie bereits vergeben ist
-									$update->status = 'error';
-									$update->msg = $emailUnique->msg;
-								}
-								// wenn 'status' nicht auf 'error' gesetzt wurde -> Benutzer updaten
-								if ($update->status != 'error') {
-									$update = json_decode($userData->updateUser($_POST, true, $_GET['edit']));
-								}
-
-                                if ($update->status == 'error') {
-                                    ?>
-                                    <div class="alert alert-danger"><?php echo $update->msg; ?></div>
-                                    <?php
-                                }
-                                if ($update->status == 'success') {
-                                    ?>
-                                    <div class="alert alert-success"><?php echo $update->msg; ?></div>
-                                    <?php
-                                }
-                            }
-
-                            $db->bind("id", $_GET['edit']);
-                            $user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
-                            ?>
-
-							<div class="panel panel-default">
-								<div class="panel-heading">Benutzerangaben bearbeiten</div>
-								<div class="panel-body">
+										if ($update->status == 'error') {
+											?>
+											<div class="alert alert-danger"><?php echo $update->msg; ?></div>
+											<?php
+										}
+										if ($update->status == 'success') {
+											?>
+											<div class="alert alert-success"><?php echo $update->msg; ?></div>
+											<?php
+										}
+									}
+									?>
 									<div class="form-group">
 										<label for="user_firstname">Vorname</label>
 										<input id="user_firstname" name="user_firstname" value="<?php echo $user['user_firstname']; ?>" class="form-control" placeholder="Vorname" type="text" required autofocus>
