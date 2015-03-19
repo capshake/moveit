@@ -27,6 +27,7 @@ define('TABLE_USER_ROOMS', 'user_role_room');
 
 
 define('TABLE_ITEMS', 'items');
+define('TABLE_ITEM_TYPES', 'item_types');
 define('TABLE_IMPORT', 'data_import');
 define('TABLE_EXPORT', 'data_export');
 define('TABLE_DEPARTMENTS', 'departments');

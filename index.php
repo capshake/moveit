@@ -54,7 +54,8 @@ if (!$userData->isLoggedIn()) {
                 </ul>
             </div>
         </div>
-        <div id="Neubau" class="col-md-7">
+        <div class="col-md-8">
+           <div id="Neubau">
             <!--Dropdown Menue fuer den Neubau-->
             <div class="row" id="Ueberschriften">
              <h4>Neubau</h4>
@@ -138,6 +139,7 @@ if (!$userData->isLoggedIn()) {
         </div>
 
     </div>
+           </div>
 
 
     <!--Lager-->

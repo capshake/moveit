@@ -1,5 +1,6 @@
 var BASEURL = '/moveit/';
 var roomId; // globale Variable für den ausgwählten Raum
+var itemTypes;
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -7,11 +8,21 @@ $(document).ready(function () {
     $('.logout').attr('href', BASEURL + 'logout/' + mainSettings.csrfToken);
 
 
+    //Laden der Itemtypen
+    $.ajax({
+        type: 'POST',
+        url: BASEURL + 'api/getItemTypes',
+        dataType: 'json',
+        success: function (data) {
+            itemTypes = data.types;
+        }
+    });
+
 
     //Popup vor dem Löschvorgang
-    $('body').on('click', '.delete-button', function () {
+    $('body').on('click', '.delete-button, .reset-database', function () {
         var el = $(this);
-        bootbox.confirm("Sind Sie sich sicher?", function (result) {
+        bootbox.confirm("Sind Sie sich wirklich sicher?", function (result) {
             if (result) {
                 location.href = el.attr('href');
             }

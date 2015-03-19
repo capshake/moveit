@@ -70,6 +70,8 @@ RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
     ### ITEMS
     RewriteRule ^api/getItems/room/([0-9]+)$ include/ajax/getItems.php?room_id=$1 [L]
     RewriteRule ^api/getItem/([0-9]+)$ include/ajax/getItems.php?item_id=$1 [L]
+    RewriteRule ^api/getItemType/([0-9]+)$ include/ajax/getItemTypes.php?type_id=$1 [L]
+    RewriteRule ^api/getItemTypes$ include/ajax/getItemTypes.php?all [L]
 
     ### BUILDINGS
     RewriteRule ^api/getBuildings$ include/ajax/getBuildings.php?all [L]

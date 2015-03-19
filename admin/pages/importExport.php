@@ -64,7 +64,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                         <div class="form-group">
                             <button type="submit" name="csv" class="btn btn-danger">Hochladen und importieren</button>
-                            <a class="btn btn-danger" href="<?php echo BASEDIR; ?>admin/importExport/reset">Datenbank zurücksetzen</a>
+                            <a class="btn btn-danger reset-database" href="<?php echo BASEDIR; ?>admin/importExport/reset">Datenbank zurücksetzen</a>
                         </div>
                     </form>
 
