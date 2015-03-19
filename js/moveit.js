@@ -232,28 +232,35 @@ $(document).ready(function () {
     $("#NeubauMap").droppable({
         dropOnEmpty: true,
         tolerance: "fit",
+        stop: function (event, ui) {
+            
+        },
         drop: function (event, ui) {
             // Attribut 'data-type' des gedroppten Items auslesen
-            var dataType = $(ui.draggable).data("type");
             var dataImg = $(ui.draggable).data("img");
             var dataId = $(ui.draggable).data("item-id");
+            var dataTitle = $(ui.draggable).data("title");
 
             var gedroptesItem = $(ui.draggable);
 
             // Position auslesen um diese dem IMG geben zu können, damit IMG dort erscheint, wo gedroppt wird
             var gedroptesItemPosition = gedroptesItem.offset();
 
-            $(gedroptesItem).replaceWith('<img data-type="' + dataType + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + '" src="' + dataImg + '">'); // class Attribut vergeben, um Items mit diesem Attribut draggable machen zu können
+            $("#NeubauMap").append('<img data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + '" src="' + dataImg + '">'); // class Attribut vergeben, um Items mit diesem Attribut draggable machen zu können
 
 
+            $('[class^="planner-item-"]').draggable();
+            
+            
             $('.planner-item-' + dataId).css({
                 'position': 'absolute',
-                'top': event.pageY,
-                'left': event.pageX,
+                'top': gedroptesItem.top,
+                'left': gedroptesItem.left,
                 'z-index': 4
             });
 
-            dragAndDrop(); // für alle Elemente mit class='moveitplaner'
+            $(gedroptesItem).remove();
+            //dragAndDrop(); // für alle Elemente mit class='moveitplaner'
 
         }
     });
@@ -424,7 +431,7 @@ function checkRegexp(o, regexp, n) {
 
 //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
 function dragAndDrop() {
-    $('.moveitplaner').each(function () {
+    /*$('.moveitplaner').each(function () {
         $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
             scroll: false,
             //revert: 'invalid',
@@ -456,7 +463,7 @@ function dragAndDrop() {
                 ui.draggable.draggable('option', 'revert', true);
             }
         });
-    });
+    });*/
 };
 
 
@@ -474,7 +481,7 @@ function getItems(roomId) {
                 if (data.items.length > 0) {
                     if (data.owner) {
                         $.each(data.items, function (key, value) {
-                            itemsHTML += '<div class="ui-state-default" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+                            itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                         });
                         $('#AltbauListe').html(itemsHTML);
                         $('#AltbauListe').css({
