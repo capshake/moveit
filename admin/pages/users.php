@@ -20,7 +20,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         if (isset($_GET['remove'])) {
 			$userNameBeforeDelete = $db->row("SELECT user_firstname, user_lastname FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $_GET['remove']));
 			$numberOfSuccessfullyDeletedUsers = $db->query("DELETE FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $_GET['remove']), PDO::FETCH_NUM);
-			
+
 			if ($numberOfSuccessfullyDeletedUsers == 1) { ?>
 				<div class="row">
 					<div class="col-md-12">
@@ -57,14 +57,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <form method="POST" action="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>" role="form">
 
                             <?php
-                            if (isset($_POST['edit'])) {  							
+                            if (isset($_POST['edit'])) {
 								$update = json_decode('{ "status" : "", "msg" : ""}');
-								
+
 								// eMail Überprüfung
-								
+
 								// Überprüfen ob eMail schon vergeben ist
 								$emailUnique = json_decode(Validation::validateIfEmailIsUnique($_POST['user_email']));
-			
+
 								if( $emailUnique->status == 'error') { // wenn sie bereits vergeben ist
 									$update->status = 'error';
 									$update->msg = $emailUnique->msg;
@@ -73,7 +73,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 								if ($update->status != 'error') {
 									$update = json_decode($userData->updateUser($_POST, true, $_GET['edit']));
 								}
-				
+
                                 if ($update->status == 'error') {
                                     ?>
                                     <div class="alert alert-danger"><?php echo $update->msg; ?></div>
@@ -183,18 +183,30 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 											<select id="role_room_room_id" class="form-control" name="role_room_room_id">
 												<!-- wenn Raumname mit store_ oder trash_ oder wishlist_ beginnt : Raum nicht auflisten -->
 												<?php
-												$rooms = $db->query("SELECT * FROM " . TABLE_ROOMS);
-												foreach ($rooms as $room) {
-													if ( $room['room_type'] != 0 ) { ?>
-														<option value="<?php echo $room['room_id']; ?>"><?php echo $room['room_name']; ?></option>
-													<?php
-													}
-												}
+												$rooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " WHERE room_id NOT IN (SELECT role_room_room_id FROM user_role_room WHERE role_room_role_id != 0 AND role_room_user_id = " . $_SESSION['user_id'] . ")");
+												if(count($rooms) > 0){
+                                                    foreach ($rooms as $room) {
+                                                        if ( $room['room_type'] != 0 ) { ?>
+                                                            <option value="<?php echo $room['room_id']; ?>"><?php echo $room['room_name']; ?></option>
+                                                        <?php
+                                                        }
+                                                    }
+                                                }
+                                                else{
+                                                    ?><option value="">Es gibt keine hinzufügbaren Räume</option><?php
+                                                }
 												?>
 											</select>
 										</div>
 										<div class="form-group">
-											<button class="btn btn-primary" type="submit" name="addRoom">Speichern</button>
+                                            <?php
+                                                if(count($rooms)>0){
+                                                    echo '<button class="btn btn-primary" type="submit" name="addRoom">Speichern</button>';
+                                                }
+                                                else{
+                                                    echo '<button class="btn btn-primary" type="submit" name="addRoom" disabled>Speichern</button>';
+                                                }
+                                            ?>
 										</div>
 									</form>
 								</div>
@@ -330,7 +342,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                         <div class="form-group">
                             <label for="user_password_repeat">Passwort wdhl.</label>
                             <input id="user_password_repeat" name="user_password_repeat" class="form-control" placeholder="Passwort wdhl." type="password" required autofocus>
-                        </div>   
+                        </div>
                         <div class="form-group">
                             <label for="user_role_id">Rolle</label>
                             <select id="user_role_id" class="form-control" name="user_role_id">
