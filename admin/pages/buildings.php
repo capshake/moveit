@@ -28,7 +28,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
 
-                    <h1>Gebäude bearbeiten</h1><br />
+                    <h2>Gebäude bearbeiten</h2><br />
                     <div class="well">
                         <?php if (!$existsBuilding) { ?>
                             <div class="alert alert-info">Das Gebäude existiert nicht!</div>
@@ -77,7 +77,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
-                    <h1>Gebäude erstellen</h1>
+                    <h2>Gebäude erstellen</h2>
                 </div>
             </div>
             <div class="row">
@@ -129,7 +129,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Gebäude</h1>
+                    <h2>Gebäude</h2>
                 </div>
             </div>
             <div class="row">

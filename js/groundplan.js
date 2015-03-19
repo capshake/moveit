@@ -127,8 +127,8 @@ $(document).ready(function () {
 
         $contextMenu.css({
             display: 'block',
-            left: e.pageX,
-            top: e.pageY,
+            left: e.pageX-370,
+            top: e.pageY-150,
             position: 'absolute',
             'z-index': 9
         });
@@ -152,7 +152,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                $('.save-groundplan').html('<div class="row"><div class="col-md-10 col-md-offset-1"><div class="alert alert-success">' + data.msg + '</div></div></div>');
+                $('.save-groundplan .col-md-12').html('<div class="alert alert-success">' + data.msg + '</div>');
                 $('.groundplan-inner').find('.map-room[data-roomid="' + contextRoomId + '"]').remove();
                 saveGroundplan();
             }
@@ -194,7 +194,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                $('.save-groundplan').html('<div class="row"><div class="col-md-10 col-md-offset-1"><div class="alert alert-success">' + data.msg + '</div></div></div>');
+                $('.save-groundplan .col-md-12').html('<div class="alert alert-success">' + data.msg + '</div>');
             }
         });
     }

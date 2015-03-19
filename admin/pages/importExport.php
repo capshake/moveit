@@ -17,7 +17,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-md-offset-3">
-                <h1>Import/Export</h1>
+                <h2>Import/Export</h2>
             </div>
         </div>
         <div class="row">

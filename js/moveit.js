@@ -510,14 +510,18 @@ function getItems(roomId) {
                 var itemsHTML = '';
 
                 if (data.items.length > 0) {
-                    $.each(data.items, function (key, value) {
-                        itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
-                    });
-                    $('#AltbauListe').html(itemsHTML);
-                    $('#AltbauListe').css({
-                        'height': 200,
-                        'overflow': 'auto'
-                    });
+                    if (data.owner) {
+                        $.each(data.items, function (key, value) {
+                            itemsHTML += '<li class="ui-state-default" data-type="' + value.item_description + '">' + value.item_description + '</li>';
+                        });
+                        $('#AltbauListe').html(itemsHTML);
+                        $('#AltbauListe').css({
+                            'height': 200,
+                            'overflow': 'auto'
+                        });
+                    } else {
+                        $('#AltbauListe').html('<div class="alert alert-info">Sie sind nicht der Eigentümer.</div>');
+                    }
                 } else {
                     $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
                 }

@@ -45,7 +45,7 @@ class Users extends Token {
                         . "VALUES(:role_room_user_id, :role_room_room_id, :role_room_role_id)", array(
                     "role_room_user_id" => $id,
                     "role_room_room_id" => $data['role_room_room_id'],
-                    "role_room_role_id" => $data['role_room_role_id']
+                    "role_room_role_id" => 2
                 ));
 
                 if ($insert > 0) {
@@ -110,5 +110,4 @@ class Users extends Token {
         }
         return json_encode($return);
     }
-
 }
