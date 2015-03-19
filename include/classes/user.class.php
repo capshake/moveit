@@ -134,7 +134,7 @@ class User extends Token {
      * @param type $password
      * @return type
      */
-    private function makePasswordHash($password) {
+    public function makePasswordHash($password) {
         return hash('sha256', $password.SALT); 
     }
 
