@@ -72,7 +72,15 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         ?>
                                     </select>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="room_type">Wo befindet sich der Raum?</label>
+                                    <select id="room_type" class="form-control" name="room_type">
+                                        <option value="1" <?php echo ($room['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                        <option value="2" <?php echo ($room['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                    </select>
+                                </div> 
+                               
+                               
                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
 
@@ -137,7 +145,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     ?>
                                 </select>
                             </div> 
-
+                            <div class="form-group">
+                                <label for="room_type">Wo befindet sich der Raum?</label>
+                                <select id="room_type" class="form-control" name="room_type">
+                                    <option value="1" <?php echo ($_POST['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                    <option value="2" <?php echo ($_POST['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                </select>
+                            </div> 
                             <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                         </form>
 
@@ -171,6 +185,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <thead>
                                     <tr>
                                         <th>Raumname</th>
+                                        <th>Wo ist der Raum?</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -181,6 +196,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <tr>
                                             <td><?php echo $room['room_name']; ?></td>
+                                            <td><?php echo ($room['room_type'] == 1) ? 'Altbau' : 'Neubau'; ?></td>
                                             <td class="text-right">
                                                 <a href="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $room['room_id']; ?>" class="btn btn-default btn-xs">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

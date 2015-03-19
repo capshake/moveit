@@ -31,6 +31,10 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumname aus.';
             }
+            if (empty($data['room_type'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Füllen Sie bitte das Feld Raumtyp aus.';
+            }
             if (empty($data['room_map_id'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Geben Sie bitte eine Map an.';
@@ -45,9 +49,10 @@ class Rooms extends Token {
 
             //Wenn kein Fehler passiert ist wird der Raum in die Datenbank geschrieben
             if ($return['status'] != 'error') {
-                $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_map_id) "
+                $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_type, room_map_id) "
                         . "VALUES(:room_name, :room_map_id)", array(
                     "room_name" => $data['room_name'],
+                    "room_type" => $data['room_type'],
                     "room_map_id" => $data['room_map_id']
                 ));
 
@@ -92,6 +97,10 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumname aus.';
             }
+            if (empty($data['room_type'])) {
+                $return['status'] = 'error';
+                $return['msg'] = 'Füllen Sie bitte das Feld Raumtyp aus.';
+            }
             if (empty($data['room_map_id'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Geben Sie bitte eine Map an.';
@@ -107,8 +116,9 @@ class Rooms extends Token {
             //Wenn kein Fehler passiert ist wird in der Datenbank ein Update des Raumes ausgeführt
             if ($return['status'] != 'error') {
 
-                $update = $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name, room_map_id = :room_map_id WHERE room_id = :room_id", array(
+                $update = $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name, room_type = :room_type, room_map_id = :room_map_id WHERE room_id = :room_id", array(
                     "room_name" => $data['room_name'],
+                    "room_type" => $data['room_type'],
                     "room_map_id" => $data['room_map_id'],
                     "room_id" => $id
                 ));

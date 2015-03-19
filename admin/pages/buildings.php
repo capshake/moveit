@@ -59,7 +59,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <label for="building_name">Gebäudename</label>
                                     <input id="building_name" name="building_name" value="<?php echo $building['building_name']; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="building_type">Wo befindet sich das Gebäude?</label>
+                                    <select id="building_type" class="form-control" name="building_type">
+                                        <option value="1" <?php echo ($building['building_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                        <option value="2" <?php echo ($building['building_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                    </select>
+                                </div>
+                                
                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
 
@@ -112,7 +119,14 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <input id="building_name" name="building_name" value="<?php echo $building_name; ?>" class="form-control" placeholder="Gebäudename" type="text" required autofocus>
                             </div>
 
-
+                            <div class="form-group">
+                                <label for="building_type">Wo befindet sich das Gebäude?</label>
+                                <select id="building_type" class="form-control" name="building_type">
+                                    <option value="1" <?php echo ($_POST['building_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
+                                    <option value="2" <?php echo ($_POST['building_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
+                                </select>
+                            </div>
+                            
                             <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                         </form>
 
@@ -146,6 +160,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <thead>
                                     <tr>
                                         <th>Gebäudename</th>
+                                        <th>Wo ist das Gebäude?</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -156,6 +171,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <tr>
                                             <td><?php echo $building['building_name']; ?></td>
+                                            <td><?php echo ($building['building_type'] == 1) ? 'Altbau' : 'Neubau'; ?></td>
                                             <td class="text-right">
                                                 <a href="<?php echo BASEDIR; ?>admin/buildings/edit/<?php echo $building['building_id']; ?>" class="btn btn-default btn-xs">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
