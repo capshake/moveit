@@ -39,7 +39,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Benutzerbearbeitung</h1><br />
+                    <h2>Benutzerbearbeitung</h2><br />
                 </div>
             </div>
 
@@ -178,19 +178,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 											</select>
 										</div>
 										<div class="form-group">
-											<label for="role_room_role_id">Rolle</label>
-											<select id="role_room_role_id" class="form-control" name="role_room_role_id">
-												<?php
-												$roles = $db->query("SELECT * FROM " . TABLE_ROLES);
-												foreach ($roles as $role) {
-													?>
-													<option value="<?php echo $role['role_id']; ?>"><?php echo $role['role_name']; ?></option>
-													<?php
-												}
-												?>
-											</select>
-										</div>
-										<div class="form-group">
 											<button class="btn btn-primary" type="submit" name="addRoom">Speichern</button>
 										</div>
 									</form>
@@ -199,7 +186,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                             <?php
                             //Benutzerräume auslesen
-                            $userRooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " LEFT JOIN " . TABLE_USER_ROOMS . " ON room_id = role_room_room_id LEFT JOIN  " . TABLE_USERS . " ON user_id = role_room_user_id LEFT JOIN  " . TABLE_ROLES . " ON role_id = role_room_role_id WHERE user_id = :user_id", array("user_id" => $user['user_id']));
+                            $userRooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " LEFT JOIN " . TABLE_USER_ROOMS . " ON room_id = role_room_room_id LEFT JOIN  " . TABLE_USERS . " ON user_id = role_room_user_id WHERE user_id = :user_id", array("user_id" => $user['user_id']));
                             if (!$userRooms) {
                                 ?>
                                 <div class="alert alert-info">Es existieren noch keine Räume für diesen Benutzer.</div>
@@ -213,7 +200,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 										<thead>
 											<tr>
 												<th>Raumname</th>
-												<th>Rolle</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -224,7 +210,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 											if ( $room['room_type'] != 0 )  { ?>
 												<tr>
 													<td><?php echo $room['room_name']; ?></td>
-													<td><?php echo $room['role_name']; ?></td>
 													<td class="text-right">
 														<a href="<?php echo BASEDIR; ?>admin/users/edit/<?php echo $_GET['edit']; ?>/room/remove/<?php echo $room['room_id']; ?>/<?php echo $userData->getToken(); ?>" class="btn btn-danger btn-xs delete-button">
 															<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
@@ -267,7 +252,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <h1>Benutzer erstellen</h1>
+                    <h2>Benutzer erstellen</h2>
                 </div>
             </div>
             <div class="row">
@@ -368,7 +353,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Benutzer</h1>
+                    <h2>Benutzer</h2>
                 </div>
             </div>
             <div class="row">

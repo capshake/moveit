@@ -38,6 +38,7 @@ if ($userData->isLoggedIn()) {
         http_response_code(200);
         $db->bind("room_id", $_GET['room_id']);
         $rooms['rooms'] = $db->query("SELECT * FROM " . TABLE_ROOMS . " WHERE room_id = :room_id");
+        $rooms['owner'] = isOwnerOfRoom($_GET['room_id'], $_SESSION['user_id']);
         $rooms['status'] = 'success';
     } else if (isset($_GET['building_id'])) {
         http_response_code(200);

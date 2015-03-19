@@ -41,7 +41,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Map bearbeiten</h1>
+                        <h2>Map bearbeiten</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -159,7 +159,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <?php
                                     } else {
                                         ?>
-                                        <div class="save-groundplan"></div>
+                                        <div class="save-groundplan">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-info">Gestalten Sie hier den Raumplan dieses Gebäudes.*</div>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                         <div class="contextMenu dropdown clearfix" style="display:none;">
@@ -170,7 +176,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                                         <div class="row">
-                                            <div class="col-md-5 col-md-offset-1">              
+                                            <div class="col-md-5 col-md-offset-5">              
                                                 <button class="add-room-groundplan-button btn btn-success">Raum hinzufügen</button>
                                             </div>
                                         </div>
@@ -186,6 +192,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <br>* Rechtsklick zum löschen eines Raumes, drag&drop zum verschieben und an die Kanten mit der Maus fahren um ihn ggf. zu vergrößern oder zu verkleinern.
                                             </div>
                                         </div>
                                         <?php
@@ -279,7 +291,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-offset-4 col-md-4">
-                        <h1>Map erstellen</h1>
+                        <h2>Map erstellen</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -354,7 +366,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Map Editor</h1>
+                        <h2>Map Editor</h2>
                     </div>
                 </div>
                 <div class="row">

@@ -10,6 +10,7 @@ if ($userData->isLoggedIn()) {
         http_response_code(200);
         $db->bind("room_id", $_GET['room_id']);
         $items['items'] = $db->query("SELECT " . TABLE_ITEMS . ".* FROM " . TABLE_ITEMS . "," . TABLE_ROOMS . " WHERE item_room_id = room_id AND room_id = :room_id");
+        $items['owner'] = isOwnerOfRoom($_GET['room_id'], $_SESSION['user_id']);
         $items['status'] = 'success';
     } else if (isset($_GET['item_id'])) { // Item nach ID suchen
         http_response_code(200);
