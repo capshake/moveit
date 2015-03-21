@@ -12,18 +12,22 @@
 - User-Hilfe
 - Admin-Hilfe
 - Drag'n'Drop
-    -Kollision raus
-    -Verwandeln -> raus
-    -Draggable-Bereiche definieren
+    - Kollision raus
+    - Verwandeln -> raus
+    - Draggable-Bereiche definieren
+    - Items in richtiger Größe einfügen
+    - Items im Kartenbereich brauchen Popup mit weiteren Informationen
 - Zollstock
 - Map-Grundriss einpflegen
 - Z-Index fixen (Müll, Lager und Mapdialog)
 - Responsive rausnehmen
-- Hinweis bei leeren Lager, Müll
 - Tabs von Lager
+    - CSS korrigieren für Listen (Daten sind richtig drin)
 - Map-Karten nur für Neubau(Adminbereich)
 - Füllen mit DB- Inhalt insgesamt
-- Öffentliches Lager aktualisieren
+- Export
+    - Items im Müll als Umzug: false (0) markieren
+    - Verhalten definieren, wenn Items noch in Lagern
 
 #####Upload-Struktur
  - csv   - Die CSV -Dateien für den Admin

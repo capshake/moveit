@@ -145,38 +145,35 @@ if (!$userData->isLoggedIn()) {
 
     <div class="col-md-2">
         <div id="LagerLeiste">
-        <div id="ObereLeiste">
-            <ul>            <!-- Tabs: Lager, Wunsch, Müll -->
-                <li><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager"id="LagerTab"> Lager </a></li>
-                <li><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll" id="MüllTab">Müll</a></li>
+            <div id="ObereLeiste">
+                <!-- Tooltips und Tabs -->
+                <ul>
+                    <li><a href="#Lager" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in Ihr persönliches Lager, um sie zu einem späteren Zeitpunkt einem neuen Raum zuzuweisen" id="LagerTab">Lager</a></li>
+                    <li><a href="#Müll" data-toggle="tooltip" data-placement="top" title="Verschieben Sie Möbelstücke per Drag&Drop in den Müll, um sie zur Aussortierung zu markieren" id="MüllTab">Müll</a></li>
+                </ul>
 
-            </ul>
-            <div id= "Lager">
-                <ul id="LagerListe">
-            </ul>
-        </div>
+                <!-- Tab Lager -->
+                <div id= "Lager">
+                    <div id="LagerListe"></div>
+                </div>
+                <!-- Tab Müll -->
+                <div id= "Müll">
+                    <div id="MuellListe"></div>
+                </div>
+            </div>
 
-       
-        <div id= "Müll">
-            <ul id="MuellListe" class="col-md-12">
-                
-            </ul>
+            <!-- Öffentliches Lager -->
+            <div id="oeffentlichesLager">
+                <div id="oeffentlichesLagerUeberschrift">
+                    <label>Öffentliches Lager</label>
+                    <button type="button" class="btn btn-default btn-lg" id="btnOeffReset"><span class="glyphicon glyphicon-repeat"></span></button>
+                </div>
+
+                <div id="oeffentlichesLagerListe"></div>
+            </div>
+
         </div>
     </div>
-    <div id="oeffentlichesLager">
-        <div class="col-md-12" id="oeffentlichesLagerUeberschrift">
-            <label>öffentliches Lager</label>
-
-            <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-repeat"></span></button>
-
-        </div>
-
-        <ul id="oeffentlichesLagerListe" class="col-md-12">
-           
-        </ul>
-    </div>
-</div>
-</div>
 </div>
 <script type="text/javascript">
     //Funktion beim Verlassen der Seite/Aktualisieren der Seite

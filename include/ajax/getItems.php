@@ -17,6 +17,21 @@ if ($userData->isLoggedIn()) {
         $db->bind("item_id", $_GET['item_id']);
         $items['items'] = $db->query("SELECT * FROM " . TABLE_ITEMS . " WHERE item_id = :item_id");
         $items['status'] = 'success';
+    } else if (isset($_GET['store'])) { //Items aus Lager eines angegebenen Users suchen
+        http_response_code(200);
+        if($_GET['store'] == 'user'){
+            $db->bind("store_user", 'store_' . $_SESSION['user_id']);
+        } else if($_GET['store'] == 'all'){
+            $db->bind("store_user", 'store_all');
+        }
+
+        $items['items'] = $db -> query("SELECT " . TABLE_ITEMS . ".* FROM " . TABLE_ITEMS . "," . TABLE_ROOMS . " WHERE item_room_id = room_id AND room_id = (SELECT room_id FROM rooms WHERE room_name = :store_user)");
+        $items['status'] = 'success';
+    } else if (isset($_GET['trash'])) { //Items aus Lager eines angegebenen Users suchen
+        http_response_code(200);
+        $db->bind("trash_user", 'trash_' . $_SESSION['user_id']);
+        $items['items'] = $db -> query("SELECT " . TABLE_ITEMS . ".* FROM " . TABLE_ITEMS . "," . TABLE_ROOMS . " WHERE item_room_id = room_id AND room_id = (SELECT room_id FROM rooms WHERE room_name = :trash_user)");
+        $items['status'] = 'success';
     } else {
         http_response_code(401);
         $items['status'] = 'error';

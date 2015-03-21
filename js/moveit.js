@@ -18,6 +18,16 @@ $(document).ready(function () {
         }
     });
 
+    // Laden von Lager, Müll und öffentlichem Lager
+    getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
+    getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
+    getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+
+    // Neulade-Button
+    $("#btnOeffReset").click(function(){
+        getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+    });
+
 
     //Popup vor dem Löschvorgang
     $('body').on('click', '.delete-button, .reset-database', function () {
@@ -233,7 +243,7 @@ $(document).ready(function () {
         dropOnEmpty: true,
         tolerance: "fit",
         stop: function (event, ui) {
-            
+
         },
         drop: function (event, ui) {
             // Attribut 'data-type' des gedroppten Items auslesen
@@ -250,8 +260,8 @@ $(document).ready(function () {
 
 
             $('[class^="planner-item-"]').draggable();
-            
-            
+
+
             $('.planner-item-' + dataId).css({
                 'position': 'absolute',
                 'top': gedroptesItem.top,
@@ -498,6 +508,29 @@ function getItems(roomId) {
         });
     } else {
         $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
+    }
+}
+
+//Items aus dem Lager laden
+function getItemsVirtualRooms(roomList, api){
+    if(mainSettings.isLoggedIn){
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + api,
+            dataType: 'json',
+            success: function(data){
+                var itemsHTML = '';
+
+                if(data.items.length > 0){
+                    $.each(data.items, function(key, value){
+                        itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+                    });
+                    $(roomList).html(itemsHTML);
+                } else{
+                    $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
+                }
+            }
+        });
     }
 }
 
