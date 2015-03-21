@@ -82,3 +82,4 @@ RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
 
     ### FLOORS
     RewriteRule ^api/getFloors/building/([0-9]+)$ include/ajax/getFloors.php?building_id=$1 [L]
+    RewriteRule ^api/getFloor/([0-9]+)$ include/ajax/getFloors.php?floor_id=$1 [L]

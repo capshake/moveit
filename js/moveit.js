@@ -61,9 +61,7 @@ $(document).ready(function () {
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
 
-    $("#NeubauTraktMap").selectmenu();
-    $("#NeubauEtageMap").selectmenu();
-    $("#NeubauRaumMap").selectmenu();
+
 
 
     $(function () {
@@ -93,6 +91,9 @@ $(document).ready(function () {
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
+
+        $("#NeubauTraktMap").selectmenu();
+        $("#NeubauEtageMap").selectmenu();
     });
 
     // Dialog-Fenster für Altbau-Grundriss

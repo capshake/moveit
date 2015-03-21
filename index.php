@@ -64,37 +64,30 @@ if (!$userData->isLoggedIn()) {
              <div id="dialog-GrundrissNeubau" title="Neubau-Grundriss">
 
                 <div id= "MapText">
-                    <p>Hier finden Sie eine Übersicht über die NeubauMap.
-                    Sie haben die Möglichkeit Räume auszuwählen, indem Sie über die Map navigieren.</p>
+                    <p>Hier finden Sie eine Übersicht über den Neubau.
+                    Sie haben die Möglichkeit, Räume über eine Karte der jeweiligen Etage eines Gebäudes auszuwählen.</p>
                 </div>
-                 <div id= "NeubauAuswahlMap">
+                <div id= "NeubauAuswahlMap">
                      <fieldset>
                         <div id = "NeuTraktMap">
                             <select name="NeubauTraktMap" id="NeubauTraktMap">
-                                <option value="EOG">Trakt1</option>
-                                <option value="1OG">Trakt2</option>
-                                <option value="2OG">Trakt3</option>
+                                <option value="">Gebäude</option>
+                                <?php
+                                    $buildingsNewMap = $db -> query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
+                                    foreach($buildingsNewMap as $buildingNewMap){
+                                        echo "<option value = " . $buildingNewMap['building_id'] . ">" . $buildingNewMap['building_name'] . "</option>";
+                                    }
+                                ?>
                             </select>
                         </div>
                         <div id = "NeuEtageMap">
                             <select name="NeubauEtageMap" id="NeubauEtageMap">
-                                <option value="EOG">Erdgeschoss</option>
-                                <option value="1OG">Erstes Stockwerk</option>
-                                <option value="2OG">Zweites Stockwerk</option>
-                            </select>
-                        </div>
-                        <div id = "NeuRaumMap">
-                            <select name="NeubauRaumMap" id="NeubauRaumMap">
-                                <option value="EOG">Raum1</option>
-                                <option value="1OG">Raum2</option>
-                                <option value="2OG">Raum3</option>
+                                <option value="">Vorher Gebäude wählen...</option>
                             </select>
                         </div>
                     </fieldset>
                 </div>
-                <div id="Map">
-                    mapmap
-                </div>
+                <div id="Map"></div>
 
 
              </div>

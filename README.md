@@ -28,6 +28,10 @@
 - Export
     - Items im Müll als Umzug: false (0) markieren
     - Verhalten definieren, wenn Items noch in Lagern
+- Raum erstellen
+    - DB-Fehler zurückverfolgen
+- Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
+- Mapdialog fertigstellen
 
 #####Upload-Struktur
  - csv   - Die CSV -Dateien für den Admin

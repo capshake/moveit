@@ -18,10 +18,31 @@ var api = {
     },
     'NeubauRaum': {
         'initial_target_html': '<option value="">Vorher Etage w&auml;hlen...</option>'
+    },
+    'NeubauTraktMap':{
+        'url': BASEURL + 'api/getFloors/building/'
+    },
+    'NeubauEtageMap': {
+        'url': BASEURL + '/api/getFloor/',
+        'initial_target_html': '<option value="">Vorher Trakt w&auml;hlen...</option>'
     }
 };
 
+
+
 $(document).ready(function ($) {
+    var mapImg = '';
+
+    function formatFloor(floor, list_target_id){
+        if (floor.map_floor === 0) {
+            $('#' + list_target_id).append('<option value="' + floor.map_id + '"> Erdgeschoss </option>');
+        } else if (floor.map_floor < 0) {
+            $('#' + list_target_id).append('<option value="' + floor.map_id + '">' + Math.abs(floor.map_floor) + '. Untergeschoss </option>');
+        } else {
+            $('#' + list_target_id).append('<option value="' + floor.map_id + '">' + floor.map_floor + '. Etage </option>');
+        }
+    }
+
 
     // Altbau
     $("#AltbauTrakt").selectmenu({
@@ -95,6 +116,29 @@ $(document).ready(function ($) {
         getItems(roomId);
     });
 
+    // Neubau Map
+
+    $("#NeubauTraktMap").selectmenu({
+        change: function (event, ui) {
+            changed('NeubauTraktMap', 'NeubauEtageMap');
+        }
+    });
+
+    $('#NeubauTraktMap').change(function (e) {
+        changed('NeubauTraktMap', 'NeubauEtageMap');
+    });
+
+    $("#NeubauEtageMap").selectmenu({
+        change: function (event, ui) {
+            changed('NeubauEtageMap', 'Map');
+        }
+    });
+
+    $('#NeubauTraktMap').change(function (e) {
+        changed('NeubauEtageMap', 'Map');
+    });
+
+
 
     function changed(list_select_id, list_target_id) {
         //Grab the chosen value on first select list change
@@ -106,7 +150,7 @@ $(document).ready(function ($) {
 
         // Altbau
         if (list_select_id === "AltbauTrakt") {
-            if (selectvalue == "") {
+            if (selectvalue === "") {
                 //Aufforderung anzeigen, vorige Felder auszuwählen
                 $('#AltbauEtage').html(api.AltbauEtage.initial_target_html);
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
@@ -129,13 +173,7 @@ $(document).ready(function ($) {
                         var floors = output.floors;
                         $('#' + list_target_id).html('<option value="">Etage</option>');
                         for (var i = 0; i < floors.length; i++) {
-                            if (floors[i].map_floor === 0) {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '"> Erdgeschoss </option>');
-                            } else if (floors[i].map_floor < 0) {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '">' + Math.abs(floors[i].map_floor) + '. Untergeschoss </option>');
-                            } else {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '">' + floors[i].map_floor + '. Etage </option>');
-                            }
+                            formatFloor(floors[i], list_target_id);
 
                             $('#AltbauEtage').selectmenu("refresh");
                             $('#AltbauRaum').selectmenu("refresh");
@@ -148,7 +186,7 @@ $(document).ready(function ($) {
             }
         } else if (list_select_id === "AltbauEtage") {
             //Aufforderung anzeigen, vorige Felder auszuwählen
-            if (selectvalue == "") {
+            if (selectvalue === "") {
                 $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
                 $('#AltbauRaum').selectmenu("refresh");
 
@@ -173,7 +211,7 @@ $(document).ready(function ($) {
                             }
                         }
 
-                        if(ownedItems == 0){
+                        if(ownedItems === 0){
                             $('#' + list_target_id).html('<option value="">Keine R&auml;ume vorhanden</option>');
                         }
 
@@ -188,7 +226,7 @@ $(document).ready(function ($) {
 
         // Neubau
         else if (list_select_id === "NeubauTrakt") {
-            if (selectvalue == "") {
+            if (selectvalue === "") {
                 //Aufforderung anzeigen, vorige Felder auszuwählen
                 $('#NeubauEtage').html(api.NeubauEtage.initial_target_html);
                 $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
@@ -204,20 +242,13 @@ $(document).ready(function ($) {
                 roomId = $('#NeubauRaum').val();
                 getItems(roomId);
 
-                //Make AJAX request, using the selected value as the GET
                 $.ajax({
                     url: api.NeubauTrakt.url + selectvalue,
                     success: function (output) {
                         var floors = output.floors;
                         $('#' + list_target_id).html('<option value="">Etage</option>');
                         for (var i = 0; i < floors.length; i++) {
-                            if (floors[i].map_floor === 0) {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '"> Erdgeschoss </option>');
-                            } else if (floors[i].map_floor < 0) {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '">' + Math.abs(floors[i].map_floor) + '. Untergeschoss </option>');
-                            } else {
-                                $('#' + list_target_id).append('<option value="' + floors[i].map_id + '">' + floors[i].map_floor + '. Etage </option>');
-                            }
+                            formatFloor(floors[i], list_target_id);
 
                             $('#NeubauEtage').selectmenu("refresh");
                             $('#NeubauRaum').selectmenu("refresh");
@@ -230,7 +261,7 @@ $(document).ready(function ($) {
             }
         } else if (list_select_id === "NeubauEtage") {
             //Aufforderung anzeigen, vorige Felder auszuwählen
-            if (selectvalue == "") {
+            if (selectvalue === "") {
                 $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
                 $('#NeubauRaum').selectmenu("refresh");
 
@@ -255,7 +286,7 @@ $(document).ready(function ($) {
                             }
                         }
 
-                        if(ownedRooms == 0){
+                        if(ownedRooms === 0){
                             $('#' + list_target_id).html('<option value="">Keine R&auml;ume vorhanden</option>');
                         }
 
@@ -263,6 +294,48 @@ $(document).ready(function ($) {
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + " " + thrownError);
+                    }
+                });
+            }
+        }
+
+        else if(list_select_id === "NeubauTraktMap"){
+            if(selectvalue === ""){
+                $('#NeubauEtageMap').html(api.NeubauEtageMap.initial_target_html);
+                $('#NeubauEtageMap').selectmenu("refresh");
+            } else{
+                $('#NeubauEtageMap').html(api.NeubauEtageMap.initial_target_html);
+
+                $.ajax({
+                    url: api.NeubauTraktMap.url + selectvalue,
+                    success: function(output){
+                        var floors = output.floors;
+                        $('#' + list_target_id).html('<option value="">Etage</option>');
+                        for (var i = 0; i < floors.length; i++) {
+                            formatFloor(floors[i], list_target_id);
+
+                            $('#NeubauEtageMap').selectmenu("refresh");
+                        }
+                    }
+                });
+            }
+        } else if(list_select_id === "NeubauEtageMap"){
+            if(selectvalue === ""){
+                $('#' + list_target_id).html("<p>Keine Etage ausgewählt</p>");
+            } else{
+                $.ajax({
+                    url: api.NeubauEtageMap.url + selectvalue,
+                    success: function(output){
+                        if(output.floors[0].map_picture !== null){
+                            $('#' + list_target_id).html('<img src="' + output.floors[0].map_picture + '"></img>');
+                        } else {
+                            $('#' + list_target_id).html('<p>Diese Etage hat keine Karte. Bitten Sie Ihren Administrator, eine einzufügen!</p>');
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        if(xhr.status === 404){
+                            $('#' + list_target_id).html('<p>Es ist ein Fehler vorgefallen!</p>');
+                        }
                     }
                 });
             }
