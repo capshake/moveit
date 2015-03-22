@@ -52,13 +52,19 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <div class="alert alert-info">Die Map existiert nicht.</div>
 
                                 <?php
-                            } else {
-                                ?>
+                            } else { ?>
 
                                 <ul class="nav nav-tabs">
                                     <li <?php echo!isset($_GET['rooms']) && !isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>">Grundeinstellungen</a></li>
-                                    <li <?php echo isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/scale">Maßstab festlegen</a></li>
-                                    <li <?php echo isset($_GET['rooms']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/rooms">Räume platzieren</a></li>
+
+                                    <?php
+                                    $db->bind("id", $_GET['edit']);
+                                    if ($db -> single("SELECT building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS ." ON map_building_id = building_id WHERE map_id = :id") == 2){?>
+                                        <li <?php echo isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/scale">Maßstab festlegen</a></li>
+                                        <li <?php echo isset($_GET['rooms']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/rooms">Räume platzieren</a></li>
+                                        <?php
+                                    }?>
+
                                     <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Mapübersicht</a></li>
                                 </ul>
 
@@ -69,7 +75,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     if (isset($_POST['scale'])) {
                                         $update = json_decode($mapData->updateMapScale($_POST, $_GET['edit']));
                                         if ($update->status == 'error') {
-                                            ?>                            
+                                            ?>
                                             <div class="row">
                                                 <div class="col-md-10 col-md-offset-1">
 
@@ -94,7 +100,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     $db->bind("id", $_GET['edit']);
                                     $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :id");
                                     if (empty($map['map_picture'])) {
-                                        ?>                                
+                                        ?>
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
 
@@ -131,7 +137,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         </form>
 
                                         <div class="row">
-                                            <div class="col-md-12">              
+                                            <div class="col-md-12">
                                                 <div class="groundplan-outer">
                                                     <div class="groundplan scale">
 
@@ -176,13 +182,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                                         <div class="row">
-                                            <div class="col-md-5 col-md-offset-5">              
+                                            <div class="col-md-5 col-md-offset-5">
                                                 <button class="add-room-groundplan-button btn btn-success">Raum hinzufügen</button>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12">              
+                                            <div class="col-md-12">
                                                 <div class="groundplan-outer">
                                                     <div class="groundplan" data-mapid="<?php echo $map['map_id']; ?>">
 
@@ -194,7 +200,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <br>* Rechtsklick zum löschen eines Raumes, drag&drop zum verschieben und an die Kanten mit der Maus fahren um ihn ggf. zu vergrößern oder zu verkleinern.
@@ -224,26 +230,22 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 }
 
                                                 $db->bind("id", $_GET['edit']);
-                                                $map = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_id = :id");
-                                                ?>
+                                                $map = $db->row("SELECT " .TABLE_MAPS . ".*, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS ." ON map_building_id = building_id WHERE map_id = :id");
 
 
-                                                <div class="form-group">
-                                                    <label for="map_picture">Grundriss</label>
-                                                    <input name="map_picture" type="file" />
-                                                    <?php
+                                                if($map['building_type'] == 2){
+                                                    echo '<div class="form-group">';
+                                                    echo '<label for="map_picture">Grundriss</label>';
+                                                    echo '<input name="map_picture" type="file" />';
                                                     if (!empty($map['map_picture'])) {
-                                                        ?>
 
-                                                        <br />
-                                                        <a href="#" class="thumbnail">
-                                                            <img src="<?php echo BASEDIR . $map['map_picture']; ?>" />
-                                                        </a>
-                                                        <?php
+                                                        echo '<br />';
+                                                        echo '<a href="#" class="thumbnail">';
+                                                            echo "<img src= " . BASEDIR . $map['map_picture'] . " />";
+                                                        echo '</a>';
                                                     }
-                                                    ?>
-                                                </div>
-
+                                                echo '</div>';
+                                                }?>
 
                                                 <div class="form-group">
                                                     <label for="map_building_id">Gebäude</label>
@@ -257,7 +259,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>  
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="map_floor">Etage</label>
                                                     <select id="map_floor" class="form-control" name="map_floor">
@@ -269,7 +271,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>      
+                                                </div>
 
 
                                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
@@ -338,7 +340,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         }
                                         ?>
                                     </select>
-                                </div>  
+                                </div>
                                 <div class="form-group">
                                     <label for="map_floor">Etage</label>
                                     <select id="map_floor" class="form-control" name="map_floor">
@@ -350,7 +352,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         }
                                         ?>
                                     </select>
-                                </div>      
+                                </div>
 
                                 <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                                 <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
@@ -362,7 +364,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 </div>
                 <?php
             } else {
-                $mapList = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
+                $mapList = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
+
                 ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -377,6 +380,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <tr>
                                         <th>Gebäudename</th>
                                         <th>Etage</th>
+                                        <th>Wo ist der Raum?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -387,6 +391,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <tr>
                                             <td><?php echo $map['building_name']; ?></td>
                                             <td><?php echo getFloor($map['map_floor']); ?></td>
+                                            <td><?php echo ($map['building_type'] == 1) ? 'Altbau' : 'Neubau'; ?></td>
                                             <td class="text-right">
                                                 <a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $map['map_id']; ?>" class="btn btn-default btn-xs">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -421,4 +426,4 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 } else {
     header('location: ' . BASEDIR . 'login');
 }
-    
+
