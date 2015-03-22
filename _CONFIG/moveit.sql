@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Feb 2015 um 13:00
+-- Erstellungszeit: 22. Mrz 2015 um 18:02
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `data_import` (
   `BE` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich',
   `BF` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich',
   `BG` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Leer in CSV, muss drin sein damit Anzahl der Spalten überall gleich'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1000000 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1000000 ;
 
 --
 -- Trigger `data_import`
@@ -445,7 +445,7 @@ IF NOT EXISTS(SELECT B__Index FROM data_export WHERE B__Index = NEW.item_import_
     	(SELECT `AP_Seitenverh./Tel-Fax-Nr/Farbe_Fuss_/Farbe_Gestell/Farbe_Front/` FROM data_import WHERE NEW.item_import_id = B__Index),
     	(SELECT `AQ_Weitere Eigenschaft/Rollentyp/drehbar/stapelbar/Rahmenausfueh` FROM data_import WHERE NEW.item_import_id = B__Index),
     	(SELECT `AR_Zustand` FROM data_import WHERE NEW.item_import_id = B__Index),
-    	(SELECT `AS_Umzug (1/0)` FROM data_import WHERE NEW.item_import_id = B__Index),
+    	0,
     	(SELECT `AT_De(na) Remon(na)tage erfor(na)derlich` FROM data_import WHERE NEW.item_import_id = B__Index),
     	(SELECT `AU_Inventar-Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
     	(SELECT `AV_Bemerkungen` FROM data_import WHERE NEW.item_import_id = B__Index),
@@ -526,69 +526,132 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
           AND `AR_Zustand` = NEW.item_state
           AND `J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
     ) THEN
-
-        INSERT INTO data_export VALUES (
-          (SELECT `A__Zähler` FROM data_import WHERE NEW.item_import_id = B__Index),
-        NEW.item_import_id,
-          (SELECT `C__Erfassungsdatum` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id),
-          (SELECT `E__Raumnutzungsart` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `F__Land-KZ` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `G__Liegenschafts-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `H__Bauteil-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `I__Etage Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `J__Raum-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `K__AP-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `L__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `M__Liegenschafts-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT building_name FROM buildings, maps, rooms WHERE room_map_id = map_id AND map_building_id = building_id AND room_id = NEW.item_room_id),
-          (SELECT map_floor FROM maps, rooms WHERE room_map_id = map_id AND room_id = NEW.item_room_id),
-          (SELECT room_name_alt FROM rooms WHERE room_id = NEW.item_room_id),
-          (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id),
-          (SELECT `R__AP-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `S__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `T__Anzahl AP im Quell-Raum` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `U__a3` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `V__Name UZK` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `W__Nachname MA / Raumbezeichung` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `X__Vorname MA` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `Y__Titel` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `Z__Tel. MA` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AA_a4 FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AB_Kürzel FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AC_Code FROM data_import WHERE NEW.item_import_id = B__Index),
-          1,
-          NEW.item_description,
-          (SELECT `AF_Cluster Bezeichnung` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AG_B FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AH_T FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT AI_H FROM data_import WHERE NEW.item_import_id = B__Index),
-          (var_vol_cbm), -- Volumen für ein Exemplar
-          (SELECT `AK_Hersteller/` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AL_Modell/ Ausfuehrung/Material/Fuss/Form/hv/Fuss /Türart/Anzahl` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AM_Sitz-Lehne-Bezug/Polsterung/Sockel/u.a.` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AN_Farbe_Sitz-Lehne_Bezug/Material_Platte/Farbe_Deckplatte/Farbe` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AO_Rechnername/Zollgroesse/Druckername/Montageart/Farbe_Korpus/F` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AP_Seitenverh./Tel-Fax-Nr/Farbe_Fuss_/Farbe_Gestell/Farbe_Front/` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AQ_Weitere Eigenschaft/Rollentyp/drehbar/stapelbar/Rahmenausfueh` FROM data_import WHERE NEW.item_import_id = B__Index),
-          NEW.item_state,
-          (SELECT `AS_Umzug (1/0)` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AT_De(na) Remon(na)tage erfor(na)derlich` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AU_Inventar-Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AV_Bemerkungen` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AW_Barcode` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AX_Bild Nr 1` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AY_Bild Nr 2` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `AZ_Bild Nr 3` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BA_Bild Nr 4` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BB_Bild Nr 5` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BC_Bild Nr 6` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BD_Skizze Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BE` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BF` FROM data_import WHERE NEW.item_import_id = B__Index),
-          (SELECT `BG` FROM data_import WHERE NEW.item_import_id = B__Index)
-      );
-
+        IF ((SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id) LIKE 'trash_%' OR (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id) LIKE 'store_%')
+          THEN
+            INSERT INTO data_export VALUES (
+              (SELECT `A__Zähler` FROM data_import WHERE NEW.item_import_id = B__Index),
+            NEW.item_import_id,
+              (SELECT `C__Erfassungsdatum` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id),
+              (SELECT `E__Raumnutzungsart` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `F__Land-KZ` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `G__Liegenschafts-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `H__Bauteil-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `I__Etage Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `J__Raum-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `K__AP-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `L__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `M__Liegenschafts-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT building_name FROM buildings, maps, rooms WHERE room_map_id = map_id AND map_building_id = building_id AND room_id = NEW.item_room_id),
+              (SELECT map_floor FROM maps, rooms WHERE room_map_id = map_id AND room_id = NEW.item_room_id),
+              (SELECT room_name_alt FROM rooms WHERE room_id = NEW.item_room_id),
+              (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id),
+              (SELECT `R__AP-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `S__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `T__Anzahl AP im Quell-Raum` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `U__a3` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `V__Name UZK` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `W__Nachname MA / Raumbezeichung` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `X__Vorname MA` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `Y__Titel` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `Z__Tel. MA` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AA_a4 FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AB_Kürzel FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AC_Code FROM data_import WHERE NEW.item_import_id = B__Index),
+              1,
+              NEW.item_description,
+              (SELECT `AF_Cluster Bezeichnung` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AG_B FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AH_T FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT AI_H FROM data_import WHERE NEW.item_import_id = B__Index),
+              (var_vol_cbm), -- Volumen für ein Exemplar
+              (SELECT `AK_Hersteller/` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AL_Modell/ Ausfuehrung/Material/Fuss/Form/hv/Fuss /Türart/Anzahl` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AM_Sitz-Lehne-Bezug/Polsterung/Sockel/u.a.` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AN_Farbe_Sitz-Lehne_Bezug/Material_Platte/Farbe_Deckplatte/Farbe` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AO_Rechnername/Zollgroesse/Druckername/Montageart/Farbe_Korpus/F` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AP_Seitenverh./Tel-Fax-Nr/Farbe_Fuss_/Farbe_Gestell/Farbe_Front/` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AQ_Weitere Eigenschaft/Rollentyp/drehbar/stapelbar/Rahmenausfueh` FROM data_import WHERE NEW.item_import_id = B__Index),
+              NEW.item_state,
+              0,
+              (SELECT `AT_De(na) Remon(na)tage erfor(na)derlich` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AU_Inventar-Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AV_Bemerkungen` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AW_Barcode` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AX_Bild Nr 1` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AY_Bild Nr 2` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `AZ_Bild Nr 3` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BA_Bild Nr 4` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BB_Bild Nr 5` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BC_Bild Nr 6` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BD_Skizze Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BE` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BF` FROM data_import WHERE NEW.item_import_id = B__Index),
+              (SELECT `BG` FROM data_import WHERE NEW.item_import_id = B__Index)
+            );
+        ELSE
+          INSERT INTO data_export VALUES (
+            (SELECT `A__Zähler` FROM data_import WHERE NEW.item_import_id = B__Index),
+          NEW.item_import_id,
+            (SELECT `C__Erfassungsdatum` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id),
+            (SELECT `E__Raumnutzungsart` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `F__Land-KZ` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `G__Liegenschafts-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `H__Bauteil-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `I__Etage Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `J__Raum-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `K__AP-Nr. Bestand` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `L__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `M__Liegenschafts-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT building_name FROM buildings, maps, rooms WHERE room_map_id = map_id AND map_building_id = building_id AND room_id = NEW.item_room_id),
+            (SELECT map_floor FROM maps, rooms WHERE room_map_id = map_id AND room_id = NEW.item_room_id),
+            (SELECT room_name_alt FROM rooms WHERE room_id = NEW.item_room_id),
+            (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id),
+            (SELECT `R__AP-Nr. neu` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `S__a1` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `T__Anzahl AP im Quell-Raum` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `U__a3` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `V__Name UZK` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `W__Nachname MA / Raumbezeichung` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `X__Vorname MA` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `Y__Titel` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `Z__Tel. MA` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AA_a4 FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AB_Kürzel FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AC_Code FROM data_import WHERE NEW.item_import_id = B__Index),
+            1,
+            NEW.item_description,
+            (SELECT `AF_Cluster Bezeichnung` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AG_B FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AH_T FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT AI_H FROM data_import WHERE NEW.item_import_id = B__Index),
+            (var_vol_cbm), -- Volumen für ein Exemplar
+            (SELECT `AK_Hersteller/` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AL_Modell/ Ausfuehrung/Material/Fuss/Form/hv/Fuss /Türart/Anzahl` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AM_Sitz-Lehne-Bezug/Polsterung/Sockel/u.a.` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AN_Farbe_Sitz-Lehne_Bezug/Material_Platte/Farbe_Deckplatte/Farbe` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AO_Rechnername/Zollgroesse/Druckername/Montageart/Farbe_Korpus/F` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AP_Seitenverh./Tel-Fax-Nr/Farbe_Fuss_/Farbe_Gestell/Farbe_Front/` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AQ_Weitere Eigenschaft/Rollentyp/drehbar/stapelbar/Rahmenausfueh` FROM data_import WHERE NEW.item_import_id = B__Index),
+            NEW.item_state,
+            1,
+            (SELECT `AT_De(na) Remon(na)tage erfor(na)derlich` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AU_Inventar-Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AV_Bemerkungen` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AW_Barcode` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AX_Bild Nr 1` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AY_Bild Nr 2` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `AZ_Bild Nr 3` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BA_Bild Nr 4` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BB_Bild Nr 5` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BC_Bild Nr 6` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BD_Skizze Nr.` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BE` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BF` FROM data_import WHERE NEW.item_import_id = B__Index),
+            (SELECT `BG` FROM data_import WHERE NEW.item_import_id = B__Index)
+          );
+      END IF;
     ELSE
       UPDATE data_export
       SET `AJ_Volumen in cbm` = `AJ_volumen in cbm` + var_vol_cbm,`AD_Anzahl` = `AD_Anzahl` + 1
@@ -705,7 +768,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_role_id` tinyint(1) NOT NULL,
   `user_active` tinyint(1) NOT NULL,
   `user_secure_code` varchar(42) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Trigger `users`
@@ -914,7 +977,7 @@ MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
