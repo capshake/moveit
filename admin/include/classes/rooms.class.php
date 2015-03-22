@@ -52,12 +52,24 @@ class Rooms extends Token {
                 $db -> bind("map_id", $data['room_map_id']);
                 $type = $db -> single("SELECT building_type FROM buildings, maps WHERE map_building_id = building_id AND map_id = :map_id");
 
-                $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_type, room_map_id) "
+                if(!isset($data['room_name_alt'])){
+                    $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_type, room_map_id) "
                         . "VALUES(:room_name, :room_type, :room_map_id)", array(
                     "room_name" => $data['room_name'],
                     "room_type" => $type,
                     "room_map_id" => $data['room_map_id']
-                ));
+                    ));
+                }else{
+                    $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_name_alt, room_type, room_map_id) "
+                        . "VALUES(:room_name, :room_name_alt, :room_type, :room_map_id)", array(
+                    "room_name" => $data['room_name'],
+                    "room_name_alt" => $data['room_name_alt'],
+                    "room_type" => $type,
+                    "room_map_id" => $data['room_map_id']
+                    ));
+                }
+
+
 
                 if ($insert > 0) {
                     $return['status'] = 'success';
@@ -119,13 +131,17 @@ class Rooms extends Token {
             //Wenn kein Fehler passiert ist wird in der Datenbank ein Update des Raumes ausgeführt
             if ($return['status'] != 'error') {
 
-                $update = $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name WHERE room_id = :room_id", array(
+                $db->query("UPDATE " . TABLE_ROOMS . " SET room_name = :room_name WHERE room_id = :room_id", array(
                     "room_name" => $data['room_name'],
-                    //"room_type" => $data['room_type'],
-                    //"room_map_id" => $data['room_map_id'],
                     "room_id" => $id
                 ));
 
+                if(isset($data['room_name_alt'])){
+                    $db->query("UPDATE " . TABLE_ROOMS . " SET room_name_alt = :room_name_alt WHERE room_id = :room_id", array(
+                        "room_name_alt" => $data['room_name_alt'],
+                        "room_id" => $id
+                    ));
+                }
 
                 $return['status'] = 'success';
                 $return['msg'] = 'Der Raum wurde bearbeitet.';

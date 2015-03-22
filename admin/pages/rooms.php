@@ -67,6 +67,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <label for="room_name">Raumname</label>
                                     <input id="room_name" name="room_name" value="<?php echo $room['room_name']; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                                 </div>
+                                <div class="form-group">
+                                    <label for="room_name_alt">Raumname</label>
+                                    <input id="room_name_alt" name="room_name_alt" value="<?php echo $room['room_name_alt'] ?>" class="form-control" placeholder="Alternativer Raumname (z.B. PPD-Nr)" type="text" autofocus>
+                                </div>
 
                                 <?php /*<div class="form-group">
                                     <label for="room_map_id">Map</label>
@@ -142,6 +146,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <input id="room_name" name="room_name" value="<?php echo $room_name; ?>" class="form-control" placeholder="Raumname" type="text" required autofocus>
                             </div>
                             <div class="form-group">
+                                <label for="room_name_alt">Raumname</label>
+                                <input id="room_name_alt" name="room_name_alt" value="<?php echo $room_name; ?>" class="form-control" placeholder="Alternativer Raumname (z.B. PPD-Nr)" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
                                 <label for="room_map_id">Map</label>
                                 <select id="room_map_id" class="form-control" name="room_map_id">
                                     <?php
@@ -187,6 +195,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <thead>
                                     <tr>
                                         <th>Raumname</th>
+                                        <th>Alternativer Raumname</th>
                                         <th>Wo ist der Raum?</th>
                                         <th></th>
                                     </tr>
@@ -198,6 +207,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <tr>
                                             <td><?php echo $room['room_name']; ?></td>
+                                            <td><?php echo $room['room_name_alt']; ?></td>
                                             <td><?php echo ($room['room_type'] == 1) ? 'Altbau' : 'Neubau'; ?></td>
                                             <td class="text-right">
                                                 <a href="<?php echo BASEDIR; ?>admin/rooms/edit/<?php echo $room['room_id']; ?>" class="btn btn-default btn-xs">

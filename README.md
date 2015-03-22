@@ -17,7 +17,6 @@
  __________________________________________________________________________________
 
 #####To-Do
-- Admin-Hilfe
 - Drag'n'Drop
     - Kollision raus
     - Verwandeln -> raus
@@ -35,4 +34,6 @@
 - Mapdialog fertigstellen
     - Karte resizen
     - Map-Layer auf Karte aufsetzen
-
+- Raumverwaltung
+    - Sollten sich noch Items in einem zu löschenden Raum befinden, Raum als virtuell ummarkieren!
+- Demo-Installation für Präsentation aufsetzen

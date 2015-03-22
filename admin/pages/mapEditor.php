@@ -168,7 +168,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <div class="save-groundplan">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="alert alert-info">Gestalten Sie hier den Raumplan dieses Gebäudes.*</div>
+                                                    <div class="alert alert-info">Gestalten Sie hier den Lageplan dieser Etage. Bitte dazu die Hinweise unten beachten!</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -203,7 +203,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <br>* Rechtsklick zum löschen eines Raumes, drag&drop zum verschieben und an die Kanten mit der Maus fahren um ihn ggf. zu vergrößern oder zu verkleinern.
+                                                <br>Rechtsklick zum Löschen eines Raumes, Drag&Drop zum Verschieben und mit der Maus die Kanten eines Raumes zum Verändern der Größe ziehen.
                                             </div>
                                         </div>
                                         <?php
@@ -375,7 +375,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <tr>
                                         <th>Gebäudename</th>
                                         <th>Etage</th>
-                                        <th>Wo ist der Raum?</th>
+                                        <th>Alt-/Neubau</th>
                                     </tr>
                                 </thead>
                                 <tbody>
