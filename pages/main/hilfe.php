@@ -13,13 +13,13 @@ if (!$userData->isLoggedIn()) {
   		  
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-2">
+        <div class="col-md-12">
             <h2>Hilfe</h2>
         </div>
     </div>
     <div class="row">
 
-        <div class=" col-md-8 col-md-offset-2">
+        <div class=" col-md-12">
             <div class="well">
                 <div id="akkordeon">
                     <h3>  Wie setzt sich die Seite zusammen? </h3>
