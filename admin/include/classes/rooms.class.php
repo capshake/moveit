@@ -31,10 +31,10 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumname aus.';
             }
-            if (empty($data['room_type'])) {
+            /*if (empty($data['room_type'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumtyp aus.';
-            }
+            }*/
             if (empty($data['room_map_id'])) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Geben Sie bitte eine Map an.';
@@ -49,10 +49,13 @@ class Rooms extends Token {
 
             //Wenn kein Fehler passiert ist wird der Raum in die Datenbank geschrieben
             if ($return['status'] != 'error') {
+                $db -> bind("map_id", $data['room_map_id']);
+                $type = $db -> single("SELECT building_type FROM buildings, maps WHERE map_building_id = building_id AND map_id = :map_id");
+
                 $insert = $db->query("INSERT INTO " . TABLE_ROOMS . " (room_name, room_type, room_map_id) "
-                        . "VALUES(:room_name, :room_map_id)", array(
+                        . "VALUES(:room_name, :room_type, :room_map_id)", array(
                     "room_name" => $data['room_name'],
-                    "room_type" => $data['room_type'],
+                    "room_type" => $type,
                     "room_map_id" => $data['room_map_id']
                 ));
 

@@ -29,9 +29,12 @@
 - Zollstock
 - Responsive rausnehmen
 - Map-Karten nur für Neubau(Adminbereich)
+    - Altbau-Maps sollen trotzdem in der Tabelle gezeigt werden!
+    - Es soll nur die Möglichkeit, Grafiken hochzuladen und Räume zu platzieren für Altbau deaktiviert werden!!
+    - Maps sollen auch ohne Grafik hochgeladen werden können
 - Füllen mit DB- Inhalt insgesamt
-- Raum erstellen
-    - DB-Fehler zurückverfolgen
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen
+    - Karte resizen
+    - Map-Layer auf Karte aufsetzen
 

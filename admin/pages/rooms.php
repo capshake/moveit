@@ -88,8 +88,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <option value="2" <?php echo ($room['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
                                     </select>
                                 </div> */ ?>
-                               
-                               
+
+
                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
                             </form>
 
@@ -153,14 +153,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     }
                                     ?>
                                 </select>
-                            </div> 
-                            <div class="form-group">
-                                <label for="room_type">Wo befindet sich der Raum?</label>
-                                <select id="room_type" class="form-control" name="room_type">
-                                    <option value="1" <?php echo (@$_POST['room_type'] == 1) ? 'selected' : ''; ?>>Altbau</option>
-                                    <option value="2" <?php echo (@$_POST['room_type'] == 2) ? 'selected' : ''; ?>>Neubau</option>
-                                </select>
-                            </div> 
+                            </div>
                             <button class="btn btn-primary" type="submit" name="create">Speichern</button>
                         </form>
 
@@ -222,7 +215,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             </table>
                             <?php
                         }
-                        ?>  
+                        ?>
                         <a href="<?php echo BASEDIR; ?>admin/rooms/create" class="btn btn-success">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Raum erstellen
                         </a>
