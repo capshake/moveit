@@ -12,10 +12,8 @@ if (!$userData->isLoggedIn()) {
     ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
             <h2>Impressum</h2>
         </div>
-    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="well">
@@ -53,7 +51,7 @@ if (!$userData->isLoggedIn()) {
                 <h4>Datenschutzerklärung</h4>
                 <br>
                 <br>
-                <h4>Sinn und Zweck des Web-Angebots MoveIt</h4>
+                <h4>Sinn und Zweck des Web-Angebots moveIT</h4>
                 <p>Das Web-Angebot moveIT soll Ihnen bei der Planung des Umzugs in das neue Fachhochschulgebäude am Campus Derendorf helfen. Die Möbel aus Ihren derzeitigen Büroräumen können virtuell in das neue Hochschulgebäude geräumt werden. So ist es Ihnen möglich 1. einen Überblick über Ihr Inventar in den neuen Räumen zu bekommen sowie 2. eine Auswahl zu treffen, welche Möbel auf den neuen Campus umziehen sollen.</p>
                 <br>
                 <h4>Personenbezogene Daten</h4>
