@@ -10,6 +10,14 @@ body, html {
 .navbar + .container {
   padding: 51px 15px 0; }
 
+.navbar{
+  z-index: 100;
+}
+
+#dialog-GrundrissNeubau{
+  z-index: 200 !important;
+}
+
 /* line 16, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 .clear {
   clear: both; }
@@ -221,7 +229,7 @@ h4 {
 
 /* line 276, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 #Altbau, #Neubau {
-  border-radius: 6px; 
+  border-radius: 6px;
   border: 1px solid black;}
 
 /* line 282, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
@@ -242,7 +250,7 @@ h4 {
 
 /* line 302, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 #AltbauAuswahl {
-  background-color: #b02d2d; 
+  background-color: #b02d2d;
   }
 
 /* line 312, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */

@@ -25,14 +25,11 @@
     - Items in richtiger Größe einfügen
     - Items im Kartenbereich brauchen Popup mit weiteren Informationen
     - Größe des Raums sollte im Kartenbereich dargestellt werden
+    - "Leerer Raum"-Hinweise sollen nicht draggable sein
 - Zollstock
-- Z-Index fixen (Müll, Lager und Mapdialog)
 - Responsive rausnehmen
 - Map-Karten nur für Neubau(Adminbereich)
 - Füllen mit DB- Inhalt insgesamt
-- Export
-    - Items im Müll als Umzug: false (0) markieren
-    - Verhalten definieren, wenn Items noch in Lagern
 - Raum erstellen
     - DB-Fehler zurückverfolgen
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen

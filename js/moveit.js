@@ -14,7 +14,11 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             itemTypes = data.types;
-        }
+        }/*,
+        error: function(){
+            console.log("retry");
+            setTimeout(function(){$.ajax(this)}, 7000);
+        }*/
     });
 
     // Laden von Lager, Müll und öffentlichem Lager
@@ -82,6 +86,7 @@ $(document).ready(function () {
         autoOpen: false,
         height: 600,
         width: 700,
+
         modal: true,
     });
 
