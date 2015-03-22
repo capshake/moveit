@@ -46,8 +46,8 @@ $(document).ready(function () {
 
     $(function () {
         $("#akkordeon").accordion({
-            active: 0, //erster Tab ist offen
-            collapsible: true
+            collapsible: true,
+            heightStyle: "content"
         });
     });
 

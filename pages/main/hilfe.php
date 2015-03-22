@@ -21,8 +21,9 @@ if (!$userData->isLoggedIn()) {
 
         <div class=" col-md-12">
             <div class="well">
+                <!-- Start des Akkordeons -->
                 <div id="akkordeon">
-                    <h3>  Wie setzt sich die Seite zusammen? </h3>
+                    <h3>  Wie setzt sich die Hauptseite zusammen? </h3> <!-- Erster faltbarer Teil -->
                     <div>
                         <p>
                             Die Hauptseite des moveIT-Umzugplaners setzt sich aus den folgenden 3 Bereichen (von rechts nach links) zusammen:
@@ -40,14 +41,15 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3> Welche Funktion hat der Altbaubereich? </h3>
+                    <h3> Welche Funktion hat der Altbaubereich? </h3> <!-- Zweiter faltbarer Teil -->
                     <div>
                         <p>
                             Im Altbaubereich werden Ihnen genau zwei Funktionen angeboten:
                             <ul>
-                                <li><strong>Raum auswählen:</strong>Im rot-unterlegten oberen Teil können Sie einen Raum des Altbaus über drei Drop-Down-Meünus wählen.</li>
-                                <li><strong>Inventar des gewählten Raums verwalten:</strong>Sofern Sie berechtigt sind den ausgewählten Raum zu bearbeiten, erscheint unterhalb der Drop-Down-Menüs eine Liste
-                                    mit dem Inventar des Raums.</li>
+                                <li><strong>Raum auswählen:</strong>Im rot-unterlegten oberen Teil können Sie einen Raum des Altbaus über drei Drop-Down-Meünus wählen. Beachten Sie dabei bitte, dass
+                                    das Dropdown-Menü von oben nach unten ausgefüllt werden muss.</li>
+                                <li><strong>Inventar des gewählten Raums verwalten:</strong>Sofern Sie berechtigt sind den ausgewählten Raum zu bearbeiten, erscheint unterhalb des Drop-Down-Menüs eine Liste
+                                    mit dem Inventar des Raums. Items der Liste können per Drag and Drop aus der Liste in den Raumbearbeitungsbereich gezogen werden.</li>
                             </ul>
                         </p>
                         
@@ -59,12 +61,11 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3> Welche Funktion hat der Neubaubereich? </h3>
-
+                    <h3> Welche Funktion hat der Neubaubereich? </h3> <!-- Dritter faltbarer Teil -->
 
                     <div>
                         <p>
-                            Im Neubaubereich findet die direkte Raumbearbeitung, d.h. Positionieren der Möbel, statt. Folgende Funktionen sind gegeben:
+                            Im Neubaubereich findet die direkte Raumbearbeitung, d.h. das Positionieren der Möbel, statt. Folgende Funktionen sind gegeben:
                             <ul>
                                 <li><strong>Auswahl des Raumes:</strong> Über die Dropdown-Menüs kann ein Raum des Neubaus ausgewählt werden. 
                                     Der ausgewählte Raum öffnet sich dann im mittleren Bereich und steht zur Bearbeitung zur Verfügung. </li>
@@ -85,13 +86,13 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3>Welche Funktion haben die Lager?</h3>
+                    <h3>Welche Funktion haben die Lager?</h3> <!-- Vierter faltbarer Teil -->
                     <div>
                         <p>
                             <ul>
                                 <li><strong>Persönliches Lager:</strong>Falls Sie zunächst keine Verwendung für ein oder mehrere Möbelstücke finden,
-                                 können Sie diese ebenfalls mittels drag-and-drop in das (persönliche) Lager verschieben.</li>
-                                <li><strong>Müll:</strong>Möbelstücke, die defekt oder nicht mehr brauchbar sind, verschieben Sie ebenfalls per drag-and-drop in den "Müll".</li>
+                                 können Sie diese mittels Drag-and-Drop in das (persönliche) Lager verschieben.</li>
+                                <li><strong>Müll:</strong> Möbelstücke, die defekt oder nicht mehr brauchbar sind, verschieben Sie per Drag-and-Drop in den "Müll".</li>
                                 <li><strong>Öffentliches Lager:</strong> Hier können Möbel abgelegt werden, die noch funktionstüchtig sind, für die Sie aber keine Verwendung mehr haben.</li>
                             </ul>
                         </p>
@@ -102,12 +103,22 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3> Wofür dienen die verschiedenen Lager? </h3>
+                    <h3>Wie positioniere/rotiere ich Möbel?</h3> <!-- Fünfter faltbarer Teil -->
                     <div>
-                          
+                          <p>Möbel werden in moveIT per Drag-and-Drop aus den verschiedenen Lagerlisten (Liste des äquivalenten Altbauraums, persönliches und öffentliches Lager) auf die Raumbearbeitungsfläche
+                          (im Zentrum der Seite) gezogen. Sobald ein Listeneintrag in den Raum "gedropped" wurde erscheint anstelle vom Listeneintrag ein Icon, dass das jeweilige Möbelstück repräsentiert. 
+                          Das Item kann nach Belieben im Raum platziert werden. Dieses Möbelstück können Sie mittels <em>Doppelklick</em> um 90° im Uhrzeigersinn rotieren.
+                          </p>
+
                         <a href="#" data-toggle="modal" data-target="#lightbox">
                             <img class="anleitung" src="./img/4Anleitung.png">
                         </a>
+                    </div>
+                    <br>
+                    <br>
+                    <h3>Wie kann ich für Räume freigeschaltet werden?</h3> <!-- Sechster faltbarer Teil -->
+                    <div>
+                          <p>Die Freischaltung der von Ihnen auswählbaren Räumen erfolgt durch den Admin. Falls es Probleme mit der Freischaltung gibt oder Räume fehlen, wenden Sie sich bitte an den Admin.</p>
                     </div>
                 </div>
                 <br>
