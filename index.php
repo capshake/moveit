@@ -14,7 +14,7 @@ if (!$userData->isLoggedIn()) {
 
     <div class="container">
        <div id="MapsLagerListen">
-        <div class="col-md-2">
+        <div class="col-xs-2">
             <div id="Altbau">
             <div id="Ueberschriften">
                 <h4>Altbau</h4>
@@ -53,7 +53,7 @@ if (!$userData->isLoggedIn()) {
             </div>
         </div>
     </div>
-        <div class="col-md-8">
+        <div class="col-xs-8">
            <div id="Neubau">
             <!--Dropdown Menue fuer den Neubau-->
             <div id="Ueberschriften">
@@ -136,7 +136,7 @@ if (!$userData->isLoggedIn()) {
 
     <!--Lager-->
 
-    <div class="col-md-2">
+    <div class="col-xs-2">
         <div id="LagerLeiste">
             <div id="ObereLeiste">
                 <!-- Tooltips und Tabs -->

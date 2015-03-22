@@ -14,6 +14,10 @@ body, html {
   z-index: 100;
 }
 
+.container{
+  width: 1170px;
+}
+
 #dialog-GrundrissNeubau{
   z-index: 200 !important;
 }
