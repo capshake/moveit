@@ -28,10 +28,8 @@
     - "Leerer Raum"-Hinweise sollen nicht draggable sein
 - Zollstock
 - Responsive rausnehmen
-- Map-Karten nur für Neubau(Adminbereich)
-    - Altbau-Maps sollen trotzdem in der Tabelle gezeigt werden!
-    - Es soll nur die Möglichkeit, Grafiken hochzuladen und Räume zu platzieren für Altbau deaktiviert werden!!
-    - Maps sollen auch ohne Grafik hochgeladen werden können
+- Map-Bearbeitung
+    - Maps müssen gelöscht werden können
 - Füllen mit DB- Inhalt insgesamt
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen

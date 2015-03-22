@@ -308,8 +308,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     $map_building_id = $_POST['map_building_id'];
                                     $map_floor = $_POST['map_floor'];
 
+                                    $update = json_decode($mapData->createMap($_POST, null));
 
-                                    $update = json_decode($mapData->createMap($_POST, $_FILES));
                                     if ($update->status == 'error') {
                                         ?>
                                         <div class="alert alert-danger"><?php echo $update->msg; ?></div>
@@ -323,11 +323,6 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 }
                                 ?>
 
-
-                                <div class="form-group">
-                                    <label for="map_picture">Grundriss</label>
-                                    <input name="map_picture" type="file" />
-                                </div>
                                 <div class="form-group">
                                     <label for="map_building_id">Gebäude</label>
                                     <select id="map_building_id" class="form-control" name="map_building_id">
