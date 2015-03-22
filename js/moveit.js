@@ -1,6 +1,5 @@
 var BASEURL = '/moveit/';
 var roomId; // globale Variable für den ausgwählten Raum
-var itemTypes;
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -60,9 +59,6 @@ $(document).ready(function () {
     $("#NeubauTrakt").selectmenu();
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
-
-
-
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -477,6 +473,7 @@ function dragAndDrop() {
     });*/
 };
 
+/* Items laden/////////////////////////////////////////////////// */
 
 //Items aus dem Altbau laden
 function getItems(roomId) {

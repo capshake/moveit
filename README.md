@@ -17,8 +17,8 @@
     - Draggable-Bereiche definieren
     - Items in richtiger Größe einfügen
     - Items im Kartenbereich brauchen Popup mit weiteren Informationen
+    - Größe des Raums sollte im Kartenbereich dargestellt werden
 - Zollstock
-- Map-Grundriss einpflegen
 - Z-Index fixen (Müll, Lager und Mapdialog)
 - Responsive rausnehmen
 - Map-Karten nur für Neubau(Adminbereich)
