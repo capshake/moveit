@@ -14,13 +14,22 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     <div class="container">
         <?php
         if (isset($_GET['remove'])) {
-            ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-danger">Der Raum wurde gelöscht.</div>
-                </div>
-            </div>
-            <?php
+           $roomNameBeforeDelete = $db->row("SELECT room_name FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']));
+			$numberOfSuccessfullyDeletedRooms = $db->query("DELETE FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']), PDO::FETCH_NUM);
+
+			if ($numberOfSuccessfullyDeletedRooms == 1) { ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-success">Der Raum <em><?php echo $roomNameBeforeDelete['room_name'] ?></em> wurde gelöscht.</div>
+					</div>
+				</div>
+			<?php } else { ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
+					</div>
+				</div>
+			<?php }
         }
         if (isset($_GET['edit'])) {
             $existsRoom = $db->row("SELECT room_id FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['edit']), PDO::FETCH_NUM);
