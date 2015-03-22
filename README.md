@@ -28,6 +28,7 @@
     - Verhalten definieren, wenn Items noch in Lagern
 - Raum erstellen
     - DB-Fehler zurückverfolgen
+- Gebäude, Räume löschen
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen
 
