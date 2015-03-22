@@ -14,8 +14,18 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     <div class="container">
         <?php
         if (isset($_GET['remove'])) {
-           $roomNameBeforeDelete = $db->row("SELECT room_name FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']));
-			$numberOfSuccessfullyDeletedRooms = $db->query("DELETE FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']), PDO::FETCH_NUM);
+            $roomNameBeforeDelete = $db->row("SELECT room_name FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']));
+
+            if($db -> single("SELECT COUNT(*) FROM " . TABLE_ROOMS . ", " . TABLE_ITEMS . " WHERE item_room_id = room_id AND (room_id = :room_id OR item_origin_room = :room_id_origin)", array("room_id" => $_GET['remove'], "room_id_origin" => $_GET['remove'])) > 0){
+                if($db -> single("SELECT COUNT(*) FROM " . TABLE_ROOMS . ", " . TABLE_ITEMS . " WHERE item_room_id = room_id AND room_id = :room_id", array("room_id" => $_GET['remove'])) > 0){
+                    $numberOfSuccessfullyDeletedRooms = 0;
+                    $roomNotEmpty = 1;
+                }else{
+                    $numberOfSuccessfullyDeletedRooms = $db -> query("UPDATE " . TABLE_ROOMS . " SET room_type = 0 WHERE room_id = :room_id", array("room_id" => $_GET['remove']));
+                }
+            }else{
+                $numberOfSuccessfullyDeletedRooms = $db->query("DELETE FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $_GET['remove']), PDO::FETCH_NUM);
+            }
 
 			if ($numberOfSuccessfullyDeletedRooms == 1) { ?>
 				<div class="row">
@@ -23,7 +33,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 						<div class="alert alert-success">Der Raum <em><?php echo $roomNameBeforeDelete['room_name'] ?></em> wurde gelöscht.</div>
 					</div>
 				</div>
-			<?php } else { ?>
+			<?php } else if($roomNotEmpty){ ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">Der Raum <em><?php echo $roomNameBeforeDelete['room_name'] ?></em> wurde <b>NICHT</b> gelöscht, da er noch Möbelstücke enthält.</div>
+                    </div>
+                </div>
+            <?php }else { ?>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
