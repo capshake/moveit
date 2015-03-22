@@ -12,15 +12,26 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     ?>
 
     <div class="container">
+        
         <?php
         if (isset($_GET['remove'])) {
-            ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-danger">Das Gebäude wurde gelöscht.</div>
-                </div>
-            </div>
-            <?php
+            
+            $buildingNameBeforeDelete = $db->row("SELECT building_name FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $_GET['remove']));
+			$numberOfSuccessfullyDeletedBuilding = $db->query("DELETE FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $_GET['remove']), PDO::FETCH_NUM);
+
+			if ($numberOfSuccessfullyDeletedBuilding == 1) { ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-success">Das Gebäude <em><?php echo $buildingNameBeforeDelete['building_name'] ?></em> wurde gelöscht.</div>
+					</div>
+				</div>
+			<?php } else { ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
+					</div>
+				</div>
+			<?php }
         }
         if (isset($_GET['edit'])) {
             $existsBuilding = $db->row("SELECT building_id FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $_GET['edit']), PDO::FETCH_NUM);
