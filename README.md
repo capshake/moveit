@@ -1,5 +1,5 @@
 #MoveIT
----
+
 #####Grundstruktur
 - admin - Adminbereich
 - css - Alle CSS Dateien (Alles was auf .css endet)
@@ -14,7 +14,6 @@
    - photos - Fotos der Möbelstücke
  - maps  - Karten der FH
 
- __________________________________________________________________________________
 
 #####To-Do
 - Drag'n'Drop
@@ -27,7 +26,7 @@
     - "Leerer Raum"-Hinweise sollen nicht draggable sein
 - Zollstock
 - Map-Bearbeitung
-    - Maps müssen gelöscht werden können
+    - Maps müssen gelöscht werden können (Räume müssen dann aus dieser Map genommen werden!!)
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen
     - Karte resizen
