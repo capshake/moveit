@@ -13,13 +13,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
     <div class="container">
         <?php
-        $existsBuilding = $db->row("SELECT building_id FROM " . TABLE_BUILDINGS . " WHERE building_type = 2", PDO::FETCH_NUM);
+        $existsBuilding = $db->row("SELECT building_id FROM " . TABLE_BUILDINGS, PDO::FETCH_NUM);
         if (!$existsBuilding) {
             ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="well">
-                        <div class="alert alert-info">Es muss zuerst ein Gebäude im Neubau existieren.</div>
+                        <div class="alert alert-info">Es muss zuerst ein Gebäude existieren.</div>
                     </div>
                 </div>
             </div>
@@ -330,7 +330,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <label for="map_building_id">Gebäude</label>
                                     <select id="map_building_id" class="form-control" name="map_building_id">
                                         <?php
-                                        $buildings = $db->query("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
+                                        $buildings = $db->query("SELECT * FROM " . TABLE_BUILDINGS);
                                         foreach ($buildings as $building) {
                                             ?>
                                             <option value="<?php echo $building['building_id']; ?>"<?php echo ($building['building_id'] == $map_building_id) ? ' selected="selected"' : ''; ?>><?php echo $building['building_name']; ?></option>
@@ -362,7 +362,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 </div>
                 <?php
             } else {
-                $mapList = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE building_type = 2 ORDER BY map_id");
+                $mapList = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
                 ?>
                 <div class="row">
                     <div class="col-md-12">
