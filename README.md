@@ -21,8 +21,6 @@
 - Map-Grundriss einpflegen
 - Z-Index fixen (Müll, Lager und Mapdialog)
 - Responsive rausnehmen
-- Tabs von Lager
-    - CSS korrigieren für Listen (Daten sind richtig drin)
 - Map-Karten nur für Neubau(Adminbereich)
 - Füllen mit DB- Inhalt insgesamt
 - Export

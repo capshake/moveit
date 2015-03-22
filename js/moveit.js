@@ -42,7 +42,7 @@ $(document).ready(function () {
 
 
     $("#ObereLeiste").tabs({
-        heightStyle: "fill"
+        heightStyle: "content"
     });
 
     $(function () {
