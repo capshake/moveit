@@ -7,9 +7,16 @@
 - include - Alle Dateien die via PHP eingebunden werden
 - img - Bilder für das Design (z. B. Hintergründe)
 
+#####Upload-Struktur
+ - csv   - Die CSV -Dateien für den Admin
+ - items
+   - icon   - Icons der einzelnen Möbelstücke (drag & drop)
+   - photos - Fotos der Möbelstücke
+ - maps  - Karten der FH
+
+ __________________________________________________________________________________
 
 #####To-Do
-- User-Hilfe
 - Admin-Hilfe
 - Drag'n'Drop
     - Kollision raus
@@ -31,9 +38,3 @@
 - Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen
 
-#####Upload-Struktur
- - csv   - Die CSV -Dateien für den Admin
- - items
-   - icon   - Icons der einzelnen Möbelstücke (drag & drop)
-   - photos - Fotos der Möbelstücke
- - maps  - Karten der FH
