@@ -122,7 +122,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                     <br>
                     <br>
-                    <h3>Können Möbel in mehreren Räumen verwendet werden?</h3> <!-- Sechster faltbarer Teil -->
+                    <h3>Können Möbel in mehreren Räumen verwendet werden?</h3> <!-- Siebter faltbarer Teil -->
                     <div>
                           <p>Ein Möbelstück kann immer nur in einem Raum positioniert werden, d.h. dasselbe Item kann nicht in mehreren Räumen gleichzeitig sein. Natürlich ist es aber möglich ein Item in einen
                           anderen Raum zu verschieben. Hierzu muss das Item aus dem Raum per Drag-and-Drop in das persönliche Lager verschoben werden. Danach kann ein anderer Neubauraum gewählt werden und das
@@ -130,7 +130,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                 </div>
                 <br>
-                <br> Falls Sie noch weitere Fragen, über die Verwendung unserer Website haben, schreiben sie unserem Admin eine E-Mail: <a href="mailto: admin@moveit.de">admin@moveit.de</a>
+                <br> Falls Sie noch <em>weitere Fragen</em>, über die Verwendung unserer Website haben, schreiben sie unserem Admin eine E-Mail: <a href="mailto: admin@moveit.de">admin@moveit.de</a>
             </div>
         </div>
     </div>
