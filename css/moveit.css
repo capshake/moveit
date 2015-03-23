@@ -27,7 +27,8 @@ body, html {
 
 #helpButton,
 #helpButton2,
-#helpButtonImport{
+#helpButtonImport,
+#helpButtonBuildings{
   margin-bottom: 10px;
 } 
 
