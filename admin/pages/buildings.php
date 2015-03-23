@@ -38,8 +38,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
+                   
+                    <h2>Gebäude bearbeiten</h2> 
 
-                    <h2>Gebäude bearbeiten</h2><br />
+
+                    <br />
                     <div class="well">
                         <?php if (!$existsBuilding) { ?>
                             <div class="alert alert-info">Das Gebäude existiert nicht!</div>
@@ -155,7 +158,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Gebäude</h2>
+                    <h2 class="mapHeadline">Gebäude&nbsp;</h2><button id="helpButtonBuildings" class="btn btn-default btn-xs">?</button>
+                        <div id="buildingsDialog" title="Hilfe bei der Einrichtung von Gebäuden">
+                            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            Hier steht Hilfetext für den Gebäude-Editor
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                        </div>
                 </div>
             </div>
             <div class="row">

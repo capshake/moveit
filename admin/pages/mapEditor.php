@@ -26,22 +26,34 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <?php
         } else {
             if (isset($_GET['remove'])) {
-                ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="well">
+                   $mapIdBeforeDelete = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']));
+                $numberOfSuccessfullyDeletedMaps = $db->query("DELETE FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']), PDO::FETCH_NUM);
+
+                if ($numberOfSuccessfullyDeletedMaps == 1) { ?>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="alert alert-success">Die Map wurde gelöscht.</div>
                         </div>
                     </div>
-                </div>
-                <?php
+                <?php } else { ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
+                        </div>
+                    </div>
+                <?php }
             }
             if (isset($_GET['edit'])) {
                 $existsMap = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['edit']), PDO::FETCH_NUM);
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Map bearbeiten</h2>
+                        <h2 class="mapHeadline">Map bearbeiten</h2> <button id="helpButton2" class="btn btn-default btn-xs">?</button>
+                        <div id="mapBearbeitenDialog" title="Hilfe bei der Map-Bearbeitung">
+                            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            Hier steht Hilfetext für den eigentlichen MapEditor!!!
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -364,10 +376,20 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 id="mapEditorHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
+                        <h2 class="mapHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
 
-                        <div id="mapEditorDialog">
-
+                        <div id="mapEditorDialog" title="Hilfe für den Map Editor">
+                        <p>
+                            Damit Sie an dieser Stelle einen Grundriss hochladen können, müssen im Vorfeld folgende Schritte erfolgt sein:
+                            <ol>
+                                <li>Sie müssen unter <em>Gebäude</em> (siehe Navigationsleiste) ein Gebäude erstellt haben, dass vom Typ "Neubau" ist.</li>
+                                <li>Nachdem Sie dieses Gebäude angelegt haben, können Sie unter <em>Map Editor</em> die Etagen dieses Gebäudes anlegen (Etage für Etage).</li>
+                            </ol>
+                            <hr>
+                            <h3>Grundriss hochladen</h3>
+                            Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
+                            klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.
+                        </p>
                         </div>
                     </div>
                 </div>
@@ -406,7 +428,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 </tbody>
                             </table>
                             <a href="<?php echo BASEDIR; ?>admin/mapEditor/create" class="btn btn-success">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Map erstellen
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Etage anlegen
                             </a>
                         </div>
                     </div>

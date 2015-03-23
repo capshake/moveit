@@ -81,7 +81,56 @@ $(document).ready(function () {
 
 
 
-    // Dialog-Fenster für Neubau-Grundriss
+    // Admin-Help-Dialoge für moveIT ----------------------------------------------------------------------------------------------------------------------
+$("#mapEditorDialog").dialog({ //MapEditor Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton").click(function () { //Button MapEditor
+        $("#mapEditorDialog").dialog("open");
+    });    
+
+      $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton2").click(function () { //Map Bearbeiten Button
+        $("#mapBearbeitenDialog").dialog("open");
+    });    
+
+    $("#importDialog").dialog({ //Import/Export Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton").click(function () {
+        $("#mapEditorDialog").dialog("open");
+    });
+    $("#helpButtonImport").click(function () { //Import/Export Button
+        $("#importDialog").dialog("open");
+    });   
+
+    $("#buildingsDialog").dialog({ //Gebäude Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButtonBuildings").click(function () { //Gebäude Button
+        $("#buildingsDialog").dialog("open");
+    });    
+
+// ------------------------------------------------------------------------------------------------------ Ende Admin-Help-Dialoge
+
     $("#dialog-GrundrissNeubau").dialog({
         autoOpen: false,
         height: 600,
@@ -90,16 +139,7 @@ $(document).ready(function () {
         modal: true,
     });
 
-    $("#mapEditorDialog").dialog({
-        autoOpen: false,
-        height: 600,
-        width: 700,
-        modal: true,
-    });
-
-    $("#helpButton").click(function () {
-        $("#mapEditorDialog").dialog("open");
-    });
+    
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
@@ -566,3 +606,63 @@ function getRoom(roomId) {
 
     }
 }
+
+//ZOLLSTOCK ANFANG
+
+// Bei Klick auf den ZollstockButton erscheinen 2 'Messpunkte' in der NeubauMap
+// und die Beschriftung des ZollstockButton ändert sich
+var distance = 0;
+$('#Zollstock').click(function (e) {
+
+	var offset = $(this).offset();
+    var posX = (e.pageX  - offset.left);
+    var posY = (e.pageY  - offset.top);
+	
+	if( $('#Zollstock').text() == "Zollstock anzeigen") {
+	
+		// Abstandsanzeige einblenden - label und inputfield
+		$('.abstand-anzeige').css("visibility", "visible");
+		
+		// ButtonText ändern
+		$('#Zollstock').text("Zollstock verstecken");
+		
+		// Messpunkte hinzufügen
+		// erster Messpunkt
+		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+100) + 'px; top: ' + (posY+100) + 'px"></div>');
+		// zweiter Messpunkt
+		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+50) + 'px; top: ' + (posY+100) + 'px"></div>');
+		
+		// Distanz messen
+		calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
+	}
+	else {
+		// Abstandsanzeige ausblenden
+		$('.abstand-anzeige').css("visibility", "hidden");
+		
+		// ButtonText ändern
+		$('#Zollstock').text("Zollstock anzeigen");
+		
+		// Messpunkte entfernen
+		$('#NeubauMap .dot').remove();
+	}	
+		
+    $("#NeubauMap .dot").draggable({
+        containment: "parent",
+        drag: function () {
+            calcDistance();
+        }
+    });
+});
+
+//Distanz berechnen
+function calcDistance() {
+    var startingTop = parseFloat($('.dot').css('top'), 10),
+            startingLeft = parseFloat($('.dot').css('left'), 10),
+            startingTop2 = parseFloat($('.dot').last().css('top'), 10),
+            startingLeft2 = parseFloat($('.dot').last().css('left'), 10),
+            math = Math.round(Math.sqrt(Math.pow(startingTop - startingTop2, 2) + Math.pow(startingLeft - startingLeft2, 2)));
+
+    $('#abstand-inline-inputfield').val(math);
+}
+
+//ZOLLSTOCK ENDE

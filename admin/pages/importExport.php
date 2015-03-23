@@ -17,7 +17,13 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-md-offset-3">
-                <h2>Import/Export</h2>
+                <h2 class="mapHeadline">Import/Export</h2> 
+                <button id="helpButtonImport" class="btn btn-default btn-xs">?</button>
+                        <div id="importDialog" title="Hilfe beim Import/Export">
+                            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            Hier steht Hilfetext für den Import/Export!!
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                        </div>
             </div>
         </div>
         <div class="row">
