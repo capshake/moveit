@@ -99,7 +99,7 @@ $(document).ready(function () {
 
     $("#helpButton").click(function () {
         $("#mapEditorDialog").dialog("open");
-    });    
+    });
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
