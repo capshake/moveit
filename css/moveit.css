@@ -25,6 +25,10 @@ body, html {
   z-index: 200 !important;
 }
 
+#helpButton{
+  margin-bottom: 10px;
+} 
+
 .navbar > .container {
   width: 100%;
 }

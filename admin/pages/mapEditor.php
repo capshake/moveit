@@ -373,8 +373,18 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     <div class="col-md-12">
                         <h2 id="mapEditorHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
 
-                        <div id="mapEditorDialog">
-
+                        <div id="mapEditorDialog" title="Hilfe für den Map Editor">
+                        <p>
+                            Damit Sie an dieser Stelle einen Grundriss hochladen können, müssen im Vorfeld folgende Schritte erfolgt sein:
+                            <ol>
+                                <li>Sie müssen unter <em>Gebäude</em> (siehe Navigationsleiste) ein Gebäude erstellt haben, dass vom Typ "Neubau" ist.</li>
+                                <li>Nachdem Sie dieses Gebäude angelegt haben, können Sie unter <em>Map Editor</em> die Etagen dieses Gebäudes anlegen (Etage für Etage).</li>
+                            </ol>
+                            <hr>
+                            <h3>Grundriss hochladen</h3>
+                            Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
+                            klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.
+                        </p>
                         </div>
                     </div>
                 </div>
@@ -413,7 +423,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 </tbody>
                             </table>
                             <a href="<?php echo BASEDIR; ?>admin/mapEditor/create" class="btn btn-success">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Map erstellen
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Etage anlegen
                             </a>
                         </div>
                     </div>
