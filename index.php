@@ -59,7 +59,7 @@ if (!$userData->isLoggedIn()) {
             <div id="Ueberschriften">
              <h4>Neubau</h4>
              <button type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-             <button type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock</button>
+             <button type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock anzeigen</button>
              <label id="abstand-inline-label" class="abstand-anzeige" for="abstand-inputfield">Abstand in cm :</label>
 			 <input id="abstand-inline-inputfield" class="abstand-anzeige" name="abstand-inputfield" ></input>
          </div>
