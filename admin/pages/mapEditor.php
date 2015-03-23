@@ -404,7 +404,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                 <li>Nachdem Sie dieses Gebäude angelegt haben, können Sie unter <em>Map Editor</em> die Etagen dieses Gebäudes anlegen (Etage für Etage).</li>
                             </ol>
                             <hr>
-                            <h3>Grundriss hochladen</h3>
+                            <strong>Grundriss hochladen</strong><br>
                             Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
                             klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.
                         </p>
