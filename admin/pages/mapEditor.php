@@ -26,15 +26,22 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <?php
         } else {
             if (isset($_GET['remove'])) {
-                ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="well">
+                   $mapIdBeforeDelete = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']));
+                $numberOfSuccessfullyDeletedMaps = $db->query("DELETE FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']), PDO::FETCH_NUM);
+
+                if ($numberOfSuccessfullyDeletedMaps == 1) { ?>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="alert alert-success">Die Map wurde gelöscht.</div>
                         </div>
                     </div>
-                </div>
-                <?php
+                <?php } else { ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
+                        </div>
+                    </div>
+                <?php }
             }
             if (isset($_GET['edit'])) {
                 $existsMap = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['edit']), PDO::FETCH_NUM);
