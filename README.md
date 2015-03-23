@@ -31,5 +31,6 @@
 - Mapdialog fertigstellen
     - Karte resizen
     - Map-Layer auf Karte aufsetzen
+    - Auswahlfelder fixen
 - Demo-Installation für Präsentation aufsetzen
 - Dialogfenster bei MapEditor (Raum hinzufügen) anpassen - SUPER VERWIRREND im Moment
