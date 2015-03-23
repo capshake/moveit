@@ -20,12 +20,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <h2 class="mapHeadline">Import/Export</h2> 
                 <button id="helpButtonImport" class="btn btn-default btn-xs">?</button>
                         <div id="importDialog" title="Hilfe beim Import/Export">
-                            
+                           <ul> 
                            	<li>Zunächst können vorhandene Möbellisten eines Umzugunternehmens als CSV-Datei importiert werden. </li> 
                            <li>	Nach der Fertigstellung der Umzugsplanung ist es möglich die neu sortierten Möbel als CSV-Datei zu exportieren. </li> 
                            <li>	Außerdem ist es möglich alle vorhandenen Umzugsdaten zurückzusetzen.
                            	Das zurücksetzen betrifft alle Gebäude, Räume, Möbelstücke und Nutzer-Bearbeitungsrechte. Nutzerkonten bleiben jedoch erhalten!</li>
-                            
+                            </ul>
                         </div>
             </div>
         </div>
