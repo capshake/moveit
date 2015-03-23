@@ -53,6 +53,24 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                             Hier steht Hilfetext für den eigentlichen MapEditor!!!
                             ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                            <p>
+                                In diesem Teil findet die eigentliche Festlegung der Räume auf dem hochgeladenen Grundriss statt. Ihnen werden
+                                zur Administration drei Hauptfunktionen unter den drei Tabs gegeben. 
+                                <ol>
+                                    <li><strong>Grundeinstellung:</strong> Laden Sie bitte zunächst eine Bild-Datei des Grundrisses hoch, diesen wählen Sie über <em>Datei auswählen</em>.
+                                    Pro Etage wird ein Grundriss hochgeladen. Die hochgeladene Bild-Datei weisen Sie mit Hilfe der Dropdown-Menüs der entsprechenden Gebäude-Etage-Kombination zu.
+                                    Dieser Zustand wird über den <em>Speicher-Button</em> gesichert. <em>Zurück zur Map-Übersicht</em> bringt Sie zurück zur vorherigen Seite.</li> 
+                                    <li><strong>Maßstab festlegen:</strong> Diese Funktion ist essentiell dafür, dass in moveIT Maßstabsgetreu gearbeitet werden kann. Der Maßstab wird festgesetzt indem Sie
+                                        an zwei Stellen in dem hochgeladenen Grundriss klicken. Es erscheinen zwei rote Winkel. Per Drag-and-Drop können Sie die Winkel in einen gewünschten Abstand setzen,
+                                        das kann z.B. entlang der Länge eines Raumes sein, von dem Sie die Maße kennen. In den zwei oberen Feldern wird Ihnen links der <em>Pixel</em>-Abstand und rechts
+                                        der zu bestimmende <em>cm</em>-Abstand angezeigt. Geben Sie den bekannten cm-Abstand an, sobald Sie den richtigen Abstand in der Karte mit den Winkeln markiert haben
+                                        (d.h. wie in unserem Beispiel oben: die Länge des Raums wird mit den Winkeln eingespannt - die cm werden auf die Länge des Raums in cm gesetzt).</li>
+                                    <li><strong>Räume platzieren:</strong> Im letzten Schritt können Sie die Räume, die Sie der Map unter <em>Räume</em> zuweisen, über den Button <em>Raum hinzufügen</em>
+                                        auf die Map setzen. Es erscheint ein Rechteck, dass Sie auf den gewünschten Raum in der Map setzen und gemäß dessen Maße skalieren. Der Map-Editor speichert Ihre
+                                        Änderungen automatisch.
+                                    </li>
+                                </ol>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -215,7 +233,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <br>Rechtsklick zum Löschen eines Raumes, Drag&Drop zum Verschieben und mit der Maus die Kanten eines Raumes zum Verändern der Größe ziehen.
+
                                             </div>
                                         </div>
                                         <?php
