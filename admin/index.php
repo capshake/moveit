@@ -19,11 +19,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <br>
 
                 <h4><a href="<?php echo BASEDIR; ?>admin/importExport">Import/Export</a></h4>
-                <p>Es können vorhandene Möbellisten des Spediteurs als CSV-Datei importiert werden und nach Fertigstellung der Umzugsplanung exportiert werden. Außerdem befindet sich hier eine Möglichkeit um alle Umzugsdaten zu zurückzusetzen.
+                <p>Es können vorhandene Möbellisten des Umzugunternehmens als CSV-Datei importiert werden und nach Fertigstellung der Umzugsplanung exportiert werden. Außerdem befindet sich hier eine Möglichkeit um alle Umzugsdaten zu zurückzusetzen.
                 <b>Dies betrifft alle Gebäude, Räume, Möbelstücke und Nutzer-Bearbeitungsrechte. Nutzerkonten bleiben jedoch erhalten!</b></p>
 
                 <h4><a href="<?php echo BASEDIR; ?>admin/buildings">Gebäudeverwaltung</a></h4>
-                <p>Gebäude bzw. Trakte werden hier erstellt und verwaltet. Es wird zusätzlich beschrieben, wo sich das Gebäude befindet. So ist der H-Trakt ein Teil des Bestandes (Altbau) in Golzheim und Gebäude 4 gehört zum Neubau in Derendorf.</p>
+                <p>Gebäude bzw. Trakte werden hier erstellt und verwaltet. Es wird zusätzlich beschrieben, wo sich das Gebäude befindet. So ist der H-Trakt zum Beispiel ein Teil des Bestandes (Altbau) in Golzheim und Gebäude 4 gehört zum Neubau in Derendorf.</p>
 
                 <h4><a href="<?php echo BASEDIR; ?>admin/mapEditor">Map-Editor</a></h4>
                 <p>Maps sind Kombinationen von Gebäuden und ihren Etagen. Hier wird bspw. für jede Etage des H-Traktes eine Map angelegt, also "H-Trakt, EG", "H-Trakt, 1.OG", usw. Für Etagen des Neubaus lassen sich zusätzlich Karten hochladen.

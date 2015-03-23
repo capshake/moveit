@@ -32,3 +32,4 @@
     - Karte resizen
     - Map-Layer auf Karte aufsetzen
 - Demo-Installation für Präsentation aufsetzen
+- Dialogfenster bei MapEditor (Raum hinzufügen) anpassen - SUPER VERWIRREND im Moment
