@@ -25,6 +25,10 @@ body, html {
   z-index: 200 !important;
 }
 
+.navbar > .container {
+  width: 100%;
+}
+
 /* line 16, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 .clear {
   clear: both; }

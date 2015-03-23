@@ -23,6 +23,10 @@ html {
     -ms-border-radius: $radius;
     border-radius: $radius;
 }
+
+.navbar > .container {
+  width: 100%;
+}
 /*
     FORMS
 */
@@ -281,7 +285,7 @@ h4 {
 #oeffentlichesLager,
 #LagerLeiste {
     /*border: 0.2em solid black;*/
-    
+
     border-radius: 6px;
 }
 
