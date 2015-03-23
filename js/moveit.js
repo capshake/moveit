@@ -120,7 +120,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
 
     $("#buildingsDialog").dialog({ //Gebäude Dialog
         autoOpen: false,
-        height: 400,
+        height: 350,
         width: 700,
         modal: true,
     });
