@@ -48,7 +48,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Map bearbeiten</h2>
+                        <h2 class="mapHeadline">Map bearbeiten</h2> <button id="helpButton2" class="btn btn-default btn-xs">?</button>
+                        <div id="mapBearbeitenDialog" title="Hilfe bei der Map-Bearbeitung">
+                            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            Hier steht Hilfetext für den eigentlichen MapEditor!!!
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -371,7 +376,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 id="mapEditorHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
+                        <h2 class="mapHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
 
                         <div id="mapEditorDialog" title="Hilfe für den Map Editor">
                         <p>

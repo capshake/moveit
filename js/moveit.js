@@ -81,7 +81,53 @@ $(document).ready(function () {
 
 
 
-    // Dialog-Fenster für Neubau-Grundriss
+    // Admin-Help-Dialoge für moveIT ----------------------------------------------------------------------------------------------------------------------
+$("#mapEditorDialog").dialog({ //MapEditor Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton").click(function () { //Button MapEditor
+        $("#mapEditorDialog").dialog("open");
+    });    
+
+      $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton2").click(function () { //Map Bearbeiten Button
+        $("#mapBearbeitenDialog").dialog("open");
+    });    
+
+    $("#importDialog").dialog({ //Import/Export Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButtonImport").click(function () { //Import/Export Button
+        $("#importDialog").dialog("open");
+    });   
+
+    $("#buildingsDialog").dialog({ //Gebäude Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButtonBuildings").click(function () { //Gebäude Button
+        $("#buildingsDialog").dialog("open");
+    });    
+
+// ------------------------------------------------------------------------------------------------------ Ende Admin-Help-Dialoge
+
     $("#dialog-GrundrissNeubau").dialog({
         autoOpen: false,
         height: 600,
@@ -90,16 +136,7 @@ $(document).ready(function () {
         modal: true,
     });
 
-    $("#mapEditorDialog").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 700,
-        modal: true,
-    });
-
-    $("#helpButton").click(function () {
-        $("#mapEditorDialog").dialog("open");
-    });    
+    
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
