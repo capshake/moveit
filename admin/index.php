@@ -14,11 +14,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
         <div class="row">
             <div class="col-md-12">
                 <h2>moveIT Adminpanel</h2>
-                <p>Herzlich Willkommen im moveIT Adminpanel! Von hier aus lassen sich die Nutzer und Umzugsdaten verwalten. Folgende Funktionen stehen dazu zur Verfügung:</p>
+                <h3>Anleitung für den Adminbereich</h3>
 
                 <br>
 
-                <h4><a href="<?php echo BASEDIR; ?>admin/ImportExport">Import/Export</a></h4>
+                <h4><a href="<?php echo BASEDIR; ?>admin/importExport">Import/Export</a></h4>
                 <p>Es können vorhandene Möbellisten des Spediteurs als CSV-Datei importiert werden und nach Fertigstellung der Umzugsplanung exportiert werden. Außerdem befindet sich hier eine Möglichkeit um alle Umzugsdaten zu zurückzusetzen.
                 <b>Dies betrifft alle Gebäude, Räume, Möbelstücke und Nutzer-Bearbeitungsrechte. Nutzerkonten bleiben jedoch erhalten!</b></p>
 
