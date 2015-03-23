@@ -480,3 +480,20 @@ div#Benutzeransicht table td, div#Benutzeransicht table th {
   width: 90% !important; }
 
 /*# sourceMappingURL=moveit.css.map */
+
+/* Anfang Zollstock index.php */
+#abstand-inline-label, #abstand-inline-inputfield {
+  display: inline !important ;
+  visibility: hidden;
+}
+
+#NeubauMap .dot {
+  position: absolute;
+  width: 3px;
+  height: 9px;
+  border-width: 0 3px 10px 0;
+  border-style: solid;
+  background-color: transparent;
+  border-color: #F55; 
+}
+/* Ende Zollstock index.php */
