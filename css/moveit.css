@@ -30,10 +30,18 @@ body, html {
 #helpButtonImport,
 #helpButtonBuildings{
   margin-bottom: 10px;
-} 
+}
 
 .navbar > .container {
   width: 100%;
+}
+
+#etage_map{
+    width: 100%;
+}
+
+#Map{
+    margin-top: 1em;
 }
 
 /* line 16, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
@@ -497,6 +505,6 @@ div#Benutzeransicht table td, div#Benutzeransicht table th {
   border-width: 0 3px 10px 0;
   border-style: solid;
   background-color: transparent;
-  border-color: #F55; 
+  border-color: #F55;
 }
 /* Ende Zollstock index.php */
