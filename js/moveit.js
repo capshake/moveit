@@ -81,7 +81,7 @@ $(document).ready(function () {
 
 
 
-    // Dialog-Fenster für Neubau-Grundriss
+    // Dialoge für moveIT ----------------------------------------------------------------------------------------------------------------------
     $("#dialog-GrundrissNeubau").dialog({
         autoOpen: false,
         height: 600,
@@ -90,15 +90,37 @@ $(document).ready(function () {
         modal: true,
     });
 
-    $("#mapEditorDialog").dialog({
+    $("#mapEditorDialog").dialog({ //MapEditor Dialog
         autoOpen: false,
         height: 400,
         width: 700,
         modal: true,
     });
 
-    $("#helpButton").click(function () {
+    $("#helpButton").click(function () { //Button MapEditor
         $("#mapEditorDialog").dialog("open");
+    });    
+
+      $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton2").click(function () { //Map Bearbeiten Button
+        $("#mapBearbeitenDialog").dialog("open");
+    });    
+
+    $("#importDialog").dialog({ //Import/Export Dialog
+        autoOpen: false,
+        height: 400,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButtonImport").click(function () { //Import/Export Button
+        $("#importDialog").dialog("open");
     });    
 
     $("#GrundrissNeubau").click(function () {
