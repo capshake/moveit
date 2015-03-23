@@ -123,11 +123,7 @@ if (!$userData->isLoggedIn()) {
 
         <!--NeubauMap-->
         <div>
-            <div id="NeubauMap" style="overflow: visible;">
-                <img src="./img/item-types/stuhl.svg" class="moveitplaner">
-                <img src="./img/item-types/stuhl.svg" class="moveitplaner">
-                <img src="./img/item-types/drehstuhl.svg" class="moveitplaner">
-            </div>
+            <div id="NeubauMap" style="overflow: visible;"></div>
         </div>
 
     </div>

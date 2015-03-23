@@ -13,12 +13,13 @@ $(document).ready(function () {
         url: BASEURL + 'api/getItemTypes',
         dataType: 'json',
         success: function (data) {
-            itemTypes = data.types;
-        }/*,
-        error: function(){
-            console.log("retry");
-            setTimeout(function(){$.ajax(this)}, 7000);
-        }*/
+                itemTypes = data.types;
+            }
+            /*,
+                    error: function(){
+                        console.log("retry");
+                        setTimeout(function(){$.ajax(this)}, 7000);
+                    }*/
     });
 
     // Laden von Lager, Müll und öffentlichem Lager
@@ -27,7 +28,7 @@ $(document).ready(function () {
     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
 
     // Neulade-Button
-    $("#btnOeffReset").click(function(){
+    $("#btnOeffReset").click(function () {
         getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
     });
 
@@ -99,7 +100,7 @@ $(document).ready(function () {
 
     $("#helpButton").click(function () {
         $("#mapEditorDialog").dialog("open");
-    });    
+    });
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
@@ -224,80 +225,7 @@ $(document).ready(function () {
 
 
 
-    //DRAG UND DROP
-    // Funktion um Items zwischen Listen bewegen zu können
 
-    $("#LagerTab, #WunschTab, #MüllTab").tabs().find("#ObereLeiste").sortable({
-        axis: "x"
-    });
-
-    $("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe, #NeubauMap").sortable({
-        connectWith: "#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe"
-    }).disableSelection();
-    // Tabs auf denen man die Elemente bewegen kann
-    var $tabs = $("#ObereLeiste").tabs();
-    var $tab_items = $("ul:first li", $tabs).droppable({
-        // Festlegen das man nur Listenelemente bewegen kann
-        accept: "div",
-        hoverClass: "ui-state-hover",
-        // Items auch auf leere Listen ablegen
-        tolerance: "pointer",
-        dropOnEmpty: true,
-        drop: function (event, ui) {
-            var $item = $(this);
-            // Tabs auf denen man die Elemente bewegen kann festlegen
-            var $list = $($item.find("a").attr("href")).find("#MuellListe, #oeffentlichesLagerListe, #LagerListe, #AltbauListe");
-            ui.draggable.hide("slow", function () {
-                $(this).appendTo($list).show("slow");
-            });
-        }
-    });
-
-    //für die NeubauMap
-    $("#NeubauMap").droppable({
-        dropOnEmpty: true,
-        tolerance: "fit",
-        stop: function (event, ui) {
-
-        },
-        drop: function (event, ui) {
-            // Attribut 'data-type' des gedroppten Items auslesen
-            var dataImg = $(ui.draggable).data("img");
-            var dataId = $(ui.draggable).data("item-id");
-            var dataTitle = $(ui.draggable).data("title");
-
-            var gedroptesItem = $(ui.draggable);
-
-            // Position auslesen um diese dem IMG geben zu können, damit IMG dort erscheint, wo gedroppt wird
-            var gedroptesItemPosition = gedroptesItem.offset();
-
-            $("#NeubauMap").append('<img data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + '" src="' + dataImg + '">'); // class Attribut vergeben, um Items mit diesem Attribut draggable machen zu können
-
-
-            $('[class^="planner-item-"]').draggable();
-
-
-            $('.planner-item-' + dataId).css({
-                'position': 'absolute',
-                'top': gedroptesItem.top,
-                'left': gedroptesItem.left,
-                'z-index': 4
-            });
-
-            $(gedroptesItem).remove();
-            //dragAndDrop(); // für alle Elemente mit class='moveitplaner'
-
-        }
-    });
-
-
-    $('#AltbauListe').droppable({
-        accept: '.moveitplaner',
-        tolerance: 'fit',
-        drop: function () {
-            alert('ToDO: Umwandeln in ListenElement für die AltBauListe');
-        }
-    });
 
     dragAndDrop(); // macht Icons draggable
     $(".moveitplaner").on("dblclick", rotate);
@@ -454,41 +382,92 @@ function checkRegexp(o, regexp, n) {
 }
 
 
+function saveItemInRoom(roomid, itemid, x, y) {
+
+
+    console.log(roomid, itemid, x, y);
+    $.ajax({
+        type: 'POST',
+        url: BASEURL + 'api/saveItem',
+        dataType: 'json',
+        data: {
+            roomid: roomid,
+            itemid: itemid,
+            x: x,
+            y: y
+        },
+        success: function (data) {
+
+        }
+    });
+}
+
+
+
 //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
 function dragAndDrop() {
-    /*$('.moveitplaner').each(function () {
-        $(this).draggable({ //alle Elemente mit class='moveitplaner' draggable machen;
-            scroll: false,
-            //revert: 'invalid',
-            stop: function () {
-                $(this).draggable('option', 'revert', 'invalid');
-                $('#AltbauListe').css('border', ''); // Reset
-            },
-            drag: function (event, ui) {
-                // oben
-                var neubauMapTop = $("#NeubauMap").position().top;
-                var uiTop = $(this).position().top;
-                var delta_uiTop_neubauMapTop = uiTop - neubauMapTop;
 
-                // links
-                var neubauMapLeft = $("#NeubauMap").position().left;
-                var uiLeft = $(this).position().left;
-                var delta_uiLeft_neubauMapLeft = uiLeft - neubauMapLeft;
+    $("#AltbauListe div").draggable({
 
-                // imgIcon verlässt oben oder links die NeubauMap -> Border für die Raumliste erscheint, um anzuzeigen, dass hier gedroppt werden darf
-                if (delta_uiTop_neubauMapTop < -10 || delta_uiLeft_neubauMapLeft < -20) { // Werte etwas unter Null, da Icons erst ein Stück aus der Map heraus gezogen werden sollen
-                    $('#AltbauListe').css('border', '2px solid green');
-                } else {
-                    $('#AltbauListe').css('border', '');
-                }
-            },
-            stack: '.moveitplaner' // Icons (genauer: alle Elemente mit class='moveitplaner') beim Draggen immer im Vordergrund
-        }).droppable({
-            drop: function (event, ui) {
-                ui.draggable.draggable('option', 'revert', true);
+        revert: function (event, ui) {
+
+            if (!$(this).is('[class^="planner-item-"]')) {
+                $(this).data("uiDraggable").originalPosition = {
+                    top: 0,
+                    left: 0
+                };
+
+                // return boolean
+                return !event;
             }
-        });
-    });*/
+            // that evaluate like this:
+            // return event !== false ? false : true;
+        }
+    });
+
+    $(".main-room .room-item").draggable({
+        //containment: 'parent',
+        revert: 'invalid',
+        stop: function (event, ui) {
+            var dataId = $(this).data("item-id");
+
+            saveItemInRoom(roomId, dataId, $(this).position().left, $(this).position().top);
+        }
+    })
+    $(".main-room").droppable({
+        hoverClass: 'ui-state-active',
+        tolerance: 'pointer',
+
+        accept: function (event, ui) {
+            return true;
+        },
+        drop: function (event, ui) {
+
+            if (!$(ui.draggable).hasClass('room-item')) {
+                var dataImg = $(ui.draggable).data("img");
+                var dataId = $(ui.draggable).data("item-id");
+                var dataTitle = $(ui.draggable).data("title");
+
+                var gedroptesItem = $(ui.draggable);
+
+                $(".main-room").append('<img data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+
+                $('.planner-item-' + dataId).css({
+                    'position': 'absolute',
+                    'top': event.pageY - $('.main-room').offset().top,
+                    'left': event.pageX - $('.main-room').offset().left,
+                    'z-index': 4
+                });
+
+                saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+
+                gedroptesItem.remove();
+            }
+            dragAndDrop();
+        }
+    }).sortable({
+        revert: false
+    });
 };
 
 /* Items laden/////////////////////////////////////////////////// */
@@ -510,10 +489,8 @@ function getItems(roomId) {
                             itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                         });
                         $('#AltbauListe').html(itemsHTML);
-                        $('#AltbauListe').css({
-                            'height': 200,
-                            'overflow': 'auto'
-                        });
+
+                        dragAndDrop();
                     } else {
                         $('#AltbauListe').html('<div class="alert alert-info">Sie sind nicht der Eigentümer.</div>');
                     }
@@ -525,24 +502,25 @@ function getItems(roomId) {
     } else {
         $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
     }
+    dragAndDrop();
 }
 
 //Items aus dem Lager laden
-function getItemsVirtualRooms(roomList, api){
-    if(mainSettings.isLoggedIn){
+function getItemsVirtualRooms(roomList, api) {
+    if (mainSettings.isLoggedIn) {
         $.ajax({
             type: 'POST',
             url: BASEURL + api,
             dataType: 'json',
-            success: function(data){
+            success: function (data) {
                 var itemsHTML = '';
 
-                if(data.items.length > 0){
-                    $.each(data.items, function(key, value){
+                if (data.items.length > 0) {
+                    $.each(data.items, function (key, value) {
                         itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                     });
                     $(roomList).html(itemsHTML);
-                } else{
+                } else {
                     $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
                 }
             }
@@ -557,12 +535,48 @@ function getRoom(roomId) {
             type: 'POST',
             url: BASEURL + 'api/getRoom/' + roomId,
             dataType: 'json',
-            success: function (room) {
+            success: function (data) {
 
 
+                $('#NeubauMap').html('<div class="main-room"></div>');
+
+                $('.main-room').css({
+                    'width': data.rooms[0].room_size_x,
+                    'height': data.rooms[0].room_size_y,
+                    'border': '1px solid #999',
+                    'position': 'relative'
+
+                });
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: BASEURL + 'api/getItems/room/' + roomId,
+                    dataType: 'json',
+                    success: function (data) {
+                        var itemsHTML = '';
+
+                        if (data.items.length > 0) {
+
+                            $.each(data.items, function (key, value) {
+                                if (value.item_position_y > 0 && value.item_position_x > 0) {
+                                    $(".main-room").append('<img data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
+
+                                    $('.planner-item-' + value.item_id).css({
+                                        'position': 'absolute',
+                                        'top': value.item_position_y,
+                                        'left': value.item_position_x,
+                                        'z-index': 4
+                                    });
+                                }
+
+                            });
+                            dragAndDrop();
+                        }
+                    }
+                });
             }
         });
-    } else {
-
     }
+    dragAndDrop();
 }
