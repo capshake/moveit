@@ -26,7 +26,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <p>Gebäude bzw. Trakte werden hier erstellt und verwaltet. Es wird zusätzlich beschrieben, wo sich das Gebäude befindet. So ist der H-Trakt zum Beispiel ein Teil des Bestandes (Altbau) in Golzheim und Gebäude 4 gehört zum Neubau in Derendorf.</p>
 
                 <h4><a href="<?php echo BASEDIR; ?>admin/mapEditor">Map-Editor</a></h4>
-                <p>Maps sind Kombinationen von Gebäuden und ihren Etagen. Hier wird bspw. für jede Etage des H-Traktes eine Map angelegt, also "H-Trakt, EG", "H-Trakt, 1.OG", usw. Für Etagen des Neubaus lassen sich zusätzlich Karten hochladen.
+                <p>Maps sind Kombinationen von Gebäuden und ihren Etagen. Hier wird beispielsweise für jede Etage des H-Traktes eine Map angelegt, also "H-Trakt, EG", "H-Trakt, 1.OG", usw. Für Etagen des Neubaus lassen sich zusätzlich Karten hochladen.
                 Für diese Karten lässt sich ein Maßstab festlegen und Räume der Etage platzieren. <b>Auf diese Weise wird die Größe der Räume für die Möbelplanung der Nutzer bestimmt!</b></p>
 
                 <h4><a href="<?php echo BASEDIR; ?>admin/rooms">Raumverwaltung</a></h4>

@@ -364,7 +364,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Map Editor</h2>
+                        <h2 id="mapEditorHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
+
+                        <div id="mapEditorDialog">
+
+                        </div>
                     </div>
                 </div>
                 <div class="row">

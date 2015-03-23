@@ -90,12 +90,25 @@ $(document).ready(function () {
         modal: true,
     });
 
+    $("#mapEditorDialog").dialog({
+        autoOpen: false,
+        height: 600,
+        width: 700,
+        modal: true,
+    });
+
+    $("#helpButton").click(function () {
+        $("#mapEditorDialog").dialog("open");
+    });    
+
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
 
         $("#NeubauTraktMap").selectmenu();
         $("#NeubauEtageMap").selectmenu();
     });
+
+
 
     // Dialog-Fenster für Altbau-Grundriss
     $("#dialog-GrundrissAltbau").dialog({

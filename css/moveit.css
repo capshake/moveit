@@ -17,6 +17,9 @@ body, html {
 .container{
   width: 1170px;
 }
+#mapEditorHeadline{
+  display: inline;
+}
 
 #dialog-GrundrissNeubau{
   z-index: 200 !important;
