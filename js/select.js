@@ -362,7 +362,7 @@ $(document).ready(function ($) {
                     url: api.NeubauEtageMap.url + selectvalue,
                     success: function(output){
                         if(output.floors[0].map_picture !== null){
-                            $('#' + list_target_id).html('<img src="' + output.floors[0].map_picture + '"></img>');
+                            $('#' + list_target_id).html('<img id="etage_map" src="' + output.floors[0].map_picture + '"></img>');
                         } else {
                             $('#' + list_target_id).html('<p>Diese Etage hat keine Karte. Bitten Sie Ihren Administrator, eine einzufügen!</p>');
                         }
