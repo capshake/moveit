@@ -134,7 +134,7 @@ $(document).ready(function ($) {
         }
     });
 
-    $('#NeubauTraktMap').change(function (e) {
+    $('#NeubauEtageMap').change(function (e) {
         changed('NeubauEtageMap', 'Map');
     });
 
@@ -172,6 +172,14 @@ $(document).ready(function ($) {
                     success: function (output) {
                         var floors = output.floors;
                         $('#' + list_target_id).html('<option value="">Etage</option>');
+
+                        if(floors.length == 0){
+                            $('#AltbauEtage').html("Keine Etage vorhanden");
+                            $('#AltbauRaum').html(api.AltbauRaum.initial_target_html);
+                            $('#AltbauEtage').selectmenu("refresh");
+                            $('#AltbauRaum').selectmenu("refresh");
+                        }
+
                         for (var i = 0; i < floors.length; i++) {
                             formatFloor(floors[i], list_target_id);
 
@@ -202,17 +210,23 @@ $(document).ready(function ($) {
                     url: BASEURL + 'api/getRooms/map/' + selectvalue,
                     success: function (output) {
                         var rooms = output.rooms;
+                        if(typeof rooms === 'undefined'){
+                            rooms = ({});
+                        }
                         $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
-                        var ownedItems = 0;
+                        var ownedRooms = 0;
+
+
                         for (var i = 0; i < rooms.length; i++) {
                             if(rooms[i].owner){
                                 $('#' + list_target_id).append('<option value="' + rooms[i].room_id + '">' + rooms[i].room_name + '</option>');
-                                ownedItems++;
+                                ownedRooms++;
                             }
                         }
 
-                        if(ownedItems === 0){
-                            $('#' + list_target_id).html('<option value="">Keine R&auml;ume vorhanden</option>');
+                        if(ownedRooms === 0){
+                            $('#AltbauRaum').html("<option>Keine Räume vorhanden</option>");
+                            $('#AltbauRaum').selectmenu("refresh");
                         }
 
                         $('#AltbauRaum').selectmenu("refresh");
@@ -247,6 +261,14 @@ $(document).ready(function ($) {
                     success: function (output) {
                         var floors = output.floors;
                         $('#' + list_target_id).html('<option value="">Etage</option>');
+
+                        if(floors.length == 0){
+                            $('#NeubauEtage').html("Keine Etage vorhanden");
+                            $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
+                            $('#NeubauEtage').selectmenu("refresh");
+                            $('#NeubauRaum').selectmenu("refresh");
+                        }
+
                         for (var i = 0; i < floors.length; i++) {
                             formatFloor(floors[i], list_target_id);
 
@@ -278,6 +300,9 @@ $(document).ready(function ($) {
                     success: function (output) {
                         var rooms = output.rooms;
                         $('#' + list_target_id).html('<option value="">R&auml;ume</option>');
+                        if(typeof rooms === 'undefined'){
+                            rooms = ({});
+                        }
                         var ownedRooms = 0;
                         for (var i = 0; i < rooms.length; i++) {
                             if(rooms[i].owner){
@@ -300,22 +325,32 @@ $(document).ready(function ($) {
         }
 
         else if(list_select_id === "NeubauTraktMap"){
-            if(selectvalue === ""){
+            if (selectvalue === "") {
+                //Aufforderung anzeigen, vorige Felder auszuwählen
                 $('#NeubauEtageMap').html(api.NeubauEtageMap.initial_target_html);
                 $('#NeubauEtageMap').selectmenu("refresh");
-            } else{
+            } else {
                 $('#NeubauEtageMap').html(api.NeubauEtageMap.initial_target_html);
 
                 $.ajax({
                     url: api.NeubauTraktMap.url + selectvalue,
-                    success: function(output){
+                    success: function (output) {
                         var floors = output.floors;
                         $('#' + list_target_id).html('<option value="">Etage</option>');
+
+                        if(floors.length == 0){
+                            $('#NeubauEtageMap').html("Keine Etage vorhanden");
+                            $('#NeubauEtageMap').selectmenu("refresh");
+                        }
+
                         for (var i = 0; i < floors.length; i++) {
                             formatFloor(floors[i], list_target_id);
 
                             $('#NeubauEtageMap').selectmenu("refresh");
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + " " + thrownError);
                     }
                 });
             }
@@ -327,7 +362,7 @@ $(document).ready(function ($) {
                     url: api.NeubauEtageMap.url + selectvalue,
                     success: function(output){
                         if(output.floors[0].map_picture !== null){
-                            $('#' + list_target_id).html('<img src="' + output.floors[0].map_picture + '"></img>');
+                            $('#' + list_target_id).html('<img id="etage_map" src="' + output.floors[0].map_picture + '"></img>');
                         } else {
                             $('#' + list_target_id).html('<p>Diese Etage hat keine Karte. Bitten Sie Ihren Administrator, eine einzufügen!</p>');
                         }

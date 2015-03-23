@@ -17,7 +17,7 @@
                 <li><a href="<?php echo BASEDIR; ?>admin/rooms">Räume</a></li>
                 <li><a href="<?php echo BASEDIR; ?>admin/users">Benutzer</a></li>
 
-                <li><a href="javascript:window.close()">Adminbereich verlassen</a></li>
+                <li><a href="<?php echo BASEDIR; ?>">Adminbereich verlassen</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

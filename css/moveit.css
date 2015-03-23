@@ -22,21 +22,37 @@ html {
     width: 1170px;
 }
 
-#mapEditorHeadline {
-    display: inline;
+.mapHeadline{
+  display: inline;
+
 }
 
 #dialog-GrundrissNeubau {
     z-index: 200 !important;
 }
 
-#helpButton {
-    margin-bottom: 10px;
+
+#helpButton,
+#helpButton2,
+#helpButtonImport,
+#helpButtonBuildings{
+  margin-bottom: 10px;
+
 }
 
 .navbar > .container {
     width: 100%;
 }
+
+#etage_map{
+    width: 100%;
+}
+
+#Map{
+    margin-top: 1em;
+}
+
+
 /* line 16, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 .clear {
@@ -658,7 +674,23 @@ div#Benutzeransicht table th {
 }
 /* line 626, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
-.main-container {
-    width: 90% !important;
-}
+
 /*# sourceMappingURL=moveit.css.map */
+
+/* Anfang Zollstock index.php */
+#abstand-inline-label, #abstand-inline-inputfield {
+  display: inline !important ;
+  visibility: hidden;
+}
+
+#NeubauMap .dot {
+  position: absolute;
+  width: 3px;
+  height: 9px;
+  border-width: 0 3px 10px 0;
+  border-style: solid;
+  background-color: transparent;
+  border-color: #F55;
+}
+/* Ende Zollstock index.php */
+
