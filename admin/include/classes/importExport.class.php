@@ -44,6 +44,8 @@ class importExport extends Token {
                 $data = fgetcsv($file, 0, ";");
                 $row = 0;
 
+                set_time_limit(300);
+
                 while ($data != false) {
                     if ($data[0] == 1) {
                         $row++;
@@ -91,6 +93,7 @@ class importExport extends Token {
                 }
             }
             fclose($file);
+            set_time_limit(30);
         }
         return $row;
     }
