@@ -160,9 +160,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <div class="col-md-12">
                     <h2 class="mapHeadline">Gebäude&nbsp;</h2><button id="helpButtonBuildings" class="btn btn-default btn-xs">?</button>
                         <div id="buildingsDialog" title="Hilfe bei der Einrichtung von Gebäuden">
-                            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            Hier steht Hilfetext für den Gebäude-Editor
-                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                            Drücken Sie auf den Button "Gebäude erstellen", um ein Gebäude hinzuzufügen, welches Sie im MapEditor verwalten können. Geben Sie dabei einen sinnvollen Namen für das Gebäude an (z.B. Traktname) und wählen Sie aus, wo sich das Gebäude befindet.
+                            Diese Funktion dient dazu, später im <i>MapEditor</i> Räume Gebäuden zu zuweisen.
                         </div>
                 </div>
             </div>
