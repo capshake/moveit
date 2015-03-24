@@ -254,7 +254,6 @@ $(document).ready(function ($) {
                 $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
 
                 roomId = $('#NeubauRaum').val();
-                getItems(roomId);
 
                 $.ajax({
                     url: api.NeubauTrakt.url + selectvalue,
@@ -275,9 +274,6 @@ $(document).ready(function ($) {
                             $('#NeubauEtage').selectmenu("refresh");
                             $('#NeubauRaum').selectmenu("refresh");
                         }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status + " " + thrownError);
                     }
                 });
             }
