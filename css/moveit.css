@@ -35,6 +35,11 @@ html {
   overflow-x: scroll !important;
 }
 
+#altlist_wrapper{
+  overflow-y: scroll;
+  height: 25em;
+}
+
 #helpButton,
 #helpButton2,
 #helpButtonImport,
@@ -375,6 +380,7 @@ h4 {
 #Neubau {
     border-radius: 6px;
     border: 1px solid black;
+    margin-bottom: 20px;
 }
 /* line 282, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
@@ -516,7 +522,7 @@ select {
 
 #AltbauListe {
     height: auto !important;
-    overflow: inherit !important;
+    /*overflow: inherit !important;*/
 }
 #AltbauListe div {
     z-index: 9;

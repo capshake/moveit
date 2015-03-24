@@ -47,7 +47,7 @@ if (!$userData->isLoggedIn()) {
             </div>
 
             <!--AltbauListe-->
-            <div>
+            <div id="altlist_wrapper">
                 <h5 class="altlist"><b>Möbel in diesem Raum:</b></h5>
                 <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
             </div>

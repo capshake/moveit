@@ -41,6 +41,13 @@ html {
   overflow-x: scroll !important;
 }
 
+#altlist_wrapper{
+  overflow-y: scroll;
+  height: em;
+}
+
+
+
 /*
     FORMS
 */
@@ -294,6 +301,7 @@ h4 {
 #Neubau {
     border: 0.2em solid black;
     border-radius: 6px;
+    margin-bottom: 20px;
 }
 
 #oeffentlichesLager,
