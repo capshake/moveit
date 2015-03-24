@@ -17,8 +17,7 @@
 
 #####To-Do
 - Drag'n'Drop
-    - Kollision raus
-    - Verwandeln -> raus
+    - Aus Neubau in Altbau oder Lager, Müll, usw. schieben
     - Draggable-Bereiche definieren
     - Items in richtiger Größe einfügen
     - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
@@ -28,9 +27,8 @@
 - Map-Bearbeitung
     - Maps müssen gelöscht werden können (Räume müssen dann aus dieser Map genommen werden!!)
 - Mapdialog fertigstellen
-    - Karte resizen
-    - Map-Layer auf Karte aufsetzen
-    - Auswahlfelder fixen
+    - (Map-Layer auf Karte aufsetzen)
+    - (Auswahlfelder fixen)
 - Nutzerbearbeitung
     - Wenn keine Räume mehr verfügbar sind, Meldung anzeigen
 

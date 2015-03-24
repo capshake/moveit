@@ -26,7 +26,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             <?php
         } else {
             if (isset($_GET['remove'])) {
-                   $mapIdBeforeDelete = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']));
+                $mapIdBeforeDelete = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']));
+                $db->query("UPDATE " . TABLE_ROOMS . " SET room_map_id = null WHERE room_map_id = :map_id", array("map_id" => $_GET['remove']));
                 $numberOfSuccessfullyDeletedMaps = $db->query("DELETE FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']), PDO::FETCH_NUM);
 
                 if ($numberOfSuccessfullyDeletedMaps == 1) { ?>
@@ -55,11 +56,11 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
                             <p>
                                 In diesem Teil findet die eigentliche Festlegung der Räume auf dem hochgeladenen Grundriss statt. Ihnen werden
-                                zur Administration drei Hauptfunktionen unter den drei Tabs gegeben. 
+                                zur Administration drei Hauptfunktionen unter den drei Tabs gegeben.
                                 <ol>
                                     <li><strong>Grundeinstellung:</strong> Laden Sie bitte zunächst eine Bild-Datei des Grundrisses hoch, diesen wählen Sie über <em>Datei auswählen</em>.
                                     Pro Etage wird ein Grundriss hochgeladen. Die hochgeladene Bild-Datei weisen Sie mit Hilfe der Dropdown-Menüs der entsprechenden Gebäude-Etage-Kombination zu.
-                                    Dieser Zustand wird über den <em>Speicher-Button</em> gesichert. <em>Zurück zur Map-Übersicht</em> bringt Sie zurück zur vorherigen Seite.</li> 
+                                    Dieser Zustand wird über den <em>Speicher-Button</em> gesichert. <em>Zurück zur Map-Übersicht</em> bringt Sie zurück zur vorherigen Seite.</li>
                                     <li><strong>Maßstab festlegen:</strong> Diese Funktion ist essentiell dafür, dass in moveIT Maßstabsgetreu gearbeitet werden kann. Der Maßstab wird festgesetzt indem Sie
                                         an zwei Stellen in dem hochgeladenen Grundriss klicken. Es erscheinen zwei rote Winkel. Per Drag-and-Drop können Sie die Winkel in einen gewünschten Abstand setzen,
                                         das kann z.B. entlang der Länge eines Raumes sein, von dem Sie die Maße kennen. In den zwei oberen Feldern wird Ihnen links der <em>Pixel</em>-Abstand und rechts
