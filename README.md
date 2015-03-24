@@ -21,16 +21,18 @@
     - Verwandeln -> raus
     - Draggable-Bereiche definieren
     - Items in richtiger Größe einfügen
-    - Items im Kartenbereich brauchen Popup mit weiteren Informationen
+    - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
     - Größe des Raums sollte im Kartenbereich dargestellt werden
-    - "Leerer Raum"-Hinweise sollen nicht draggable sein
-- Zollstock
+        - Wenn Raum zu breit Scrollbalken anbringen
+    - Neue Item-Positionen in DB schreiben und bestehende auslesen
 - Map-Bearbeitung
     - Maps müssen gelöscht werden können (Räume müssen dann aus dieser Map genommen werden!!)
-- Phantometagen bei leeren Alt-, Neu- und Neubau-Map-Gebäuden fixen
 - Mapdialog fertigstellen
     - Karte resizen
     - Map-Layer auf Karte aufsetzen
     - Auswahlfelder fixen
+- Nutzerbearbeitung
+    - Wenn keine Räume mehr verfügbar sind, Meldung anzeigen
+
 - Demo-Installation für Präsentation aufsetzen
-- Dialogfenster bei MapEditor (Raum hinzufügen) anpassen - SUPER VERWIRREND im Moment
+- Neuen DB-Export fertig machen, mit erstem User

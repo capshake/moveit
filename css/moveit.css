@@ -31,6 +31,9 @@ html {
     z-index: 200 !important;
 }
 
+#NeubauMap{
+  overflow-x: scroll !important;
+}
 
 #helpButton,
 #helpButton2,
@@ -291,7 +294,7 @@ html {
 /* line 167, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room:hover {
-    border: 1px solid #f00; 
+    border: 1px solid #f00;
 }
 /* line 175, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 

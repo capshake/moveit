@@ -66,7 +66,7 @@ $(document).ready(function () {
     $("#NeubauRaum").selectmenu();
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
     });
 
     $("#Verwerfen").on("click", function () {
@@ -92,7 +92,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
 
     $("#helpButton").click(function () { //Button MapEditor
         $("#mapEditorDialog").dialog("open");
-    });    
+    });
 
       $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
         autoOpen: false,
@@ -103,7 +103,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
 
     $("#helpButton2").click(function () { //Map Bearbeiten Button
         $("#mapBearbeitenDialog").dialog("open");
-    });    
+    });
 
     $("#importDialog").dialog({ //Import/Export Dialog
         autoOpen: false,
@@ -116,10 +116,10 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         $("#mapEditorDialog").dialog("open");
     });
 
-    
+
     $("#helpButtonImport").click(function () { //Import/Export Button
         $("#importDialog").dialog("open");
-    });   
+    });
 
     $("#buildingsDialog").dialog({ //Gebäude Dialog
         autoOpen: false,
@@ -130,7 +130,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
 
     $("#helpButtonBuildings").click(function () { //Gebäude Button
         $("#buildingsDialog").dialog("open");
-    });    
+    });
 
 
 // ------------------------------------------------------------------------------------------------------ Ende Admin-Help-Dialoge
@@ -143,7 +143,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         modal: true,
     });
 
-    
+
 
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
@@ -200,7 +200,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         buttons: {
             "Item erstellen": function () {
                 addItem();
-                if (wirklichHinzugefügt == true) {
+                if (wirklichHinzugefügt === true) {
                     $("<button></button>")
                         .attr('id', 'Itembearbeiten')
                         .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
@@ -290,7 +290,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         }
 
         $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-    };
+    }
 
 
 
@@ -476,7 +476,8 @@ function dragAndDrop() {
 
             saveItemInRoom(roomId, dataId, $(this).position().left, $(this).position().top);
         }
-    })
+    });
+
     $(".main-room").droppable({
         hoverClass: 'ui-state-active',
         tolerance: 'pointer',
@@ -511,13 +512,13 @@ function dragAndDrop() {
     }).sortable({
         revert: false
     });
-};
+}
 
 /* Items laden/////////////////////////////////////////////////// */
 
 //Items aus dem Altbau laden
 function getItems(roomId) {
-    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
+    if (typeof roomId != 'undefined' && roomId !== '' && mainSettings.isLoggedIn) {
         // Lade Items des Raums in Auswahlliste
         $.ajax({
             type: 'POST',
@@ -573,7 +574,7 @@ function getItemsVirtualRooms(roomList, api) {
 
 // Lade Raum
 function getRoom(roomId) {
-    if (typeof roomId != 'undefined' && roomId != '' && mainSettings.isLoggedIn) {
+    if (typeof roomId != 'undefined' && roomId !== '' && mainSettings.isLoggedIn) {
         $.ajax({
             type: 'POST',
             url: BASEURL + 'api/getRoom/' + roomId,
@@ -634,35 +635,35 @@ $('#Zollstock').click(function (e) {
 	var offset = $(this).offset();
     var posX = (e.pageX  - offset.left);
     var posY = (e.pageY  - offset.top);
-	
+
 	if( $('#Zollstock').text() == "Zollstock anzeigen") {
-	
+
 		// Abstandsanzeige einblenden - label und inputfield
 		$('.abstand-anzeige').css("visibility", "visible");
-		
+
 		// ButtonText ändern
 		$('#Zollstock').text("Zollstock verstecken");
-		
+
 		// Messpunkte hinzufügen
 		// erster Messpunkt
 		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+100) + 'px; top: ' + (posY+100) + 'px"></div>');
 		// zweiter Messpunkt
 		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+50) + 'px; top: ' + (posY+100) + 'px"></div>');
-		
+
 		// Distanz messen
 		calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
 	}
 	else {
 		// Abstandsanzeige ausblenden
 		$('.abstand-anzeige').css("visibility", "hidden");
-		
+
 		// ButtonText ändern
 		$('#Zollstock').text("Zollstock anzeigen");
-		
+
 		// Messpunkte entfernen
 		$('#NeubauMap .dot').remove();
-	}	
-		
+	}
+
     $("#NeubauMap .dot").draggable({
         containment: "parent",
         drag: function () {
