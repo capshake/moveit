@@ -8,16 +8,11 @@ $items = array();
 if ($userData->isLoggedIn()) {
     http_response_code(200);
 
-    if (isset($_POST['roomid']) && isset($_POST['itemid']) && isset($_POST['x']) && isset($_POST['y']) && isset($_POST['orientation'])) {
+    if (isset($_POST['itemid']) && isset($_POST['orientation'])) {
 
-
-        $update = $db->query("UPDATE " . TABLE_ITEMS . " SET item_position_x = :x, item_position_y = :y, item_room_id = :room_id, item_orientation = :item_orientation WHERE item_id = :item_id",
-                                    array('room_id' => $_POST['roomid'],
-                                          'item_id' => $_POST['itemid'],
-                                          'x' => $_POST['x'],
-                                          'y' => $_POST['y'],
+        $update = $db->query("UPDATE " . TABLE_ITEMS . " SET item_orientation = :item_orientation WHERE item_id = :item_id",
+                                    array('item_id' => $_POST['itemid'],   
                                           'item_orientation' => $_POST['orientation']));
-
 
         $items['msg'] = 'Item gespeichert';
         $items['status'] = 'success';

@@ -271,28 +271,6 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
 
 
     dragAndDrop(); // macht Icons draggable
-    $(".moveitplaner").on("dblclick", rotate);
-
-    // rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
-    function rotate() {
-        var rotation = 0; // lokale Variable
-
-        var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
-
-        if (rotationValue > 0) { // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
-            rotation = rotationValue + 90;
-        } else { // sonst um 90 Grad drehen
-            rotation = 90;
-        }
-
-        if (rotation == 360) { // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
-            rotation = 0;
-        }
-
-        $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-    }
-
-
 
     // Lade Items zum ersten mal
     getItems(roomId);
@@ -475,7 +453,8 @@ function dragAndDrop() {
             var dataId = $(this).data("item-id");
 
             saveItemInRoom(roomId, dataId, $(this).position().left, $(this).position().top);
-        }
+        },
+		stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
     });
 
     $(".main-room").droppable({
@@ -501,8 +480,23 @@ function dragAndDrop() {
                     'top': event.pageY - $('.main-room').offset().top,
                     'left': event.pageX - $('.main-room').offset().left,
                     'z-index': 4
-                }).on("dblclick", rotate); // Rotation bei Doppelklick
+                }).on("dblclick", { itemid: dataId }, rotate); // Rotation bei Doppelklick
 
+				$.ajax({
+					type: 'POST',
+					url: BASEURL + 'api/getItem/'+ dataId,
+					dataType: 'json',
+					success: function (data) {
+						var breite = data.items[0].item_size_x;
+						var hoehe = data.items[0].item_size_z;
+						
+						$('.planner-item-' + dataId).css({
+							'width': breite,
+							'height': hoehe
+						});
+					}
+				});
+				
                 saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
 
                 gedroptesItem.remove();
@@ -689,7 +683,9 @@ function calcDistance() {
 //ROTATION ANFANG
 
 //rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
-function rotate(){
+function rotate(event){
+	var itemid = event.data.itemid; // wird beim Registirieren des Handlers (dblclick) uebergeben
+	
 	var rotation = 0; // lokale Variable
 	
 	var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
@@ -706,6 +702,24 @@ function rotate(){
 	}
 	
 	$(this).css("transform", "rotate("+rotation+"deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-};
+	
+	saveRotationInItems(itemid, rotation);
+}
 		
 //ROTATION ENDE
+
+function saveRotationInItems(itemid, rotation) {
+
+    $.ajax({
+        type: 'POST',
+        url: BASEURL + 'api/saveItem',
+        dataType: 'json',
+        data: {
+            itemid: itemid,
+			orientation: rotation
+        },
+        success: function (data) {
+
+        }
+    });
+}
