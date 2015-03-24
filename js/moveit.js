@@ -148,8 +148,8 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
 
-        $("#NeubauTraktMap").selectmenu();
-        $("#NeubauEtageMap").selectmenu();
+       // $("#NeubauTraktMap").selectmenu();
+       // $("#NeubauEtageMap").selectmenu();
     });
 
 

@@ -117,22 +117,22 @@ $(document).ready(function ($) {
     });
 
     // Neubau Map
-
+/*
     $("#NeubauTraktMap").selectmenu({
         change: function (event, ui) {
             changed('NeubauTraktMap', 'NeubauEtageMap');
         }
-    });
+    });*/
 
     $('#NeubauTraktMap').change(function (e) {
         changed('NeubauTraktMap', 'NeubauEtageMap');
     });
-
+/*
     $("#NeubauEtageMap").selectmenu({
         change: function (event, ui) {
             changed('NeubauEtageMap', 'Map');
         }
-    });
+    });*/
 
     $('#NeubauEtageMap').change(function (e) {
         changed('NeubauEtageMap', 'Map');
