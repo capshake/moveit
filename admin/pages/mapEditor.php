@@ -399,12 +399,23 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                         <div id="mapEditorDialog" title="Hilfe für den Map Editor">
                         <p>
+                            In moveIT werden die Kombinationen von Gebäuden und Etagen Maps genannt.
+                            Für jede Etage in jedem Gebäude wird eine solche Map angelegt, sowohl für Gebäude des Altbaus als auch für die neuen Gebäude.
+                            Ein Gebäude erscheint noch nicht in dieser Liste, wenn es gerade erst angelegt wurde. Um eine Etage zu einem neuen Gebäude hinzuzufügen, klicken Sie auf den Button "Etage anlegen".
+                            Dort finden Sie das gerade erstellte Gebäude und können diesem Etagen zuweisen.
+                        </p>
+                        <hr>
+                        <p>
+                            <strong>Grundriss-Karten hochladen</strong><br>
+                            Für Gebäude des Neubaus lassen sich Grundriss-Karten in Form eines Bildes hochladen.
                             Damit Sie an dieser Stelle einen Grundriss hochladen können, müssen im Vorfeld folgende Schritte erfolgt sein:
                             <ol>
-                                <li>Sie müssen unter <em>Gebäude</em> (siehe Navigationsleiste) ein Gebäude erstellt haben, dass vom Typ "Neubau" ist.</li>
+                                <li>Sie müssen unter <em>Gebäude</em> (siehe Navigationsleiste) ein Gebäude erstellt haben, das vom Typ "Neubau" ist.</li>
                                 <li>Nachdem Sie dieses Gebäude angelegt haben, können Sie unter <em>Map Editor</em> die Etagen dieses Gebäudes anlegen (Etage für Etage).</li>
                             </ol>
-                            <hr>
+                        </p>
+                        <hr>
+                        <p>
                             <strong>Grundriss hochladen</strong><br>
                             Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
                             klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.

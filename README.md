@@ -23,10 +23,9 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
         -> Kartenbereich unscrollbar machen, sobald Item aufgehoben wird
     - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
     - Neue Item-Positionen in DB schreiben und bestehende auslesen
-        - Momentan wird alter Raum geschrieben (Problem ist wahrscheinlich die globale Room-Variable)
+        -> Momentan wird alter Raum geschrieben (Problem ist wahrscheinlich die globale Room-Variable)
 - Mapdialog fertigstellen
     - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
     - (Auswahlfelder fixen)
 
 - Demo-Installation für Präsentation aufsetzen
-- Neuen DB-Export fertig machen, mit erstem User
