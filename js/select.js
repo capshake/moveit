@@ -254,6 +254,7 @@ $(document).ready(function ($) {
                 $('#NeubauRaum').html(api.NeubauRaum.initial_target_html);
 
                 roomId = $('#NeubauRaum').val();
+                getItems(roomId);
 
                 $.ajax({
                     url: api.NeubauTrakt.url + selectvalue,

@@ -15,11 +15,21 @@ if ($userData->isLoggedIn()) {
                                     array('room_id' => $_POST['roomid'],
                                           'item_id' => $_POST['itemid'],
                                           'x' => $_POST['x'],
-                                          'y' => $_POST['y']),
-                                          'item_orientation' => $_POST['orientation']);
+                                          'y' => $_POST['y'],
+                                          'item_orientation' => $_POST['orientation']));
 
 
-        $items['msg'] = 'Item wurde geupdated';
+        $items['msg'] = 'Item gespeichert';
+        $items['status'] = 'success';
+    } else if(isset($_POST['roomid']) && isset($_POST['itemid']) && isset($_POST['x']) && isset($_POST['y'])){
+
+        $update = $db->query("UPDATE " . TABLE_ITEMS . " SET item_position_x = :x, item_position_y = :y, item_room_id = :room_id WHERE item_id = :item_id",
+                                    array('room_id' => $_POST['roomid'],
+                                          'item_id' => $_POST['itemid'],
+                                          'x' => $_POST['x'],
+                                          'y' => $_POST['y']));
+
+        $items['msg'] = 'Item gespeichert';
         $items['status'] = 'success';
     } else {
 
