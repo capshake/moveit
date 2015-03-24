@@ -501,7 +501,7 @@ function dragAndDrop() {
                     'top': event.pageY - $('.main-room').offset().top,
                     'left': event.pageX - $('.main-room').offset().left,
                     'z-index': 4
-                });
+                }).on("dblclick", rotate); // Rotation bei Doppelklick
 
                 saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
 
@@ -684,3 +684,28 @@ function calcDistance() {
 }
 
 //ZOLLSTOCK ENDE
+
+
+//ROTATION ANFANG
+
+//rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
+function rotate(){
+	var rotation = 0; // lokale Variable
+	
+	var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
+	
+	if (rotationValue > 0){ // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
+		rotation = rotationValue + 90;
+	} 
+	else{ // sonst um 90 Grad drehen
+		rotation = 90;
+	}
+	
+	if(rotation == 360){ // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
+		rotation = 0;
+	}
+	
+	$(this).css("transform", "rotate("+rotation+"deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
+};
+		
+//ROTATION ENDE
