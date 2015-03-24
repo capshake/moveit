@@ -21,9 +21,8 @@
     - Draggable-Bereiche definieren
     - Items in richtiger Größe einfügen
     - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
-    - Größe des Raums sollte im Kartenbereich dargestellt werden
-        - Wenn Raum zu breit Scrollbalken anbringen
     - Neue Item-Positionen in DB schreiben und bestehende auslesen
+        - Momentan wird alter Raum geschrieben (Problem ist wahrscheinlich die globale Room-Variable)
 - Mapdialog fertigstellen
     - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
     - (Auswahlfelder fixen)

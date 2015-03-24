@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Mrz 2015 um 18:02
+-- Erstellungszeit: 24. Mrz 2015 um 14:18
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -694,7 +694,7 @@ INSERT INTO `item_types` (`item_type_id`, `item_type_name`, `item_type_picture`)
 (7, 'Bildschirm', 'img/item-types/bildschirm.svg'),
 (8, 'Mülleimer', 'img/item-types/muell.svg'),
 (9, 'OHP', 'img/item-types/ohp.svg'),
-(10, 'Rollcontainer', '/img/item-types/rollcontainer.svg'),
+(10, 'Rollcontainer', 'img/item-types/rollcontainer.svg'),
 (11, 'Tafel', 'img/item-types/tafel.svg'),
 (12, 'Telefon', 'img/item-types/telefon.svg'),
 (13, 'Wanne', 'img/item-types/wanne.svg'),
@@ -751,7 +751,17 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `room_size_y` int(32) DEFAULT NULL,
   `room_map_id` int(32) DEFAULT NULL,
   `room_type` tinyint(1) NOT NULL COMMENT '0 für virtuell (Wunschliste, Müll, Lager),1 für Bestand, 2 für Neubau'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `rooms`
+--
+
+INSERT INTO `rooms` (`room_id`, `room_name`, `room_name_alt`, `room_position_x`, `room_position_y`, `room_size_x`, `room_size_y`, `room_map_id`, `room_type`) VALUES
+(1, 'store_all', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(2, 'store_1', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, 'wishlist_1', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(4, 'trash_1', NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -769,6 +779,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_active` tinyint(1) NOT NULL,
   `user_secure_code` varchar(42) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_password`, `user_email`, `user_role_id`, `user_active`, `user_secure_code`) VALUES
+(1, 'MoveIT', 'Admin', '259464623ec6e5a97ce83c8e6a1a261aab714aa12db6f615a1784e7fd25f9054', 'moveit-admin@fh-duesseldorf.de', 2, 1, '1234');
 
 --
 -- Trigger `users`
@@ -864,6 +881,16 @@ CREATE TABLE IF NOT EXISTS `user_role_room` (
   `role_room_room_id` int(11) unsigned NOT NULL,
   `role_room_role_id` int(1) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `user_role_room`
+--
+
+INSERT INTO `user_role_room` (`role_room_user_id`, `role_room_room_id`, `role_room_role_id`) VALUES
+(1, 1, 1),
+(1, 2, 1),
+(1, 3, 1),
+(1, 4, 1);
 
 --
 -- Indexes for dumped tables
@@ -972,7 +999,7 @@ MODIFY `role_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `room_id` int(32) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
