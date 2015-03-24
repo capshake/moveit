@@ -24,13 +24,9 @@
     - Größe des Raums sollte im Kartenbereich dargestellt werden
         - Wenn Raum zu breit Scrollbalken anbringen
     - Neue Item-Positionen in DB schreiben und bestehende auslesen
-- Map-Bearbeitung
-    - Maps müssen gelöscht werden können (Räume müssen dann aus dieser Map genommen werden!!)
 - Mapdialog fertigstellen
-    - (Map-Layer auf Karte aufsetzen)
+    - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
     - (Auswahlfelder fixen)
-- Nutzerbearbeitung
-    - Wenn keine Räume mehr verfügbar sind, Meldung anzeigen
 
 - Demo-Installation für Präsentation aufsetzen
 - Neuen DB-Export fertig machen, mit erstem User
