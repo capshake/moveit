@@ -83,7 +83,7 @@ $(document).ready(function () {
 
 
     // Admin-Help-Dialoge für moveIT ----------------------------------------------------------------------------------------------------------------------
-$("#mapEditorDialog").dialog({ //MapEditor Dialog
+    $("#mapEditorDialog").dialog({ //MapEditor Dialog
         autoOpen: false,
         height: 400,
         width: 700,
@@ -94,7 +94,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         $("#mapEditorDialog").dialog("open");
     });
 
-      $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
+    $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
         autoOpen: false,
         height: 500,
         width: 700,
@@ -133,7 +133,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
     });
 
 
-// ------------------------------------------------------------------------------------------------------ Ende Admin-Help-Dialoge
+    // ------------------------------------------------------------------------------------------------------ Ende Admin-Help-Dialoge
 
     $("#dialog-GrundrissNeubau").dialog({
         autoOpen: false,
@@ -148,8 +148,8 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
     $("#GrundrissNeubau").click(function () {
         $("#dialog-GrundrissNeubau").dialog("open");
 
-       // $("#NeubauTraktMap").selectmenu();
-       // $("#NeubauEtageMap").selectmenu();
+        // $("#NeubauTraktMap").selectmenu();
+        // $("#NeubauEtageMap").selectmenu();
     });
 
 
@@ -454,7 +454,7 @@ function dragAndDrop() {
 
             saveItemInRoom(roomId, dataId, $(this).position().left, $(this).position().top);
         },
-		stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
+        stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
     });
 
     $(".main-room").droppable({
@@ -480,23 +480,25 @@ function dragAndDrop() {
                     'top': event.pageY - $('.main-room').offset().top,
                     'left': event.pageX - $('.main-room').offset().left,
                     'z-index': 4
-                }).on("dblclick", { itemid: dataId }, rotate); // Rotation bei Doppelklick
+                }).on("dblclick", {
+                    itemid: dataId
+                }, rotate); // Rotation bei Doppelklick
 
-				$.ajax({
-					type: 'POST',
-					url: BASEURL + 'api/getItem/'+ dataId,
-					dataType: 'json',
-					success: function (data) {
-						var breite = data.items[0].item_size_x;
-						var hoehe = data.items[0].item_size_z;
-						
-						$('.planner-item-' + dataId).css({
-							'width': breite,
-							'height': hoehe
-						});
-					}
-				});
-				
+                $.ajax({
+                    type: 'POST',
+                    url: BASEURL + 'api/getItem/' + dataId,
+                    dataType: 'json',
+                    success: function (data) {
+                        var breite = data.items[0].item_size_x;
+                        var hoehe = data.items[0].item_size_z;
+
+                        $('.planner-item-' + dataId).css({
+                            'width': breite,
+                            'height': hoehe
+                        });
+                    }
+                });
+
                 saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
 
                 gedroptesItem.remove();
@@ -606,9 +608,20 @@ function getRoom(roomId) {
                                         'left': value.item_position_x,
                                         'z-index': 4
                                     });
+
+                                    $('.planner-item-' + value.item_id).css({
+                                        'position': 'absolute',
+                                        'top': event.pageY - $('.main-room').offset().top,
+                                        'left': event.pageX - $('.main-room').offset().left,
+                                        'z-index': 4
+                                    }).on("dblclick", {
+                                        itemid: value.item_id
+                                    }, rotate);
                                 }
 
                             });
+
+
                             dragAndDrop();
                         }
                     }
@@ -626,37 +639,36 @@ function getRoom(roomId) {
 var distance = 0;
 $('#Zollstock').click(function (e) {
 
-	var offset = $(this).offset();
-    var posX = (e.pageX  - offset.left);
-    var posY = (e.pageY  - offset.top);
+    var offset = $(this).offset();
+    var posX = (e.pageX - offset.left);
+    var posY = (e.pageY - offset.top);
 
-	if( $('#Zollstock').text() == "Zollstock anzeigen") {
+    if ($('#Zollstock').text() == "Zollstock anzeigen") {
 
-		// Abstandsanzeige einblenden - label und inputfield
-		$('.abstand-anzeige').css("visibility", "visible");
+        // Abstandsanzeige einblenden - label und inputfield
+        $('.abstand-anzeige').css("visibility", "visible");
 
-		// ButtonText ändern
-		$('#Zollstock').text("Zollstock verstecken");
+        // ButtonText ändern
+        $('#Zollstock').text("Zollstock verstecken");
 
-		// Messpunkte hinzufügen
-		// erster Messpunkt
-		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+100) + 'px; top: ' + (posY+100) + 'px"></div>');
-		// zweiter Messpunkt
-		$('#NeubauMap').append('<div class="dot" style="left: ' + (posX+50) + 'px; top: ' + (posY+100) + 'px"></div>');
+        // Messpunkte hinzufügen
+        // erster Messpunkt
+        $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 100) + 'px; top: ' + (posY + 100) + 'px"></div>');
+        // zweiter Messpunkt
+        $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 50) + 'px; top: ' + (posY + 100) + 'px"></div>');
 
-		// Distanz messen
-		calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
-	}
-	else {
-		// Abstandsanzeige ausblenden
-		$('.abstand-anzeige').css("visibility", "hidden");
+        // Distanz messen
+        calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
+    } else {
+        // Abstandsanzeige ausblenden
+        $('.abstand-anzeige').css("visibility", "hidden");
 
-		// ButtonText ändern
-		$('#Zollstock').text("Zollstock anzeigen");
+        // ButtonText ändern
+        $('#Zollstock').text("Zollstock anzeigen");
 
-		// Messpunkte entfernen
-		$('#NeubauMap .dot').remove();
-	}
+        // Messpunkte entfernen
+        $('#NeubauMap .dot').remove();
+    }
 
     $("#NeubauMap .dot").draggable({
         containment: "parent",
@@ -669,10 +681,10 @@ $('#Zollstock').click(function (e) {
 //Distanz berechnen
 function calcDistance() {
     var startingTop = parseFloat($('.dot').css('top'), 10),
-            startingLeft = parseFloat($('.dot').css('left'), 10),
-            startingTop2 = parseFloat($('.dot').last().css('top'), 10),
-            startingLeft2 = parseFloat($('.dot').last().css('left'), 10),
-            math = Math.round(Math.sqrt(Math.pow(startingTop - startingTop2, 2) + Math.pow(startingLeft - startingLeft2, 2)));
+        startingLeft = parseFloat($('.dot').css('left'), 10),
+        startingTop2 = parseFloat($('.dot').last().css('top'), 10),
+        startingLeft2 = parseFloat($('.dot').last().css('left'), 10),
+        math = Math.round(Math.sqrt(Math.pow(startingTop - startingTop2, 2) + Math.pow(startingLeft - startingLeft2, 2)));
 
     $('#abstand-inline-inputfield').val(math);
 }
@@ -683,29 +695,28 @@ function calcDistance() {
 //ROTATION ANFANG
 
 //rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
-function rotate(event){
-	var itemid = event.data.itemid; // wird beim Registirieren des Handlers (dblclick) uebergeben
-	
-	var rotation = 0; // lokale Variable
-	
-	var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
-	
-	if (rotationValue > 0){ // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
-		rotation = rotationValue + 90;
-	} 
-	else{ // sonst um 90 Grad drehen
-		rotation = 90;
-	}
-	
-	if(rotation == 360){ // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
-		rotation = 0;
-	}
-	
-	$(this).css("transform", "rotate("+rotation+"deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-	
-	saveRotationInItems(itemid, rotation);
+function rotate(event) {
+    var itemid = event.data.itemid; // wird beim Registirieren des Handlers (dblclick) uebergeben
+
+    var rotation = 0; // lokale Variable
+
+    var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
+
+    if (rotationValue > 0) { // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
+        rotation = rotationValue + 90;
+    } else { // sonst um 90 Grad drehen
+        rotation = 90;
+    }
+
+    if (rotation == 360) { // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
+        rotation = 0;
+    }
+
+    $(this).css("transform", "rotate(" + rotation + "deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
+
+    saveRotationInItems(itemid, rotation);
 }
-		
+
 //ROTATION ENDE
 
 function saveRotationInItems(itemid, rotation) {
@@ -716,7 +727,7 @@ function saveRotationInItems(itemid, rotation) {
         dataType: 'json',
         data: {
             itemid: itemid,
-			orientation: rotation
+            orientation: rotation
         },
         success: function (data) {
 
