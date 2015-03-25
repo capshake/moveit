@@ -34,4 +34,7 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
 - Import/Export
     - Hinweis für Verhalten bei aufeinanderfolgenden Uploads
 
+- Trigger
+    - Item-Anzahl in Export-Tabelle wird nicht richtig aktualisiert!! (SHOWSTOPPER)
+
 - Demo-Installation für Präsentation aufsetzen
