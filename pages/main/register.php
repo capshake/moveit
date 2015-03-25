@@ -18,7 +18,8 @@ if ($userData->isLoggedIn()) {
 
                     if (isset($_POST['register'])) {
                         $user_firstname = filter_var($_POST['user_firstname'], FILTER_SANITIZE_STRING);
-                        $user_lastname = filter_var($_POST['user_lastname'], FILTER_SANITIZE_STRING);;
+                        $user_lastname = filter_var($_POST['user_lastname'], FILTER_SANITIZE_STRING);
+                        ;
                         $user_email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
 
                         $register = json_decode($userData->createUser($_POST));

@@ -21,6 +21,23 @@ if ($userData->isLoggedIn()) {
                             <?php
                         }
                     }
+                    if (isset($_GET['error'])) {
+                        if ($_GET['error'] == 'userproblem') {
+                            ?>
+                            <div class="alert alert-danger">Benutzername oder Passwort falsch. Vielleicht haben Sie aber einfach nur vergessen Ihren Account zu aktivieren.</div>
+                            <?php
+                        }
+                        if ($_GET['error'] == 'token') {
+                            ?>
+                            <div class="alert alert-danger">Token abgelaufen.</div>
+                            <?php
+                        }
+                    }
+                    if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
+                        ?>
+                        <div class="alert alert-success">Sie wurden erfolgreich ausgeloggt</div>
+                        <?php
+                    }
                     ?>
                     <h2 class="form-heading"><img alt="logo" src="./img/logo.gif">Login</h2>
                     <input name="user_email" class="first form-control" placeholder="Email" type="email" required autofocus>

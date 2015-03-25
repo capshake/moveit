@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* line 3, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 body,
 html {
@@ -8,7 +7,6 @@ html {
     min-height: 100%;
     height: 100%;
 }
-/* line 11, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 .navbar + .container {
     padding: 51px 15px 0;
@@ -23,8 +21,7 @@ html {
 }
 
 .mapHeadline{
-  display: inline;
-
+    display: inline-block;
 }
 
 #dialog-GrundrissNeubau {
@@ -32,19 +29,19 @@ html {
 }
 
 #NeubauMap{
-  overflow-x: scroll !important;
+    overflow-x: scroll !important;
 }
 
 #helpButton,
 #helpButton2,
 #helpButtonImport,
 #helpButtonBuildings{
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 
 }
 
 .navbar > .container {
-    width: 100%;
+    //width: 100%;
 }
 
 #etage_map{
@@ -56,7 +53,7 @@ html {
 }
 
 
-/* line 16, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 16,  */
 
 .clear {
     clear: both;
@@ -64,7 +61,7 @@ html {
 /*
     FORMS
 */
-/* line 30, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 30,  */
 
 .form-outer {
     display: table;
@@ -72,7 +69,7 @@ html {
     width: 100%;
     position: absolute;
 }
-/* line 35, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 35,  */
 
 .form-outer .form-inner {
     display: table-cell;
@@ -80,7 +77,7 @@ html {
     height: 100%;
     width: 100%;
 }
-/* line 45, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 45,  */
 
 .form-signin,
 .form-signup,
@@ -89,7 +86,7 @@ html {
     padding: 15px;
     margin: 0 auto;
 }
-/* line 49, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 49,  */
 
 .form-signin .form-heading,
 .form-signin .checkbox,
@@ -99,14 +96,14 @@ html {
 .form-forgot-password .checkbox {
     margin-bottom: 15px;
 }
-/* line 52, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 52,  */
 
 .form-signin .checkbox,
 .form-signup .checkbox,
 .form-forgot-password .checkbox {
     font-weight: normal;
 }
-/* line 55, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 55,  */
 
 .form-signin .form-control,
 .form-signup .form-control,
@@ -119,14 +116,14 @@ html {
     padding: 10px;
     font-size: 16px;
 }
-/* line 63, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 63,  */
 
 .form-signin .form-control:focus,
 .form-signup .form-control:focus,
 .form-forgot-password .form-control:focus {
     z-index: 2;
 }
-/* line 67, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 67,  */
 
 .form-signin input.form-control,
 .form-signup input.form-control,
@@ -137,7 +134,7 @@ html {
     -ms-border-radius: 0;
     border-radius: 0;
 }
-/* line 70, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 70,  */
 
 .form-signin input.form-control.first,
 .form-signup input.form-control.first,
@@ -147,7 +144,7 @@ html {
     -ms-border-radius: 3px 3px 0 0;
     border-radius: 3px 3px 0 0;
 }
-/* line 73, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 73,  */
 
 .form-signin input.form-control.last,
 .form-signup input.form-control.last,
@@ -157,7 +154,7 @@ html {
     -ms-border-radius: 0 0 3px 3px;
     border-radius: 0 0 3px 3px;
 }
-/* line 76, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 76,  */
 
 .form-signin input.form-control.alone,
 .form-signup input.form-control.alone,
@@ -167,21 +164,21 @@ html {
     -ms-border-radius: 3px;
     border-radius: 3px;
 }
-/* line 80, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 80,  */
 
 .form-signin .btn-link,
 .form-signup .btn-link,
 .form-forgot-password .btn-link {
     padding: 0;
 }
-/* line 83, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 83,  */
 
 .form-signin .btn-primary,
 .form-signup .btn-primary,
 .form-forgot-password .btn-primary {
     margin-bottom: 20px;
 }
-/* line 89, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 89,  */
 
 .wrapper {
     min-height: 100%;
@@ -189,46 +186,46 @@ html {
     height: 100%;
     margin: 0 auto -51px;
 }
-/* line 94, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 94,  */
 
 .wrapper .row {
     margin-top: 10px;
 }
-/* line 96, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 96,  */
 
 .wrapper .row:last-child {
     margin-bottom: 30px;
 }
-/* line 104, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 104,  */
 
 .push,
 .footer {
     height: 51px;
 }
-/* line 108, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 108,  */
 
 .footer {
     width: 100%;
     background-color: #f5f5f5;
 }
-/* line 111, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 111,  */
 
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
-    width: 90%;
+    //width: 90%;
 }
-/* line 114, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 114,  */
 
 .footer > .container .text-muted {
     margin: 15px 0;
 }
-/* line 121, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 121,  */
 
 .scale-value {
     margin-bottom: 20px;
 }
-/* line 125, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 125,  */
 
 .groundplan-outer {
     width: 960px;
@@ -237,22 +234,22 @@ html {
     margin: 0 auto;
     position: relative;
 }
-/* line 131, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 131,  */
 
 .groundplan-outer .groundplan {
     height: 800px;
 }
-/* line 133, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 133,  */
 
 .groundplan-outer .groundplan img {
     width: 100%;
 }
-/* line 136, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 136,  */
 
 .groundplan-outer .groundplan .groundplan-inner {
     position: relative;
 }
-/* line 138, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 138,  */
 
 .groundplan-outer .groundplan .groundplan-inner .dot {
     position: absolute;
@@ -263,7 +260,7 @@ html {
     background-color: transparent;
     border-color: #F55;
 }
-/* line 148, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 148,  */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room {
     position: absolute;
@@ -273,66 +270,66 @@ html {
     transition: border-color .5s;
     -webkit-transition: border-color .5s;
 }
-/* line 155, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 155,  */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room .name {
     text-align: center;
     color: #fff;
     margin: 20px 0 0 0;
 }
-/* line 160, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 160,  */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room.owner {
     background-color: rgba(55, 255, 0, 0.5);
     border-color: #37ff00;
 }
-/* line 163, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 163,  */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room.owner:hover {
     border-color: #38A31B;
 }
-/* line 167, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 167,  */
 
 .groundplan-outer .groundplan .groundplan-inner .map-room:hover {
     border: 1px solid #f00;
 }
-/* line 175, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 175,  */
 
 .room-data {
     display: none;
 }
-/* line 177, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 177,  */
 
 .room-data .room-inner {
     border: 1px solid #f00;
 }
-/* line 179, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 179,  */
 
 .room-data .room-inner .item-table {
     border: 1px solid #999;
     position: absolute;
 }
-/* line 187, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 187,  */
 
 [alt="logo"] {
     height: 50px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
-/* line 193, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 193,  */
 
 [alt="logo2"] {
     height: 50px;
 }
-/* line 197, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 197,  */
 
 [alt="fhd"] {
     width: 8%;
     height: 8%;
 }
 /* Raumbearbeitung ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* line 203, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-/* line 222, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 203,  */
+/* line 222,  */
 
 #MapText {
     padding-left: 1em;
@@ -340,55 +337,30 @@ html {
     padding-bottom: 0, 5em;
     padding-top: 0, 5em;
 }
-/* line 249, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 249,  */
 
 #MapsLagerListen {
-    padding: 0.3em;
+    margin: 25px 0;
 }
-/* line 253, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 253,  */
 
 h4 {
     display: inline;
 }
-/* line 268, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 268,  */
 
-#AltTrakt,
-#AltEtage,
-#AltRaum,
-#NeuTrakt,
-#NeuEtage,
-#NeuRaum,
-#AltTraktMap,
-#AltEtageMap,
-#AltRaumMap,
-#NeuTraktMap,
-#NeuEtageMap,
-#NeuRaumMap {
-    font-size: 0.7em;
-    padding-right: 0.3em;
-    padding-left: 0.3em;
-    padding-top: 0.3em;
-}
-/* line 276, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-
-#Altbau,
-#Neubau {
-    border-radius: 6px;
-    border: 1px solid black;
-}
-/* line 282, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 #oeffentlichesLager,
 #LagerLeiste {
     border-radius: 6px;
 }
-/* line 289, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 289,  */
 
 #Altbau,
 #oeffentlichesLager {
     background-color: white;
 }
-/* line 298, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 298,  */
 
 #Wunschliste,
 #AltbauAuswahl,
@@ -402,24 +374,17 @@ h4 {
 #NeuRaum {
     display: inline-block;
 }
-/* line 302, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 302,  */
 
 #AltbauAuswahl {
     background-color: #b02d2d;
 }
-/* line 312, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-
-#Neubau {
-    background-color: rgba(128, 128, 128, 0.7);
-    margin-bottom: 20px;
-}
-/* line 316, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
 
 #NeubauMap {
     background-color: #FAFAFA;
-    padding: 20px;
+    margin-top: 20px;
 }
-/* line 331, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 331,  */
 
 #LagerTab,
 #WunschTab,
@@ -427,20 +392,20 @@ h4 {
     padding: 0.2em;
     font-size: 11pt;
 }
-/* line 344, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 344,  */
 
 #wünsche td,
 #wünsche th {
     text-align: left;
 }
-/* line 351, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 351,  */
 
 #Itembearbeiten,
 #Itemlöschen {
     padding: 0.5em;
     width: auto;
 }
-/* line 359, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 359,  */
 
 #Lager,
 #Müll,
@@ -450,27 +415,27 @@ h4 {
     padding: 0;
     overflow: inherit !important;
 }
-/* line 366, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 366,  */
 
 #oeffentlichesLager {
     padding: 0.3em;
 }
-/* line 370, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 370,  */
 
 #ObereLeiste {
     background: white;
 }
-/* line 374, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 374,  */
 
 #ObereLeiste {
     border: 0.1em solid black;
 }
-/* line 378, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 378,  */
 
 button {
     size: 10em;
 }
-/* line 397, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 397,  */
 
 #Ueberschriften {
     font-family: Arial, sans-serif;
@@ -481,9 +446,9 @@ button {
 }
 
 select {
-    width: 150px;
+    width: 100%;
 }
-/* line 405, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 405,  */
 
 #oeffentlichesLagerUeberschrift {
     border-radius: 6px;
@@ -496,8 +461,8 @@ select {
     font-family: Arial, sans-serif;
     color: white;
 }
-/* line 418, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-/* line 425, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 418,  */
+/* line 425,  */
 
 #oeffentlichesLagerUeberschrift button {
     padding-left: 0.3em;
@@ -505,35 +470,47 @@ select {
     padding-top: 0.2em;
     padding-bottom: 0.1em;
 }
-/* line 441, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-
+/* line 441,  */
+#MapsLagerListen .panel-body .alert {
+    margin: 0;
+}
 #Verwerfen,
 #Speichern {
     width: auto;
     font-size: 11pt;
 }
-/* line 449, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
-
-#AltbauListe {
-    height: auto !important;
-    overflow: inherit !important;
+/* line 449,  */
+#Altbau div {
+    margin: 0 -7px 7px;
 }
-#AltbauListe div {
+#Altbau {
+    margin: -7px 0 -12px;
+}
+#AltbauListe {
+    width: auto;
+    list-style-type: none;
+    overflow: auto;
+    max-height: 200px;
+    margin: 0 -15px;
+}
+#AltbauListe .ui-state-default {
     z-index: 9;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: normal;
 }
 #AltbauListe,
 #Zielraum {
     width: auto;
     list-style-type: none;
-    padding: 0.3em;
 }
-/* line 456, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 456,  */
 
 #oeffentlichesLagerListe {
     list-style-type: none;
     padding: 0;
 }
-/* line 468, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 468,  */
 
 #AltbauListe li,
 #oeffentlichesLagerListe li,
@@ -541,13 +518,13 @@ select {
 #LagerListe li {
     padding: 0.2em;
 }
-/* line 472, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 472,  */
 
 #Grundriss {
     position: relative;
     padding-bottom: 4em;
 }
-/* line 478, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 478,  */
 
 .help-block {
     color: #737373;
@@ -555,7 +532,7 @@ select {
     border-width: 2pt;
     border-style: solid;
 }
-/* line 516, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 516,  */
 
 #imageMaps,
 #Grundrissebearbeiten {
@@ -563,7 +540,7 @@ select {
     border-radius: 6px;
     background-color: gray;
 }
-/* line 524, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 524,  */
 
 #dialog-addLayout hr {
     width: 600px;
@@ -573,7 +550,7 @@ select {
     .ui-state-default {
 
     }*/
-/* line 535, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 535,  */
 
 #Hochladen,
 #addLayoutPopupButton,
@@ -582,7 +559,7 @@ select {
     width: auto;
 }
 /* Benutzerbearbeitung und Import/ Export////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* line 545, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 545,  */
 
 #Benutzeransicht,
 #Import,
@@ -590,20 +567,20 @@ select {
     border-radius: 6px;
     background-color: rgba(128, 128, 128, 0.7);
 }
-/* line 554, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 554,  */
 
 #Benutzeransicht h1,
 #Import h1,
 #Export h1 {
     font-family: Arial, sans-serif;
 }
-/* line 560, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 560,  */
 
 #Import,
 #Export {
     padding-bottom: 1em;
 }
-/* line 566, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 566,  */
 
 #Nutzereigenschaften,
 #Nutzerbearbeiten,
@@ -612,27 +589,27 @@ select {
     margin: 0.2em;
     width: auto;
 }
-/* line 572, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 572,  */
 
 #Nutzerhinzufügen {
     padding: 0.5em;
     margin: 1.3em 0.3em 0.3em 0.3em;
     width: auto;
 }
-/* line 579, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 579,  */
 
 label,
 input {
     display: block;
 }
-/* line 583, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 583,  */
 
 input.text {
     margin-bottom: 12px;
     width: 95%;
     padding: .4em;
 }
-/* line 590, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 590,  */
 
 #dialog-Nutzerbearbeiten fieldset,
 #dialog-Nutzerbearbeiten fieldset {
@@ -640,14 +617,14 @@ input.text {
     border: 0;
     margin-top: 25px;
 }
-/* line 596, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 596,  */
 
 div#Benutzeransicht table {
     margin: 1em 0;
     border-collapse: collapse;
     width: 100%;
 }
-/* line 603, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 603,  */
 
 div#Benutzeransicht table td,
 div#Benutzeransicht table th {
@@ -657,43 +634,50 @@ div#Benutzeransicht table th {
 }
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Fürs Rotieren */
-/* line 611, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 611,  */
 
 #target {
     height: 50px;
     width: 80px;
 }
-/* line 616, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 616,  */
 
 #target2 {
     height: 50px;
     width: 80px;
 }
-/* line 621, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 621,  */
 
 #target3 {
     height: 50px;
     width: 90px;
 }
-/* line 626, /Applications/XAMPP/xamppfiles/htdocs/moveit/css/moveit.scss */
+/* line 626,  */
 
 
 /*# sourceMappingURL=moveit.css.map */
 
 /* Anfang Zollstock index.php */
 #abstand-inline-label, #abstand-inline-inputfield {
-  display: inline !important ;
-  visibility: hidden;
+    display: inline !important ;
+    visibility: hidden;
 }
 
 #NeubauMap .dot {
-  position: absolute;
-  width: 3px;
-  height: 9px;
-  border-width: 0 3px 10px 0;
-  border-style: solid;
-  background-color: transparent;
-  border-color: #F55;
+    position: absolute;
+    width: 3px;
+    height: 9px;
+    border-width: 0 3px 10px 0;
+    border-style: solid;
+    background-color: transparent;
+    border-color: #F55;
 }
 /* Ende Zollstock index.php */
 
+.main-room {
+    position: relative;
+    background-color: #ddd;
+}
+.main-room.active {
+    background-color: #2ECC40;
+}

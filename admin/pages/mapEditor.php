@@ -30,7 +30,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 $db->query("UPDATE " . TABLE_ROOMS . " SET room_map_id = null WHERE room_map_id = :map_id", array("map_id" => $_GET['remove']));
                 $numberOfSuccessfullyDeletedMaps = $db->query("DELETE FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['remove']), PDO::FETCH_NUM);
 
-                if ($numberOfSuccessfullyDeletedMaps == 1) { ?>
+                if ($numberOfSuccessfullyDeletedMaps == 1) {
+                    ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="alert alert-success">Die Map wurde gelöscht.</div>
@@ -42,7 +43,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <div class="alert alert-danger">Der Löschvorgang war nicht erfolgreich.</div>
                         </div>
                     </div>
-                <?php }
+                    <?php
+                }
             }
             if (isset($_GET['edit'])) {
                 $existsMap = $db->row("SELECT map_id FROM " . TABLE_MAPS . " WHERE map_id = :map_id", array("map_id" => $_GET['edit']), PDO::FETCH_NUM);
@@ -57,20 +59,20 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <p>
                                 In diesem Teil findet die eigentliche Festlegung der Räume auf dem hochgeladenen Grundriss statt. Ihnen werden
                                 zur Administration drei Hauptfunktionen unter den drei Tabs gegeben.
-                                <ol>
-                                    <li><strong>Grundeinstellung:</strong> Laden Sie bitte zunächst eine Bild-Datei des Grundrisses hoch, diesen wählen Sie über <em>Datei auswählen</em>.
+                            <ol>
+                                <li><strong>Grundeinstellung:</strong> Laden Sie bitte zunächst eine Bild-Datei des Grundrisses hoch, diesen wählen Sie über <em>Datei auswählen</em>.
                                     Pro Etage wird ein Grundriss hochgeladen. Die hochgeladene Bild-Datei weisen Sie mit Hilfe der Dropdown-Menüs der entsprechenden Gebäude-Etage-Kombination zu.
                                     Dieser Zustand wird über den <em>Speicher-Button</em> gesichert. <em>Zurück zur Map-Übersicht</em> bringt Sie zurück zur vorherigen Seite.</li>
-                                    <li><strong>Maßstab festlegen:</strong> Diese Funktion ist essentiell dafür, dass in moveIT Maßstabsgetreu gearbeitet werden kann. Der Maßstab wird festgesetzt indem Sie
-                                        an zwei Stellen in dem hochgeladenen Grundriss klicken. Es erscheinen zwei rote Winkel. Per Drag-and-Drop können Sie die Winkel in einen gewünschten Abstand setzen,
-                                        das kann z.B. entlang der Länge eines Raumes sein, von dem Sie die Maße kennen. In den zwei oberen Feldern wird Ihnen links der <em>Pixel</em>-Abstand und rechts
-                                        der zu bestimmende <em>cm</em>-Abstand angezeigt. Geben Sie den bekannten cm-Abstand an, sobald Sie den richtigen Abstand in der Karte mit den Winkeln markiert haben
-                                        (d.h. wie in unserem Beispiel oben: die Länge des Raums wird mit den Winkeln eingespannt - die cm werden auf die Länge des Raums in cm gesetzt).</li>
-                                    <li><strong>Räume platzieren:</strong> Im letzten Schritt können Sie die Räume, die Sie der Map unter <em>Räume</em> zuweisen, über den Button <em>Raum hinzufügen</em>
-                                        auf die Map setzen. Es erscheint ein Rechteck, dass Sie auf den gewünschten Raum in der Map setzen und gemäß dessen Maße skalieren. Der Map-Editor speichert Ihre
-                                        Änderungen automatisch.
-                                    </li>
-                                </ol>
+                                <li><strong>Maßstab festlegen:</strong> Diese Funktion ist essentiell dafür, dass in moveIT Maßstabsgetreu gearbeitet werden kann. Der Maßstab wird festgesetzt indem Sie
+                                    an zwei Stellen in dem hochgeladenen Grundriss klicken. Es erscheinen zwei rote Winkel. Per Drag-and-Drop können Sie die Winkel in einen gewünschten Abstand setzen,
+                                    das kann z.B. entlang der Länge eines Raumes sein, von dem Sie die Maße kennen. In den zwei oberen Feldern wird Ihnen links der <em>Pixel</em>-Abstand und rechts
+                                    der zu bestimmende <em>cm</em>-Abstand angezeigt. Geben Sie den bekannten cm-Abstand an, sobald Sie den richtigen Abstand in der Karte mit den Winkeln markiert haben
+                                    (d.h. wie in unserem Beispiel oben: die Länge des Raums wird mit den Winkeln eingespannt - die cm werden auf die Länge des Raums in cm gesetzt).</li>
+                                <li><strong>Räume platzieren:</strong> Im letzten Schritt können Sie die Räume, die Sie der Map unter <em>Räume</em> zuweisen, über den Button <em>Raum hinzufügen</em>
+                                    auf die Map setzen. Es erscheint ein Rechteck, dass Sie auf den gewünschten Raum in der Map setzen und gemäß dessen Maße skalieren. Der Map-Editor speichert Ihre
+                                    Änderungen automatisch.
+                                </li>
+                            </ol>
                             </p>
                         </div>
                     </div>
@@ -82,19 +84,20 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                 <div class="alert alert-info">Die Map existiert nicht.</div>
 
-                                <?php
-                            } else { ?>
+                            <?php } else {
+                                ?>
 
                                 <ul class="nav nav-tabs">
                                     <li <?php echo!isset($_GET['rooms']) && !isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>">Grundeinstellungen</a></li>
 
                                     <?php
                                     $db->bind("id", $_GET['edit']);
-                                    if ($db -> single("SELECT building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS ." ON map_building_id = building_id WHERE map_id = :id") == 2){?>
+                                    if ($db->single("SELECT building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE map_id = :id") == 2) {
+                                        ?>
                                         <li <?php echo isset($_GET['scale']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/scale">Maßstab festlegen</a></li>
                                         <li <?php echo isset($_GET['rooms']) ? ' class="active"' : ''; ?>><a href="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $_GET['edit']; ?>/rooms">Räume platzieren</a></li>
-                                        <?php
-                                    }?>
+                                    <?php }
+                                    ?>
 
                                     <li class="pull-right"><a href="<?php echo BASEDIR; ?>admin/mapEditor"> zurück zur Mapübersicht</a></li>
                                 </ul>
@@ -261,10 +264,10 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 }
 
                                                 $db->bind("id", $_GET['edit']);
-                                                $map = $db->row("SELECT " .TABLE_MAPS . ".*, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS ." ON map_building_id = building_id WHERE map_id = :id");
+                                                $map = $db->row("SELECT " . TABLE_MAPS . ".*, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE map_id = :id");
 
 
-                                                if($map['building_type'] == 2){
+                                                if ($map['building_type'] == 2) {
                                                     echo '<div class="form-group">';
                                                     echo '<label for="map_picture">Grundriss</label>';
                                                     echo '<input name="map_picture" type="file" />';
@@ -272,11 +275,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                                                         echo '<br />';
                                                         echo '<a href="#" class="thumbnail">';
-                                                            echo "<img src= " . BASEDIR . $map['map_picture'] . " />";
+                                                        echo "<img src= " . BASEDIR . $map['map_picture'] . " />";
                                                         echo '</a>';
                                                     }
-                                                echo '</div>';
-                                                }?>
+                                                    echo '</div>';
+                                                }
+                                                ?>
 
                                                 <div class="form-group">
                                                     <label for="map_building_id">Gebäude</label>
@@ -306,9 +310,9 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
 
                                                 <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
-												<a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
-													<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
-												</a>
+                                                <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
+                                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
+                                                </a>
                                             </form>
                                         </div>
                                     </div>
@@ -391,35 +395,34 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                 <?php
             } else {
                 $mapList = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name, building_type FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id ORDER BY map_id");
-
                 ?>
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="mapHeadline">Map Editor</h2> <button btn id="helpButton"class="btn btn-default btn-xs">?</button>
 
                         <div id="mapEditorDialog" title="Hilfe für den Map Editor">
-                        <p>
-                            In moveIT werden die Kombinationen von Gebäuden und Etagen Maps genannt.
-                            Für jede Etage in jedem Gebäude wird eine solche Map angelegt, sowohl für Gebäude des Altbaus als auch für die neuen Gebäude.
-                            Ein Gebäude erscheint noch nicht in dieser Liste, wenn es gerade erst angelegt wurde. Um eine Etage zu einem neuen Gebäude hinzuzufügen, klicken Sie auf den Button "Etage anlegen".
-                            Dort finden Sie das gerade erstellte Gebäude und können diesem Etagen zuweisen.
-                        </p>
-                        <hr>
-                        <p>
-                            <strong>Grundriss-Karten hochladen</strong><br>
-                            Für Gebäude des Neubaus lassen sich Grundriss-Karten in Form eines Bildes hochladen.
-                            Damit Sie an dieser Stelle einen Grundriss hochladen können, müssen im Vorfeld folgende Schritte erfolgt sein:
+                            <p>
+                                In moveIT werden die Kombinationen von Gebäuden und Etagen Maps genannt.
+                                Für jede Etage in jedem Gebäude wird eine solche Map angelegt, sowohl für Gebäude des Altbaus als auch für die neuen Gebäude.
+                                Ein Gebäude erscheint noch nicht in dieser Liste, wenn es gerade erst angelegt wurde. Um eine Etage zu einem neuen Gebäude hinzuzufügen, klicken Sie auf den Button "Etage anlegen".
+                                Dort finden Sie das gerade erstellte Gebäude und können diesem Etagen zuweisen.
+                            </p>
+                            <hr>
+                            <p>
+                                <strong>Grundriss-Karten hochladen</strong><br>
+                                Für Gebäude des Neubaus lassen sich Grundriss-Karten in Form eines Bildes hochladen.
+                                Damit Sie an dieser Stelle einen Grundriss hochladen können, müssen im Vorfeld folgende Schritte erfolgt sein:
                             <ol>
                                 <li>Sie müssen unter <em>Gebäude</em> (siehe Navigationsleiste) ein Gebäude erstellt haben, das vom Typ "Neubau" ist.</li>
                                 <li>Nachdem Sie dieses Gebäude angelegt haben, können Sie unter <em>Map Editor</em> die Etagen dieses Gebäudes anlegen (Etage für Etage).</li>
                             </ol>
-                        </p>
-                        <hr>
-                        <p>
-                            <strong>Grundriss hochladen</strong><br>
-                            Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
-                            klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.
-                        </p>
+                            </p>
+                            <hr>
+                            <p>
+                                <strong>Grundriss hochladen</strong><br>
+                                Die Listeneinträge auf dieser Seite verfügen über je zwei Buttons (Bearbeiten und Löschen). Wenn man auf den <em>Bearbeiten</em>-Button eines Neubau-Eintrags
+                                klickt, kann eine Bild-Datei des Grundrisses hochgeladen werden.
+                            </p>
                         </div>
                     </div>
                 </div>

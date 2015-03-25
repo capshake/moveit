@@ -8,20 +8,16 @@ $(document).ready(function () {
 
 
     //Laden der Itemtypen
-    $.ajax({
-        type: 'POST',
-        url: BASEURL + 'api/getItemTypes',
-        dataType: 'json',
-        success: function (data) {
+    if (mainSettings.isLoggedIn) {
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/getItemTypes',
+            dataType: 'json',
+            success: function (data) {
                 itemTypes = data.types;
             }
-            /*,
-                    error: function(){
-                        console.log("retry");
-                        setTimeout(function(){$.ajax(this)}, 7000);
-                    }*/
-    });
-
+        });
+    }
     // Laden von Lager, Müll und öffentlichem Lager
     getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
     getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
@@ -57,13 +53,13 @@ $(document).ready(function () {
     });
 
     // Selectmenue
-    $("#AltbauTrakt").selectmenu();
-    $("#AltbauEtage").selectmenu();
-    $("#AltbauRaum").selectmenu();
-
-    $("#NeubauTrakt").selectmenu();
-    $("#NeubauEtage").selectmenu();
-    $("#NeubauRaum").selectmenu();
+    /*$("#AltbauTrakt").selectmenu();
+     $("#AltbauEtage").selectmenu();
+     $("#AltbauRaum").selectmenu();
+     
+     $("#NeubauTrakt").selectmenu();
+     $("#NeubauEtage").selectmenu();
+     $("#NeubauRaum").selectmenu();*/
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -83,7 +79,7 @@ $(document).ready(function () {
 
 
     // Admin-Help-Dialoge für moveIT ----------------------------------------------------------------------------------------------------------------------
-    $("#mapEditorDialog").dialog({ //MapEditor Dialog
+    $("#mapEditorDialog").dialog({//MapEditor Dialog
         autoOpen: false,
         height: 400,
         width: 700,
@@ -94,7 +90,7 @@ $(document).ready(function () {
         $("#mapEditorDialog").dialog("open");
     });
 
-    $("#mapBearbeitenDialog").dialog({ //Map Bearbeiten Dialog
+    $("#mapBearbeitenDialog").dialog({//Map Bearbeiten Dialog
         autoOpen: false,
         height: 500,
         width: 700,
@@ -105,7 +101,7 @@ $(document).ready(function () {
         $("#mapBearbeitenDialog").dialog("open");
     });
 
-    $("#importDialog").dialog({ //Import/Export Dialog
+    $("#importDialog").dialog({//Import/Export Dialog
         autoOpen: false,
         height: 400,
         width: 700,
@@ -121,7 +117,7 @@ $(document).ready(function () {
         $("#importDialog").dialog("open");
     });
 
-    $("#buildingsDialog").dialog({ //Gebäude Dialog
+    $("#buildingsDialog").dialog({//Gebäude Dialog
         autoOpen: false,
         height: 350,
         width: 700,
@@ -139,7 +135,6 @@ $(document).ready(function () {
         autoOpen: false,
         height: 600,
         width: 700,
-
         modal: true,
     });
 
@@ -183,7 +178,7 @@ $(document).ready(function () {
     var allFields2 = $([]).add(bezeichnung2).add(anzahl2).add(länge2).add(breite2);
 
     var listenButtongeklickt,
-        wirklichHinzugefügt;
+            wirklichHinzugefügt;
 
     $("#Wunschhinzufügen").button({});
 
@@ -202,32 +197,32 @@ $(document).ready(function () {
                 addItem();
                 if (wirklichHinzugefügt === true) {
                     $("<button></button>")
-                        .attr('id', 'Itembearbeiten')
-                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                        .button({
-                            icons: {
-                                primary: "ui-icon-gear"
-                            },
-                            text: false
-                        })
-                        .on("click", function () {
-                            listenButtongeklickt = this;
-                            dialogBearbeiten.dialog("open");
-                        });
+                            .attr('id', 'Itembearbeiten')
+                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                            .button({
+                                icons: {
+                                    primary: "ui-icon-gear"
+                                },
+                                text: false
+                            })
+                            .on("click", function () {
+                                listenButtongeklickt = this;
+                                dialogBearbeiten.dialog("open");
+                            });
 
                     $("<button></button>")
-                        .attr('id', 'Itemlöschen')
-                        .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
-                        .button({
-                            icons: {
-                                primary: "ui-icon-trash"
-                            },
-                            text: false
-                        })
-                        .on("click", function () {
-                            listenButtongeklickt = this;
-                            dialogLoeschen.dialog("open");
-                        });
+                            .attr('id', 'Itemlöschen')
+                            .appendTo('#wunschtabelle tbody tr:last-child td:first-child')
+                            .button({
+                                icons: {
+                                    primary: "ui-icon-trash"
+                                },
+                                text: false
+                            })
+                            .on("click", function () {
+                                listenButtongeklickt = this;
+                                dialogLoeschen.dialog("open");
+                            });
                 }
             },
             Abbrechen: function () {
@@ -322,12 +317,12 @@ function addItem() {
     var _valid = valid(bezeichnung, anzahl, länge, breite);
     if (_valid) {
         $("#wunschtabelle tbody").append("<tr id=" + bezeichnung.val() + ">" +
-            "<td>" + "</td>" +
-            "<td>" + bezeichnung.val() + "</td>" +
-            "<td>" + anzahl.val() + "</td>" +
-            "<td>" + länge.val() + "</td>" +
-            "<td>" + breite.val() + "</td>" +
-            "</tr>");
+                "<td>" + "</td>" +
+                "<td>" + bezeichnung.val() + "</td>" +
+                "<td>" + anzahl.val() + "</td>" +
+                "<td>" + länge.val() + "</td>" +
+                "<td>" + breite.val() + "</td>" +
+                "</tr>");
         dialog.dialog("close");
         updateTips("");
     }
@@ -428,79 +423,65 @@ function saveItemInRoom(roomid, itemid, x, y) {
 //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
 function dragAndDrop() {
 
-    $("#AltbauListe div").draggable({
 
-        revert: function (event, ui) {
-
-            if (!$(this).is('[class^="planner-item-"]')) {
-                $(this).data("uiDraggable").originalPosition = {
-                    top: 0,
-                    left: 0
-                };
-
-                // return boolean
-                return !event;
-            }
-            // that evaluate like this:
-            // return event !== false ? false : true;
+    $(".altbau-item").draggable({
+        revert: 'invalid',
+        helper: 'clone',
+        start: function () {
+            $(this).hide();
+        },
+        stop: function () {
+            $(this).show();
         }
     });
 
-    $(".main-room .room-item").draggable({
+    $(".room-item").draggable({
         //containment: 'parent',
         revert: 'invalid',
         stop: function (event, ui) {
             var dataId = $(this).data("item-id");
 
-            saveItemInRoom(roomId, dataId, $(this).position().left, $(this).position().top);
+            if (typeof $('.main-room').data('room-id') != 'undefined') {
+                saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top);
+            }
         },
         stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
     });
 
     $(".main-room").droppable({
-        hoverClass: 'ui-state-active',
+        hoverClass: 'active',
         tolerance: 'pointer',
-
         accept: function (event, ui) {
             return true;
         },
         drop: function (event, ui) {
 
-            if (!$(ui.draggable).hasClass('room-item')) {
-                var dataImg = $(ui.draggable).data("img");
-                var dataId = $(ui.draggable).data("item-id");
-                var dataTitle = $(ui.draggable).data("title");
+            var gedroptesItem = $(ui.draggable.clone());
+            if (!gedroptesItem.hasClass('room-item')) {
+                var dataImg = gedroptesItem.data("img");
+                var dataId = gedroptesItem.data("item-id");
+                var dataTitle = gedroptesItem.data("title");
+                var dataHeight = gedroptesItem.data("height");
+                var dataWidth = gedroptesItem.data("width");
 
-                var gedroptesItem = $(ui.draggable);
 
-                $(".main-room").append('<img data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+                $(".main-room").append('<img data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
                 $('.planner-item-' + dataId).css({
                     'position': 'absolute',
                     'top': event.pageY - $('.main-room').offset().top,
                     'left': event.pageX - $('.main-room').offset().left,
-                    'z-index': 4
+                    'z-index': 4,
+                    'width': dataWidth,
+                    'height': dataHeight
                 }).on("dblclick", {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick
 
-                $.ajax({
-                    type: 'POST',
-                    url: BASEURL + 'api/getItem/' + dataId,
-                    dataType: 'json',
-                    success: function (data) {
-                        var breite = data.items[0].item_size_x;
-                        var hoehe = data.items[0].item_size_z;
 
-                        $('.planner-item-' + dataId).css({
-                            'width': breite,
-                            'height': hoehe
-                        });
-                    }
-                });
-
-                saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
-
+                if (typeof $('.main-room').data('room-id') != 'undefined') {
+                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+                }
                 gedroptesItem.remove();
             }
             dragAndDrop();
@@ -681,10 +662,10 @@ $('#Zollstock').click(function (e) {
 //Distanz berechnen
 function calcDistance() {
     var startingTop = parseFloat($('.dot').css('top'), 10),
-        startingLeft = parseFloat($('.dot').css('left'), 10),
-        startingTop2 = parseFloat($('.dot').last().css('top'), 10),
-        startingLeft2 = parseFloat($('.dot').last().css('left'), 10),
-        math = Math.round(Math.sqrt(Math.pow(startingTop - startingTop2, 2) + Math.pow(startingLeft - startingLeft2, 2)));
+            startingLeft = parseFloat($('.dot').css('left'), 10),
+            startingTop2 = parseFloat($('.dot').last().css('top'), 10),
+            startingLeft2 = parseFloat($('.dot').last().css('left'), 10),
+            math = Math.round(Math.sqrt(Math.pow(startingTop - startingTop2, 2) + Math.pow(startingLeft - startingLeft2, 2)));
 
     $('#abstand-inline-inputfield').val(math);
 }
@@ -718,9 +699,7 @@ function rotate(event) {
 }
 
 //ROTATION ENDE
-
 function saveRotationInItems(itemid, rotation) {
-
     $.ajax({
         type: 'POST',
         url: BASEURL + 'api/saveItem',
