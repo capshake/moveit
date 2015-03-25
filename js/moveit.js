@@ -22,17 +22,6 @@ $(document).ready(function () {
                     }*/
     });
 
-    // Laden von Lager, Müll und öffentlichem Lager
-    getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
-    getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
-    getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-
-    // Neulade-Button
-    $("#btnOeffReset").click(function () {
-        getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-    });
-
-
     //Popup vor dem Löschvorgang
     $('body').on('click', '.delete-button, .reset-database', function () {
         var el = $(this);
@@ -57,14 +46,14 @@ $(document).ready(function () {
     });
 
     // Selectmenue
-    $("#AltbauTrakt").selectmenu();
+  /*  $("#AltbauTrakt").selectmenu();
     $("#AltbauEtage").selectmenu();
-    $("#AltbauRaum").selectmenu();
+    $("#AltbauRaum").selectmenu();*/
 
-    $("#NeubauTrakt").selectmenu();
+    /*$("#NeubauTrakt").selectmenu();
     $("#NeubauEtage").selectmenu();
     $("#NeubauRaum").selectmenu();
-
+*/
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -265,18 +254,7 @@ $("#mapEditorDialog").dialog({ //MapEditor Dialog
         }
     });
 
-
-
-
-
-
     dragAndDrop(); // macht Icons draggable
-
-    // Lade Items zum ersten mal
-    getItems(roomId);
-
-
-
 
     /* Item BEARBEITEN /////////////////////////////////////////////////////////////////////////////////////////// */
 
@@ -489,14 +467,14 @@ function dragAndDrop() {
 					success: function (data) {
 						var breite = data.items[0].item_size_x;
 						var hoehe = data.items[0].item_size_z;
-						
+
 						$('.planner-item-' + dataId).css({
 							'width': breite,
 							'height': hoehe
 						});
 					}
 				});
-				
+
                 saveItemInRoom(roomId, dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
 
                 gedroptesItem.remove();
@@ -506,117 +484,6 @@ function dragAndDrop() {
     }).sortable({
         revert: false
     });
-}
-
-/* Items laden/////////////////////////////////////////////////// */
-
-//Items aus dem Altbau laden
-function getItems(roomId) {
-    if (typeof roomId != 'undefined' && roomId !== '' && mainSettings.isLoggedIn) {
-        // Lade Items des Raums in Auswahlliste
-        $.ajax({
-            type: 'POST',
-            url: BASEURL + 'api/getItems/room/' + roomId,
-            dataType: 'json',
-            success: function (data) {
-                var itemsHTML = '';
-
-                if (data.items.length > 0) {
-                    if (data.owner) {
-                        $.each(data.items, function (key, value) {
-                            itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-                        });
-                        $('#AltbauListe').html(itemsHTML);
-
-                        dragAndDrop();
-                    } else {
-                        $('#AltbauListe').html('<div class="alert alert-info">Sie sind nicht der Eigentümer.</div>');
-                    }
-                } else {
-                    $('#AltbauListe').html('<div class="alert alert-info">In diesem Raum sind keine Möbel.</div>');
-                }
-            }
-        });
-    } else {
-        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum oben auswählen, um dessen Möbel zu sehen!</div>');
-    }
-    dragAndDrop();
-}
-
-//Items aus dem Lager laden
-function getItemsVirtualRooms(roomList, api) {
-    if (mainSettings.isLoggedIn) {
-        $.ajax({
-            type: 'POST',
-            url: BASEURL + api,
-            dataType: 'json',
-            success: function (data) {
-                var itemsHTML = '';
-
-                if (data.items.length > 0) {
-                    $.each(data.items, function (key, value) {
-                        itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-                    });
-                    $(roomList).html(itemsHTML);
-                } else {
-                    $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
-                }
-            }
-        });
-    }
-}
-
-// Lade Raum
-function getRoom(roomId) {
-    if (typeof roomId != 'undefined' && roomId !== '' && mainSettings.isLoggedIn) {
-        $.ajax({
-            type: 'POST',
-            url: BASEURL + 'api/getRoom/' + roomId,
-            dataType: 'json',
-            success: function (data) {
-
-
-                $('#NeubauMap').html('<div class="main-room"></div>');
-
-                $('.main-room').css({
-                    'width': data.rooms[0].room_size_x,
-                    'height': data.rooms[0].room_size_y,
-                    'border': '1px solid #999',
-                    'position': 'relative'
-
-                });
-
-
-                $.ajax({
-                    type: 'POST',
-                    url: BASEURL + 'api/getItems/room/' + roomId,
-                    dataType: 'json',
-                    success: function (data) {
-                        var itemsHTML = '';
-
-                        if (data.items.length > 0) {
-
-                            $.each(data.items, function (key, value) {
-                                if (value.item_position_y > 0 && value.item_position_x > 0) {
-                                    $(".main-room").append('<img data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
-
-                                    $('.planner-item-' + value.item_id).css({
-                                        'position': 'absolute',
-                                        'top': value.item_position_y,
-                                        'left': value.item_position_x,
-                                        'z-index': 4
-                                    });
-                                }
-
-                            });
-                            dragAndDrop();
-                        }
-                    }
-                });
-            }
-        });
-    }
-    dragAndDrop();
 }
 
 //ZOLLSTOCK ANFANG
@@ -685,27 +552,27 @@ function calcDistance() {
 //rotiert Element von seinem Ausgangspunkt aus um 90 Grad. Setzt entsprechende Gradzahl (0, 90,..., 270) der Rotation in Hilfsattribut 'rotation-value'
 function rotate(event){
 	var itemid = event.data.itemid; // wird beim Registirieren des Handlers (dblclick) uebergeben
-	
+
 	var rotation = 0; // lokale Variable
-	
+
 	var rotationValue = parseInt($(this).attr("rotation-value")); // aktuellen Wert des Hilfs-Attributs 'rotation-value' auslesen
-	
+
 	if (rotationValue > 0){ // falls Wert für Hilfs-Attribut existiert (sonst NaN) und größer 0 ist, diesen für die nächste 90 Grad-Rotation als Ausgangswert nehmen
 		rotation = rotationValue + 90;
-	} 
+	}
 	else{ // sonst um 90 Grad drehen
 		rotation = 90;
 	}
-	
+
 	if(rotation == 360){ // werden für die Rotation 360 Grad (volle Drehung) erreicht, wird der Wert auf 0 Grad zurückgesetzt
 		rotation = 0;
 	}
-	
+
 	$(this).css("transform", "rotate("+rotation+"deg)").attr("rotation-value", rotation); // Hilfs-Attribut setzen
-	
+
 	saveRotationInItems(itemid, rotation);
 }
-		
+
 //ROTATION ENDE
 
 function saveRotationInItems(itemid, rotation) {
