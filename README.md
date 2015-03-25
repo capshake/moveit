@@ -27,5 +27,7 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - (Auswahlfelder fixen)
 - Raumerstellung
     - Wenn Raum in Neubau platziert -> Hinweis (mit Link?) auf Mapbearbeitung
+- Dropdown
+    - Nur Gebäude und jeweilige Etagen darstellen, in denen Bearbeitungsrechte vorliegen (weitere API)
 
 - Demo-Installation für Präsentation aufsetzen
