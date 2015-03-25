@@ -22,10 +22,12 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - Bug: Items lassen sich nicht herausziehen, wenn Kartenbereich scrollbar ist
         -> Kartenbereich unscrollbar machen, sobald Item aufgehoben wird
     - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
-    - Neue Item-Positionen in DB schreiben und bestehende auslesen
-        -> Momentan wird alter Raum geschrieben (Problem ist wahrscheinlich die globale Room-Variable)
+    - (Item Z-Werte speichern/laden)
+    - Tooltips für die Items
 - Mapdialog fertigstellen
     - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
     - (Auswahlfelder fixen)
+- Raumerstellung
+    - Wenn Raum in Neubau platziert -> Hinweis (mit Link?) auf Mapbearbeitung
 
 - Demo-Installation für Präsentation aufsetzen

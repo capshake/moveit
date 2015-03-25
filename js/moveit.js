@@ -56,7 +56,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-     
+
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -473,7 +473,8 @@ function dragAndDrop() {
                     'left': event.pageX - $('.main-room').offset().left,
                     'z-index': 4,
                     'width': dataWidth,
-                    'height': dataHeight
+                    'height': dataHeight,
+                    'background-color': '#E8E8E8'
                 }).on("dblclick", {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick

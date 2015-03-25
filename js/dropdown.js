@@ -76,7 +76,8 @@ function loadNeubauRoom(roomId) {
                                     'z-index': 4,
                                     'width': value.item_size_x,
                                     'height': value.item_size_y,
-                                    'transform': 'rotate(' + value.item_orientation + 'deg)'
+                                    'transform': 'rotate(' + value.item_orientation + 'deg)',
+                                    'background-color': '#E8E8E8'
 
                                 }).attr("rotation-value", value.item_orientation);
 
@@ -172,7 +173,7 @@ $(document).ready(function ($) {
                         var html = '';
 
                         // Erstes Feld mit Feldnamen vorbelegen
-                        $('#AltbauEtage').html('<option>Etage</option>');
+                        $('#AltbauEtage').html('<option value="">Etage</option>');
 
                         // Ausgewähltes Gebäude hat keine Etagen
                         if (floors.length === 0) {
@@ -217,9 +218,16 @@ $(document).ready(function ($) {
                         }
                         else {
                             $.each(rooms, function (key, value) {
-                                html += '<option value="' + value.room_id + '">' + value.room_name + '</option>'
+                                if(value.owner){
+                                    html += '<option value="' + value.room_id + '">' + value.room_name + '</option>';
+                                }
                             });
-                            $('#AltbauRaum').append(html);
+                            if(html !== ''){
+                                $('#AltbauRaum').append(html);
+                            }
+                            else{
+                                $('#AltbauRaum').html('<option value="">Kein Raum mit Bearbeitungsrechten</option>');
+                            }
                         }
                         dragAndDrop();
                     }
@@ -296,9 +304,17 @@ $(document).ready(function ($) {
                         }
                         else {
                             $.each(rooms, function (key, value) {
-                                html += '<option value="' + value.room_id + '">' + value.room_name + '</option>'
+                                if(value.owner){
+                                    html += '<option value="' + value.room_id + '">' + value.room_name + '</option>';
+                                }
                             });
-                            $('#NeubauRaum').append(html);
+                            if(html !== ''){
+                                $('#NeubauRaum').append(html);
+                            }
+                            else{
+                                $('#NeubauRaum').html('<option value="">Kein Raum mit Bearbeitungsrechten</option>');
+                            }
+
                         }
                         dragAndDrop();
                     }
