@@ -56,7 +56,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-     
+
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -464,25 +464,23 @@ function dragAndDrop() {
                 var dataHeight = gedroptesItem.data("height");
                 var dataWidth = gedroptesItem.data("width");
 
-                if (typeof dataId != 'undefined') {
-                    $(".main-room").append('<img data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+                $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
-                    $('.planner-item-' + dataId).css({
-                        'position': 'absolute',
-                        'top': event.pageY - $('.main-room').offset().top,
-                        'left': event.pageX - $('.main-room').offset().left,
-                        'z-index': 4,
-                        'width': dataWidth,
-                        'height': dataHeight
-                    }).on("dblclick", {
-                        itemid: dataId
-                    }, rotate); // Rotation bei Doppelklick
+                $('.planner-item-' + dataId).css({
+                    'position': 'absolute',
+                    'top': event.pageY - $('.main-room').offset().top,
+                    'left': event.pageX - $('.main-room').offset().left,
+                    'z-index': 4,
+                    'width': dataWidth,
+                    'height': dataHeight,
+                    'background-color': '#E8E8E8'
+                }).on("dblclick", {
+                    itemid: dataId
+                }, rotate); // Rotation bei Doppelklick
 
 
-                    if (typeof $('.main-room').data('room-id') != 'undefined') {
-                        saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
-                    }
-                    gedroptesItem.remove();
+                if (typeof $('.main-room').data('room-id') != 'undefined') {
+                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
                 }
             }
             dragAndDrop();

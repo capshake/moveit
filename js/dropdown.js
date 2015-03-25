@@ -31,7 +31,7 @@ function loadAltbauList(roomId) {
                         dragAndDrop();
                     }
                     else {
-                        $('#AltbauListe').html('<div class="alert alert-info">Sie sind nicht der Eigentümer.</div>');
+                        $('#AltbauListe').html('<div class="alert alert-info">Sie verfügen nicht über Bearbeitungsrechte für diesen Raum.</div>');
                     }
                 }
                 else {
@@ -41,7 +41,7 @@ function loadAltbauList(roomId) {
         });
     }
     else {
-        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum auswählen</div>');
+        $('#AltbauListe').html('<div class="alert alert-info">Bitte einen Raum auswählen.</div>');
     }
 }
 
@@ -66,32 +66,37 @@ function loadNeubauRoom(roomId) {
                         url: BASEURL + 'api/getItems/room/' + roomId,
                         datatype: 'json',
                         success: function (data) {
-                            $.each(data.items, function (key, value) {
-                                $(".main-room").append('<img data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
+                            if(data.owner){
+                                $.each(data.items, function (key, value) {
+                                    $(".main-room").append('<img data-toggle="tooltip" title="' + value.item_description + '" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
-                                $('.planner-item-' + value.item_id).css({
-                                    'position': 'absolute',
-                                    'top': value.item_position_y,
-                                    'left': value.item_position_x,
-                                    'z-index': 4,
-                                    'width': value.item_size_x,
-                                    'height': value.item_size_y,
-                                    'transform': 'rotate(' + value.item_orientation + 'deg)'
+                                    $('.planner-item-' + value.item_id).css({
+                                        'position': 'absolute',
+                                        'top': value.item_position_y,
+                                        'left': value.item_position_x,
+                                        'z-index': 4,
+                                        'width': value.item_size_x,
+                                        'height': value.item_size_y,
+                                        'transform': 'rotate(' + value.item_orientation + 'deg)',
+                                        'background-color': '#E8E8E8'
 
-                                }).attr("rotation-value", value.item_orientation);
+                                    }).attr("rotation-value", value.item_orientation);
 
 
-                                $('.planner-item-' + value.item_id).css({
-                                    'position': 'absolute',
-                                    'top': event.pageY - $('.main-room').offset().top,
-                                    'left': event.pageX - $('.main-room').offset().left,
-                                    'z-index': 4
-                                }).on("dblclick", {
-                                    itemid: value.item_id
-                                }, rotate); // Rotation bei Doppelklick
-
-                            });
-                            dragAndDrop();
+                                    $('.planner-item-' + value.item_id).css({
+                                        'position': 'absolute',
+                                        'top': event.pageY - $('.main-room').offset().top,
+                                        'left': event.pageX - $('.main-room').offset().left,
+                                        'z-index': 4
+                                    }).on("dblclick", {
+                                        itemid: value.item_id
+                                    }, rotate); // Rotation bei Doppelklick
+                                });
+                                dragAndDrop();
+                            }
+                            else{
+                                $('#NeubauMap').html('<div class="alert alert-info">Sie verfügen nicht über Bearbeitungsrechte für diesen Raum.</div>');
+                            }
                         }
                     });
                 }
@@ -102,7 +107,7 @@ function loadNeubauRoom(roomId) {
         });
     }
     else {
-        $('#NeubauMap').html('<div class="alert alert-info">Bitte einen Raum auswählen</div>');
+        $('#NeubauMap').html('<div class="alert alert-info">Bitte einen Raum auswählen.</div>');
     }
 }
 
@@ -172,7 +177,7 @@ $(document).ready(function ($) {
                         var html = '';
 
                         // Erstes Feld mit Feldnamen vorbelegen
-                        $('#AltbauEtage').html('<option>Etage</option>');
+                        $('#AltbauEtage').html('<option value="">Etage</option>');
 
                         // Ausgewähltes Gebäude hat keine Etagen
                         if (floors.length === 0) {
@@ -217,9 +222,16 @@ $(document).ready(function ($) {
                         }
                         else {
                             $.each(rooms, function (key, value) {
-                                html += '<option value="' + value.room_id + '">' + value.room_name + '</option>'
+                                if(value.owner){
+                                    html += '<option value="' + value.room_id + '">' + value.room_name + '</option>';
+                                }
                             });
-                            $('#AltbauRaum').append(html);
+                            if(html !== ''){
+                                $('#AltbauRaum').append(html);
+                            }
+                            else{
+                                $('#AltbauRaum').html('<option value="">Kein Raum mit Bearbeitungsrechten</option>');
+                            }
                         }
                         dragAndDrop();
                     }
@@ -296,9 +308,17 @@ $(document).ready(function ($) {
                         }
                         else {
                             $.each(rooms, function (key, value) {
-                                html += '<option value="' + value.room_id + '">' + value.room_name + '</option>'
+                                if(value.owner){
+                                    html += '<option value="' + value.room_id + '">' + value.room_name + '</option>';
+                                }
                             });
-                            $('#NeubauRaum').append(html);
+                            if(html !== ''){
+                                $('#NeubauRaum').append(html);
+                            }
+                            else{
+                                $('#NeubauRaum').html('<option value="">Kein Raum mit Bearbeitungsrechten</option>');
+                            }
+
                         }
                         dragAndDrop();
                     }
