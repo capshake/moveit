@@ -464,25 +464,26 @@ function dragAndDrop() {
                 var dataHeight = gedroptesItem.data("height");
                 var dataWidth = gedroptesItem.data("width");
 
+                if (typeof dataId != 'undefined') {
+                    $(".main-room").append('<img data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
-                $(".main-room").append('<img data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
-
-                $('.planner-item-' + dataId).css({
-                    'position': 'absolute',
-                    'top': event.pageY - $('.main-room').offset().top,
-                    'left': event.pageX - $('.main-room').offset().left,
-                    'z-index': 4,
-                    'width': dataWidth,
-                    'height': dataHeight
-                }).on("dblclick", {
-                    itemid: dataId
-                }, rotate); // Rotation bei Doppelklick
+                    $('.planner-item-' + dataId).css({
+                        'position': 'absolute',
+                        'top': event.pageY - $('.main-room').offset().top,
+                        'left': event.pageX - $('.main-room').offset().left,
+                        'z-index': 4,
+                        'width': dataWidth,
+                        'height': dataHeight
+                    }).on("dblclick", {
+                        itemid: dataId
+                    }, rotate); // Rotation bei Doppelklick
 
 
-                if (typeof $('.main-room').data('room-id') != 'undefined') {
-                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+                    if (typeof $('.main-room').data('room-id') != 'undefined') {
+                        saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+                    }
+                    gedroptesItem.remove();
                 }
-                gedroptesItem.remove();
             }
             dragAndDrop();
         }
@@ -558,7 +559,6 @@ function getRoom(roomId) {
             dataType: 'json',
             success: function (data) {
 
-
                 $('#NeubauMap').html('<div class="main-room"></div>');
 
                 $('.main-room').css({
@@ -568,7 +568,6 @@ function getRoom(roomId) {
                     'position': 'relative'
 
                 });
-
 
                 $.ajax({
                     type: 'POST',
@@ -601,16 +600,14 @@ function getRoom(roomId) {
                                 }
 
                             });
-
-
-                            dragAndDrop();
                         }
+
+                        dragAndDrop();
                     }
                 });
             }
         });
     }
-    dragAndDrop();
 }
 
 //ZOLLSTOCK ANFANG
@@ -618,45 +615,47 @@ function getRoom(roomId) {
 // Bei Klick auf den ZollstockButton erscheinen 2 'Messpunkte' in der NeubauMap
 // und die Beschriftung des ZollstockButton ändert sich
 var distance = 0;
-$('#Zollstock').click(function (e) {
+$('#Zollstock').on('click', function (e) {
 
-    var offset = $(this).offset();
-    var posX = (e.pageX - offset.left);
-    var posY = (e.pageY - offset.top);
+    if (typeof $('.main-room').data('room-id') != 'undefined') {
+        var offset = $(this).offset();
+        var posX = (e.pageX - offset.left);
+        var posY = (e.pageY - offset.top);
 
-    if ($('#Zollstock').text() == "Zollstock anzeigen") {
+        if ($('#Zollstock').text() == "Zollstock anzeigen") {
 
-        // Abstandsanzeige einblenden - label und inputfield
-        $('.abstand-anzeige').css("visibility", "visible");
+            // Abstandsanzeige einblenden - label und inputfield
+            $('.abstand-anzeige').css("visibility", "visible");
 
-        // ButtonText ändern
-        $('#Zollstock').text("Zollstock verstecken");
+            // ButtonText ändern
+            $('#Zollstock').text("Zollstock verstecken");
 
-        // Messpunkte hinzufügen
-        // erster Messpunkt
-        $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 100) + 'px; top: ' + (posY + 100) + 'px"></div>');
-        // zweiter Messpunkt
-        $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 50) + 'px; top: ' + (posY + 100) + 'px"></div>');
+            // Messpunkte hinzufügen
+            // erster Messpunkt
+            $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 100) + 'px; top: ' + (posY + 100) + 'px"></div>');
+            // zweiter Messpunkt
+            $('#NeubauMap').append('<div class="dot" style="left: ' + (posX + 50) + 'px; top: ' + (posY + 100) + 'px"></div>');
 
-        // Distanz messen
-        calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
-    } else {
-        // Abstandsanzeige ausblenden
-        $('.abstand-anzeige').css("visibility", "hidden");
+            // Distanz messen
+            calcDistance(); // fügt auch den gemessenen Wert in das inputfield ein
+        } else {
+            // Abstandsanzeige ausblenden
+            $('.abstand-anzeige').css("visibility", "hidden");
 
-        // ButtonText ändern
-        $('#Zollstock').text("Zollstock anzeigen");
+            // ButtonText ändern
+            $('#Zollstock').text("Zollstock anzeigen");
 
-        // Messpunkte entfernen
-        $('#NeubauMap .dot').remove();
-    }
-
-    $("#NeubauMap .dot").draggable({
-        containment: "parent",
-        drag: function () {
-            calcDistance();
+            // Messpunkte entfernen
+            $('#NeubauMap .dot').remove();
         }
-    });
+
+        $("#NeubauMap .dot").draggable({
+            containment: "parent",
+            drag: function () {
+                calcDistance();
+            }
+        });
+    }
 });
 
 //Distanz berechnen

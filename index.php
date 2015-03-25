@@ -25,7 +25,7 @@ if (!$userData->isLoggedIn()) {
                             <!--Dropdown Menue fuer den Altbau-->
 
                             <div id="AltTrakt">
-                                <select name="AltbauTrakt"  id="AltbauTrakt">
+                                <select class="form-control" name="AltbauTrakt"  id="AltbauTrakt">
                                     <option value="">Trakt</option>
                                     <?php
                                     $buildingsOld = $db->query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 1");
@@ -36,12 +36,12 @@ if (!$userData->isLoggedIn()) {
                                 </select>
                             </div>
                             <div id="AltEtage">
-                                <select name="AltbauEtage" id="AltbauEtage">
+                                <select class="form-control" name="AltbauEtage" id="AltbauEtage">
                                     <option value="">Vorher Trakt w&auml;hlen...</option>
                                 </select>
                             </div>
                             <div id="AltRaum">
-                                <select name="AltbauRaum" id="AltbauRaum">
+                                <select class="form-control" name="AltbauRaum" id="AltbauRaum">
                                     <option value="">Vorher Etage w&auml;hlen...</option>
                                 </select>
                             </div>
@@ -72,8 +72,8 @@ if (!$userData->isLoggedIn()) {
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Neubau</h4>
-                            <button type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-                            <button type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock anzeigen</button>
+                            <button class="btn btn-success btn-sm" type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
+                            <button class="btn btn-success btn-sm" type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock anzeigen</button>
                             <label id="abstand-inline-label" class="abstand-anzeige" for="abstand-inputfield">Abstand in cm :</label>
                             <input id="abstand-inline-inputfield" class="abstand-anzeige" name="abstand-inputfield" />
                         </div>
@@ -91,8 +91,8 @@ if (!$userData->isLoggedIn()) {
                                 </div>
                                 <div id= "NeubauAuswahlMap">
                                     <fieldset>
-                                        <div id = "NeuTraktMap">
-                                            <select name="NeubauTraktMap" id="NeubauTraktMap">
+                                        <div id="NeuTraktMap">
+                                            <select class="form-control" name="NeubauTraktMap" id="NeubauTraktMap">
                                                 <option value="">Gebäude</option>
                                                 <?php
                                                 $buildingsNewMap = $db->query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
@@ -102,8 +102,8 @@ if (!$userData->isLoggedIn()) {
                                                 ?>
                                             </select>
                                         </div>
-                                        <div id = "NeuEtageMap">
-                                            <select name="NeubauEtageMap" id="NeubauEtageMap">
+                                        <div id="NeuEtageMap">
+                                            <select class="form-control" name="NeubauEtageMap" id="NeubauEtageMap">
                                                 <option value="">Vorher Gebäude wählen...</option>
                                             </select>
                                         </div>
@@ -116,36 +116,35 @@ if (!$userData->isLoggedIn()) {
 
                             <!-- Dropdown-Menü für den Neubau -->
                             <div id="NeubauAuswahl">
-                                <fieldset>
-                                    <div id="NeuTrakt">
-                                        <select name="NeubauTrakt" id="NeubauTrakt">
-                                            <option value="">Trakt wählen</option>
-                                            <?php
-                                            $buildingsNew = $db->query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
-                                            foreach ($buildingsNew as $buildingNew) {
-                                                echo "<option value = " . $buildingNew['building_id'] . ">" . $buildingNew['building_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div id="NeuEtage">
-                                        <select name="NeubauEtage" id="NeubauEtage">
-                                            <option value="">Vorher Trakt wählen...</option>
-                                        </select>
-                                    </div>
-                                    <div id="NeuRaum">
-                                        <select name="NeubauRaum" id="NeubauRaum">
-                                            <option value="">Vorher Etage wählen...</option>
-                                        </select>
-                                    </div>
-                                </fieldset>
+
+                                <div id="NeuTrakt">
+                                    <select name="NeubauTrakt" class="form-control" id="NeubauTrakt">
+                                        <option value="">Trakt wählen</option>
+                                        <?php
+                                        $buildingsNew = $db->query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
+                                        foreach ($buildingsNew as $buildingNew) {
+                                            echo "<option value = " . $buildingNew['building_id'] . ">" . $buildingNew['building_name'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div id="NeuEtage">
+                                    <select name="NeubauEtage" class="form-control" id="NeubauEtage">
+                                        <option value="">Vorher Trakt wählen...</option>
+                                    </select>
+                                </div>
+                                <div id="NeuRaum">
+                                    <select name="NeubauRaum" class="form-control" id="NeubauRaum">
+                                        <option value="">Vorher Etage wählen...</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <!-- Ende Dropdown-Menü für Neubau -->
 
                             <!--NeubauMap-->
                             <div>
-                                <div id="NeubauMap" style="overflow: visible;"></div>
+                                <div id="NeubauMap"></div>
                             </div>
 
                         </div>

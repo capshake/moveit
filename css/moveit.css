@@ -28,9 +28,6 @@ html {
     z-index: 200 !important;
 }
 
-#NeubauMap{
-    overflow-x: scroll !important;
-}
 
 #helpButton,
 #helpButton2,
@@ -362,12 +359,6 @@ h4 {
 }
 /* line 298,  */
 
-#Wunschliste,
-#AltbauAuswahl,
-#NeubauAuswahl,
-#AltbauAuswahlMap,
-#NeubauAuswahlMap,
-#NeubauMap {}
 
 #NeuTrakt,
 #NeuEtage,
@@ -381,8 +372,11 @@ h4 {
 }
 
 #NeubauMap {
-    background-color: #FAFAFA;
     margin-top: 20px;
+    overflow-x: auto;
+}
+#NeubauMap .alert {
+    margin: 0 !important;
 }
 /* line 331,  */
 
@@ -472,7 +466,7 @@ select {
 }
 /* line 441,  */
 #MapsLagerListen .panel-body .alert {
-    margin: 0;
+    margin: 0 15px;
 }
 #Verwerfen,
 #Speichern {
@@ -486,7 +480,7 @@ select {
 #Altbau {
     margin: -7px 0 -12px;
 }
-#AltbauListe {
+#AltbauListe, #LagerListe, #MuellListe, #oeffentlichesLagerListe {
     width: auto;
     list-style-type: none;
     overflow: auto;
