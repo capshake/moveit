@@ -16,11 +16,8 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
 
 #####To-Do
 - Drag'n'Drop
-    - Aus Neubau in Altbau oder Lager, Müll, usw. schieben
+    - Von Überall nach Überall schieben
     - Draggable-Bereiche definieren
-    - Items in richtiger Größe einfügen
-    - Bug: Items lassen sich nicht herausziehen, wenn Kartenbereich scrollbar ist
-        -> Kartenbereich unscrollbar machen, sobald Item aufgehoben wird
     - Items im Kartenbereich brauchen Popup mit weiteren Informationen
     - (Item Z-Werte speichern/laden)
     - Tooltips für die Items
