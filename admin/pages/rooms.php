@@ -140,7 +140,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                             if (isset($_POST['create'])) {
                                 $room_name = $_POST['room_name'];
-
+                                $room_map_id = $_POST['room_map_id'];
+                                $room_type = $db -> single("SELECT room_type FROM " . TABLE_ROOMS . ", " . TABLE_MAPS . " WHERE room_map_id = map_id AND map_id = :map_id", array("map_id" => $room_map_id));
 
                                 $update = json_decode($roomData->createRoom($_POST));
                                 if ($update->status == 'error') {
@@ -148,7 +149,12 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     <div class="alert alert-danger"><?php echo $update->msg; ?></div>
                                     <?php
                                 }
-                                if ($update->status == 'success') {
+                                if ($update->status == 'success' && $room_type == 2) { // Neuer Raum ist ein Neubau-Raum, also zusätzlicher Hinweis!
+                                    ?>
+                                    <div class="alert alert-success"><?php echo $update->msg . '<br>Bitte denken Sie daran, den Raum in der <a href="' . BASEDIR . 'admin/mapEditor/edit/' . $room_map_id . '">Karte der Etage</a> zu markieren. Erst dann lassen sich Möbel im Raum platzieren!'; ?></div>
+                                    <?php
+                                }
+                                else if ($update->status == 'success') {
                                     ?>
                                     <div class="alert alert-success"><?php echo $update->msg; ?></div>
                                     <?php
