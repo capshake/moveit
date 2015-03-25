@@ -477,11 +477,14 @@ function dragAndDrop() {
                 }).on("dblclick", {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick
+                
+                $('.altbau-item[data-item-id="' + dataId + '"]').remove();
 
 
                 if (typeof $('.main-room').data('room-id') != 'undefined') {
                     saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
                 }
+                gedroptesItem.remove();
             }
             dragAndDrop();
         }
