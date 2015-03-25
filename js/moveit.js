@@ -465,7 +465,7 @@ function dragAndDrop() {
                 var dataWidth = gedroptesItem.data("width");
 
 
-                $(".main-room").append('<img data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+                $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
                 $('.planner-item-' + dataId).css({
                     'position': 'absolute',

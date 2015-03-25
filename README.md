@@ -21,9 +21,10 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - Items in richtiger Größe einfügen
     - Bug: Items lassen sich nicht herausziehen, wenn Kartenbereich scrollbar ist
         -> Kartenbereich unscrollbar machen, sobald Item aufgehoben wird
-    - (Items im Kartenbereich brauchen Popup mit weiteren Informationen)
+    - Items im Kartenbereich brauchen Popup mit weiteren Informationen
     - (Item Z-Werte speichern/laden)
     - Tooltips für die Items
+        - Erledigt! -> Umstylen?
 - Mapdialog fertigstellen
     - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
     - (Auswahlfelder fixen)

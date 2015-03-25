@@ -67,7 +67,7 @@ function loadNeubauRoom(roomId) {
                         datatype: 'json',
                         success: function (data) {
                             $.each(data.items, function (key, value) {
-                                $(".main-room").append('<img data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
+                                $(".main-room").append('<img data-toggle="tooltip" title="' + value.item_description + '" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
                                 $('.planner-item-' + value.item_id).css({
                                     'position': 'absolute',
