@@ -202,7 +202,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <div class="save-groundplan">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="alert alert-info">Gestalten Sie hier den Lageplan dieser Etage. Bitte dazu die Hinweise unten beachten!</div>
+                                                    <div class="alert alert-info">Gestalten Sie hier den Lageplan dieser Etage. Bitte dazu die Hinweise (Fragezeichen oben) beachten!</div>
                                                 </div>
                                             </div>
                                         </div>

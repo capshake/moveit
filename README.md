@@ -29,5 +29,9 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - Wenn Raum in Neubau platziert -> Hinweis (mit Link?) auf Mapbearbeitung
 - Dropdown
     - Nur Gebäude und jeweilige Etagen darstellen, in denen Bearbeitungsrechte vorliegen (weitere API)
+- Icons
+    - Die Icons im Planer haben momentan einen zu großen inneren Rand
+- Import/Export
+    - Hinweis für Verhalten bei aufeinanderfolgenden Uploads
 
 - Demo-Installation für Präsentation aufsetzen
