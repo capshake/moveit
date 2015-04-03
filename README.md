@@ -16,7 +16,7 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
 
 #####To-Do
 - Drag'n'Drop
-    - Von Überall nach Überall schieben
+    - Von Überall nach Überall schieben (Nur nicht von Neubau zurück in Altbau! Hinweis auf Lager geben!)
     - Draggable-Bereiche definieren
     - Items im Kartenbereich brauchen Popup mit weiteren Informationen
     - (Item Z-Werte speichern/laden)
@@ -33,8 +33,5 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - Die Icons im Planer haben momentan einen zu großen inneren Rand
 - Import/Export
     - Hinweis für Verhalten bei aufeinanderfolgenden Uploads
-
-- Trigger
-    - Item-Anzahl in Export-Tabelle wird nicht richtig aktualisiert!! (SHOWSTOPPER)
 
 - Demo-Installation für Präsentation aufsetzen
