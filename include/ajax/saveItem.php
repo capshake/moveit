@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 $items = array();
 
 if ($userData->isLoggedIn()) {
-    http_response_code(200);
+    header("HTTP/1.1 200 OK");
 
     if (isset($_POST['itemid']) && isset($_POST['orientation'])) {
 
@@ -32,7 +32,7 @@ if ($userData->isLoggedIn()) {
         $items['status'] = 'error';
     }
 } else {
-    http_response_code(401);
+    header("HTTP/1.1 401 OK");
     $items['status'] = 'error';
     $items['msg'] = 'nicht eingeloggt';
 }

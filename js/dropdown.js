@@ -46,7 +46,7 @@ function loadAltbauList(roomId) {
 }
 
 function loadNeubauRoom(roomId) {
-    if (typeof roomId != 'undefined' && roomId !== '') {
+    if (typeof roomId != 'undefined' && roomId != '') {
         $.ajax({
             type: 'POST',
             url: BASEURL + 'api/getRoom/' + roomId,
@@ -70,27 +70,29 @@ function loadNeubauRoom(roomId) {
                                 $.each(data.items, function (key, value) {
                                     $(".main-room").append('<img data-toggle="tooltip" title="' + value.item_description + '" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
+
                                     $('.planner-item-' + value.item_id).css({
                                         'position': 'absolute',
-                                        'top': value.item_position_y,
-                                        'left': value.item_position_x,
+                                        top: value.item_position_y+'px',
+                                        left: value.item_position_x+'px',
                                         'z-index': 4,
                                         'width': value.item_size_x,
                                         'height': value.item_size_y,
                                         'transform': 'rotate(' + value.item_orientation + 'deg)',
                                         'background-color': '#E8E8E8'
+                                    }).attr("rotation-value", value.item_orientation).on("dblclick", {
+                                        itemid: value.item_id
+                                    }, rotate);
+                                    
 
-                                    }).attr("rotation-value", value.item_orientation);
-
-
-                                    $('.planner-item-' + value.item_id).css({
+                                    /*$('.planner-item-' + value.item_id).css({
                                         'position': 'absolute',
                                         'top': event.pageY - $('.main-room').offset().top,
                                         'left': event.pageX - $('.main-room').offset().left,
                                         'z-index': 4
                                     }).on("dblclick", {
                                         itemid: value.item_id
-                                    }, rotate); // Rotation bei Doppelklick
+                                    }, rotate);*/
                                 });
                                 dragAndDrop();
                             }
@@ -326,7 +328,7 @@ $(document).ready(function ($) {
             }
         });
 
-        $('#NeubauRaum').change(function (e) { // NeubauRaum geändert, Raumkarte laden
+        $('#NeubauRaum').on('change', function (e) { // NeubauRaum geändert, Raumkarte laden
             roomId = $('#NeubauRaum').val();
             loadNeubauRoom(roomId);
 

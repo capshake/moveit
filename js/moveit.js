@@ -466,10 +466,12 @@ function dragAndDrop() {
 
                 $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
+
+
                 $('.planner-item-' + dataId).css({
                     'position': 'absolute',
-                    'top': event.pageY - $('.main-room').offset().top,
-                    'left': event.pageX - $('.main-room').offset().left,
+                    'top': event.pageY - $('.main-room').offset().top+'px',
+                    'left': event.pageX - $('.main-room').offset().left+'px',
                     'z-index': 4,
                     'width': dataWidth,
                     'height': dataHeight,
@@ -583,21 +585,25 @@ function getRoom(roomId) {
                                 if (value.item_position_y > 0 && value.item_position_x > 0) {
                                     $(".main-room").append('<img data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
+                                    console.log('1', value.item_position_y, value.item_position_x);
+                                    
                                     $('.planner-item-' + value.item_id).css({
                                         'position': 'absolute',
                                         'top': value.item_position_y,
                                         'left': value.item_position_x,
                                         'z-index': 4
-                                    });
-
-                                    $('.planner-item-' + value.item_id).css({
-                                        'position': 'absolute',
-                                        'top': event.pageY - $('.main-room').offset().top,
-                                        'left': event.pageX - $('.main-room').offset().left,
-                                        'z-index': 4
                                     }).on("dblclick", {
                                         itemid: value.item_id
                                     }, rotate);
+
+                                    /*$('.planner-item-' + value.item_id).css({
+                                        'position': 'absolute',
+                                        'top': event.pageY - $('.main-room')[0].getBoundingClientRect().top,
+                                        'left': event.pageX - $('.main-room')[0].getBoundingClientRect().left,
+                                        'z-index': 4
+                                    }).on("dblclick", {
+                                        itemid: value.item_id
+                                    }, rotate);*/
                                 }
 
                             });
