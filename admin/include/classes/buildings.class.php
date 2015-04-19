@@ -21,13 +21,14 @@ class Buildings extends Token {
 
         if (isset($data) && !empty($data)) {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_name = :building_name", array("building_name" => $data['building_name']), PDO::FETCH_NUM);
+            $building_name = trim($data['building_name']) == false;
 
             //Überprüfung der einzelnen Felder
             if ($existsBuilding) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits.';
             }
-            if (empty(trim($data['building_name']))) {
+            if (empty($building_name)) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Gebäudename aus.';
             }
@@ -77,8 +78,9 @@ class Buildings extends Token {
 
         if (isset($data) && !empty($data) && !empty($id)) {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $id), PDO::FETCH_NUM);
-            $existsBuildingName = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_name = :building_name AND building_id != :building_id", 
+            $existsBuildingName = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_name = :building_name AND building_id != :building_id",
                                            array("building_name" => $data['building_name'], "building_id" => $id), PDO::FETCH_NUM);
+            $building_name = trim($data['building_name']) == false;
 
             //Überprüfung der einzelnen Felder
             if (!$existsBuilding) {
@@ -89,7 +91,7 @@ class Buildings extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Ein Gebäude mit diesem Namen existiert bereits.';
             }
-            if (empty(trim($data['building_name']))) {
+            if (empty($building_name)) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Gebäudename aus.';
             }

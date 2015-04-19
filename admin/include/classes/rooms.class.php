@@ -21,13 +21,14 @@ class Rooms extends Token {
 
         if (isset($data) && !empty($data)) {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_ROOMS . " WHERE room_name = :room_name", array("room_name" => $data['room_name']), PDO::FETCH_NUM);
+            $room_name = trim($data['room_name']) == false;
 
             //Überprüfung der einzelnen Felder
             if ($existsBuilding) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Ein Raum mit diesem Namen existiert bereits.';
             }
-            if (empty(trim($data['room_name']))) {
+            if (empty($room_name)) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumname aus.';
             }
@@ -98,6 +99,7 @@ class Rooms extends Token {
         if (isset($data) && !empty($data) && !empty($id)) {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_ROOMS . " WHERE room_id = :room_id", array("room_id" => $id), PDO::FETCH_NUM);
             $existsBuildingName = $db->row("SELECT * FROM " . TABLE_ROOMS . " WHERE room_name = :room_name AND room_id != :room_id", array("room_name" => $data['room_name'], "room_id" => $id), PDO::FETCH_NUM);
+            $room_name = trim($data['room_name']) == false;
 
             //Überprüfung der einzelnen Felder
             if (!$existsBuilding) {
@@ -108,7 +110,7 @@ class Rooms extends Token {
                 $return['status'] = 'error';
                 $return['msg'] = 'Ein Raum mit diesem Namen existiert bereits.';
             }
-            if (empty(trim($data['room_name']))) {
+            if (empty($room_name)) {
                 $return['status'] = 'error';
                 $return['msg'] = 'Füllen Sie bitte das Feld Raumname aus.';
             }
