@@ -21,7 +21,7 @@ class Buildings extends Token {
 
         if (isset($data) && !empty($data)) {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_name = :building_name", array("building_name" => $data['building_name']), PDO::FETCH_NUM);
-            $building_name = trim($data['building_name']) == false;
+            $building_name = trim($data['building_name']) == true;
 
             //Überprüfung der einzelnen Felder
             if ($existsBuilding) {
@@ -80,7 +80,7 @@ class Buildings extends Token {
             $existsBuilding = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_id = :building_id", array("building_id" => $id), PDO::FETCH_NUM);
             $existsBuildingName = $db->row("SELECT * FROM " . TABLE_BUILDINGS . " WHERE building_name = :building_name AND building_id != :building_id",
                                            array("building_name" => $data['building_name'], "building_id" => $id), PDO::FETCH_NUM);
-            $building_name = trim($data['building_name']) == false;
+            $building_name = trim($data['building_name']) == true;
 
             //Überprüfung der einzelnen Felder
             if (!$existsBuilding) {
