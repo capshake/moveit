@@ -680,3 +680,8 @@ div#Benutzeransicht table th {
 .main-room.active {
     background-color: #2ECC40;
 }
+
+.helpScreenshot{
+    width: 80%;
+    height: 80%;
+}

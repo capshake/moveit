@@ -30,14 +30,12 @@ if (!$userData->isLoggedIn()) {
                             <ul>
                                 <li>Altbau</li>
                                 <li>Raumbearbeitung im Zentrum</li>
-                                <li>Lagerleiste mit 1. persönlichem Lager/Wunschliste/Müll und 2. öffentlichem Lager</li>
+                                <li>Lagerleiste mit (von oben nach unten) persönlichem Lager, Liste der aussortierten Möbel und öffentlichem Lager</li>
                             </ul>
                             Welche Funktionen im Detail in den einzelnen Bereichen angeboten werden, entnehmen Sie den folgenden Abschnitten.
                             </p>
                             <br>
-                            <a href="#" data-toggle="modal" data-target="#lightbox">
-                                <img class="anleitung" src="./img/1Anleitung.png">
-                            </a>
+                            <img class="helpScreenshot" src="./img/Screenshot1.png"> 
                         </div>
                         <br>
                         <br>
@@ -46,23 +44,21 @@ if (!$userData->isLoggedIn()) {
                             <p>
                                 Im Altbaubereich werden Ihnen genau zwei Funktionen angeboten:
                             <ul>
-                                <li><strong>Raum auswählen:</strong>Im rot-unterlegten oberen Teil können Sie einen Raum des Altbaus über drei Drop-Down-Meünus wählen. Beachten Sie dabei bitte, dass
-                                    das Dropdown-Menü von oben nach unten ausgefüllt werden muss.</li>
-                                <li><strong>Inventar des gewählten Raums verwalten:</strong>Sofern Sie berechtigt sind den ausgewählten Raum zu bearbeiten, erscheint unterhalb des Drop-Down-Menüs eine Liste
-                                    mit dem Inventar des Raums. Items der Liste können per Drag and Drop aus der Liste in den Raumbearbeitungsbereich gezogen werden.</li>
+                                <li><strong>Raum auswählen:</strong>Über drei Dropdown-Menüs wählen Sie einen Altbauraum aus, für den Sie Bearbeitungsrechte haben. Beachten Sie dabei bitte, dass
+                                    das Dropdown-Menü von oben nach unten ausgefüllt werden muss. Sobald ein Raum ausgewählt wurde erscheint darunter das Inventar des Raums (siehe unten).</li>
+                                <li><strong>Inventar des gewählten Raums verwalten:</strong>Sofern Sie berechtigt sind den ausgewählten Raum zu bearbeiten, erscheint unterhalb des Dropdown-Menüs eine Liste
+                                    mit dem Inventar des Raums. Items der Liste können per Drag and Drop aus der Liste in den Raumbearbeitungsbereich gezogen werden. Items die einmal aus dem Altbau 
+                                    genommen wurden können nicht mehr in den Altbau zurückgeschoben werden - falls diese Items aus dem aktuellen Raum genommen werden sollen, ziehen Sie das entsprechende
+                                    Möbelstück in eines der Lager auf der rechten Seite. (z.B. persönliches Lager).</li>
                             </ul>
                             </p>
 
                             <br>
-                            <a href="#" data-toggle="modal" data-target="#lightbox">
-                                <img class="anleitung" src="./img/2Anleitung.png">
-                            </a>
-
+                                <img class="helpScreenshot" src="./img/Screenshot2_altbau.png">                        
                         </div>
                         <br>
                         <br>
                         <h3> Welche Funktion hat der Neubaubereich? </h3> <!-- Dritter faltbarer Teil -->
-
                         <div>
                             <p>
                                 Im Neubaubereich findet die direkte Raumbearbeitung, d.h. das Positionieren der Möbel, statt. Folgende Funktionen sind gegeben:
@@ -75,31 +71,29 @@ if (!$userData->isLoggedIn()) {
                                 </li>   
                                 <li><strong>Der Zollstock-Button:</strong> Durch Klicken auf den Zollstock-Button erscheinen im Raumbearbeitungsbereich zwei Winkel,
                                     die innerhalb des Raumes positioniert werden können. Rechts von den Dropdown-Menüs wird Ihnen der Abstand zwischen den zwei Punkten
-                                    in cm angezeigt. 
+                                    in cm angezeigt. Wenn Sie nicht möchten, dass die Winkel weiterhin angezeigt werden, klicken Sie links neben der Anzeige des Abstands auf
+                                    <em>Zollstock verstecken</em>.
                                 </li>
                             </ul>
                             </p>
                             <br>
-                            <a href="#" data-toggle="modal" data-target="#lightbox">
-                                <img class="anleitung" src="./img/3Anleitung.png">
-                            </a>
+                            <img class="helpScreenshot" src="./img/Screenshot3_neubau.png"> 
                         </div>
                         <br>
                         <br>
-                        <h3>Welche Funktion haben die Lager?</h3> <!-- Vierter faltbarer Teil -->
+                        <h3>Welche Funktionen haben die Lager?</h3> <!-- Vierter faltbarer Teil -->
                         <div>
                             <p>
                             <ul>
                                 <li><strong>Persönliches Lager:</strong>Falls Sie zunächst keine Verwendung für ein oder mehrere Möbelstücke finden,
                                     können Sie diese mittels Drag-and-Drop in das (persönliche) Lager verschieben.</li>
-                                <li><strong>Müll:</strong> Möbelstücke, die defekt oder nicht mehr brauchbar sind, verschieben Sie per Drag-and-Drop in den "Müll".</li>
-                                <li><strong>Öffentliches Lager:</strong> Hier können Möbel abgelegt werden, die noch funktionstüchtig sind, für die Sie aber keine Verwendung mehr haben.</li>
+                                <li><strong>Aussortierte Möbel:</strong> Möbelstücke, die defekt oder nicht mehr brauchbar sind, verschieben Sie per Drag-and-Drop in die Liste der aussortierten Möbel.</li>
+                                <li><strong>Öffentliches Lager:</strong> Hier können Möbel abgelegt werden, die noch funktionstüchtig sind, für die Sie aber keine Verwendung mehr haben. Andere Nutzer
+                                    können diese Items auch verwenden.</li>
                             </ul>
                             </p>
                             <br>
-                            <a href="#" data-toggle="modal" data-target="#lightbox">
-                                <img class="anleitung" src="./img/3Anleitung.png">
-                            </a>
+                            <img class="helpScreenshot" src="./img/Screenshot4_lager.png"> 
                         </div>
                         <br>
                         <br>
@@ -110,15 +104,12 @@ if (!$userData->isLoggedIn()) {
                                 Das Item kann nach Belieben im Raum platziert werden. Dieses Möbelstück können Sie mittels <em>Doppelklick</em> um 90° im Uhrzeigersinn rotieren.
                             </p>
 
-                            <a href="#" data-toggle="modal" data-target="#lightbox">
-                                <img class="anleitung" src="./img/4Anleitung.png">
-                            </a>
                         </div>
                         <br>
                         <br>
                         <h3>Wie kann ich für Räume freigeschaltet werden?</h3> <!-- Sechster faltbarer Teil -->
                         <div>
-                            <p>Die Freischaltung der von Ihnen auswählbaren Räumen erfolgt durch den Admin. Falls es Probleme mit der Freischaltung gibt oder Räume fehlen, wenden Sie sich bitte an den Admin.</p>
+                            <p>Die Freischaltung der von Ihnen auswählbaren Räume erfolgt durch den Admin. Falls es Probleme mit der Freischaltung gibt oder Räume fehlen, wenden Sie sich bitte an den Admin.</p>
                         </div>
                         <br>
                         <br>
@@ -130,23 +121,14 @@ if (!$userData->isLoggedIn()) {
                         </div>
                     </div>
                     <br>
-                    <br> Falls Sie noch <em>weitere Fragen</em>, über die Verwendung unserer Website haben, schreiben sie unserem Admin eine E-Mail: <a href="mailto: admin@moveit.de">admin@moveit.de</a>
+                    <br> Falls Sie noch <em>weitere Fragen</em> zur Verwendung von moveIT haben, schreiben sie dem Admin eine E-Mail: <a href="mailto: moveit-admin@fh-duesseldorf.de">moveit-admin@fh-duesseldorf.de</a>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="" alt="" />
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <?php
     include_once '../../include/footer.php';
 }
