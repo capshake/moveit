@@ -404,7 +404,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                             <p>
                                 In moveIT werden die Kombinationen von Gebäuden und Etagen Maps genannt.
                                 Für jede Etage in jedem Gebäude wird eine solche Map angelegt, sowohl für Gebäude des Altbaus als auch für die neuen Gebäude.
-                                Ein Gebäude erscheint noch nicht in dieser Liste, wenn es gerade erst angelegt wurde. Um eine Etage zu einem neuen Gebäude hinzuzufügen, klicken Sie auf den Button "Etage anlegen".
+                                Ein Gebäude erscheint noch nicht in dieser Liste, wenn es gerade erst angelegt wurde. Um eine Etage zu einem neuen Gebäude hinzuzufügen, klicken Sie auf den Button <em>Etage anlegen</em>.
                                 Dort finden Sie das gerade erstellte Gebäude und können diesem Etagen zuweisen.
                             </p>
                             <hr>
