@@ -63,7 +63,7 @@ if (!$userData->isLoggedIn()) {
                     <p>Daten und Informationen, die Sie in moveIT eingeben, sind zu Ihrer eigenen Information und Organisation bestimmt. Sie werden nicht von uns kontrolliert, Dritte können diese nicht einsehen.</p>
                     <br>
                     <h4>Löschen Ihrer Daten</h4>
-                    <p>Falls Sie das Angebot des moveIT-Umzugsplaners nicht länger nutzen wollen und darüber hinaus wünschen, dass Ihre Daten gelöscht werden, wenden Sie sich mit diesem Wunsch an den Admin (<a href="mailto:admin@moveit.de">admin@moveit.de</a>).</p>
+                    <p>Falls Sie das Angebot des moveIT-Umzugsplaners nicht länger nutzen wollen und darüber hinaus wünschen, dass Ihre Daten gelöscht werden, wenden Sie sich mit diesem Wunsch an den Admin (<a href="mailto:moveit-admin@fh-duesseldorf.de">moveit-admin@fh-duesseldorf.de</a>).</p>
                 </div>
             </div>
         </div>
