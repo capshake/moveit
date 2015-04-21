@@ -52,18 +52,18 @@ if (!$userData->isLoggedIn()) {
                     </div>
                 </div>
 
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Hinweis:</strong> Sie können die verschobenen Möbel nicht mehr zurück in den Altbau schieben.
-                </div>
-
                 <div class="panel panel-default">
                     <div class="panel-heading">Möbel im Raum</div>
                     <div class="panel-body">
                         <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
                     </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Hinweis:</strong> Sie können aus diesem Bereich verschobene Möbel nicht wieder zurück in den Altbau schieben! Bitte nutzen Sie Ihr Lager.
                 </div>
 
             </div>
@@ -186,12 +186,6 @@ if (!$userData->isLoggedIn()) {
 
             </div>
         </div>
-        <script type="text/javascript">
-            //Funktion beim Verlassen der Seite/Aktualisieren der Seite
-            window.onbeforeunload = function () {
-                return "Sie verlassen die Seite ohne zu Speichern.";
-            };
-        </script>
     </div><!-- /.container -->
 
     <?php
