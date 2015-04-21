@@ -56,7 +56,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-     
+
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -398,10 +398,10 @@ function checkRegexp(o, regexp, n) {
 }
 
 
-function saveItemInRoom(roomid, itemid, x, y) {
+function saveItemInRoom(roomid, itemid, x, y, z) {
 
 
-    console.log(roomid, itemid, x, y);
+    console.log(roomid, itemid, x, y, z);
     $.ajax({
         type: 'POST',
         url: BASEURL + 'api/saveItem',
@@ -410,7 +410,8 @@ function saveItemInRoom(roomid, itemid, x, y) {
             roomid: roomid,
             itemid: itemid,
             x: x,
-            y: y
+            y: y,
+            z: z
         },
         success: function (data) {
 
@@ -443,7 +444,7 @@ function dragAndDrop() {
             var dataId = $(this).data("item-id");
 
             if (typeof $('.main-room').data('room-id') != 'undefined') {
-                saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top);
+                saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top, $(this).zIndex());
             }
         },
         stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
@@ -464,6 +465,7 @@ function dragAndDrop() {
                 var dataTitle = gedroptesItem.data("title");
                 var dataHeight = gedroptesItem.data("height");
                 var dataWidth = gedroptesItem.data("width");
+                var dataZIndex = gedroptesItem.zIndex();
 
                 $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
@@ -473,7 +475,7 @@ function dragAndDrop() {
                     'position': 'absolute',
                     'top': event.pageY - $('.main-room').offset().top + 'px',
                     'left': event.pageX - $('.main-room').offset().left + 'px',
-                    'z-index': 4,
+                    'z-index': dataZIndex,
                     'width': dataWidth,
                     'height': dataHeight,
                     'background-color': '#E8E8E8'
@@ -485,7 +487,7 @@ function dragAndDrop() {
 
 
                 if (typeof $('.main-room').data('room-id') != 'undefined') {
-                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top, $(this).zIndex());
                 }
                 gedroptesItem.remove();
 
@@ -517,7 +519,6 @@ function getItems(roomId) {
                     if (data.owner) {
                         $.each(data.items, function (key, value) {
                             itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-                            //itemsHTML += '<div class="altbau-item ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                         });
 
 
@@ -537,48 +538,6 @@ function getItems(roomId) {
     }
     dragAndDrop();
 }
-
-//Items aus dem Lager laden
-/*function getItemsVirtualRooms(roomList, api) {
-
-    if (mainSettings.isLoggedIn) {
-
-        var itemClass = '';
-        switch (roomList) {
-            case '#LagerListe':
-                itemClass = 'lager-item';
-                break;
-            case '#MuellListe':
-                itemClass = 'muell-item';
-                break;
-            case '#oeffentlichesLagerListe':
-                itemClass = 'oefflager-item';
-                break;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: BASEURL + api,
-            dataType: 'json',
-            success: function (data) {
-                var itemsHTML = '';
-
-                if (data.items.length > 0) {
-                    $.each(data.items, function (key, value) {
-
-                        itemsHTML += '<div class="' + itemClass + ' ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-
-                        //itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-                    });
-                    $(roomList).html(itemsHTML);
-                } else {
-                    $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
-                }
-            }
-        });
-        dragAndDrop();
-    }
-}*/
 
 // Lade Raum
 function getRoom(roomId) {
@@ -612,25 +571,18 @@ function getRoom(roomId) {
                                 if (value.item_position_y > 0 && value.item_position_x > 0) {
                                     $(".main-room").append('<img data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
-                                    console.log('1', value.item_position_y, value.item_position_x);
+                                    console.log('1', value.item_position_y, value.item_position_x, value.item_position_z);
 
                                     $('.planner-item-' + value.item_id).css({
                                         'position': 'absolute',
                                         'top': value.item_position_y,
                                         'left': value.item_position_x,
-                                        'z-index': 4
+                                        'z-index': value.item_position_z
                                     }).on("dblclick", {
                                         itemid: value.item_id
                                     }, rotate);
 
-                                    /*$('.planner-item-' + value.item_id).css({
-                                     'position': 'absolute',
-                                     'top': event.pageY - $('.main-room')[0].getBoundingClientRect().top,
-                                     'left': event.pageX - $('.main-room')[0].getBoundingClientRect().left,
-                                     'z-index': 4
-                                     }).on("dblclick", {
-                                     itemid: value.item_id
-                                     }, rotate);*/
+                                    $('.planner-item-' + value.item_id).zIndex(99);
                                 }
 
                             });
@@ -732,7 +684,7 @@ function rotate(event) {
 }
 
 //ROTATION ENDE
-function saveRotationInItems(itemid, rotation) {
+function saveRotationInItems(itemid, rotation, z) {
     $.ajax({
         type: 'POST',
         url: BASEURL + 'api/saveItem',

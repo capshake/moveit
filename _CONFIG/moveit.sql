@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Apr 2015 um 17:58
+-- Erstellungszeit: 21. Apr 2015 um 17:03
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -383,6 +383,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `item_room_id` int(11) NOT NULL,
   `item_position_x` double DEFAULT NULL,
   `item_position_y` double DEFAULT NULL,
+  `item_position_z` int(11) NOT NULL DEFAULT '0',
   `item_size_x` double DEFAULT NULL COMMENT 'Breite',
   `item_size_y` double DEFAULT NULL COMMENT 'Tiefe',
   `item_size_z` double DEFAULT NULL COMMENT 'Höhe',
