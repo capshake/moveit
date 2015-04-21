@@ -439,6 +439,7 @@ function dragAndDrop() {
             $(this).hide();
         },
         stop: function () {
+            loadAltbauList($('#AltbauRaum').val());
             $(this).show();
         }
     });

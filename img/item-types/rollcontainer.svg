@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="60px" height="60px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve">
-<ellipse cx="9.33" cy="45.038" rx="6.632" ry="5.81"/>
-<ellipse cx="50.868" cy="45.38" rx="6.632" ry="5.81"/>
-<ellipse cx="50.17" cy="14.62" rx="6.981" ry="6.152"/>
-<ellipse cx="8.981" cy="13.595" rx="6.981" ry="5.81"/>
-<rect x="8.283" y="3" fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="43.981" height="54"/>
+	 viewBox="2 2 55.5 56" enable-background="new 2 2 55.5 56" xml:space="preserve">
+<g>
+	<ellipse cx="9.3" cy="45" rx="6.6" ry="5.8"/>
+</g>
+<g>
+	<ellipse cx="50.9" cy="45.4" rx="6.6" ry="5.8"/>
+</g>
+<g>
+	<ellipse cx="50.2" cy="14.6" rx="7" ry="6.2"/>
+</g>
+<g>
+	<ellipse cx="9" cy="13.6" rx="7" ry="5.8"/>
+</g>
+<g>
+	<rect x="8.3" y="3" fill="#FFFFFF" width="44" height="54"/>
+	<path d="M53.3,58h-46V2h46V58z M9.3,56h42V4h-42V56z"/>
+</g>
 </svg>

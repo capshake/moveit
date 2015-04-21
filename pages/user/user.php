@@ -40,14 +40,13 @@ if (!$userData->isLoggedIn()) {
                 <div class="col-md-offset-3 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h1><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></h1>
-                            <p class="lead"><strong>Email: </strong><?php echo $user['user_email']; ?></p>
+                            Der Benutzer wurde nicht gefunden.
                         </div>
                     </div>
                 </div>
             </div>
-            <h1>Fehler!</h1>
-            <p class="lead">Der Benutzer wurde nicht gefunden.</p>
+
+
             <?php
         }
         ?>

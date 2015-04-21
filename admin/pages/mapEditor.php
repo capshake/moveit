@@ -110,7 +110,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         $update = json_decode($mapData->updateMapScale($_POST, $_GET['edit']));
                                         if ($update->status == 'error') {
                                             ?>
-                                            <div class="row">
+                                            <div class="row"><br />
                                                 <div class="col-md-10 col-md-offset-1">
 
                                                     <div class="alert alert-danger"><?php echo $update->msg; ?></div>
@@ -121,7 +121,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         }
                                         if ($update->status == 'success') {
                                             ?>
-                                            <div class="row">
+                                            <div class="row"><br />
                                                 <div class="col-md-10 col-md-offset-1">
 
                                                     <div class="alert alert-success"><?php echo $update->msg; ?></div>
@@ -148,8 +148,15 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                         <form method="POST" action="<?php echo BASEDIR; ?>admin/mapEditor/edit/<?php echo $map['map_id']; ?>/scale" role="form" enctype="multipart/form-data">
 
                                             <div class="row">
-                                                <div class="col-md-4 col-md-offset-1">
+                                                <br />
+                                                <div class="col-md-10 col-md-offset-1">
 
+                                                    <div class="alert alert-info">Klicken Sie auf die Map um die Distanz von zwei Punkten zu definieren.</div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-1">
                                                     <div class="form-group">
                                                         <label for="map_scale_px">Distanz in Pixel</label>
                                                         <input id="map_scale_px" name="map_scale_px" value="<?php echo $map['map_scale_px']; ?>" class="form-control scale-value" placeholder="Distanz in Pixel" type="text" required autofocus>
@@ -309,8 +316,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                                 </div>
 
 
-                                                <button class="btn btn-primary" type="submit" name="edit">Speichern</button>
-                                                <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
+                                                <button class="btn btn-primary" type="submit" name="edit">Speichern</button><br /><br />
+                                                <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default">
                                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
                                                 </a>
                                             </form>
@@ -384,8 +391,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                                     </select>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit" name="create">Speichern</button>
-                                <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default pull-right">
+                                <button class="btn btn-primary" type="submit" name="create">Speichern</button><br /><br />
+                                <a href="<?php echo BASEDIR; ?>admin/mapEditor" class="btn btn-default">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> zurück zur Mapübersicht
                                 </a>
                             </form>
