@@ -51,6 +51,12 @@ if (!$userData->isLoggedIn()) {
 
                     </div>
                 </div>
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Hinweis:</strong> Sie können aus diesem Bereich verschobene Möbel nicht wieder zurück in den Altbau schieben! Bitte nutzen Sie Ihr persönliches Lager auf der rechten Seite.
+                </div>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Möbel im Raum</div>
@@ -59,12 +65,6 @@ if (!$userData->isLoggedIn()) {
                     </div>
                 </div>
 
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Hinweis:</strong> Sie können aus diesem Bereich verschobene Möbel nicht wieder zurück in den Altbau schieben! Bitte nutzen Sie Ihr Lager.
-                </div>
 
             </div>
             <div class="col-xs-8">
