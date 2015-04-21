@@ -114,26 +114,28 @@ function loadNeubauRoom(roomId) {
 }
 
 function loadVirtualList() {
-    var virtualRooms = [{'room': '#LagerListe', 'url': 'api/getItems/store/user'},
-        {'room': '#MuellListe', 'url': 'api/getItems/trash'},
-        {'room': '#oeffentlichesLagerListe', 'url': 'api/getItems/store/all'}];
+    var virtualRooms = [{'room': '#LagerListe', 'url': 'api/getItems/store/user', 'itemClass': 'lager-item'},
+        {'room': '#MuellListe', 'url': 'api/getItems/trash', 'itemClass': 'muell-item'},
+        {'room': '#oeffentlichesLagerListe', 'url': 'api/getItems/store/all', 'itemClass': 'oefflager-item'}];
 
-    $.each(virtualRooms, function (key, value) {
+    $.each(virtualRooms, function (key, val) {
         $.ajax({
             type: 'POST',
-            url: BASEURL + value['url'],
+            url: BASEURL + val['url'],
             datatype: 'json',
             success: function (data) {
                 var html = '';
 
                 if (data.items.length > 0) {
+
                     $.each(data.items, function (key, value) {
-                        html += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+                        html += '<div class="' + val['itemClass'] + ' ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                     });
-                    $(value['room']).html(html);
+
+                    $(val['room']).html(html);
                 }
                 else {
-                    $(value['room']).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
+                    $(val['room']).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
                 }
                 dragAndDrop();
             }
@@ -386,7 +388,7 @@ $(document).ready(function ($) {
                 $('.frontend-groundplan-outer').remove();
                 $('#Map').html('<div class="alert alert-info">Wählen Sie eine Map aus.</div>');
             }
-            
+
         });
 
         $('body').on('click', '.frontend-groundplan-outer .map-room', function () {

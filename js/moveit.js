@@ -19,14 +19,14 @@ $(document).ready(function () {
         });
     }
     // Laden von Lager, Müll und öffentlichem Lager
-    getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
+    /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
     getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
 
     // Neulade-Button
-    $("#btnOeffReset").click(function () {
+    $("#btnOeffReset").on('click', function () {
         getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-    });
+    });*/
 
 
     //Popup vor dem Löschvorgang
@@ -56,7 +56,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-
+     
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -424,7 +424,8 @@ function saveItemInRoom(roomid, itemid, x, y) {
 function dragAndDrop() {
 
 
-    $(".altbau-item").draggable({
+
+    $(".altbau-item, .oefflager-item, .lager-item, .muell-item").draggable({
         revert: 'invalid',
         helper: 'clone',
         start: function () {
@@ -470,8 +471,8 @@ function dragAndDrop() {
 
                 $('.planner-item-' + dataId).css({
                     'position': 'absolute',
-                    'top': event.pageY - $('.main-room').offset().top+'px',
-                    'left': event.pageX - $('.main-room').offset().left+'px',
+                    'top': event.pageY - $('.main-room').offset().top + 'px',
+                    'left': event.pageX - $('.main-room').offset().left + 'px',
                     'z-index': 4,
                     'width': dataWidth,
                     'height': dataHeight,
@@ -479,14 +480,18 @@ function dragAndDrop() {
                 }).on("dblclick", {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick
-                
-                $('.altbau-item[data-item-id="' + dataId + '"]').remove();
+
+                $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
 
 
                 if (typeof $('.main-room').data('room-id') != 'undefined') {
                     saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
                 }
                 gedroptesItem.remove();
+
+
+                // Laden von Lager, Müll und öffentlichem Lager
+                loadVirtualList();
             }
             dragAndDrop();
         }
@@ -512,7 +517,10 @@ function getItems(roomId) {
                     if (data.owner) {
                         $.each(data.items, function (key, value) {
                             itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+                            //itemsHTML += '<div class="altbau-item ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                         });
+
+
                         $('#AltbauListe').html(itemsHTML);
 
                         dragAndDrop();
@@ -531,8 +539,23 @@ function getItems(roomId) {
 }
 
 //Items aus dem Lager laden
-function getItemsVirtualRooms(roomList, api) {
+/*function getItemsVirtualRooms(roomList, api) {
+
     if (mainSettings.isLoggedIn) {
+
+        var itemClass = '';
+        switch (roomList) {
+            case '#LagerListe':
+                itemClass = 'lager-item';
+                break;
+            case '#MuellListe':
+                itemClass = 'muell-item';
+                break;
+            case '#oeffentlichesLagerListe':
+                itemClass = 'oefflager-item';
+                break;
+        }
+
         $.ajax({
             type: 'POST',
             url: BASEURL + api,
@@ -542,7 +565,10 @@ function getItemsVirtualRooms(roomList, api) {
 
                 if (data.items.length > 0) {
                     $.each(data.items, function (key, value) {
-                        itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+
+                        itemsHTML += '<div class="' + itemClass + ' ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+
+                        //itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
                     });
                     $(roomList).html(itemsHTML);
                 } else {
@@ -550,8 +576,9 @@ function getItemsVirtualRooms(roomList, api) {
                 }
             }
         });
+        dragAndDrop();
     }
-}
+}*/
 
 // Lade Raum
 function getRoom(roomId) {
@@ -586,7 +613,7 @@ function getRoom(roomId) {
                                     $(".main-room").append('<img data-title="' + value.item_description + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '" data-item-id="' + value.item_id + '" class="planner-item-' + value.item_id + ' room-item" src="' + itemTypes[value.item_type_id].item_type_picture + '">');
 
                                     console.log('1', value.item_position_y, value.item_position_x);
-                                    
+
                                     $('.planner-item-' + value.item_id).css({
                                         'position': 'absolute',
                                         'top': value.item_position_y,
@@ -597,13 +624,13 @@ function getRoom(roomId) {
                                     }, rotate);
 
                                     /*$('.planner-item-' + value.item_id).css({
-                                        'position': 'absolute',
-                                        'top': event.pageY - $('.main-room')[0].getBoundingClientRect().top,
-                                        'left': event.pageX - $('.main-room')[0].getBoundingClientRect().left,
-                                        'z-index': 4
-                                    }).on("dblclick", {
-                                        itemid: value.item_id
-                                    }, rotate);*/
+                                     'position': 'absolute',
+                                     'top': event.pageY - $('.main-room')[0].getBoundingClientRect().top,
+                                     'left': event.pageX - $('.main-room')[0].getBoundingClientRect().left,
+                                     'z-index': 4
+                                     }).on("dblclick", {
+                                     itemid: value.item_id
+                                     }, rotate);*/
                                 }
 
                             });
