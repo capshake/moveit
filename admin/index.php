@@ -24,7 +24,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                     <br>
 
                     <h4><a href="<?php echo BASEDIR; ?>admin/importExport">Import/Export</a></h4>
-                    <p>Es können vorhandene Möbellisten des Umzugunternehmens als CSV-Datei importiert werden und nach Fertigstellung der Umzugsplanung exportiert werden. Außerdem befindet sich hier eine Möglichkeit um alle Umzugsdaten zu zurückzusetzen.
+                    <p>Es können vorhandene Möbellisten des Umzugunternehmens als CSV-Datei importiert werden und nach Fertigstellung der Umzugsplanung exportiert werden. Außerdem befindet sich hier eine Möglichkeit um alle Umzugsdaten zurückzusetzen.
                         <b>Dies betrifft alle Gebäude, Räume, Möbelstücke und Nutzer-Bearbeitungsrechte. Nutzerkonten bleiben jedoch erhalten!</b></p>
 
                     <h4><a href="<?php echo BASEDIR; ?>admin/buildings">Gebäudeverwaltung</a></h4>
@@ -36,7 +36,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 
                     <h4><a href="<?php echo BASEDIR; ?>admin/rooms">Raumverwaltung</a></h4>
                     <p>Räume können erstellt und umbenannt werden. Bei der Erstellung wird jeweils der Standort eines Raumes festgelegt, z.B. befindet sich Raum H1.11 im H-Trakt, 1.OG. Der genaue Standort sowie die Größe des Raumes können im Map-Editor
-                        zum "H-Trakt, 1.OG" angepasst werden. <b>Bitte beachten: Die Map eines Raumes lassen sich nach Erstellung nicht ändern. Sollte das gewünscht sein, muss dieser Raum gelöscht und neu angelegt werden!</b></p>
+                        zum "H-Trakt, 1.OG" angepasst werden. <b>Bitte beachten: Die Map eines Raumes lässt sich nach Erstellung nicht ändern. Sollte das gewünscht sein, muss dieser Raum gelöscht und neu angelegt werden!</b></p>
 
                     <h4><a href="<?php echo BASEDIR; ?>admin/users">Benutzerverwaltung</a></h4>
                     <p>Bietet Funktionen zur Nutzerverwaltung wie Anlegen und Löschen von Nutzern. <b>Dort können Nutzern Räume zugewiesen werden, in denen sie über Bearbeitungsrechte verfügen.</b></p>
