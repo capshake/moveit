@@ -31,7 +31,7 @@ $(document).ready(function () {
     /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
      getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-     
+
      // Neulade-Button
      $("#btnOeffReset").on('click', function () {
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
@@ -65,7 +65,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-     
+
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -456,7 +456,7 @@ function dragAndDrop() {
         stop: function (event, ui) {
             var dataId = $(this).data("item-id");
 
-            if (typeof $('.main-room').data('room-id') != 'undefined') {
+            if (typeof $('.main-room').data('room-id') != 'undefined' && dataId != 'undefined') {
                 if (typeof globalActiveDropContainer == 'undefined') {
                     saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top, $(this).zIndex());
                 }
@@ -469,7 +469,7 @@ function dragAndDrop() {
     $(".main-room").droppable({
         hoverClass: 'active',
         tolerance: 'pointer',
-        
+
         accept: function (event, ui) {
             return true;
         },
