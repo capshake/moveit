@@ -487,6 +487,9 @@ select {
     max-height: 200px;
     margin: 0 -15px;
 }
+#oeffentlichesLagerListe.active, #LagerListe.active, #MuellListe.active {
+    border: 1px solid #2ECC40;
+}
 #AltbauListe .ui-state-default {
     z-index: 9;
     padding: 5px;

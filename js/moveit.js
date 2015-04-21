@@ -31,7 +31,7 @@ $(document).ready(function () {
     /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
      getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-
+     
      // Neulade-Button
      $("#btnOeffReset").on('click', function () {
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
@@ -65,7 +65,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-
+     
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -423,13 +423,13 @@ function saveItemInRoom(roomid, itemid, x, y, z) {
             z: z
         },
         success: function (data) {
-
+            //getRoom(roomid);
         }
     });
 }
 
 
-
+var globalActiveDropContainer;
 //Funktion für Drag and Drop der Icons (alle Elemente mit class='moveitplaner') in der NeubauMap
 function dragAndDrop() {
 
@@ -449,12 +449,22 @@ function dragAndDrop() {
     $(".room-item").draggable({
         //containment: 'parent',
         revert: 'invalid',
+        drag: function () {
+            if (typeof $('.ui-droppable.ui-sortable.active').attr("id") != 'undefined') {
+                globalActiveDropContainer = $('.ui-droppable.ui-sortable.active').attr("id");
+            } else {
+                globalActiveDropContainer = undefined;
+            }
+        },
         stop: function (event, ui) {
             var dataId = $(this).data("item-id");
 
             if (typeof $('.main-room').data('room-id') != 'undefined') {
-                saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top, $(this).zIndex());
+                if (typeof globalActiveDropContainer == 'undefined') {
+                    saveItemInRoom($('.main-room').data('room-id'), dataId, $(this).position().left, $(this).position().top, $(this).zIndex());
+                }
             }
+            globalActiveDropContainer = undefined;
         },
         stack: '[class^="planner-item-"]' // Controls the z-index of the set of elements that match the selector, always brings the currently dragged item to the front.
     });
@@ -466,7 +476,7 @@ function dragAndDrop() {
             return true;
         },
         drop: function (event, ui) {
-
+            globalActiveDropContainer = undefined;
             var gedroptesItem = $(ui.draggable.clone());
             if (!gedroptesItem.hasClass('room-item')) {
                 var dataImg = gedroptesItem.data("img");
@@ -476,7 +486,7 @@ function dragAndDrop() {
                 var dataWidth = gedroptesItem.data("width");
                 var dataZIndex = gedroptesItem.zIndex();
 
-                    $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+                $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
 
 
@@ -492,21 +502,23 @@ function dragAndDrop() {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick
 
-                    $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
+                $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
 
 
-                    if (typeof $('.main-room').data('room-id') != 'undefined') {
-                        saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top,  $(this).zIndex());
-                    }
-                    gedroptesItem.remove();
-
-
-                    // Laden von Lager, Müll und öffentlichem Lager
-                    loadVirtualList();
+                if (typeof $('.main-room').data('room-id') != 'undefined') {
+                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top, $(this).zIndex());
                 }
-                dragAndDrop();
+                gedroptesItem.remove();
+
+
+                // Laden von Lager, Müll und öffentlichem Lager
+                loadVirtualList();
+
+
             }
+            dragAndDrop();
         }
+
     }).sortable({
         revert: false
     });
@@ -523,22 +535,25 @@ function dragAndDrop() {
 
 
             var gedroptesItem = $(ui.draggable.clone());
-
-            if (!gedroptesItem.hasClass('room-item')) {
-                var dataId = gedroptesItem.data("item-id");
+            var dataId = gedroptesItem.data("item-id");
 
 
 
-                saveItemInRoom($('#'+$(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
-                console.log($(this).attr('id'), dataId, 0, 0);
+            saveItemInRoom($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0, 0);
+            //console.log($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
 
-                gedroptesItem.remove();
+            gedroptesItem.remove();
 
 
-                // Laden von Lager, Müll und öffentlichem Lager
-                loadVirtualList();
-            }
+            // Laden von Lager, Müll und öffentlichem Lager
+            loadVirtualList();
+
             dragAndDrop();
+
+            if (typeof $('.main-room').data('room-id') != 'undefined') {
+                //getRoom($('.main-room').data('room-id'));
+                $('.main-room').find('.room-item[data-item-id="' + dataId + '"]').remove();
+            }
         }
     }).sortable({
         revert: false
@@ -599,7 +614,6 @@ function getRoom(roomId) {
                     'height': data.rooms[0].room_size_y,
                     'border': '1px solid #999',
                     'position': 'relative'
-
                 });
 
                 $.ajax({
