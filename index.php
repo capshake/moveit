@@ -51,12 +51,11 @@ if (!$userData->isLoggedIn()) {
 
                     </div>
                 </div>
-
                 <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <strong>Hinweis:</strong> Sie können die verschobenen Möbel nicht mehr zurück in den Altbau schieben.
+                    <strong>Hinweis:</strong> Sie können aus diesem Bereich verschobene Möbel nicht wieder zurück in den Altbau schieben! Bitte nutzen Sie Ihr persönliches Lager auf der rechten Seite.
                 </div>
 
                 <div class="panel panel-default">
@@ -65,6 +64,7 @@ if (!$userData->isLoggedIn()) {
                         <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
                     </div>
                 </div>
+
 
             </div>
             <div class="col-xs-8">
@@ -78,8 +78,8 @@ if (!$userData->isLoggedIn()) {
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Neubau</h4>
-                            <button class="btn btn-success btn-sm" type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden.">MAP</button>
-                            <button class="btn btn-success btn-sm" type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Klicken Sie für den Zollstock.">Zollstock anzeigen</button>
+                            <button class="btn btn-success btn-sm" type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Auf einer Karte der gewählten Etage können Sie einen Neubauraum wählen und sich orientieren">MAP</button>
+                            <button class="btn btn-success btn-sm" type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Beim Klicken erscheinen zwei bewegliche Winkel zum Ausmessen des Raums">Zollstock anzeigen</button>
                             <label id="abstand-inline-label" class="abstand-anzeige" for="abstand-inputfield">Abstand in cm :</label>
                             <input id="abstand-inline-inputfield" class="abstand-anzeige" name="abstand-inputfield" />
                         </div>
@@ -186,12 +186,6 @@ if (!$userData->isLoggedIn()) {
 
             </div>
         </div>
-        <script type="text/javascript">
-            //Funktion beim Verlassen der Seite/Aktualisieren der Seite
-            window.onbeforeunload = function () {
-                return "Sie verlassen die Seite ohne zu Speichern.";
-            };
-        </script>
     </div><!-- /.container -->
 
     <?php

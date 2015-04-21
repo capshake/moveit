@@ -35,7 +35,7 @@ if (!$userData->isLoggedIn()) {
                             Welche Funktionen im Detail in den einzelnen Bereichen angeboten werden, entnehmen Sie den folgenden Abschnitten.
                             </p>
                             <br>
-                            <img class="helpScreenshot" src="./img/Screenshot1.png"> 
+                            <img class="helpScreenshot" src="./img/Screenshot.png"> 
                         </div>
                         <br>
                         <br>
@@ -54,7 +54,7 @@ if (!$userData->isLoggedIn()) {
                             </p>
 
                             <br>
-                                <img class="helpScreenshot" src="./img/Screenshot2_altbau.png">                        
+                                <img class="helpScreenshot" src="./img/Screenshot_Altbau.png">                        
                         </div>
                         <br>
                         <br>
@@ -77,7 +77,7 @@ if (!$userData->isLoggedIn()) {
                             </ul>
                             </p>
                             <br>
-                            <img class="helpScreenshot" src="./img/Screenshot3_neubau.png"> 
+                            <img class="helpScreenshot" src="./img/Screenshot_Neubau.png"> 
                         </div>
                         <br>
                         <br>
@@ -93,7 +93,7 @@ if (!$userData->isLoggedIn()) {
                             </ul>
                             </p>
                             <br>
-                            <img class="helpScreenshot" src="./img/Screenshot4_lager.png"> 
+                            <img class="helpScreenshot" src="./img/Screenshot_Lager.png"> 
                         </div>
                         <br>
                         <br>

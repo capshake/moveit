@@ -23,8 +23,8 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
                            <ul> 
                            <li> <strong>Importieren: </strong>Zunächst können vorhandene Möbellisten als CSV-Datei importiert werden. Wählen Sie die Liste über den <em>Datei auswählen</em>-Button aus. 
                             Der Import wird durch Klicken auf <em>Hochladen und Importieren</em> gültig gemacht.</li> 
-                           <li>	<strong>Exportieren: </strong>Nach der Fertigstellung der Umzugsplanung ist es möglich die neu sortierten Möbel (und damit den Endzustand der Bearbeitung) als CSV-Datei zu exportieren. (<em>Daten exportieren</em>)</li> 
-                           <li>	<strong>Datenbank zurücksetzen: </strong>Außerdem ist es möglich alle vorhandenen Umzugsdaten zurückzusetzen über den roten <em>Datenbank zurücksetzen</em>-Button.
+                           <li>	<strong>Exportieren: </strong>Nach der Fertigstellung der Umzugsplanung ist es möglich, die neu sortierten Möbel (und damit den Endzustand der Bearbeitung) als CSV-Datei zu exportieren. (<em>Daten exportieren</em>)</li> 
+                           <li>	<strong>Datenbank zurücksetzen: </strong>Über den roten <em>Datenbank zurücksetzen</em>-Button ist es außerdem möglich alle vorhandenen Umzugsdaten zurückzusetzen.
                            	Das Zurücksetzen betrifft alle Gebäude, Räume, Möbelstücke und Nutzer-Bearbeitungsrechte. Nutzerkonten bleiben jedoch erhalten!
                             Seien Sie sich bitte absolut sicher, dass Sie die Datenbank zurücksetzen wollen, wenn Sie diesen Button betätigen.</li>
                             </ul>
