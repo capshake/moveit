@@ -92,24 +92,21 @@ if (!$userData->isLoggedIn()) {
                                 <div id= "NeubauAuswahlMap">
                                     <fieldset>
                                         <div id="NeuTraktMap">
-                                            <select class="form-control" name="NeubauTraktMap" id="NeubauTraktMap">
+                                              <select class="form-control" name="NeubauTraktMap" id="NeubauTraktMap">
                                                 <option value="">Gebäude</option>
                                                 <?php
-                                                $buildingsNewMap = $db->query("SELECT building_id, building_name FROM " . TABLE_BUILDINGS . " WHERE building_type = 2");
-                                                foreach ($buildingsNewMap as $buildingNewMap) {
-                                                    echo "<option value = " . $buildingNewMap['building_id'] . ">" . $buildingNewMap['building_name'] . "</option>";
+                                                $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE building_type = 2");
+                                                foreach ($maps as $map) {
+                                                    echo "<option value = " . $map['map_id'] . ">" . $map['building_name'] . " - ".  getFloor($map['map_floor'])."</option>";
                                                 }
                                                 ?>
                                             </select>
                                         </div>
-                                        <div id="NeuEtageMap">
-                                            <select class="form-control" name="NeubauEtageMap" id="NeubauEtageMap">
-                                                <option value="">Vorher Gebäude wählen...</option>
-                                            </select>
-                                        </div>
                                     </fieldset>
                                 </div>
-                                <div id="Map"></div>
+                                <div id="Map">
+                                    <div class="alert alert-info">Wählen Sie eine Map aus.</div>
+                                </div>
 
 
                             </div>

@@ -224,7 +224,7 @@ html {
 }
 /* line 125,  */
 
-.groundplan-outer {
+.groundplan-outer, .frontend-groundplan-outer {
     width: 960px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -233,17 +233,17 @@ html {
 }
 /* line 131,  */
 
-.groundplan-outer .groundplan {
+.groundplan-outer .groundplan, .frontend-groundplan-outer .frontend-groundplan {
     height: 800px;
 }
 /* line 133,  */
 
-.groundplan-outer .groundplan img {
+.groundplan-outer .groundplan img, .frontend-groundplan-outer .frontend-groundplan img {
     width: 100%;
 }
 /* line 136,  */
 
-.groundplan-outer .groundplan .groundplan-inner {
+.groundplan-outer .groundplan .groundplan-inner, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner {
     position: relative;
 }
 /* line 138,  */
@@ -259,7 +259,7 @@ html {
 }
 /* line 148,  */
 
-.groundplan-outer .groundplan .groundplan-inner .map-room {
+.groundplan-outer .groundplan .groundplan-inner .map-room, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room {
     position: absolute;
     border: 1px solid #000;
     background-color: rgba(0, 0, 0, 0.5);
@@ -269,25 +269,25 @@ html {
 }
 /* line 155,  */
 
-.groundplan-outer .groundplan .groundplan-inner .map-room .name {
+.groundplan-outer .groundplan .groundplan-inner .map-room .name , .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room .name {
     text-align: center;
     color: #fff;
     margin: 20px 0 0 0;
 }
 /* line 160,  */
 
-.groundplan-outer .groundplan .groundplan-inner .map-room.owner {
+.groundplan-outer .groundplan .groundplan-inner .map-room.owner, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room.owner {
     background-color: rgba(55, 255, 0, 0.5);
     border-color: #37ff00;
 }
 /* line 163,  */
 
-.groundplan-outer .groundplan .groundplan-inner .map-room.owner:hover {
+.groundplan-outer .groundplan .groundplan-inner .map-room.owner:hover, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room.owner:hover {
     border-color: #38A31B;
 }
 /* line 167,  */
 
-.groundplan-outer .groundplan .groundplan-inner .map-room:hover {
+.groundplan-outer .groundplan .groundplan-inner .map-room:hover, .frontend-outer .frontend-groundplan .frontend-inner .map-room:hover {
     border: 1px solid #f00;
 }
 /* line 175,  */
