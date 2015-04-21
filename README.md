@@ -19,12 +19,9 @@ Sobald weitere Nutzer an MoveIT teilnehmen, hat man als Administrator die Mögli
     - Von Überall nach Überall schieben (Nur nicht von Neubau zurück in Altbau! Hinweis auf Lager geben!)
     - Draggable-Bereiche definieren
     - Items im Kartenbereich brauchen Popup mit weiteren Informationen
-    - (Item Z-Werte speichern/laden)
+    - Item Z-Werte laden
     - Tooltips für die Items
         - Erledigt! -> Umstylen?
-- Mapdialog fertigstellen
-    - (Map-Layer auf Karte aufsetzen, wie wurde das im Map-Editor gemacht?)
-    - (Auswahlfelder fixen)
 - Raumerstellung
     - Wenn Raum in Neubau platziert -> Hinweis (mit Link?) auf Mapbearbeitung
 - Dropdown
