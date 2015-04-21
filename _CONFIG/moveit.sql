@@ -248,62 +248,62 @@ DECLARE var_item_type INT DEFAULT 1;
 
 -- Item-Typ ermitteln (HIER NEUE Item-Typen eintragen!!)
 IF (NEW.AE_Bezeichnung LIKE '%Stuhl%') THEN
-	SET var_item_type = 2;
+  SET var_item_type = 2;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tisch%') THEN
-	SET var_item_type = 3;
+  SET var_item_type = 3;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Schrank%') THEN
-	SET var_item_type = 4;
+  SET var_item_type = 4;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Beamer%') THEN
-	SET var_item_type = 5;
+  SET var_item_type = 5;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Drehstuhl%') OR (NEW.AE_Bezeichnung LIKE '%Bürostuhl%') THEN
-	SET var_item_type = 6;
+  SET var_item_type = 6;
 ELSEIF ((NEW.AE_Bezeichnung LIKE '%Bildschirm%') OR (NEW.AE_Bezeichnung LIKE '%TV%')) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
-	SET var_item_type = 7;
+  SET var_item_type = 7;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Papierkorb%') OR (NEW.AE_Bezeichnung LIKE '%Müll%') THEN
-	SET var_item_type = 8;
+  SET var_item_type = 8;
 ELSEIF ((NEW.AE_Bezeichnung LIKE '%Tageslichtprojektor%') OR (NEW.AE_Bezeichnung LIKE '%OHP%') ) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
-	SET var_item_type = 9;
+  SET var_item_type = 9;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Rollcontainer%') THEN
-	SET var_item_type = 10;
+  SET var_item_type = 10;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tafel%') THEN
-	SET var_item_type = 11;
+  SET var_item_type = 11;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Telefon%') THEN
-	SET var_item_type = 12;
+  SET var_item_type = 12;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Wanne%') THEN
-	SET var_item_type = 13;
+  SET var_item_type = 13;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tresor%') THEN
-	SET var_item_type = 14;
+  SET var_item_type = 14;
 END IF;
 
 -- Fachbereich einfügen
 IF NOT EXISTS(SELECT department_id FROM departments WHERE department_name = NEW.`D__Dezernat\/Fachbereich`) THEN
-	INSERT INTO departments
-	VALUES (NULL, NEW.`D__Dezernat\/Fachbereich`);
+  INSERT INTO departments
+  VALUES (NULL, NEW.`D__Dezernat\/Fachbereich`);
 END IF;
 
 -- Gebäude/Trakt einfügen
 IF NOT EXISTS(SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`) THEN
-	INSERT INTO buildings
+  INSERT INTO buildings
     VALUES(NULL, NEW.`H__Bauteil-Nr. Bestand`, 1);
 END IF;
 
 -- Map einfügen
 IF NOT EXISTS(SELECT map_id FROM maps WHERE map_building_id = (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`) AND map_floor = NEW.`I__Etage Bestand`) THEN
-	INSERT INTO maps
+  INSERT INTO maps
     VALUES (NULL, (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`), NEW.`I__Etage Bestand`, NULL, NULL, NULL);
 END IF;
 
 -- Raum einfügen
 IF NOT EXISTS(SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`) THEN
-	INSERT INTO rooms
+  INSERT INTO rooms
     VALUES(NULL, NEW.`J__Raum-Nr. Bestand`, NULL, NULL, NULL, NULL, NULL, (SELECT map_id FROM maps WHERE map_building_id = (SELECT building_id FROM buildings WHERE building_name = NEW.`H__Bauteil-Nr. Bestand`) AND map_floor = NEW.`I__Etage Bestand`), 1);
 END IF;
 
 -- Item n-mal einfügen
 WHILE (i <= NEW.`AD_Anzahl`) DO
-	INSERT INTO items
-	VALUES (NULL, NEW.B__Index, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), (SELECT department_id FROM departments WHERE department_name = NEW.`D__Dezernat\/Fachbereich`), NEW.AE_Bezeichnung, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), NULL, NULL, NEW.AG_B, NEW.AH_T, NEW.AI_H, 0, NEW.AR_Zustand, var_item_type);
-	SET i = i + 1;
+  INSERT INTO items
+  VALUES (NULL, NEW.B__Index, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), (SELECT department_id FROM departments WHERE department_name = NEW.`D__Dezernat\/Fachbereich`), NEW.AE_Bezeichnung, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), NULL, NULL, 0, NEW.AG_B, NEW.AH_T, NEW.AI_H, 0, NEW.AR_Zustand, var_item_type);
+  SET i = i + 1;
 END WHILE;
 
 
@@ -318,39 +318,39 @@ DECLARE var_item_type INT DEFAULT 1;
 
 -- Item-Typ ermitteln (HIER NEUE Item-Typen eintragen!!)
 IF (NEW.AE_Bezeichnung LIKE '%Stuhl%') THEN
-	SET var_item_type = 2;
+  SET var_item_type = 2;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tisch%') THEN
-	SET var_item_type = 3;
+  SET var_item_type = 3;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Schrank%') THEN
-	SET var_item_type = 4;
+  SET var_item_type = 4;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Beamer%') THEN
-	SET var_item_type = 5;
+  SET var_item_type = 5;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Drehstuhl%') OR (NEW.AE_Bezeichnung LIKE '%Bürostuhl%') THEN
-	SET var_item_type = 6;
+  SET var_item_type = 6;
 ELSEIF ((NEW.AE_Bezeichnung LIKE '%Bildschirm%') OR (NEW.AE_Bezeichnung LIKE '%TV%')) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
-	SET var_item_type = 7;
+  SET var_item_type = 7;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Papierkorb%') OR (NEW.AE_Bezeichnung LIKE '%Müll%') THEN
-	SET var_item_type = 8;
+  SET var_item_type = 8;
 ELSEIF ((NEW.AE_Bezeichnung LIKE '%Tageslichtprojektor%') OR (NEW.AE_Bezeichnung LIKE '%OHP%') ) AND (NEW.AE_Bezeichnung NOT LIKE '%Wagen%') AND (NEW.AE_Bezeichnung NOT LIKE '%Gestell%') THEN
-	SET var_item_type = 9;
+  SET var_item_type = 9;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Rollcontainer%') THEN
-	SET var_item_type = 10;
+  SET var_item_type = 10;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tafel%') THEN
-	SET var_item_type = 11;
+  SET var_item_type = 11;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Telefon%') THEN
-	SET var_item_type = 12;
+  SET var_item_type = 12;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Wanne%') THEN
-	SET var_item_type = 13;
+  SET var_item_type = 13;
 ELSEIF (NEW.AE_Bezeichnung LIKE '%Tresor%') THEN
-	SET var_item_type = 14;
+  SET var_item_type = 14;
 END IF;
 
 
 -- Item n-mal einfügen
 WHILE (i <= (NEW.`AD_Anzahl` - (SELECT AD_Anzahl FROM data_import WHERE B__Index = NEW.B__Index))) DO
-	INSERT INTO items
-	VALUES (NULL, NEW.B__Index, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), (SELECT department_id FROM departments WHERE department_name = NEW.`D__Dezernat\/Fachbereich`), NEW.AE_Bezeichnung, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), NULL, NULL, NEW.AG_B, NEW.AH_T, NEW.AI_H, 0,NEW.AR_Zustand, var_item_type);
-	SET i = i + 1;
+  INSERT INTO items
+  VALUES (NULL, NEW.B__Index, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), (SELECT department_id FROM departments WHERE department_name = NEW.`D__Dezernat\/Fachbereich`), NEW.AE_Bezeichnung, (SELECT room_id FROM rooms WHERE room_name = NEW.`J__Raum-Nr. Bestand`), NULL, NULL, 0, NEW.AG_B, NEW.AH_T, NEW.AI_H, 0,NEW.AR_Zustand, var_item_type);
+  SET i = i + 1;
 END WHILE;
 
 END
@@ -496,46 +496,46 @@ CREATE TRIGGER `trig_update_item` BEFORE UPDATE ON `items`
 -- Volumen eines Exemplars abrufen
 DECLARE var_vol_cbm decimal(10,4) DEFAULT 0;
 SET var_vol_cbm = (
-    SELECT `AJ_Volumen in cbm` 
-    FROM data_export 
-    WHERE NEW.item_import_id = `B__Index` 
+    SELECT `AJ_Volumen in cbm`
+    FROM data_export
+    WHERE NEW.item_import_id = `B__Index`
     AND (
-        SELECT department_name 
-        FROM departments 
-        WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich` 
-    AND OLD.item_description = `AE_Bezeichnung` 
-    AND OLD.item_state = `AR_Zustand` 
+        SELECT department_name
+        FROM departments
+        WHERE department_id = OLD.item_department_id) = `D__Dezernat\/Fachbereich`
+    AND OLD.item_description = `AE_Bezeichnung`
+    AND OLD.item_state = `AR_Zustand`
     AND (
-        SELECT room_name 
-        FROM rooms 
+        SELECT room_name
+        FROM rooms
         WHERE room_id = OLD.item_room_id
-        ) = `J__Raum-Nr. Bestand` 
+        ) = `J__Raum-Nr. Bestand`
     OR (
-        SELECT room_name 
-        FROM rooms 
+        SELECT room_name
+        FROM rooms
         WHERE room_id = OLD.item_room_id
         ) = `Q__Raum-Nr. neu (Raum-ID)`
    LIMIT 1
     )/(
-    SELECT `AD_Anzahl` 
-    FROM data_export 
-    WHERE NEW.item_import_id = `B__Index` 
+    SELECT `AD_Anzahl`
+    FROM data_export
+    WHERE NEW.item_import_id = `B__Index`
     AND (
-        SELECT department_name 
-        FROM departments 
+        SELECT department_name
+        FROM departments
         WHERE department_id = OLD.item_department_id
-        ) = `D__Dezernat\/Fachbereich` 
-    AND OLD.item_description = `AE_Bezeichnung` 
-    AND OLD.item_state = `AR_Zustand` 
+        ) = `D__Dezernat\/Fachbereich`
+    AND OLD.item_description = `AE_Bezeichnung`
+    AND OLD.item_state = `AR_Zustand`
     AND (
-        SELECT room_name 
-        FROM rooms 
-        WHERE room_id = OLD.item_room_id 
-        ) = `J__Raum-Nr. Bestand` 
+        SELECT room_name
+        FROM rooms
+        WHERE room_id = OLD.item_room_id
+        ) = `J__Raum-Nr. Bestand`
     OR (
-        SELECT room_name 
-        FROM rooms 
-        WHERE room_id = OLD.item_room_id 
+        SELECT room_name
+        FROM rooms
+        WHERE room_id = OLD.item_room_id
         ) = `Q__Raum-Nr. neu (Raum-ID)`
    LIMIT 1
     );
