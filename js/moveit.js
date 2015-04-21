@@ -1,5 +1,6 @@
 var BASEURL = '/moveit/';
 var roomId; // globale Variable für den ausgwählten Raum
+var virtualRoomsOfUser;
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -17,16 +18,24 @@ $(document).ready(function () {
                 itemTypes = data.types;
             }
         });
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/virtualRooms',
+            dataType: 'json',
+            success: function (data) {
+                virtualRoomsOfUser = data;
+            }
+        });
     }
     // Laden von Lager, Müll und öffentlichem Lager
     /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
-    getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
-    getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+     getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
+     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
 
-    // Neulade-Button
-    $("#btnOeffReset").on('click', function () {
-        getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-    });*/
+     // Neulade-Button
+     $("#btnOeffReset").on('click', function () {
+     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+     });*/
 
 
     //Popup vor dem Löschvorgang
@@ -467,7 +476,7 @@ function dragAndDrop() {
                 var dataWidth = gedroptesItem.data("width");
                 var dataZIndex = gedroptesItem.zIndex();
 
-                $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
+                    $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
 
 
@@ -483,12 +492,46 @@ function dragAndDrop() {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick
 
-                $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
+                    $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
 
 
-                if (typeof $('.main-room').data('room-id') != 'undefined') {
-                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top, $(this).zIndex());
+                    if (typeof $('.main-room').data('room-id') != 'undefined') {
+                        saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top,  $(this).zIndex());
+                    }
+                    gedroptesItem.remove();
+
+
+                    // Laden von Lager, Müll und öffentlichem Lager
+                    loadVirtualList();
                 }
+                dragAndDrop();
+            }
+        }
+    }).sortable({
+        revert: false
+    });
+
+
+
+    $("#oeffentlichesLagerListe, #LagerListe, #MuellListe").droppable({
+        hoverClass: 'active',
+        tolerance: 'pointer',
+        accept: function (event, ui) {
+            return true;
+        },
+        drop: function (event, ui) {
+
+
+            var gedroptesItem = $(ui.draggable.clone());
+
+            if (!gedroptesItem.hasClass('room-item')) {
+                var dataId = gedroptesItem.data("item-id");
+
+
+
+                saveItemInRoom($('#'+$(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
+                console.log($(this).attr('id'), dataId, 0, 0);
+
                 gedroptesItem.remove();
 
 
@@ -500,6 +543,7 @@ function dragAndDrop() {
     }).sortable({
         revert: false
     });
+
 }
 
 /* Items laden/////////////////////////////////////////////////// */

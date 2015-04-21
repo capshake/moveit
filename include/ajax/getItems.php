@@ -32,7 +32,22 @@ if ($userData->isLoggedIn()) {
         $db->bind("trash_user", 'trash_' . $_SESSION['user_id']);
         $items['items'] = $db -> query("SELECT " . TABLE_ITEMS . ".* FROM " . TABLE_ITEMS . "," . TABLE_ROOMS . " WHERE item_room_id = room_id AND room_id = (SELECT room_id FROM rooms WHERE room_name = :trash_user)");
         $items['status'] = 'success';
-    } else {
+    }  else if (isset($_GET['virtualRooms'])) { //Items aus Lager eines angegebenen Users suchen
+        header("HTTP/1.1 200 OK");
+        $vrooms = $db -> query("SELECT room_id, room_name FROM " . TABLE_ROOMS . " WHERE room_name = 'store_".$_SESSION['user_id']."' OR room_name = 'trash_".$_SESSION['user_id']."' OR room_name = 'store_all' ");
+        
+        foreach($vrooms as $v) {
+            if($v['room_name'] != 'store_all' ) {
+                $items[substr($v['room_name'], 0, 5)] = $v['room_id'];
+            } else {
+                $items[$v['room_name']] = $v['room_id'];
+            }
+            
+            
+        }
+        
+        $items['status'] = 'success';
+    }else {
         header("HTTP/1.1 401 OK");
         $items['status'] = 'error';
         $items['msg'] = 'Keine gültige Abfrage';
