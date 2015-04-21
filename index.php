@@ -78,7 +78,7 @@ if (!$userData->isLoggedIn()) {
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Neubau</h4>
-                            <button class="btn btn-success btn-sm" type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Hier können Sie ihren Raum im Gebäude finden">MAP</button>
+                            <button class="btn btn-success btn-sm" type="button" id="GrundrissNeubau" data-toggle="tooltip" data-placement="top" title="Auf einer Karte der gewählten Etage können Sie einen Neubauraum wählen und sich orientieren">MAP</button>
                             <button class="btn btn-success btn-sm" type="button" id="Zollstock" data-toggle="tooltip" data-placement="top" title="Beim Klicken erscheinen zwei bewegliche Winkel zum Ausmessen des Raums">Zollstock anzeigen</button>
                             <label id="abstand-inline-label" class="abstand-anzeige" for="abstand-inputfield">Abstand in cm :</label>
                             <input id="abstand-inline-inputfield" class="abstand-anzeige" name="abstand-inputfield" />
