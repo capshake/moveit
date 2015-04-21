@@ -1,5 +1,6 @@
 var BASEURL = '/moveit/';
 var roomId; // globale Variable für den ausgwählten Raum
+var virtualRoomsOfUser;
 
 $(document).ready(function () {
     //An jedes Formular einen Token heften
@@ -17,16 +18,24 @@ $(document).ready(function () {
                 itemTypes = data.types;
             }
         });
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'api/virtualRooms',
+            dataType: 'json',
+            success: function (data) {
+                virtualRoomsOfUser = data;
+            }
+        });
     }
     // Laden von Lager, Müll und öffentlichem Lager
     /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
-    getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
-    getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-
-    // Neulade-Button
-    $("#btnOeffReset").on('click', function () {
-        getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-    });*/
+     getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
+     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+     
+     // Neulade-Button
+     $("#btnOeffReset").on('click', function () {
+     getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
+     });*/
 
 
     //Popup vor dem Löschvorgang
@@ -458,35 +467,70 @@ function dragAndDrop() {
         drop: function (event, ui) {
 
             var gedroptesItem = $(ui.draggable.clone());
-            if (!gedroptesItem.hasClass('room-item')) {
-                var dataImg = gedroptesItem.data("img");
-                var dataId = gedroptesItem.data("item-id");
-                var dataTitle = gedroptesItem.data("title");
-                var dataHeight = gedroptesItem.data("height");
-                var dataWidth = gedroptesItem.data("width");
+            if (!gedroptesItem.hasClass('dot')) {
+                if (!gedroptesItem.hasClass('room-item')) {
+                    var dataImg = gedroptesItem.data("img");
+                    var dataId = gedroptesItem.data("item-id");
+                    var dataTitle = gedroptesItem.data("title");
+                    var dataHeight = gedroptesItem.data("height");
+                    var dataWidth = gedroptesItem.data("width");
 
-                $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
-
-
-
-                $('.planner-item-' + dataId).css({
-                    'position': 'absolute',
-                    'top': event.pageY - $('.main-room').offset().top + 'px',
-                    'left': event.pageX - $('.main-room').offset().left + 'px',
-                    'z-index': 4,
-                    'width': dataWidth,
-                    'height': dataHeight,
-                    'background-color': '#E8E8E8'
-                }).on("dblclick", {
-                    itemid: dataId
-                }, rotate); // Rotation bei Doppelklick
-
-                $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
+                    $(".main-room").append('<img data-toggle="tooltip" title="' + dataTitle + '" data-height="' + dataHeight + '" data-width="' + dataWidth + '" data-title="' + dataTitle + '" data-img="' + dataImg + '" data-item-id="' + dataId + '" class="planner-item-' + dataId + ' room-item" src="' + dataImg + '">');
 
 
-                if (typeof $('.main-room').data('room-id') != 'undefined') {
-                    saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+
+                    $('.planner-item-' + dataId).css({
+                        'position': 'absolute',
+                        'top': event.pageY - $('.main-room').offset().top + 'px',
+                        'left': event.pageX - $('.main-room').offset().left + 'px',
+                        'z-index': 4,
+                        'width': dataWidth,
+                        'height': dataHeight,
+                        'background-color': '#E8E8E8'
+                    }).on("dblclick", {
+                        itemid: dataId
+                    }, rotate); // Rotation bei Doppelklick
+
+                    $('.altbau-item[data-item-id="' + dataId + '"], .oefflager-item[data-item-id="' + dataId + '"], .lager-item[data-item-id="' + dataId + '"], .muell-item[data-item-id="' + dataId + '"]').remove();
+
+
+                    if (typeof $('.main-room').data('room-id') != 'undefined') {
+                        saveItemInRoom($('.main-room').data('room-id'), dataId, event.pageX - $('.main-room').offset().left, event.pageY - $('.main-room').offset().top);
+                    }
+                    gedroptesItem.remove();
+
+
+                    // Laden von Lager, Müll und öffentlichem Lager
+                    loadVirtualList();
                 }
+                dragAndDrop();
+            }
+        }
+    }).sortable({
+        revert: false
+    });
+
+
+
+    $("#oeffentlichesLagerListe, #LagerListe, #MuellListe").droppable({
+        hoverClass: 'active',
+        tolerance: 'pointer',
+        accept: function (event, ui) {
+            return true;
+        },
+        drop: function (event, ui) {
+
+
+            var gedroptesItem = $(ui.draggable.clone());
+
+            if (!gedroptesItem.hasClass('room-item')) {
+                var dataId = gedroptesItem.data("item-id");
+
+
+
+                saveItemInRoom($('#'+$(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
+                console.log($(this).attr('id'), dataId, 0, 0);
+
                 gedroptesItem.remove();
 
 
@@ -498,6 +542,7 @@ function dragAndDrop() {
     }).sortable({
         revert: false
     });
+
 }
 
 /* Items laden/////////////////////////////////////////////////// */
@@ -540,45 +585,45 @@ function getItems(roomId) {
 
 //Items aus dem Lager laden
 /*function getItemsVirtualRooms(roomList, api) {
-
-    if (mainSettings.isLoggedIn) {
-
-        var itemClass = '';
-        switch (roomList) {
-            case '#LagerListe':
-                itemClass = 'lager-item';
-                break;
-            case '#MuellListe':
-                itemClass = 'muell-item';
-                break;
-            case '#oeffentlichesLagerListe':
-                itemClass = 'oefflager-item';
-                break;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: BASEURL + api,
-            dataType: 'json',
-            success: function (data) {
-                var itemsHTML = '';
-
-                if (data.items.length > 0) {
-                    $.each(data.items, function (key, value) {
-
-                        itemsHTML += '<div class="' + itemClass + ' ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-
-                        //itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
-                    });
-                    $(roomList).html(itemsHTML);
-                } else {
-                    $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
-                }
-            }
-        });
-        dragAndDrop();
-    }
-}*/
+ 
+ if (mainSettings.isLoggedIn) {
+ 
+ var itemClass = '';
+ switch (roomList) {
+ case '#LagerListe':
+ itemClass = 'lager-item';
+ break;
+ case '#MuellListe':
+ itemClass = 'muell-item';
+ break;
+ case '#oeffentlichesLagerListe':
+ itemClass = 'oefflager-item';
+ break;
+ }
+ 
+ $.ajax({
+ type: 'POST',
+ url: BASEURL + api,
+ dataType: 'json',
+ success: function (data) {
+ var itemsHTML = '';
+ 
+ if (data.items.length > 0) {
+ $.each(data.items, function (key, value) {
+ 
+ itemsHTML += '<div class="' + itemClass + ' ui-state-default" data-width="' + value.item_size_x + '" data-height="' + value.item_size_y + '" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+ 
+ //itemsHTML += '<div class="ui-state-default" data-title="' + value.item_description + '" data-item-id="' + value.item_id + '" data-img="' + itemTypes[value.item_type_id].item_type_picture + '">' + value.item_description + '</div>';
+ });
+ $(roomList).html(itemsHTML);
+ } else {
+ $(roomList).html('<div class="alert alert-info">Hier befinden sich derzeit keine Möbel.</div>');
+ }
+ }
+ });
+ dragAndDrop();
+ }
+ }*/
 
 // Lade Raum
 function getRoom(roomId) {

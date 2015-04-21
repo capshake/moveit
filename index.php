@@ -52,6 +52,12 @@ if (!$userData->isLoggedIn()) {
                     </div>
                 </div>
 
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Hinweis:</strong> Sie können die verschobenen Möbel nicht mehr zurück in den Altbau schieben.
+                </div>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Möbel im Raum</div>
@@ -92,12 +98,12 @@ if (!$userData->isLoggedIn()) {
                                 <div id= "NeubauAuswahlMap">
                                     <fieldset>
                                         <div id="NeuTraktMap">
-                                              <select class="form-control" name="NeubauTraktMap" id="NeubauTraktMap">
+                                            <select class="form-control" name="NeubauTraktMap" id="NeubauTraktMap">
                                                 <option value="">Gebäude</option>
                                                 <?php
-                                                $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE building_type = 2");
+                                                $maps = $db->query("SELECT map_id, map_building_id, map_floor, map_picture, map_scale_cm, map_scale_px, building_name FROM " . TABLE_MAPS . " LEFT JOIN " . TABLE_BUILDINGS . " ON map_building_id = building_id WHERE building_type = 2 AND map_picture != ''");
                                                 foreach ($maps as $map) {
-                                                    echo "<option value = " . $map['map_id'] . ">" . $map['building_name'] . " - ".  getFloor($map['map_floor'])."</option>";
+                                                    echo "<option value = " . $map['map_id'] . ">" . $map['building_name'] . " - " . getFloor($map['map_floor']) . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -164,7 +170,7 @@ if (!$userData->isLoggedIn()) {
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Müll</div>
+                    <div class="panel-heading">Aussortierte Möbel</div>
                     <div class="panel-body">
                         <div id="MuellListe"></div>
                     </div>
