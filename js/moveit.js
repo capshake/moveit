@@ -408,9 +408,6 @@ function checkRegexp(o, regexp, n) {
 
 
 function saveItemInRoom(roomid, itemid, x, y, z) {
-
-
-    console.log(roomid, itemid, x, y, z);
     $.ajax({
         type: 'POST',
         url: BASEURL + 'api/saveItem',
@@ -472,13 +469,14 @@ function dragAndDrop() {
     $(".main-room").droppable({
         hoverClass: 'active',
         tolerance: 'pointer',
+        
         accept: function (event, ui) {
             return true;
         },
         drop: function (event, ui) {
             globalActiveDropContainer = undefined;
             var gedroptesItem = $(ui.draggable.clone());
-            if (!gedroptesItem.hasClass('room-item')) {
+            if (!gedroptesItem.hasClass('room-item') && !gedroptesItem.hasClass('dot')) {
                 var dataImg = gedroptesItem.data("img");
                 var dataId = gedroptesItem.data("item-id");
                 var dataTitle = gedroptesItem.data("title");
@@ -532,27 +530,26 @@ function dragAndDrop() {
             return true;
         },
         drop: function (event, ui) {
-
-
             var gedroptesItem = $(ui.draggable.clone());
-            var dataId = gedroptesItem.data("item-id");
+            if (!gedroptesItem.hasClass('dot')) {
+
+                var dataId = gedroptesItem.data("item-id");
+stack: ".products"
+                saveItemInRoom($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0, 0);
+                //console.log($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
+
+                gedroptesItem.remove();
 
 
+                // Laden von Lager, Müll und öffentlichem Lager
+                loadVirtualList();
 
-            saveItemInRoom($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0, 0);
-            //console.log($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
+                dragAndDrop();
 
-            gedroptesItem.remove();
-
-
-            // Laden von Lager, Müll und öffentlichem Lager
-            loadVirtualList();
-
-            dragAndDrop();
-
-            if (typeof $('.main-room').data('room-id') != 'undefined') {
-                //getRoom($('.main-room').data('room-id'));
-                $('.main-room').find('.room-item[data-item-id="' + dataId + '"]').remove();
+                if (typeof $('.main-room').data('room-id') != 'undefined') {
+                    //getRoom($('.main-room').data('room-id'));
+                    $('.main-room').find('.room-item[data-item-id="' + dataId + '"]').remove();
+                }
             }
         }
     }).sortable({
