@@ -575,8 +575,8 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
           AND `D__Dezernat\/Fachbereich` = (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id)
           AND `AE_Bezeichnung` = NEW.item_description
           AND `AR_Zustand` = NEW.item_state
-          AND `J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
-          OR `Q__Raum-Nr. neu (Raum-ID)` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
+          AND (`J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
+          OR `Q__Raum-Nr. neu (Raum-ID)` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id))
     )
   THEN
     IF ((SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id) LIKE 'trash_%' OR (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id) LIKE 'store_%')
