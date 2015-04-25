@@ -62,7 +62,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 									<?php
 									$db->bind("id", $_GET['edit']);
 									$user = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :id");
-									
+
 									if (isset($_POST['edit'])) {
 										$update = json_decode('{ "status" : "", "msg" : ""}');
 
@@ -71,7 +71,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 										// falls eMail geändert wurde: Überprüfen ob eMail schon vergeben ist
 										if($user['user_email'] != $_POST['user_email']) {
 											$emailUnique = json_decode(Validation::validateIfEmailIsUnique($_POST['user_email']));
-											
+
 											if( $emailUnique->status == 'error') { // wenn sie bereits vergeben ist
 												$update->status = 'error';
 												$update->msg = $emailUnique->msg;
@@ -186,7 +186,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
 											<select id="role_room_room_id" class="form-control" name="role_room_room_id">
 												<!-- wenn Raumname mit store_ oder trash_ oder wishlist_ beginnt : Raum nicht auflisten -->
 												<?php
-												$rooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " WHERE room_id NOT IN (SELECT role_room_room_id FROM user_role_room WHERE role_room_role_id != 0 AND role_room_user_id = " . $_SESSION['user_id'] . ")");
+												$rooms = $db->query("SELECT * FROM " . TABLE_ROOMS . " WHERE room_type != 0 AND room_id NOT IN (SELECT role_room_room_id FROM user_role_room WHERE role_room_role_id != 0 AND role_room_user_id = " . $user['user_id'] . ")");
 												if(count($rooms) > 0){
                                                     foreach ($rooms as $room) {
                                                         if ( $room['room_type'] != 0 ) { ?>
