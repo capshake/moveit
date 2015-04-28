@@ -79,7 +79,6 @@ function loadNeubauRoom(roomId) {
                                         'width': value.item_size_x,
                                         'height': value.item_size_y,
                                         'transform': 'rotate(' + value.item_orientation + 'deg)',
-                                        'background-color': '#E8E8E8'
                                     }).attr("rotation-value", value.item_orientation).on("dblclick", {
                                         itemid: value.item_id
                                     }, rotate);

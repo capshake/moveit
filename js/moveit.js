@@ -495,7 +495,6 @@ function dragAndDrop() {
                     'z-index': dataZIndex,
                     'width': dataWidth,
                     'height': dataHeight,
-                    'background-color': '#E8E8E8'
                 }).on("dblclick", {
                     itemid: dataId
                 }, rotate); // Rotation bei Doppelklick

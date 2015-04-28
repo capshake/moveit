@@ -739,20 +739,20 @@ CREATE TABLE IF NOT EXISTS `item_types` (
 --
 
 INSERT INTO `item_types` (`item_type_id`, `item_type_name`, `item_type_picture`) VALUES
-(1, 'Sonstige', 'img/item-types/sonstige.svg'),
-(2, 'Stuhl', 'img/item-types/stuhl.svg'),
-(3, 'Tisch', 'img/item-types/tisch.svg'),
-(4, 'Schrank', 'img/item-types/schrank.svg'),
-(5, 'Beamer', 'img/item-types/beamer.svg'),
-(6, 'Drehstuhl', 'img/item-types/drehstuhl.svg'),
-(7, 'Bildschirm', 'img/item-types/bildschirm.svg'),
-(8, 'Mülleimer', 'img/item-types/muell.svg'),
-(9, 'OHP', 'img/item-types/ohp.svg'),
-(10, 'Rollcontainer', 'img/item-types/rollcontainer.svg'),
-(11, 'Tafel', 'img/item-types/tafel.svg'),
-(12, 'Telefon', 'img/item-types/telefon.svg'),
-(13, 'Wanne', 'img/item-types/wanne.svg'),
-(14, 'Tresor', 'img/item-types/tresor.svg');
+(1, 'Sonstige', 'img/item-types/sonstige.png'),
+(2, 'Stuhl', 'img/item-types/stuhl.png'),
+(3, 'Tisch', 'img/item-types/tisch.png'),
+(4, 'Schrank', 'img/item-types/schrank.png'),
+(5, 'Beamer', 'img/item-types/beamer.png'),
+(6, 'Drehstuhl', 'img/item-types/drehstuhl.png'),
+(7, 'Bildschirm', 'img/item-types/bildschirm.png'),
+(8, 'Mülleimer', 'img/item-types/muell.png'),
+(9, 'OHP', 'img/item-types/ohp.png'),
+(10, 'Rollcontainer', 'img/item-types/rollcontainer.png'),
+(11, 'Tafel', 'img/item-types/tafel.png'),
+(12, 'Telefon', 'img/item-types/telefon.png'),
+(13, 'Wanne', 'img/item-types/wanne.png'),
+(14, 'Tresor', 'img/item-types/tresor.png');
 
 -- --------------------------------------------------------
 
