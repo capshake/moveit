@@ -76,6 +76,7 @@ RewriteRule ^logout/(.*)$ include/logout.php?token=$1 [L]
     RewriteRule ^api/getItems/store/all include/ajax/getItems.php?store=all [L]
     RewriteRule ^api/getItems/trash$ include/ajax/getItems.php?trash [L]
     RewriteRule ^api/virtualRooms$ include/ajax/getItems.php?virtualRooms [L]
+    RewriteRule ^api/getItemInfo/([0-9]+)$ include/ajax/getItemInfo.php?item_id=$1 [L]
     
     RewriteRule ^api/saveItem$ include/ajax/saveItem.php [L]
 

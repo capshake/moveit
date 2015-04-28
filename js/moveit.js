@@ -31,7 +31,7 @@ $(document).ready(function () {
     /*getItemsVirtualRooms('#LagerListe', 'api/getItems/store/user');
      getItemsVirtualRooms('#MuellListe', 'api/getItems/trash');
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
-
+     
      // Neulade-Button
      $("#btnOeffReset").on('click', function () {
      getItemsVirtualRooms('#oeffentlichesLagerListe', 'api/getItems/store/all');
@@ -65,7 +65,7 @@ $(document).ready(function () {
     /*$("#AltbauTrakt").selectmenu();
      $("#AltbauEtage").selectmenu();
      $("#AltbauRaum").selectmenu();
-
+     
      $("#NeubauTrakt").selectmenu();
      $("#NeubauEtage").selectmenu();
      $("#NeubauRaum").selectmenu();*/
@@ -470,7 +470,6 @@ function dragAndDrop() {
     $(".main-room").droppable({
         hoverClass: 'active',
         tolerance: 'pointer',
-
         accept: function (event, ui) {
             return true;
         },
@@ -535,7 +534,7 @@ function dragAndDrop() {
             if (!gedroptesItem.hasClass('dot')) {
 
                 var dataId = gedroptesItem.data("item-id");
-stack: ".products"
+                stack: ".products"
                 saveItemInRoom($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0, 0);
                 //console.log($('#' + $(this).attr('id')).attr('data-room-id'), dataId, 0, 0);
 
@@ -555,6 +554,58 @@ stack: ".products"
         }
     }).sortable({
         revert: false
+    });
+
+
+
+    $(".altbau-item, .oefflager-item, .lager-item, .muell-item, .room-item").contextMenu({
+        menuSelector: "#item-context-menu",
+        onOpen: function (selectedMenu) {
+            var itemId = selectedMenu.attr('data-item-id');
+
+            console.log('ID', itemId);
+            if (typeof itemId != 'undefined' && itemId !== '' && mainSettings.isLoggedIn) {
+                // Lade Items des Raums in Auswahlliste
+                $.ajax({
+                    type: 'POST',
+                    url: BASEURL + 'api/getItemInfo/' + itemId,
+                    dataType: 'json',
+                    success: function (data) {
+
+                        $('#item-context-info').html('');
+
+                        if (data.item.length > 0) {
+                            var itemsHTML = '';
+                            itemsHTML += '<ul id="item-context-info-list">';
+                            itemsHTML += '<li id="item-info-context">' + data.item[0].item_description + '</li>';
+                            itemsHTML += '<li><strong>Länge:</strong> ' + data.item[0].width + ' cm</li>';
+                            itemsHTML += '<li><strong>Breite:</strong> ' + data.item[0].height + ' cm</li>';
+                            itemsHTML += '<li><strong>Fachbereich:</strong> ' + data.item[0].fachbereich + '</li>';
+                            if (data.item[0].farbe != null && data.item[0].farbe != '') {
+                                itemsHTML += '<li><strong>Material/Farbe:</strong> ' + data.item[0].farbe + '</li>';
+                            }
+                            if (data.item[0].bemerkung != null && data.item[0].bemerkung != '') {
+                                itemsHTML += '<li><strong>Bemerkung:</strong> ' + data.item[0].bemerkung + '</li>';
+                            }
+                            itemsHTML += '</ul>';
+
+                            $('#item-context-info').html(itemsHTML);
+                            $('#item-context-info ul').css({
+                                'list-style': 'none',
+                                'margin': 0,
+                                'padding': '6px 15px'
+                            });
+
+
+                        } else {
+                            $('#item-context-info').html('<div class="alert alert-info">Keine Informationen</div>');
+                        }
+                    }
+                });
+            } else {
+                $('#item-context-info').html('<div class="alert alert-info">Keine Informationen</div>');
+            }
+        }
     });
 
 }

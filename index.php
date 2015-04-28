@@ -188,6 +188,10 @@ if (!$userData->isLoggedIn()) {
         </div>
     </div><!-- /.container -->
 
+    <div id="item-context-menu" class="dropdown-menu" role="menu" style="display:none">
+        <div id="item-context-info"></div>
+    </div>
+
     <?php
     include_once 'include/footer.php';
 }

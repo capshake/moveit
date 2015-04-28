@@ -686,3 +686,15 @@ div#Benutzeransicht table th {
     height: 80%;
     margin-left: 3%;
 }
+
+// CONTEXT INFO
+#item-context-info-list li {
+    padding: 2px 15px;
+}
+#item-context-info-list li#item-info-context {
+    font-weight: bold;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 0 10px;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}

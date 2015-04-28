@@ -20,6 +20,7 @@
 <script src="<?php echo BASEDIR; ?>js/context-menu.js"></script>
 <script src="<?php echo BASEDIR; ?>js/moveit.js"></script>
 <script src="<?php echo BASEDIR; ?>js/dropdown.js"></script>
+<script src="<?php echo BASEDIR; ?>js/contextItem.js"></script>
 
 <?php
 if (isset($javascript)) {
