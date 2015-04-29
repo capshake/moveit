@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 21. Apr 2015 um 17:03
+-- Erstellungszeit: 29. Apr 2015 um 12:52
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -712,8 +712,7 @@ IF NEW.item_department_id != OLD.item_department_id OR NEW.item_description != O
         AND `D__Dezernat\/Fachbereich` = (SELECT department_name FROM departments WHERE department_id = NEW.item_department_id)
           AND `AE_Bezeichnung` = NEW.item_description
           AND `AR_Zustand` = NEW.item_state
-          AND `J__Raum-Nr. Bestand` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id)
-          OR `Q__Raum-Nr. neu (Raum-ID)` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id);
+          AND `Q__Raum-Nr. neu (Raum-ID)` = (SELECT room_name FROM rooms WHERE room_id = NEW.item_room_id);
   END IF;
 
 END IF;
