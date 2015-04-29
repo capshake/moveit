@@ -61,7 +61,7 @@ if (!$userData->isLoggedIn()) {
                 <div class="panel panel-default">
                     <div class="panel-heading">Möbel im Raum</div>
                     <div class="panel-body">
-                        <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Items in den Raum."></div>
+                        <div id="AltbauListe" data-toggle="tooltip" data-placement="top" title="Ziehen Sie die Möbel in den neuen Raum, Rechtsklick für Details. "></div>
                     </div>
                 </div>
 
