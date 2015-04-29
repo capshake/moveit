@@ -14,13 +14,12 @@ if ($userData->isLoggedIn()) {
                     <?php
                     $user_firstname = '';
                     $user_lastname = '';
-                    $user_name = '';
                     $user_email = '';
 
                     if (isset($_POST['register'])) {
                         $user_firstname = filter_var($_POST['user_firstname'], FILTER_SANITIZE_STRING);
                         $user_lastname = filter_var($_POST['user_lastname'], FILTER_SANITIZE_STRING);
-                        $user_name = filter_var($_POST['user_name'], FILTER_SANITIZE_STRING);
+                        ;
                         $user_email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
 
                         $register = json_decode($userData->createUser($_POST));
@@ -38,7 +37,6 @@ if ($userData->isLoggedIn()) {
                     ?>
 
                     <h2 class="form-heading">Registrieren</h2>
-                    <input name="user_name" value="<?php echo $user_name; ?>" class="first form-control" placeholder="Benutzername" type="text" required autofocus>
                     <input name="user_firstname" value="<?php echo $user_firstname; ?>" class="first form-control" placeholder="Vorname" type="text" required autofocus>
                     <input name="user_lastname" value="<?php echo $user_lastname; ?>" class="first form-control" placeholder="Nachname" type="text" required autofocus>
                     <input name="user_email" value="<?php echo $user_email; ?>" class="form-control" placeholder="Email" type="email" required autofocus>

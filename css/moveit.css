@@ -1,179 +1,700 @@
-/* line 2, F:/xampp/htdocs/moveIT/css/moveit.scss */
-body, html {
-  background-color: #fff;
-  position: relative;
-  min-height: 100%;
-  height: 100%; }
+@charset "UTF-8";
 
-/* line 9, F:/xampp/htdocs/moveIT/css/moveit.scss */
+body,
+html {
+    background-color: #ddd;
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+}
+
 .navbar + .container {
-  padding: 51px 15px 0; }
+    padding: 51px 15px 0;
+}
 
-/* line 13, F:/xampp/htdocs/moveIT/css/moveit.scss */
+.navbar {
+    z-index: 100;
+}
+
+.container {
+    width: 1170px;
+}
+
+.mapHeadline{
+    display: inline-block;
+}
+
+#dialog-GrundrissNeubau {
+    z-index: 200 !important;
+}
+
+
+#helpButton,
+#helpButton2,
+#helpButtonImport,
+#helpButtonBuildings{
+    margin-bottom: 10px;
+
+}
+
+.navbar > .container {
+    //width: 100%;
+}
+
+#etage_map{
+    width: 100%;
+}
+
+#Map{
+    margin-top: 1em;
+}
+
+
+/* line 16,  */
+
 .clear {
-  clear: both; }
-
+    clear: both;
+}
 /*
     FORMS
 */
-/* line 27, F:/xampp/htdocs/moveIT/css/moveit.scss */
+/* line 30,  */
+
 .form-outer {
-  display: table;
-  height: 100%;
-  width: 100%;
-  position: absolute; }
-  /* line 32, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-outer .form-inner {
+    display: table;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+/* line 35,  */
+
+.form-outer .form-inner {
     display: table-cell;
     vertical-align: middle;
     height: 100%;
-    width: 100%; }
+    width: 100%;
+}
+/* line 45,  */
 
-/* line 39, F:/xampp/htdocs/moveIT/css/moveit.scss */
-.form-signin, .form-signup, .form-forgot-password {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto; }
-  /* line 43, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin .form-heading, .form-signin .checkbox, .form-signup .form-heading, .form-signup .checkbox, .form-forgot-password .form-heading, .form-forgot-password .checkbox {
-    margin-bottom: 15px; }
-  /* line 46, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin .checkbox, .form-signup .checkbox, .form-forgot-password .checkbox {
-    font-weight: normal; }
-  /* line 49, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin .form-control, .form-signup .form-control, .form-forgot-password .form-control {
+.form-signin,
+.form-signup,
+.form-forgot-password {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+/* line 49,  */
+
+.form-signin .form-heading,
+.form-signin .checkbox,
+.form-signup .form-heading,
+.form-signup .checkbox,
+.form-forgot-password .form-heading,
+.form-forgot-password .checkbox {
+    margin-bottom: 15px;
+}
+/* line 52,  */
+
+.form-signin .checkbox,
+.form-signup .checkbox,
+.form-forgot-password .checkbox {
+    font-weight: normal;
+}
+/* line 55,  */
+
+.form-signin .form-control,
+.form-signup .form-control,
+.form-forgot-password .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 10px;
-    font-size: 16px; }
-    /* line 57, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .form-signin .form-control:focus, .form-signup .form-control:focus, .form-forgot-password .form-control:focus {
-      z-index: 2; }
-  /* line 62, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin input.form-control, .form-signup input.form-control, .form-forgot-password input.form-control {
+    font-size: 16px;
+}
+/* line 63,  */
+
+.form-signin .form-control:focus,
+.form-signup .form-control:focus,
+.form-forgot-password .form-control:focus {
+    z-index: 2;
+}
+/* line 67,  */
+
+.form-signin input.form-control,
+.form-signup input.form-control,
+.form-forgot-password input.form-control {
     margin-bottom: -1px;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
-    border-radius: 0; }
-    /* line 66, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .form-signin input.form-control.first, .form-signup input.form-control.first, .form-forgot-password input.form-control.first {
-      -webkit-border-radius: 3px 3px 0 0;
-      -moz-border-radius: 3px 3px 0 0;
-      -ms-border-radius: 3px 3px 0 0;
-      border-radius: 3px 3px 0 0; }
-    /* line 69, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .form-signin input.form-control.last, .form-signup input.form-control.last, .form-forgot-password input.form-control.last {
-      -webkit-border-radius: 0 0 3px 3px;
-      -moz-border-radius: 0 0 3px 3px;
-      -ms-border-radius: 0 0 3px 3px;
-      border-radius: 0 0 3px 3px; }
-    /* line 72, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .form-signin input.form-control.alone, .form-signup input.form-control.alone, .form-forgot-password input.form-control.alone {
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      border-radius: 3px; }
-  /* line 76, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin .btn-link, .form-signup .btn-link, .form-forgot-password .btn-link {
-    padding: 0; }
-  /* line 79, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .form-signin .btn-primary, .form-signup .btn-primary, .form-forgot-password .btn-primary {
-    margin-bottom: 20px; }
+    border-radius: 0;
+}
+/* line 70,  */
 
-/* line 85, F:/xampp/htdocs/moveIT/css/moveit.scss */
+.form-signin input.form-control.first,
+.form-signup input.form-control.first,
+.form-forgot-password input.form-control.first {
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -ms-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+/* line 73,  */
+
+.form-signin input.form-control.last,
+.form-signup input.form-control.last,
+.form-forgot-password input.form-control.last {
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -ms-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+}
+/* line 76,  */
+
+.form-signin input.form-control.alone,
+.form-signup input.form-control.alone,
+.form-forgot-password input.form-control.alone {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+/* line 80,  */
+
+.form-signin .btn-link,
+.form-signup .btn-link,
+.form-forgot-password .btn-link {
+    padding: 0;
+}
+/* line 83,  */
+
+.form-signin .btn-primary,
+.form-signup .btn-primary,
+.form-forgot-password .btn-primary {
+    margin-bottom: 20px;
+}
+/* line 89,  */
+
 .wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -51px; }
-  /* line 90, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .wrapper .row {
-    margin-top: 30px; }
-    /* line 92, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .wrapper .row:last-child {
-      margin-bottom: 30px; }
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -51px;
+}
+/* line 94,  */
 
-/* line 100, F:/xampp/htdocs/moveIT/css/moveit.scss */
-.push, .footer {
-  height: 51px; }
+.wrapper .row {
+    margin-top: 10px;
+}
+/* line 96,  */
 
-/* line 103, F:/xampp/htdocs/moveIT/css/moveit.scss */
+.wrapper .row:last-child {
+    margin-bottom: 30px;
+}
+/* line 104,  */
+
+.push,
 .footer {
-  width: 100%;
-  background-color: #f5f5f5; }
-  /* line 106, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .footer > .container {
+    height: 51px;
+}
+/* line 108,  */
+
+.footer {
+    width: 100%;
+    background-color: #f5f5f5;
+}
+/* line 111,  */
+
+.footer > .container {
     padding-right: 15px;
-    padding-left: 15px; }
-    /* line 109, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .footer > .container .text-muted {
-      margin: 15px 0; }
+    padding-left: 15px;
+    //width: 90%;
+}
+/* line 114,  */
 
-/* line 119, F:/xampp/htdocs/moveIT/css/moveit.scss */
+.footer > .container .text-muted {
+    margin: 15px 0;
+}
+/* line 121,  */
+
 .scale-value {
-  margin-bottom: 20px; }
+    margin-bottom: 20px;
+}
+/* line 125,  */
 
-/* line 122, F:/xampp/htdocs/moveIT/css/moveit.scss */
-.groundplan-outer {
-  width: 960px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin: 0 auto; }
-  /* line 127, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .groundplan-outer .groundplan {
-    height: 800px; }
-    /* line 129, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .groundplan-outer .groundplan img {
-      width: 100%; }
-    /* line 132, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .groundplan-outer .groundplan .groundplan-inner {
-      position: relative; }
-      /* line 135, F:/xampp/htdocs/moveIT/css/moveit.scss */
-      .groundplan-outer .groundplan .groundplan-inner .dot {
-        position: absolute;
-        width: 9px;
-        height: 9px;
-        border-width: 0 3px 3px 0;
-        border-style: solid;
-        background-color: transparent;
-        border-color: #F55; }
-      /* line 146, F:/xampp/htdocs/moveIT/css/moveit.scss */
-      .groundplan-outer .groundplan .groundplan-inner .map-room {
-        position: absolute;
-        border: 1px solid #000;
-        background-color: rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-        transition: border-color 0.5s;
-        -webkit-transition: border-color 0.5s; }
-        /* line 153, F:/xampp/htdocs/moveIT/css/moveit.scss */
-        .groundplan-outer .groundplan .groundplan-inner .map-room .name {
-          text-align: center;
-          color: #fff;
-          margin: 20px 0 0 0; }
-        /* line 158, F:/xampp/htdocs/moveIT/css/moveit.scss */
-        .groundplan-outer .groundplan .groundplan-inner .map-room.owner {
-          background-color: rgba(55, 255, 0, 0.5);
-          border-color: #37ff00; }
-          /* line 161, F:/xampp/htdocs/moveIT/css/moveit.scss */
-          .groundplan-outer .groundplan .groundplan-inner .map-room.owner:hover {
-            border-color: #38A31B; }
-        /* line 165, F:/xampp/htdocs/moveIT/css/moveit.scss */
-        .groundplan-outer .groundplan .groundplan-inner .map-room:hover {
-          border: 1px solid #f00; }
+.groundplan-outer, .frontend-groundplan-outer {
+    width: 960px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+/* line 131,  */
 
-/* line 172, F:/xampp/htdocs/moveIT/css/moveit.scss */
+.groundplan-outer .groundplan, .frontend-groundplan-outer .frontend-groundplan {
+    height: 800px;
+}
+/* line 133,  */
+
+.groundplan-outer .groundplan img, .frontend-groundplan-outer .frontend-groundplan img {
+    width: 100%;
+}
+/* line 136,  */
+
+.groundplan-outer .groundplan .groundplan-inner, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner {
+    position: relative;
+}
+/* line 138,  */
+
+.groundplan-outer .groundplan .groundplan-inner .dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-width: 0 3px 3px 0;
+    border-style: solid;
+    background-color: transparent;
+    border-color: #F55;
+}
+/* line 148,  */
+
+.groundplan-outer .groundplan .groundplan-inner .map-room, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room {
+    position: absolute;
+    border: 1px solid #000;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: border-color .5s;
+    -webkit-transition: border-color .5s;
+}
+/* line 155,  */
+
+.groundplan-outer .groundplan .groundplan-inner .map-room .name , .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room .name {
+    text-align: center;
+    color: #fff;
+    margin: 20px 0 0 0;
+}
+/* line 160,  */
+
+.groundplan-outer .groundplan .groundplan-inner .map-room.owner, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room.owner {
+    background-color: rgba(55, 255, 0, 0.5);
+    border-color: #37ff00;
+}
+/* line 163,  */
+
+.groundplan-outer .groundplan .groundplan-inner .map-room.owner:hover, .frontend-groundplan-outer .frontend-groundplan .frontend-groundplan-inner .map-room.owner:hover {
+    border-color: #38A31B;
+}
+/* line 167,  */
+
+.groundplan-outer .groundplan .groundplan-inner .map-room:hover, .frontend-outer .frontend-groundplan .frontend-inner .map-room:hover {
+    border: 1px solid #f00;
+}
+/* line 175,  */
+
 .room-data {
-  display: none; }
-  /* line 174, F:/xampp/htdocs/moveIT/css/moveit.scss */
-  .room-data .room-inner {
-    border: 1px solid #f00; }
-    /* line 176, F:/xampp/htdocs/moveIT/css/moveit.scss */
-    .room-data .room-inner .item-table {
-      border: 1px solid #999;
-      position: absolute; }
+    display: none;
+}
+/* line 177,  */
+
+.room-data .room-inner {
+    border: 1px solid #f00;
+}
+/* line 179,  */
+
+.room-data .room-inner .item-table {
+    border: 1px solid #999;
+    position: absolute;
+}
+/* line 187,  */
+
+[alt="logo"] {
+    height: 50px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+/* line 193,  */
+
+[alt="logo2"] {
+    height: 50px;
+}
+/* line 197,  */
+
+[alt="fhd"] {
+    width: 8%;
+    height: 8%;
+}
+/* Raumbearbeitung ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* line 203,  */
+/* line 222,  */
+
+#MapText {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0, 5em;
+    padding-top: 0, 5em;
+}
+/* line 249,  */
+
+#MapsLagerListen {
+    margin: 25px 0;
+}
+/* line 253,  */
+
+h4 {
+    display: inline;
+}
+/* line 268,  */
+
+
+#oeffentlichesLager,
+#LagerLeiste {
+    border-radius: 6px;
+}
+/* line 289,  */
+
+#Altbau,
+#oeffentlichesLager {
+    background-color: white;
+}
+/* line 298,  */
+
+
+#NeuTrakt,
+#NeuEtage,
+#NeuRaum {
+    display: inline-block;
+}
+/* line 302,  */
+
+#AltbauAuswahl {
+    background-color: #b02d2d;
+}
+
+#NeubauMap {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+#NeubauMap .alert {
+    margin: 0 !important;
+}
+/* line 331,  */
+
+#LagerTab,
+#WunschTab,
+#MüllTab {
+    padding: 0.2em;
+    font-size: 11pt;
+}
+/* line 344,  */
+
+#wünsche td,
+#wünsche th {
+    text-align: left;
+}
+/* line 351,  */
+
+#Itembearbeiten,
+#Itemlöschen {
+    padding: 0.5em;
+    width: auto;
+}
+/* line 359,  */
+
+#Lager,
+#Müll,
+#Wunschliste {
+    font-size: 0.81em;
+    background-color: white;
+    padding: 0;
+    overflow: inherit !important;
+}
+/* line 366,  */
+
+#oeffentlichesLager {
+    padding: 0.3em;
+}
+/* line 370,  */
+
+#ObereLeiste {
+    background: white;
+}
+/* line 374,  */
+
+#ObereLeiste {
+    border: 0.1em solid black;
+}
+/* line 378,  */
+
+button {
+    size: 10em;
+}
+/* line 397,  */
+
+#Ueberschriften {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0.4em;
+    height: 3em;
+}
+
+select {
+    width: 100%;
+}
+/* line 405,  */
+
+#oeffentlichesLagerUeberschrift {
+    border-radius: 6px;
+    background-color: #222;
+    padding: 0.2em;
+    font-weight: bold;
+    font-size: 100%;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+/* line 418,  */
+/* line 425,  */
+
+#oeffentlichesLagerUeberschrift button {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-top: 0.2em;
+    padding-bottom: 0.1em;
+}
+/* line 441,  */
+#MapsLagerListen .panel-body .alert {
+    margin: 0 15px;
+}
+#Verwerfen,
+#Speichern {
+    width: auto;
+    font-size: 11pt;
+}
+/* line 449,  */
+#Altbau div {
+    margin: 0 -7px 7px;
+}
+#Altbau {
+    margin: -7px 0 -12px;
+}
+#AltbauListe, #LagerListe, #MuellListe, #oeffentlichesLagerListe {
+    width: auto;
+    list-style-type: none;
+    overflow: auto;
+    max-height: 200px;
+    overflow: auto;
+    margin: 0 -15px;
+}
+#oeffentlichesLagerListe.active, #LagerListe.active, #MuellListe.active {
+    border: 1px solid #2ECC40;
+}
+#AltbauListe .ui-state-default, #LagerListe .ui-state-default, #MuellListe .ui-state-default, #oeffentlichesLagerListe .ui-state-default {
+    z-index: 9;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+#AltbauListe,
+#Zielraum {
+    width: auto;
+    list-style-type: none;
+}
+/* line 456,  */
+
+#oeffentlichesLagerListe {
+    list-style-type: none;
+    padding: 0;
+}
+/* line 468,  */
+
+#AltbauListe li,
+#oeffentlichesLagerListe li,
+#MuellListe li,
+#LagerListe li {
+    padding: 0.2em;
+}
+/* line 472,  */
+
+#Grundriss {
+    position: relative;
+    padding-bottom: 4em;
+}
+/* line 478,  */
+
+.help-block {
+    color: #737373;
+    border-color: black;
+    border-width: 2pt;
+    border-style: solid;
+}
+/* line 516,  */
+
+#imageMaps,
+#Grundrissebearbeiten {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: gray;
+}
+/* line 524,  */
+
+#dialog-addLayout hr {
+    width: 600px;
+    margin-left: -130px;
+}
+/** speicher, verwerfen button
+    .ui-state-default {
+
+    }*/
+/* line 535,  */
+
+#Hochladen,
+#addLayoutPopupButton,
+#editLayout {
+    border: 1px solid silver;
+    width: auto;
+}
+/* Benutzerbearbeitung und Import/ Export////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* line 545,  */
+
+#Benutzeransicht,
+#Import,
+#Export {
+    border-radius: 6px;
+    background-color: rgba(128, 128, 128, 0.7);
+}
+/* line 554,  */
+
+#Benutzeransicht h1,
+#Import h1,
+#Export h1 {
+    font-family: Arial, sans-serif;
+}
+/* line 560,  */
+
+#Import,
+#Export {
+    padding-bottom: 1em;
+}
+/* line 566,  */
+
+#Nutzereigenschaften,
+#Nutzerbearbeiten,
+#Nutzerlöschen {
+    padding: 0.5em;
+    margin: 0.2em;
+    width: auto;
+}
+/* line 572,  */
+
+#Nutzerhinzufügen {
+    padding: 0.5em;
+    margin: 1.3em 0.3em 0.3em 0.3em;
+    width: auto;
+}
+/* line 579,  */
+
+label,
+input {
+    display: block;
+}
+/* line 583,  */
+
+input.text {
+    margin-bottom: 12px;
+    width: 95%;
+    padding: .4em;
+}
+/* line 590,  */
+
+#dialog-Nutzerbearbeiten fieldset,
+#dialog-Nutzerbearbeiten fieldset {
+    padding: 0;
+    border: 0;
+    margin-top: 25px;
+}
+/* line 596,  */
+
+div#Benutzeransicht table {
+    margin: 1em 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+/* line 603,  */
+
+div#Benutzeransicht table td,
+div#Benutzeransicht table th {
+    border: 1px solid #eee;
+    padding: .6em 10px;
+    text-align: left;
+}
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Fürs Rotieren */
+/* line 611,  */
+
+#target {
+    height: 50px;
+    width: 80px;
+}
+/* line 616,  */
+
+#target2 {
+    height: 50px;
+    width: 80px;
+}
+/* line 621,  */
+
+#target3 {
+    height: 50px;
+    width: 90px;
+}
+/* line 626,  */
+
 
 /*# sourceMappingURL=moveit.css.map */
+
+/* Anfang Zollstock index.php */
+#abstand-inline-label, #abstand-inline-inputfield {
+    display: inline !important ;
+    visibility: hidden;
+}
+
+#NeubauMap .dot {
+    position: absolute;
+    width: 3px;
+    height: 9px;
+    border-width: 0 3px 10px 0;
+    border-style: solid;
+    background-color: transparent;
+    border-color: #F55;
+    z-index: 99999999999999;
+}
+/* Ende Zollstock index.php */
+
+.main-room {
+    position: relative;
+    background-color: #ddd;
+}
+.main-room.active {
+    background-color: #2ECC40;
+}
+
+.helpScreenshot{
+    width: 80%;
+    height: 80%;
+    margin-left: 3%;
+}
+
+// CONTEXT INFO
+#item-context-info-list li {
+    padding: 2px 15px;
+}
+#item-context-info-list li#item-info-context {
+    font-weight: bold;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 0 10px;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}

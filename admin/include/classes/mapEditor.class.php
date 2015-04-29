@@ -6,7 +6,7 @@ class mapEditor extends Token {
      * Konstruktor
      */
     public function __construct() {
-        
+
     }
 
     /**
@@ -21,73 +21,41 @@ class mapEditor extends Token {
 
         $return = array("status" => "", "msg" => "");
 
-        if (isset($data) && !empty($data)) {
-            $existsBuilding = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_building_id = :map_building_id AND map_floor = :map_floor", array("map_building_id" => $data['map_building_id'], "map_floor" => $data['map_floor']), PDO::FETCH_NUM);
+        $existsBuilding = $db->row("SELECT * FROM " . TABLE_MAPS . " WHERE map_building_id = :map_building_id AND map_floor = :map_floor", array("map_building_id" => $data['map_building_id'], "map_floor" => $data['map_floor']), PDO::FETCH_NUM);
 
-            $ex = end(explode('.', $files['map_picture']['name']));
-
-
-            //Überprüfung der einzelnen Felder
-            if ($existsBuilding) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert bereits';
-            }
-            if (empty($data['map_building_id'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie ein Gebäude an.';
-            }
-            if (!isset($data['map_floor'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie eine Etage an.';
-            }
-            if (!$this->isValidToken(@$data['token'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Token abgelaufen.';
-            }
-            $this->newToken();
-
-            if (!isset($files['map_picture']['name']) && !empty($files['map_picture']['name'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Bitte einen Grundriss angeben.';
-            } else {
-                $ex = end(explode('.', $files['map_picture']['name']));
-
-                if (!in_array(strtolower($ex), array('jpeg', 'jpg', 'gif', 'png'))) {
-                    $return['status'] = 'error';
-                    $return['msg'] = 'Nur Bilder im jpeg, png oder gif Format.';
-                }
-            }
-
-
-
-            //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
-            if ($return['status'] != 'error') {
-
-                //upload
-                $path = 'uploads/maps/map_' . time() . '.' . $ex;
-                if (!move_uploaded_file($files['map_picture']['tmp_name'], ROOTDIR . $path)) {
-                    $return['status'] = 'error';
-                    $return['msg'] = 'Es ist ein Fehler beim hochladen der Karte aufgetreten.';
-                }
-
-                if ($return['status'] != 'error') {
-                    $insert = $db->query("INSERT INTO " . TABLE_MAPS . " (map_building_id, map_floor, map_picture) "
-                            . "VALUES(:map_building_id, :map_floor, :map_picture)", array(
-                        "map_building_id" => $data['map_building_id'],
-                        "map_floor" => $data['map_floor'],
-                        "map_picture" => $path
-                    ));
-
-                    if ($insert > 0) {
-                        $return['status'] = 'success';
-                        $return['msg'] = 'Die Karte wurde erfolgreich angelegt';
-                    }
-                }
-            }
-        } else {
+        //Überprüfung der einzelnen Felder
+        if ($existsBuilding) {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Diese Map existiert bereits.';
         }
+        if (empty($data['map_building_id'])) {
+            $return['status'] = 'error';
+            $return['msg'] = 'Geben Sie ein Gebäude an.';
+        }
+        if (!isset($data['map_floor'])) {
+            $return['status'] = 'error';
+            $return['msg'] = 'Geben Sie eine Etage an.';
+        }
+        if (!$this->isValidToken(@$data['token'])) {
+            $return['status'] = 'error';
+            $return['msg'] = 'Token abgelaufen.';
+        }
+        $this->newToken();
+
+        //Wenn kein Fehler passiert ist wird die Map in die Datenbank geschrieben
+        if ($return['status'] != 'error') {
+            $insert = $db->query("INSERT INTO " . TABLE_MAPS . " (map_building_id, map_floor) "
+                    . "VALUES(:map_building_id, :map_floor)", array(
+                "map_building_id" => $data['map_building_id'],
+                "map_floor" => $data['map_floor']
+            ));
+
+            if ($insert > 0) {
+                $return['status'] = 'success';
+                $return['msg'] = 'Die Map wurde erstellt';
+            }
+        }
+
         return json_encode($return);
     }
 
@@ -110,11 +78,11 @@ class mapEditor extends Token {
             //Überprüfung der einzelnen Felder
             if (!$map['map_id']) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert nicht';
+                $return['msg'] = 'Diese Map existiert nicht.';
             }
             if ($existsMapBuildingFloor) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Diese Karte existiert bereits';
+                $return['msg'] = 'Diese Map existiert bereits.';
             }
             if (empty($data['map_building_id'])) {
                 $return['status'] = 'error';
@@ -129,11 +97,13 @@ class mapEditor extends Token {
                 $return['msg'] = 'Token abgelaufen.';
             }
 
-            $ex = end(explode('.', $files['map_picture']['name']));
+            if(isset($files['map_picture'])){
+                $ex = end(explode('.', $files['map_picture']['name']));
 
-            if (isset($files['map_picture']['name']) && !empty($files['map_picture']['name']) && !in_array(strtolower($ex), array('jpeg', 'jpg', 'gif', 'png'))) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Nur Bilder im jpeg, png oder gif Format.';
+                if (isset($files['map_picture']['name']) && !empty($files['map_picture']['name']) && !in_array(strtolower($ex), array('jpeg', 'jpg', 'gif', 'png'))) {
+                    $return['status'] = 'error';
+                    $return['msg'] = 'Nur Bilder im jpeg, png oder gif Format.';
+                }
             }
 
             $this->newToken();
@@ -143,13 +113,18 @@ class mapEditor extends Token {
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
 
+                // Wenn Uploadverzeichnis nicht existiert, erstellen
+                if(!file_exists('../../uploads/maps')){
+                        mkdir('../../uploads/maps');
+                }
+
                 $path = $map['map_picture'];
                 if (isset($files['map_picture']['name']) && !empty($files['map_picture']['name'])) {
                     $path = 'uploads/maps/map_' . time() . '.' . $ex;
 
                     if (!move_uploaded_file($files['map_picture']['tmp_name'], ROOTDIR . $path)) {
                         $return['status'] = 'error';
-                        $return['msg'] = 'Es ist ein Fehler beim hochladen der Karte aufgetreten.';
+                        $return['msg'] = 'Es ist ein Fehler beim Hochladen der Map aufgetreten.';
                     } else {
                         //altes Bild löschen
                         @unlink(ROOTDIR . $map['map_picture']);
@@ -170,12 +145,12 @@ class mapEditor extends Token {
 
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Das Gebäude wurde bearbeitet';
+                    $return['msg'] = 'Das Gebäude wurde bearbeitet.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es wurden keine Daten übertragen';
+            $return['msg'] = 'Es wurden keine Daten übertragen.';
         }
         return json_encode($return);
     }

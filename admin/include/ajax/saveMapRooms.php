@@ -35,7 +35,7 @@ if ($userData->isLoggedIn() && $userData->isAdmin()) {
             }
         }
         
-        $return = array('status' => 'success', 'msg' => 'Die Karte wurde bearbeitet.');
+        $return = array('status' => 'success', 'msg' => 'Die Map wurde bearbeitet.');
         
         echo json_encode($return);
     }

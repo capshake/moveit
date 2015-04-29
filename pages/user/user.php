@@ -13,19 +13,43 @@ if (!$userData->isLoggedIn()) {
     ?>
 
     <div class="container">
-    <?php
-    if ($user['user_id']) {
-        ?>
-            <h1><?php echo $user['user_name']; ?></h1>
-            <p class="lead"><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?></p>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-4">
+                <h2>Profil</h2>
+            </div>
+        </div>
         <?php
-    } else {
+        if ($user['user_id']) {
+            ?>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Benutzer</div>
+                        <div class="panel-body">
+                            <strong>Name: </strong><?php echo $user['user_firstname']; ?> <?php echo $user['user_lastname']; ?><br />
+                            <strong>Email: </strong><?php echo $user['user_email']; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        } else {
+            ?>
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            Der Benutzer wurde nicht gefunden.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <?php
+        }
         ?>
-            <h1>Fehler!</h1>
-            <p class="lead">Der Benutzer wurde nicht gefunden.</p>
-        <?php
-    }
-    ?>
     </div><!-- /.container -->
 
     <?php

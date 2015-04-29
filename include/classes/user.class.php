@@ -6,7 +6,6 @@ class User extends Token {
 
     //Variablen
     private $userId = '';
-    private $userName = '';
     private $firstName = '';
     private $lastName = '';
     private $email = '';
@@ -21,15 +20,14 @@ class User extends Token {
 
         if ($this->isloggedIn()) {
             $this->userId = $_SESSION['user_id'];
-            $this->userName = $_SESSION['user_name'];
             $this->firstName = $_SESSION['user_firstname'];
             $this->lastName = $_SESSION['user_lastname'];
             $this->email = $_SESSION['user_email'];
             $this->role = $_SESSION['user_role_id'];
         }
-        if (!isset($_POST['token']) && !isset($_GET['token'])) {
+        /*if (!isset($_POST['token']) || !isset($_GET['token'])) {
             $this->newToken();
-        }
+        }*/
     }
 
     /**
@@ -38,14 +36,6 @@ class User extends Token {
      */
     public function getUserId() {
         return $this->userId;
-    }
-
-    /**
-     * Username des Benutzers bekommen
-     * @return type
-     */
-    public function getUserName() {
-        return $this->userName;
     }
 
     /**
@@ -94,11 +84,11 @@ class User extends Token {
             $db->bind("email", $email);
             $user = $db->row("SELECT * FROM users WHERE user_email = :email AND user_active = 1 AND user_role_id != 0");
 
-
+            echo $this->makePasswordHash($password);
+            
             if ($user['user_id'] && $this->makePasswordHash($password) == $user['user_password'] && $user['user_active'] == 1) {
 
                 $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['user_name'] = $user['user_name'];
                 $_SESSION['user_firstname'] = $user['user_firstname'];
                 $_SESSION['user_lastname'] = $user['user_lastname'];
                 $_SESSION['user_email'] = $user['user_email'];
@@ -144,8 +134,8 @@ class User extends Token {
      * @param type $password
      * @return type
      */
-    private function makePasswordHash($password) {
-        return crypt($password, SALT);
+    public function makePasswordHash($password) {
+        return hash('sha256', $password.SALT); 
     }
 
     /**
@@ -185,32 +175,23 @@ class User extends Token {
 
         if (isset($data) && !empty($data)) {
             $existsEmail = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_email = :user_email", array("user_email" => $data['user_email']), PDO::FETCH_NUM);
-            $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name", array("user_name" => $data['user_name']), PDO::FETCH_NUM);
 
             //Überprüfung der einzelnen Felder
             if ($existsEmail) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Ein Benutzer mit dieser Email existiert schon';
-            }
-            if ($existsUser) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Ein Benutzer mit diesem Namen existiert schon';
+                $return['msg'] = 'Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.';
             }
             if ($data['user_password'] != $data['user_password_repeat']) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Die eingebenen Passwörter stimmen nicht überein';
-            }
-            if (empty($data['user_name'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Namen an';
+                $return['msg'] = 'Die eingebenen Passwörter stimmen nicht überein.';
             }
             if (empty($data['user_firstname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Vornamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Vorname aus.';
             }
             if (empty($data['user_lastname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Nachnamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Nachname aus.';
             }
 
 
@@ -223,7 +204,7 @@ class User extends Token {
 
             //Wenn kein Fehler passiert ist wird der Benutzer in die Datenbank geschrieben
             if ($return['status'] != 'error') {
-                $userSecureCode = $this->makePasswordHash(time() . $data['user_email']);
+                $userSecureCode = md5(time() . $data['user_email']);
 
                 //Wenn der Benutzer vom Adminpanel aus bearbeitet wird
                 if ($admin) {
@@ -235,9 +216,8 @@ class User extends Token {
                     $data['user_active'] = 0;
                 }
 
-                $insert = $db->query("INSERT INTO " . TABLE_USERS . " (user_name, user_firstname, user_lastname, user_password, user_email, user_role_id, user_active, user_secure_code) "
-                        . "VALUES(:user_name, :user_firstname, :user_lastname, :user_password, :user_email, :user_role_id, :user_active, :user_secure_code)", array(
-                    "user_name" => $data['user_name'],
+                $insert = $db->query("INSERT INTO " . TABLE_USERS . " (user_firstname, user_lastname, user_password, user_email, user_role_id, user_active, user_secure_code) "
+                        . "VALUES(:user_firstname, :user_lastname, :user_password, :user_email, :user_role_id, :user_active, :user_secure_code)", array(
                     "user_firstname" => $data['user_firstname'],
                     "user_lastname" => $data['user_lastname'],
                     "user_password" => $this->makePasswordHash($data['user_password']),
@@ -251,18 +231,18 @@ class User extends Token {
                 if ($insert > 0) {
                     //Email wird versendet
                     if (!$admin) {
-                        $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nWillkommen bei moveIT damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
+                        $text = "Hallo " . $data['user_firstname'] . " " . $data['user_lastname'] . ",\n\nwillkommen bei moveIT. Damit Sie unseren Service benutzen können, müssen Sie zuerst Ihren Account über diesen Link aktivieren\n\n" . BASEURL . BASEDIR . "login?code=" . $userSecureCode . "\n\nMit freundlichen Grüßen,\ndas moveIT-Team";
                         mail($data['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
                     }
 
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Der Benutzer wurde erfolgreich angelegt';
+                    $return['msg'] = 'Der Benutzer wurde erstellt.';
                 }
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
+            $return['msg'] = 'Es ist ein Fehler aufgetreten. Der Benutzer wurde nicht erstellt.';
         }
         return json_encode($return);
     }
@@ -285,28 +265,19 @@ class User extends Token {
 
         if (isset($data) && !empty($data)) {
             $existsUser = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_id = :user_id", array("user_id" => $id), PDO::FETCH_NUM);
-            $existsUserName = $db->row("SELECT * FROM " . TABLE_USERS . " WHERE user_name = :user_name AND user_id != :user_id", array("user_name" => $data['user_name'], "user_id" => $id), PDO::FETCH_NUM);
 
             //Überprüfung der einzelnen Felder
-            if ($existsUserName) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Der Benutzername ist schon vergeben';
-            }
             if (!$existsUser) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Der Benutzer existiert nicht';
-            }
-            if (empty($data['user_name'])) {
-                $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Namen an';
+                $return['msg'] = 'Der Benutzer existiert nicht.';
             }
             if (empty($data['user_firstname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Vornamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Vorname aus.';
             }
             if (empty($data['user_lastname'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Geben Sie einen Nachnamen an';
+                $return['msg'] = 'Füllen Sie bitte das Feld Nachname aus.';
             }
 
 
@@ -323,31 +294,26 @@ class User extends Token {
                 //Wenn nicht vom Adminpanel aus bearbeitet wird
                 if (!$admin || $id == 0) {
                     $update = $db->query("UPDATE " . TABLE_USERS . " SET "
-                            . "user_name = :user_name, "
                             . "user_firstname = :user_firstname, "
                             . "user_lastname = :user_lastname, "
                             . "user_email = :user_email WHERE user_id = :user_id", array(
-                        "user_name" => $data['user_name'],
                         "user_firstname" => $data['user_firstname'],
                         "user_lastname" => $data['user_lastname'],
                         "user_email" => $data['user_email'],
                         "user_id" => $id
                     ));
 
-                    $_SESSION['user_name'] = $data['user_name'];
                     $_SESSION['user_firstname'] = $data['user_firstname'];
                     $_SESSION['user_lastname'] = $data['user_lastname'];
                     $_SESSION['user_email'] = $data['user_email'];
                 } else {
                     $update = $db->query("UPDATE " . TABLE_USERS . " SET "
-                            . "user_name = :user_name, "
                             . "user_firstname = :user_firstname, "
                             . "user_lastname = :user_lastname, "
                             . "user_role_id = :user_role_id, "
                             . "user_active = :user_active, "
                             . "user_secure_code = :user_secure_code, "
                             . "user_email = :user_email WHERE user_id = :user_id", array(
-                        "user_name" => $data['user_name'],
                         "user_firstname" => $data['user_firstname'],
                         "user_lastname" => $data['user_lastname'],
                         "user_role_id" => $data['user_role_id'],
@@ -358,13 +324,19 @@ class User extends Token {
                     ));
                 }
 
+                // betrifft nur die settings.php wenn man dort ein neues Passwort eingegeben hat
+                // Validierungen in diesem Zusammenhang werden in der settings.php gemacht
+                if (isset($data['user_new_password']) && !empty($data['user_new_password'])){
+                	$newPassword = $this->makePasswordHash($data['user_new_password']);
+                	$update = $db->query("UPDATE " . TABLE_USERS . " SET " . "user_password = :user_new_password WHERE user_id = :user_id", array("user_new_password" => $newPassword, "user_id" => $id));
+                }
 
                 $return['status'] = 'success';
-                $return['msg'] = 'Der Benutzer wurde bearbeitet';
+                $return['msg'] = 'Der Benutzer wurde bearbeitet.';
             }
         } else {
             $return['status'] = 'error';
-            $return['msg'] = 'Es ist ein Fehler beim anlegen aufgetreten. Kontaktieren Sie einen Administrator';
+            $return['msg'] = 'Es ist ein Fehler aufgetreten. Der Benutzer wurde nicht erstellt.';
         }
         return json_encode($return);
     }
@@ -416,11 +388,11 @@ class User extends Token {
                 $update = $db->query("UPDATE " . TABLE_USERS . " SET user_password = :user_password WHERE user_email = :user_email AND user_active = 1", array("user_password" => $this->makePasswordHash($newPassword), "user_email" => $user['user_email']));
                 if ($update > 0) {
                     //Email wird versendet
-                    $text = "Hallo " . $user['user_firstname'] . " " . $user['user_lastname'] . ",\n\nIhr Passwort wurde zurückgesetzt.\n\nNeues Passwort:" . $newPassword . "\n" . BASEURL . BASEDIR . "login\n\nMit freundlichen Grüßen,\nDas moveIT-Team";
+                    $text = "Hallo " . $user['user_firstname'] . " " . $user['user_lastname'] . ",\n\nIhr Passwort wurde zurückgesetzt.\n\nNeues Passwort:" . $newPassword . "\n" . BASEURL . BASEDIR . "login\n\nMit freundlichen Grüßen,\ndas moveIT-Team";
                     mail($user['user_email'], 'Registrierung bei moveIT', $text, 'from: noreply@moveit.com');
 
                     $return['status'] = 'success';
-                    $return['msg'] = 'Ein neues Passwort wurde Ihnen zugesendet.';
+                    $return['msg'] = 'Ein neues Passwort wird an Ihre E-Mail-Adresse gesendet.';
                 }
             } else {
                 $return['status'] = 'error';

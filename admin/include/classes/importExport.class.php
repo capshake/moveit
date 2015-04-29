@@ -9,7 +9,7 @@ class importExport extends Token {
      * Konstruktor
      */
     public function __construct() {
-        
+
     }
 
     /**
@@ -43,7 +43,9 @@ class importExport extends Token {
             if ($file) {
                 $data = fgetcsv($file, 0, ";");
                 $row = 0;
-               
+
+                set_time_limit(300);
+
                 while ($data != false) {
                     if ($data[0] == 1) {
                         $row++;
@@ -61,12 +63,13 @@ class importExport extends Token {
 
                             $query_aj_volumen = "SELECT `AJ_Volumen in cbm` FROM data_import WHERE B__Index = :data1";
                             $var_aj_volumen = $db->single($query_aj_volumen, array('data1' => $data[1]));
-                            
-                            $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;", 
+
+                            $db->query("UPDATE data_import SET B__Index = :data1 ,AD_Anzahl = :data29 + :varanzahl , " . "`AJ_Volumen in cbm` = :data35 + :varvolumen WHERE B__Index = :data11;",
                                     array('data1' => $data[1], 'data29' => $data[29], 'varanzahl' => $var_ad_anzahl, 'data35' => str_replace(",", ".", $data[35]), 'varvolumen' => $var_aj_volumen, 'data11' => $data[1]));
                         }
-                        elseif($data[1] != NULL){
+                        else{
                             for ($c = 0; $c < 59; $c++) {
+                                @$data[$c] = utf8_encode($data[$c]);
                                 if (empty($data[$c])) {
                                     $query = $query . "NULL"; // leere Spalten als NULL eintragen
                                 }
@@ -83,16 +86,16 @@ class importExport extends Token {
                         $query = $query . ")";
                         $db->query($query, $insertdata);
                         }
-                    
+
                     }
 
                     $data = fgetcsv($file, 0, ";"); //nächste Zeile holen
                 }
             }
             fclose($file);
-            return true;
+            set_time_limit(30);
         }
-        return json_encode($return);
+        return $row;
     }
 
     /**
@@ -200,12 +203,18 @@ class importExport extends Token {
      * @return type
      */
     public function import() {
+        $import = $this->importDB();
+
+
         $return = array("status" => "", "msg" => "");
-        if ($this->importDB()) {
-            return true;
+        if ($import > 0) {
+            $return['status'] = 'success';
+            $return['rows'] = $import;
         } else {
-            return false;
+            $return['status'] = 'error';
+            $return['rows'] = $import;
         }
+        return json_encode($return);
     }
 
     /**
@@ -238,33 +247,42 @@ class importExport extends Token {
             $ex = end(explode('.', $files['csv_file']['name']));
             if (!$this->isValidToken(@$data['token'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Token abgelaufen.';
+                $return['msg'] = 'Token abgelaufen';
             }
             $this->newToken();
             if (!isset($files['csv_file']['name']) && !empty($files['csv_file']['name'])) {
                 $return['status'] = 'error';
-                $return['msg'] = 'Bitte eine CSV-Datei angeben.';
+                $return['msg'] = 'Bitte eine CSV-Datei angeben';
             } else {
                 $ex = end(explode('.', $files['csv_file']['name']));
                 if (!in_array(strtolower($ex), array('csv'))) {
                     $return['status'] = 'error';
-                    $return['msg'] = 'Nur CSV-Dateien.';
+                    $return['msg'] = 'Nur CSV-Dateien';
                 }
             }
             if ($return['status'] != 'error') {
                 //upload
+
+                // Wenn Uploadverzeichnis nicht existiert, erstellen
+                if(!file_exists('../../uploads/csv')){
+                        mkdir('../../uploads/csv');
+                }
+
+
                 $path = 'uploads/csv/import.' . $ex;
                 @unlink(ROOTDIR . $path);
                 if (!move_uploaded_file($files['csv_file']['tmp_name'], ROOTDIR . $path)) {
                     $return['status'] = 'error';
-                    $return['msg'] = 'Es ist ein Fehler beim hochladen aufgetreten.';
+                    $return['msg'] = 'Es ist ein Fehler beim Hochladen aufgetreten';
                 } else {
                     $return['status'] = 'success';
                     $return['msg'] = 'CSV erfolgreich hochgeladen';
 
-                    if ($this->import()) {
+                    $import = json_decode($this->import());
+
+                    if ($import->status == 'success') {
                         $return['status'] = 'success';
-                        $return['msg'] = 'CSV erfolgreich hochgeladen und importiert';
+                        $return['msg'] = 'Es wurden erfolgreich '.$import->rows.' Zeilen importiert';
                     } else {
                         $return['status'] = 'error';
                         $return['msg'] = 'Es ist ein Fehler aufgetreten';
